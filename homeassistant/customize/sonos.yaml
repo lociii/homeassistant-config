@@ -1,0 +1,20 @@
+binary_sensor.sonos_left_online:
+  friendly_name: Sonos (links)
+binary_sensor.sonos_playbase_online:
+  friendly_name: Sonos (Playbase)
+binary_sensor.sonos_right_online:
+  friendly_name: Sonos (rechts)
+binary_sensor.sonos_sub_online:
+  friendly_name: Sonos (Sub)
+
+media_player.sonos:
+  friendly_name: Sonos
+
+known_device.sonos_left:
+  friendly_name: Sonos (links)
+known_device.sonos_playbase:
+  friendly_name: Sonos (Playbase)
+known_device.sonos_right:
+  friendly_name: Sonos (rechts)
+known_device.sonos_sub:
+  friendly_name: Sonos (Sub)

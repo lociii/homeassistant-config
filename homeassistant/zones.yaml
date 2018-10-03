@@ -1,0 +1,17 @@
+- name: home
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  radius: 200
+  icon: mdi:home
+
+- name: work_jens
+  latitude: !secret work_jens_latitude
+  longitude: !secret work_jens_longitude
+  radius: 200
+  icon: mdi:laptop
+
+- name: work_eva
+  latitude: !secret work_eva_latitude
+  longitude: !secret work_eva_longitude
+  radius: 200
+  icon: mdi:laptop

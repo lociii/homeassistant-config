@@ -1,0 +1,11 @@
+history_graph.work_traveltime:
+  friendly_name: Arbeitsweg
+
+sensor.travel_time_jens:
+  friendly_name: Arbeitsweg Jens
+
+sensor.travel_time_eva:
+  friendly_name: Arbeitsweg Eva
+
+group.work_traveltime:
+  friendly_name: Arbeitsweg

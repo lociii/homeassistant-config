@@ -1,0 +1,121 @@
+switch:
+  - platform: rest
+    resource: http://hadockermon:8126/container/appdaemon
+    name: docker_appdaemon
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/chronograf
+    name: docker_chronograf
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/grafana
+    name: docker_grafana
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/hadockermon
+    name: docker_hadockermon
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/homeassistant
+    name: docker_homeassistant
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/influxdb
+    name: docker_influxdb
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/letsencrypt
+    name: docker_letsencrypt
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/mosquitto
+    name: docker_mosquitto
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/nginx
+    name: docker_nginx
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/nodered
+    name: docker_nodered
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/postgresql
+    name: docker_postgresql
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+  - platform: rest
+    resource: http://hadockermon:8126/container/speedtest
+    name: docker_speedtest
+    body_on: '{"state": "start"}'
+    body_off: '{"state": "stop"}'
+    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
+
+sensor:
+  - platform: template
+    # define the triggers that update this template sensor
+    entity_id:
+    - switch.docker_appdaemon
+    sensors:
+      # define read only sensors
+      docker_appdaemon_text:
+        value_template: '{{ states.switch.docker_appdaemon.state }}'
+      docker_chronograf_text:
+        value_template: '{{ states.switch.docker_chronograf.state }}'
+      docker_grafana_text:
+        value_template: '{{ states.switch.docker_grafana.state }}'
+      docker_hadockermon_text:
+        value_template: '{{ states.switch.docker_hadockermon.state }}'
+      docker_homeassistant_text:
+        value_template: '{{ states.switch.docker_homeassistant.state }}'
+      docker_influxdb_text:
+        value_template: '{{ states.switch.docker_influxdb.state }}'
+      docker_letsencrypt_text:
+        value_template: '{{ states.switch.docker_letsencrypt.state }}'
+      docker_mosquitto_text:
+        value_template: '{{ states.switch.docker_mosquitto.state }}'
+      docker_nginx_text:
+        value_template: '{{ states.switch.docker_nginx.state }}'
+      docker_nodered_text:
+        value_template: '{{ states.switch.docker_nodered.state }}'
+      docker_postgresql_text:
+        value_template: '{{ states.switch.docker_postgresql.state }}'
+      docker_speedtest_text:
+        value_template: '{{ states.switch.docker_speedtest.state }}'
+
+group:
+  hadockermon:
+    entities:
+    - sensor.docker_appdaemon_text
+    - sensor.docker_chronograf_text
+    - sensor.docker_grafana_text
+    - sensor.docker_hadockermon_text
+    - sensor.docker_homeassistant_text
+    - sensor.docker_influxdb_text
+    - sensor.docker_letsencrypt_text
+    - sensor.docker_mosquitto_text
+    - sensor.docker_nginx_text
+    - sensor.docker_nodered_text
+    - sensor.docker_postgresql_text
+    - sensor.docker_speedtest_text

@@ -1,0 +1,14 @@
+binary_sensor.firetv_living_room_online:
+  friendly_name: FireTV Wohnzimmer
+binary_sensor.firetv_bedroom_online:
+  friendly_name: FireTV Schlafzimmer
+
+media_player.firetv_living_room:
+  friendly_name: FireTV Wohnzimmer
+media_player.firetv_bedroom:
+  friendly_name: FireTV Schlafzimmer
+
+known_device.firetv_living_room:
+  friendly_name: FireTV Wohnzimmer
+known_device.firetv_bedroom:
+  friendly_name: FireTV Schlafzimmer

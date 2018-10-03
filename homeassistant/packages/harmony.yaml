@@ -1,0 +1,5 @@
+remote:
+  - platform: harmony
+    name: harmony_living_room
+    host: !secret harmony_living_room_ip
+    delay_secs: 0.5

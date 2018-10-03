@@ -1,0 +1,18 @@
+binary_sensor.dss_ip_online:
+  friendly_name: DSS IP
+binary_sensor.dss_gateway_online:
+  friendly_name: DSS Gateway
+
+known_device.dss_ip:
+  friendly_name: DSS IP
+known_device.dss_gateway:
+  friendly_name: DSS Gateway
+
+scene.apartment__absent:
+  friendly_name: Abwesend
+scene.apartment__present:
+  friendly_name: Anwesend
+scene.apartment__sleeping:
+  friendly_name: Schlafen
+scene.apartment__wakeup:
+  friendly_name: Aufstehen

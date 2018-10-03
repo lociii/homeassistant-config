@@ -1,0 +1,31 @@
+sensor:
+  - platform: google_travel_time
+    api_key: !secret google_maps_key
+    name: travel_time_jens
+    origin: zone.home
+    destination: zone.work_jens
+    mode: driving
+    scan_interval: 600
+
+  - platform: google_travel_time
+    api_key: !secret google_maps_key
+    name: travel_time_eva
+    origin: zone.home
+    destination: zone.work_eva
+    mode: driving
+    scan_interval: 600
+
+history_graph:
+  work_traveltime:
+    hours_to_show: 48
+    refresh: 60
+    entities:
+    - sensor.travel_time_jens
+    - sensor.travel_time_eva
+
+group:
+  work_traveltime:
+    entities:
+    - sensor.travel_time_jens
+    - sensor.travel_time_eva
+    - history_graph.work_traveltime

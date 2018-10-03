@@ -1,0 +1,277 @@
+alexa:
+  filter:
+    include_entities:
+      - light.arbeitszimmer__deckenlicht
+      - light.bad__deckenlicht
+      - light.bad__spiegellicht
+      - light.dusche__deckenlicht
+      - light.dusche__spiegellicht
+      - light.wohnzimmer__esstisch
+      - light.flur__flur
+      - light.gastezimmer__deckenlicht
+      - light.kuche__deckenlicht
+      - light.kuche__schranklicht
+      - light.kuche__spulenlicht
+      - light.kuche__thekenlicht
+      - light.schlafzimmer__bettlicht
+      - light.schlafzimmer__deckenlicht
+      - light.wohnzimmer__deckenlampe
+      - light.wohnzimmer__stehlampe
+      - light.wohnzimmer__wandlampen
+      - scene.apartment__sleeping
+      - scene.apartment__wakeup
+      - scene.apartment__present
+      - scene.apartment__absent
+    exclude_domains:
+      - alert
+      - automation
+      - cover
+      - fan
+      - group
+      - input_boolean
+      - light
+      - lock
+      - media_player
+      - scene
+      - script
+      - switch
+      - sensor
+  entity_config:
+    light.arbeitszimmer__deckenlicht:
+      name: Deckenlicht Arbeitszimmer
+      description: ""
+      display_categories: LIGHT
+    light.bad__deckenlicht:
+      name: Deckenlicht Bad
+      description: ""
+      display_categories: LIGHT
+    light.bad__spiegellicht:
+      name: Spiegellicht Bad
+      description: ""
+      display_categories: LIGHT
+    light.dusche__deckenlicht:
+      name: Deckenlicht Dusche
+      description: ""
+      display_categories: LIGHT
+    light.dusche__spiegellicht:
+      name: Spiegellicht Dusche
+      description: ""
+      display_categories: LIGHT
+    light.wohnzimmer__esstisch:
+      name: Esstischlicht
+      description: ""
+      display_categories: LIGHT
+    light.flur__flur:
+      name: Flur
+      description: ""
+      display_categories: LIGHT
+    light.gastezimmer__deckenlicht:
+      name: Deckenlicht Gästezimmer
+      description: ""
+      display_categories: LIGHT
+    light.kuche__deckenlicht:
+      name: Deckenlicht Küche
+      description: ""
+      display_categories: LIGHT
+    light.kuche__schranklicht:
+      name: Schranklicht
+      description: ""
+      display_categories: LIGHT
+    light.kuche__spulenlicht:
+      name: Spülenlicht
+      description: ""
+      display_categories: LIGHT
+    light.kuche__thekenlicht:
+      name: Barlicht
+      description: ""
+      display_categories: LIGHT
+    light.schlafzimmer__bettlicht:
+      name: Bettlicht
+      description: ""
+      display_categories: LIGHT
+    light.schlafzimmer__deckenlicht:
+      name: Deckenlicht Schlafzimmer
+      description: ""
+      display_categories: LIGHT
+    light.wohnzimmer__deckenlampe:
+      name: Deckenlicht Wohnzimmer
+      description: ""
+      display_categories: LIGHT
+    light.wohnzimmer__stehlampe:
+      name: Stehlampe
+      description: ""
+      display_categories: LIGHT
+    light.wohnzimmer__wandlampen:
+      name: Wandlampen
+      description: ""
+      display_categories: LIGHT
+    scene.apartment__sleeping:
+      name: Schlafen
+      description: Wohnung auf schlafend setzen
+      display_categories: SCENE_TRIGGER
+    scene.apartment__wakeup:
+      name: Aufwachen
+      description: Wohnung auf wach setzen
+      display_categories: SCENE_TRIGGER
+    scene.apartment__present:
+      name: Anwesend
+      description: Wohnung auf anwesend setzen
+      display_categories: SCENE_TRIGGER
+    scene.apartment__absent:
+      name: Abwesend
+      description: Wohnung auf abwesend setzen
+      display_categories: SCENE_TRIGGER
+
+google_actions:
+  filter:
+    include_entities:
+      - light.arbeitszimmer__deckenlicht
+      - light.bad__deckenlicht
+      - light.bad__spiegellicht
+      - light.dusche__deckenlicht
+      - light.dusche__spiegellicht
+      - light.wohnzimmer__esstisch
+      - light.flur__flur
+      - light.gastezimmer__deckenlicht
+      - light.kuche__deckenlicht
+      - light.kuche__schranklicht
+      - light.kuche__spulenlicht
+      - light.kuche__thekenlicht
+      - light.schlafzimmer__bettlicht
+      - light.schlafzimmer__deckenlicht
+      - light.wohnzimmer__deckenlampe
+      - light.wohnzimmer__stehlampe
+      - light.wohnzimmer__wandlampen
+      - scene.apartment__sleeping
+      - scene.apartment__wakeup
+      - scene.apartment__present
+      - scene.apartment__absent
+    exclude_domains:
+      - alert
+      - automation
+      - cover
+      - fan
+      - group
+      - input_boolean
+      - light
+      - lock
+      - media_player
+      - scene
+      - script
+      - switch
+      - sensor
+  entity_config:
+    light.arbeitszimmer__deckenlicht:
+      name: Deckenlicht Arbeitszimmer
+      aliases:
+      - Deckenlicht
+      - Licht
+      room: Arbeitszimmer
+    light.bad__deckenlicht:
+      name: Deckenlicht Bad
+      aliases:
+      - Deckenlicht
+      - Licht
+      room: Bad
+    light.bad__spiegellicht:
+      name: Spiegellicht Bad
+      aliases:
+      - Spiegellicht
+      room: Bad
+    light.dusche__deckenlicht:
+      name: Deckenlicht Dusche
+      aliases:
+      - Deckenlicht
+      - Licht
+      room: Dusche
+    light.dusche__spiegellicht:
+      name: Spiegellicht Dusche
+      aliases:
+      - Spiegellicht
+      room: Dusche
+    light.wohnzimmer__esstisch:
+      name: Esstischlicht
+      aliases:
+      - Esstisch
+      - Essen
+      room: Esszimmer
+    light.flur__flur:
+      name: Flurlicht
+      aliases:
+      - Flur
+      room: Flur
+    light.gastezimmer__deckenlicht:
+      name: Deckenlicht Gästezimmer
+      aliases:
+      - Deckenlicht
+      - Licht
+      room: Gästezimmer
+    light.kuche__deckenlicht:
+      name: Deckenlicht Küche
+      aliases:
+      - Deckenlicht
+      - Licht
+      room: Küche
+    light.kuche__schranklicht:
+      name: Schranklicht Küche
+      aliases:
+      - Schranklicht
+      room: Küche
+    light.kuche__spulenlicht:
+      name: Spülenlicht Küche
+      aliases:
+      - Spülenlicht
+      - Spüle
+      room: Küche
+    light.kuche__thekenlicht:
+      name: Thekenlicht Küche
+      aliases:
+      - Thekenlicht
+      - Theke
+      room: Küche
+    light.schlafzimmer__bettlicht:
+      name: Bettlicht Schlafzimmer
+      aliases:
+      - Bettlicht
+      - Bett
+      room: Schlafzimmer
+    light.schlafzimmer__deckenlicht:
+      name: Deckenlicht Schlafzimmer
+      aliases:
+      - Deckenlicht
+      - Licht
+      - Schrank
+      room: Schlafzimmer
+    light.wohnzimmer__deckenlampe:
+      name: Deckenlicht Wohnzimmer
+      aliases:
+      - Deckenlicht
+      - Licht
+      room: Wohnzimmer
+    light.wohnzimmer__stehlampe:
+      name: Stehlampe Wohnzimmer
+      aliases:
+      - Stehlampe
+      - Lampe
+      - Stehlicht
+      room: Wohnzimmer
+    light.wohnzimmer__wandlampen:
+      name: Wandlampen Wohnzimmer
+      aliases:
+      - Wandlampen
+      - Wandlampe
+      room: Wohnzimmer
+    scene.apartment__sleeping:
+      name: Schlafen
+      room: Wohnung
+    scene.apartment__wakeup:
+      name: Aufwachen
+      room: Wohnung
+      aliases:
+      - Aufstehen
+    scene.apartment__present:
+      name: Anwesend
+      room: Wohnung
+    scene.apartment__absent:
+      name: Abwesend
+      room: Wohnung

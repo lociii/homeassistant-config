@@ -1,0 +1,4 @@
+notify.notify_firetv_living_room:
+  friendly_name: FireTV Wohnzimmer
+notify.notify_firetv_bedroom:
+  friendly_name: FireTV Schlafzimmer

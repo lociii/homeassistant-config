@@ -1,0 +1,15 @@
+sensor:
+  - platform: fritzbox_callmonitor
+    host: !secret fritzbox_host
+    name: fritzbox_callmonitor
+    username: !secret fritzbox_username
+    password: !secret fritzbox_password
+    prefixes:
+    - !secret fritzbox_country_code
+    - !secret fritzbox_area_code_international
+    - !secret fritzbox_area_code_national
+
+group:
+  fritzbox:
+    entities:
+    - sensor.fritzbox_callmonitor

@@ -1,0 +1,11 @@
+fan_bathroom:
+  module: fans
+  class: HandleFan
+  source_device: light.bad__deckenlicht
+  target_device: light.bad__lufter
+
+fan_shower:
+  module: fans
+  class: HandleFan
+  source_device: light.dusche__deckenlicht
+  target_device: light.dusche__lufter

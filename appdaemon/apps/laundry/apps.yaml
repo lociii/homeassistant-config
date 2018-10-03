@@ -1,0 +1,29 @@
+laundry_dryer:
+  module: laundry
+  class: HandleMachineState
+  sensor: sensor.dryer_consumption_last_5_mins_mean
+  input_select: input_select.dryer_status
+  usage_off: 1
+  usage_active: 30
+  media_player: media_player.wohnzimmer
+  message: Der Trockner ist fertig!
+
+laundry_animal:
+  module: laundry
+  class: HandleMachineState
+  sensor: sensor.washer_animal_consumption_last_5_mins_mean
+  input_select: input_select.washer_animal_status
+  usage_off: 1
+  usage_active: 5
+  media_player: media_player.wohnzimmer
+  message: Die Pferde-Waschmaschine ist fertig!
+
+laundry_human:
+  module: laundry
+  class: HandleMachineState
+  sensor: sensor.washer_human_consumption_last_5_mins_mean
+  input_select: input_select.washer_human_status
+  usage_off: 1
+  usage_active: 5
+  media_player: media_player.wohnzimmer
+  message: Die Waschmaschine ist fertig!

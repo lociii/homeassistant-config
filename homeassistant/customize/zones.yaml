@@ -1,0 +1,6 @@
+zone.home:
+  friendly_name: Home
+zone.work_jens:
+  friendly_name: Arbeit Jens
+zone.work_eva:
+  friendly_name: Arbeit Eva

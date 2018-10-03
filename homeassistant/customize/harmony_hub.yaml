@@ -1,0 +1,2 @@
+binary_sensor.harmony_hub_online:
+  friendly_name: Harmony Hub

@@ -1,0 +1,5 @@
+digitalstrom:
+  host: !secret dss_ip
+  username: dssadmin
+  password: !secret dss_password
+  apartment: Apartment

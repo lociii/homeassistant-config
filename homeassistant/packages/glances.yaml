@@ -1,0 +1,32 @@
+sensor:
+  - platform: glances
+    name: glances
+    host: glances
+    version: 3
+    resources:
+    - disk_free
+    - disk_use_percent
+    - memory_free
+    - memory_use_percent
+    - swap_free
+    - swap_use_percent
+    - process_total
+    - processor_load
+    - cpu_temp
+    - docker_active
+    - docker_cpu_use
+    - docker_memory_use
+
+group:
+  glances:
+  - sensor.glances_disk_free
+  - sensor.glances_disk_used
+  - sensor.glances_ram_free
+  - sensor.glances_ram_used
+  - sensor.glances_swap_free
+  - sensor.glances_swap_used
+  - sensor.glances_containers_active
+  - sensor.glances_containers_cpu_used
+  - sensor.glances_cpu_load
+  - sensor.glances_cpu_temp
+  - sensor.glances_total

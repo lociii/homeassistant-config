@@ -1,0 +1,31 @@
+sensor:
+  - platform: history_stats
+    name: eva_home_one_week
+    entity_id: device_tracker.eva_handy
+    state: 'home'
+    type: time
+    start: '{{ as_timestamp(now()) - 7 * 24 * 3600 }}'
+    end: '{{ now() }}'
+
+  - platform: history_stats
+    name: jens_home_one_week
+    entity_id: device_tracker.jens_handy
+    state: 'home'
+    type: time
+    start: '{{ as_timestamp(now()) - 7 * 24 * 3600 }}'
+    end: '{{ now() }}'
+
+binary_sensor:
+  - platform: template
+    sensors:
+      people_home:
+        device_class: presence
+        value_template: >
+          {{ is_state('device_tracker.eva_handy', 'home') or is_state('device_tracker.jens_handy', 'home') }}
+
+group:
+  device_presence:
+    entities:
+    - device_tracker.eva_handy
+    - device_tracker.jens_handy
+    - binary_sensor.people_home

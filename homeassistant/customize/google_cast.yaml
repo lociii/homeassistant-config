@@ -1,0 +1,26 @@
+binary_sensor.google_home_office_online:
+  friendly_name: Google Home Mini Arbeitszimmer
+binary_sensor.google_home_guestroom_online:
+  friendly_name: Google Home Mini Gästezimmer
+binary_sensor.google_home_shower_online:
+  friendly_name: Google Home Mini Dusche
+binary_sensor.google_home_living_room_online:
+  friendly_name: Google Home Wohnzimmer
+
+media_player.google_home_living_room:
+  friendly_name: Google Home Wohnzimmer
+media_player.google_home_office:
+  friendly_name: Google Home Mini Arbeitszimmer
+media_player.google_home_guestroom:
+  friendly_name: Google Home Mini Gästezimmer
+media_player.google_home_shower:
+  friendly_name: Google Home Mini Dusche
+
+known_device.google_home_office:
+  friendly_name: Google Home Mini Arbeitszimmer
+known_device.google_home_guestroom:
+  friendly_name: Google Home Mini Gästezimmer
+known_device.google_home_shower:
+  friendly_name: Google Home Mini Dusche
+known_device.google_home_living_room:
+  friendly_name: Google Home Wohnzimmer

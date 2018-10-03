@@ -1,0 +1,9 @@
+device_tracker:
+  - platform: unifi
+    host: !secret unifi_host
+    username: !secret unifi_username
+    password: !secret unifi_password
+    site_id: !secret unifi_siteid
+    verify_ssl: False
+    new_device_defaults:
+      track_new_devices: false

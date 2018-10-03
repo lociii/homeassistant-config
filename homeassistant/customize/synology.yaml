@@ -1,0 +1,8 @@
+binary_sensor.synology_online:
+  friendly_name: Synology
+
+known_device.synology:
+  friendly_name: Synology
+
+group.synology:
+  friendly_name: Synology

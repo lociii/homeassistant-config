@@ -1,0 +1,41 @@
+sensor:
+  - platform: wunderground
+    lang: DL
+    api_key: !secret wunderground_api_key
+    scan_interval: 1800
+    monitored_conditions:
+    - alerts
+    - temp_c
+    - feelslike_c
+    - temp_high_1d_c
+    - temp_low_1d_c
+    - precip_1d_mm
+    - weather_1d_metric
+    - temp_high_2d_c
+    - temp_low_2d_c
+    - precip_2d_mm
+    - weather_2d_metric
+
+group:
+  weather_now:
+    name: Wetter (Aktuell)
+    entities:
+    - sensor.pws_alerts
+    - sensor.pws_temp_c
+    - sensor.pws_feelslike_c
+
+  weather_today:
+    name: Wetter (Heute)
+    entities:
+    - sensor.pws_temp_high_1d_c
+    - sensor.pws_temp_low_1d_c
+    - sensor.pws_precip_1d_mm
+    - sensor.pws_weather_1d_metric
+
+  weather_tomorrow:
+    name: Wetter (Morgen)
+    entities:
+    - sensor.pws_temp_high_2d_c
+    - sensor.pws_temp_low_2d_c
+    - sensor.pws_precip_2d_mm
+    - sensor.pws_weather_2d_metric

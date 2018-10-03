@@ -1,0 +1,13 @@
+binary_sensor.ship_online:
+  friendly_name: Ship
+
+known_device.ship:
+  friendly_name: Ship
+
+group.ship:
+  friendly_name: Ship (Docker Host)
+
+group.automation_devices:
+  friendly_name: Automatisierung
+group.infrastructure_devices:
+  friendly_name: Infrastruktur

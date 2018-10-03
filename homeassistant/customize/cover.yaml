@@ -1,0 +1,14 @@
+cover.arbeitszimmer__rolladen_arbeitszimmer:
+  friendly_name: Arbeitszimmer
+cover.gastezimmer__rolladen_gastezimmer:
+  friendly_name: Gästezimmer
+cover.schlafzimmer__rolladen_schlafzimmer:
+  friendly_name: Schlafzimmer
+cover.wohnzimmer__rolladen_couch:
+  friendly_name: Couch
+cover.wohnzimmer__rolladen_esstisch:
+  friendly_name: Esstisch
+cover.wohnzimmer__rolladen_kuche:
+  friendly_name: Küche
+cover.wohnzimmer__rolladen_terrasse:
+  friendly_name: Terrasse

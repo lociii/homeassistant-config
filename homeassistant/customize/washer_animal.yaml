@@ -1,0 +1,18 @@
+sensor.washer_animal_current_power_usage:
+  friendly_name: Verbrauch (aktuell)
+sensor.washer_animal_status_text:
+  friendly_name: Status
+sensor.washer_animal_consumption_last_5_mins_mean:
+  friendly_name: Verbrauch (letzte 5 Minuten)
+
+switch.power_plug_washer_animal:
+  friendly_name: Pferde-Waschmaschine
+
+input_select.washer_animal_status:
+  friendly_name: Pferde-Waschmaschine
+
+binary_sensor.power_plug_washer_animal_online:
+  friendly_name: Pferde-Waschmaschine
+
+group.washer_animal:
+  friendly_name: Pferde-Waschmaschine

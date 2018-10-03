@@ -1,0 +1,45 @@
+switch:
+  # TP-Link HS110 power plug
+  - platform: tplink
+    name: power_plug_washer_human
+    host: !secret tplink_power_plug_washer_human
+
+input_select:
+  # status selector
+  washer_human_status:
+    initial: Aus
+    icon: mdi:power
+    options:
+    - "Aus"
+    - "Aktiv"
+    - "Fertig"
+
+sensor:
+  - platform: template
+    # define the triggers that update this template sensor
+    entity_id:
+    - switch.power_plug_washer_human
+    sensors:
+      # define current power attribute as seperate sensor
+      washer_human_current_power_usage:
+        value_template: '{{ states.switch.power_plug_washer_human.attributes.current_power_w }}'
+        unit_of_measurement: 'W'
+      # define input select read only sensor
+      washer_human_status_text:
+        value_template: '{{ states.input_select.washer_human_status.state }}'
+
+  # define history sensor for mean power usage of last 5 minutes
+  - platform: statistics
+    name: washer_human_consumption_last_5_mins
+    entity_id: sensor.washer_human_current_power_usage
+    max_age:
+      minutes: 5
+
+# package group
+group:
+  washer_human:
+    entities:
+    - switch.power_plug_washer_human
+    - sensor.washer_human_status_text
+    - sensor.washer_human_current_power_usage
+    - sensor.washer_human_consumption_last_5_mins_mean

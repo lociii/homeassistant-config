@@ -1,0 +1,5 @@
+binary_sensor.people_home:
+  friendly_name: Bewohner anwesend
+
+group.device_presence:
+  friendly_name: Anwesenheit

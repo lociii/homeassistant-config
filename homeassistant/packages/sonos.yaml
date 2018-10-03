@@ -1,0 +1,9 @@
+sonos:
+  media_player:
+    name: sonos
+    hosts: !secret sonos_playbase_ip
+
+group:
+  media_player_sonos:
+    entities:
+    - media_player.sonos

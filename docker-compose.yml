@@ -1,0 +1,175 @@
+version: '3.7'
+
+services:
+  mosquitto:
+    container_name: mosquitto
+    restart: unless-stopped
+    image: eclipse-mosquitto:1.4.12
+    volumes:
+      - ${PWD}/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_log:/mosquitto/log
+      - mosquitto_data:/mosquitto/data
+      - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #   - "1883:1883"
+    #   - "9001:9001"
+
+  # mongodb:
+  #   restart: unless-stopped
+  #   image: mongo
+  #   volumes:
+  #     - /home/loci/docker/mongo:/data/db
+  #     - /etc/localtime:/etc/localtime:ro
+  #   ports:
+  #     - "27017:27017"
+
+  hadockermon:
+    container_name: hadockermon
+    restart: unless-stopped
+    image: philhawthorne/ha-dockermon:v0.0.10
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PWD}/ha-dockermon.yaml:/config/configuration.yaml
+
+  postgresql:
+    container_name: postgresql
+    restart: unless-stopped
+    image: mdillon/postgis:9.6-alpine
+    user: postgres
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASS=$POSTGRES_PASS
+      - POSTGRES_DB=$POSTGRES_DB
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #   - "5432:5432"
+
+  influxdb:
+    container_name: influxdb
+    restart: unless-stopped
+    image: influxdb:1.6.2-alpine
+    volumes:
+      - ${PWD}/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - influxdb:/var/lib/influxdb
+    environment:
+      - INFLUX_GRAPHITE_ENABLED='true'
+      - INFLUXDB_USER=$INFLUXDB_USER
+      - INFLUXDB_USER_PASSWORD=$INFLUXDB_PASS
+    # ports:
+    #   - "8086:8086"
+    #   - "2003:2003"
+
+  grafana:
+    container_name: grafana
+    restart: unless-stopped
+    image: grafana/grafana:5.2.4
+    depends_on:
+      - influxdb
+    volumes:
+      - grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+
+  chronograf:
+    container_name: chronograf
+    restart: unless-stopped
+    image: chronograf:1.5.0.1-alpine
+    depends_on:
+      - influxdb
+    volumes:
+      - chronograf:/var/lib/chronograf
+    ports:
+      - "8888:8888"
+
+  homeassistant:
+    container_name: homeassistant
+    restart: unless-stopped
+    image: homeassistant/home-assistant:0.79.0
+    depends_on:
+      - influxdb
+      - postgresql
+    volumes:
+      - ${PWD}/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+      - homeassistant_media:/media
+    tmpfs:
+      - /tmp
+    privileged: true
+
+  appdaemon:
+    container_name: appdaemon
+    restart: unless-stopped
+    image: acockburn/appdaemon:latest
+    volumes:
+      - ${PWD}/appdaemon:/conf
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - homeassistant
+
+  nodered:
+    container_name: nodered
+    restart: unless-stopped
+    image: nodered/node-red-docker:0.19.3-slim-v8
+    depends_on:
+      - homeassistant
+    user: root
+    volumes:
+      - nodered_data:/data
+      - /etc/localtime:/etc/localtime:ro
+    # ports:
+    #   - "1880:1880"
+
+  letsencrypt:
+    container_name: letsencrypt
+    restart: "no"
+    build: https://github.com/lociii/docker-dehydrated-lexicon.git
+    # use image as soon as the owner updated it with my pull request
+    # image: gmelillo/dehydrated-lexicon
+    volumes:
+      - ${PWD}/letsencrypt/certs:/dehydrated/certs
+      - ${PWD}/letsencrypt/domains.txt:/dehydrated/domains.txt
+      - ${PWD}/letsencrypt/accounts:/dehydrated/accounts
+      - ${PWD}/letsencrypt/chains:/dehydrated/chains
+    environment:
+      - LEXICON_INWX_USERNAME=$INWX_USERNAME
+      - LEXICON_INWX_PASSWORD=$INWX_PASSWORD
+      - PROVIDER=inwx
+
+  nginx: 
+    container_name: nginx
+    image: nginx:1.15.3-alpine
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${PWD}/nginx/conf.d/default.template:/etc/nginx/conf.d/default.template
+      - ${PWD}/letsencrypt/certs/${MY_DOMAIN}:/etc/letsencrypt/
+      - ${PWD}/nginx/cert:/etc/nginx/cert/
+    environment:
+      - MY_DOMAIN=$MY_DOMAIN
+    ports:
+      - 80:80
+      - 443:443
+      - 5050:5050
+    command: /bin/sh -c "envsubst '$$MY_DOMAIN' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+
+  glances:
+    container_name: glances
+    image: nicolargo/glances
+    restart: unless-stopped
+    environment:
+      - GLANCES_OPT=-w
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  chronograf: {}
+  grafana: {}
+  homeassistant_media: {}
+  influxdb: {}
+  mosquitto_log: {}
+  mosquitto_data: {}
+  nodered_data: {}
+  postgresql: {}

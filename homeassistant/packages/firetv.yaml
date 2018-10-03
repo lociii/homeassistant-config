@@ -1,0 +1,29 @@
+media_player:
+  - platform: firetv
+    name: firetv_bedroom
+    host: !secret firetv_bedroom_ip
+    adbkey: /config/firetv/adbkey
+  - platform: firetv
+    name: firetv_living_room
+    host: !secret firetv_living_room_ip
+    adbkey: /config/firetv/adbkey
+
+notify:
+  - platform: nfandroidtv
+    name: notify_firetv_bedroom
+    host: !secret firetv_bedroom_ip
+    duration: 10
+    position: top-left
+    interrupt: off
+  - platform: nfandroidtv
+    name: notify_firetv_living_room
+    host: !secret firetv_living_room_ip
+    duration: 10
+    position: top-left
+    interrupt: off
+
+group:
+  media_player_firetv:
+    entities:
+    - media_player.firetv_living_room
+    - media_player.firetv_bedroom
