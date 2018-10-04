@@ -7,7 +7,7 @@ class HandleMachineState(hass.Hass):
         self.listen_state(cb=self.handle_state_change, entity=self.args['input_select'], 
             new='Fertig', old='Aktiv')
 
-    def handle_power_usage(self, entity, attribute, old, new, **kwargs):
+    def handle_power_usage(self, entity, attribute, old, new, *args, **kwargs):
         usage = int(float(new))
 
         if usage < self.args['usage_off']:
