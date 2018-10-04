@@ -1,5 +1,5 @@
 import appdaemon.plugins.hass.hassapi as hass
-import asyncio
+import time
 from globals import COVERS_NIGHT_PRESENT, COVERS_NIGHT_ABSENT
 from globals import LIGHTS_NIGHT_PRESENT, LIGHTS_NIGHT_ABSENT
 from globals import NIGHT_OFFSET
@@ -24,7 +24,7 @@ class HandleSunset(hass.Hass):
         # turn on lights
         for light in lights:
             self.turn_on(entity_id=light)
-            asyncio.sleep(0.5)
+            time.sleep(0.5)
 
     def sunset_cover(self, *args, **kwargs):
         self.log('sunset, close covers')
@@ -38,5 +38,5 @@ class HandleSunset(hass.Hass):
         
         # close covers
         for cover in covers:
-            self.set_state(entity_id=cover, state='closed')
-            asyncio.sleep(0.5)
+            self.call_service('cover/close_cover', entity_id=cover)
+            time.sleep(0.5)

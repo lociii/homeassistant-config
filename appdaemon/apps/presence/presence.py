@@ -1,5 +1,5 @@
 import appdaemon.plugins.hass.hassapi as hass
-import asyncio
+import time
 from globals import DAY_START, NIGHT_START
 from globals import COVERS_ALL, LIGHTS_ALL
 from globals import COVERS_NIGHT_ABSENT, LIGHTS_NIGHT_RETURNING
@@ -43,7 +43,7 @@ class HandlePresence(hass.Hass):
         # turn fans on
         for fan in FANS:
             self.turn_on(fan)
-            asyncio.sleep(0.5)
+            time.sleep(0.5)
         # callback in 10 minutes
         self.fan_handle = self.run_in(self.absent_turn_off_fans, 10 * 60)
 
@@ -53,7 +53,7 @@ class HandlePresence(hass.Hass):
         # turn fans off
         for fan in FANS:
             self.turn_off(fan)
-            asyncio.sleep(0.5)
+            time.sleep(0.5)
         # callback in 5 minutes
         self.fan_handle = self.run_in(self.absent_turn_on_fans, 5 * 60)
 
@@ -62,8 +62,8 @@ class HandlePresence(hass.Hass):
 
         # close all covers
         for cover in COVERS_ALL:
-            self.set_state(entity_id=cover, state='closed')
-            asyncio.sleep(0.5)
+            self.call_service('cover/close_cover', entity_id=cover)
+            time.sleep(0.5)
 
         # turn most lights off
         for light in LIGHTS_ALL:
@@ -71,7 +71,7 @@ class HandlePresence(hass.Hass):
                 self.turn_on(entity_id=light)
             else:
                 self.turn_off(entity_id=light)
-            asyncio.sleep(0.5)
+            time.sleep(0.5)
 
     def leaving_day(self, entity, attribute, old, new, kwargs):
         self.log('leaving at day')
@@ -79,7 +79,7 @@ class HandlePresence(hass.Hass):
         # turn all lights off
         for light in LIGHTS_ALL:
             self.turn_off(entity_id=light)
-            asyncio.sleep(0.5)
+            time.sleep(0.5)
 
     def returning(self, entity, attribute, old, new, kwargs):
         self.log('returning')
@@ -92,7 +92,7 @@ class HandlePresence(hass.Hass):
         # turn fans off
         for fan in FANS:
             self.turn_off(fan)
-            asyncio.sleep(0.5)
+            time.sleep(0.5)
 
     def returning_night(self, entity, attribute, old, new, kwargs):
         self.log('returning at night')
@@ -100,4 +100,4 @@ class HandlePresence(hass.Hass):
         # turn on some lights
         for light in LIGHTS_NIGHT_RETURNING:
             self.turn_on(entity_id=light)
-            asyncio.sleep(0.5)
+            time.sleep(0.5)
