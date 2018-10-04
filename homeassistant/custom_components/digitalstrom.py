@@ -2,7 +2,6 @@
 Support for digitalSTROM devices.
 """
 import logging
-import asyncio
 
 import voluptuous as vol
 
