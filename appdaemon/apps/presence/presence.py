@@ -1,8 +1,8 @@
 import appdaemon.plugins.hass.hassapi as hass
 import time
 from globals import DAY_START, NIGHT_START
-from globals import COVERS_ALL, LIGHTS_ALL
-from globals import COVERS_NIGHT_ABSENT, LIGHTS_NIGHT_RETURNING
+from globals import COVERS_ALL, COVERS_NIGHT_ABSENT
+from globals import LIGHTS_ALL, LIGHTS_NIGHT_ABSENT, LIGHTS_NIGHT_RETURNING
 from globals import FANS
 from globals import GOOGLE_TTS_DEVICE
 from globals import SENSOR_APARTMENT_PRESENCE
