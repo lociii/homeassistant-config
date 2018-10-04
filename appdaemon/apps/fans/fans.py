@@ -17,7 +17,7 @@ class HandleFan(hass.Hass):
 
     def turn_target_device_off(self, *args, **kwargs):
         self.log('{} turned off, turn off {} in 10 minutes'.format(self.args['source_device'], self.args['target_device']))
-        self.handler = self.run_in(callback=self.turn_target_device_off_delayed, seconds=10*60)
+        self.handler = self.run_in(callback=self.turn_target_device_off_delayed, seconds=2*60)
 
     def turn_target_device_off_delayed(self, *args, **kwargs):
         self.log('10 minutes gone, turn off {}'.format(self.args['target_device']))
