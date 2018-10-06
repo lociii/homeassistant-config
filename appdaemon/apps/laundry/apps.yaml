@@ -4,7 +4,7 @@ laundry_dryer:
   sensor: sensor.dryer_consumption_last_5_mins_mean
   input_select: input_select.dryer_status
   usage_off: 1
-  usage_active: 30
+  usage_active: 40
   media_player: media_player.wohnzimmer
   message: Der Trockner ist fertig!
 
