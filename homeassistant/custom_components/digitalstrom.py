@@ -83,17 +83,19 @@ async def async_setup(hass, config):
         timeout=1, loop=hass.loop)
 
     @callback
-    def async_start(_):
+    def digitalstrom_start_listener(_):
         _LOGGER.info('digitalstrom event listener started')
         hass.async_add_job(hass.data[DOMAIN_LISTENER].start)
 
-    hass.bus.async_listen_once(EVENT_HOMEASSISTANT_START, async_start)
+    hass.bus.async_listen_once(
+        EVENT_HOMEASSISTANT_START, digitalstrom_start_listener)
 
     @callback
-    def async_stop(_):
+    def digitalstrom_stop_listener(_):
         _LOGGER.info('digitalstrom event listener stopped')
         hass.async_add_job(hass.data[DOMAIN_LISTENER].stop)
 
-    hass.bus.async_listen(EVENT_HOMEASSISTANT_STOP, async_stop)
+    hass.bus.async_listen_once(
+        EVENT_HOMEASSISTANT_STOP, digitalstrom_stop_listener)
 
     return True

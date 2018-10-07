@@ -54,14 +54,19 @@ recorder:
   purge_keep_days: 30
   purge_interval: 1
   db_url: !secret recorder_db_url
-  exclude:
+  include:
     domains:
-    - automation
-    - weblink
-    - updater
+      - sensor
+      - switch
+      - light
+      - cover
+      - media_player
+      - input_select
+      - device_tracker
+      - binary_sensor
+  exclude:
     entities:
     - sun.sun
-    - sensor.last_boot
     - sensor.date
 
 influxdb:
@@ -73,14 +78,19 @@ influxdb:
   ssl: false
   max_retries: 3
   default_measurement: state
-  exclude:
+  include:
     domains:
-    - automation
-    - weblink
-    - updater
+      - sensor
+      - switch
+      - light
+      - cover
+      - media_player
+      - input_select
+      - device_tracker
+      - binary_sensor
+  exclude:
     entities:
     - sun.sun
-    - sensor.last_boot
     - sensor.date
   tags:
     instance: production

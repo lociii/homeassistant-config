@@ -3,6 +3,8 @@ import logging
 
 from homeassistant.components.cover import CoverDevice, ENTITY_ID_FORMAT, \
     SUPPORT_CLOSE, SUPPORT_OPEN
+from homeassistant.helpers.restore_state import async_get_last_state
+from homeassistant.const import STATE_ON
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -36,14 +38,15 @@ async def async_setup_platform(hass, config, async_add_devices,
             continue
 
         # add light
-        devices.append(DigitalstromCover(scene_on=scene_on, 
+        devices.append(DigitalstromCover(hass=hass, scene_on=scene_on, 
             scene_off=scene, listener=listener))
 
     async_add_devices(device for device in devices)
 
 
 class DigitalstromCover(CoverDevice):
-    def __init__(self, scene_on, scene_off, listener, *args, **kwargs):
+    def __init__(self, hass, scene_on, scene_off, listener, *args, **kwargs):
+        self._hass = hass
         self._scene_on = scene_on
         self._scene_off = scene_off
         self._listener = listener
@@ -116,6 +119,11 @@ class DigitalstromCover(CoverDevice):
     async def async_close_cover(self, **kwargs):
         await self._scene_off.turn_on()
         self._state = False
+
+    async def async_added_to_hass(self):
+        state = await async_get_last_state(self._hass, self.entity_id)
+        if state:
+            self._state = state.state == STATE_ON
 
     def should_poll(self):
         return False

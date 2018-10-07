@@ -2,6 +2,8 @@
 import logging
 
 from homeassistant.helpers.entity import Entity
+from homeassistant.helpers.restore_state import async_get_last_state
+from homeassistant.const import STATE_ON
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -18,7 +20,7 @@ async def async_setup_platform(hass, config, async_add_devices,
     devices = []
     scenes = client.get_scenes()
     for scene in scenes.values():
-        # only handle light (color 1) scenes
+        # only handle scenes
         if not isinstance(scene, DSScene):
             continue
         # only sleeping and present
@@ -33,15 +35,16 @@ async def async_setup_platform(hass, config, async_add_devices,
         if not scene_off:
             continue
 
-        # add light
-        devices.append(DigitalstromSensor(scene_on=scene, 
+        # add sensors
+        devices.append(DigitalstromSensor(hass=hass, scene_on=scene, 
             scene_off=scene_off, listener=listener))
 
     async_add_devices(device for device in devices)
 
 
 class DigitalstromSensor(Entity):
-    def __init__(self, scene_on, scene_off, listener, *args, **kwargs):
+    def __init__(self, hass, scene_on, scene_off, listener, *args, **kwargs):
+        self._hass = hass
         self._scene_on = scene_on
         self._scene_off = scene_off
         self._listener = listener
@@ -103,6 +106,11 @@ class DigitalstromSensor(Entity):
     @property
     def state(self):
         return self._state
+
+    async def async_added_to_hass(self):
+        state = await async_get_last_state(self._hass, self.entity_id)
+        if state:
+            self._state = state.state == STATE_ON
 
     def should_poll(self):
         return False
