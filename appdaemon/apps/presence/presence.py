@@ -28,11 +28,14 @@ class HandlePresence(hass.Hass):
 
     def speak(self, message):
         self.call_service('media_player/volume_set', entity_id=GOOGLE_TTS_DEVICE, volume_level=0.5)
-        self.call_service('tts/google_say', entity_id=GOOGLE_TTS_DEVICE, message=message)
+        self.call_service('tts/amazon_polly_say', entity_id=GOOGLE_TTS_DEVICE, message=message)
 
     def leaving(self, entity, attribute, old, new, kwargs):
         self.log('leaving')
         self.speak('Komm gesund wieder!')
+
+        # turn off tv
+        self.call_service('script/living_room_tv_turn_off')
 
         # start fan loop, activate for 10 minutes every 15 minutes
         self.absent_turn_on_fans()
