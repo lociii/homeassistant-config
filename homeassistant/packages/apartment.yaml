@@ -66,3 +66,7 @@ group:
     entities:
     - light.garten__laterne
     - light.garten
+    - light.bewasserung__sprenkler
+    - light.bewasserung__raketen
+    - light.bewasserung__busche
+    - light.bewasserung__entnahme
