@@ -87,3 +87,15 @@ light.garten__laterne:
   friendly_name: Laterne
 light.garten:
   friendly_name: Bälle
+light.bewasserung__sprenkler:
+  friendly_name: Sprenkler
+  icon: mdi:water
+light.bewasserung__raketen:
+  friendly_name: Raketer
+  icon: mdi:water
+light.bewasserung__busche:
+  friendly_name: Büsche
+  icon: mdi:water
+light.bewasserung__entnahme:
+  friendly_name: Entnahme
+  icon: mdi:water
