@@ -18,6 +18,8 @@ movie:
   view: yes
   entities:
   - group.media_player_firetv
+  - group.harmony_hub_tv
+  - group.harmony_hub_tv_channels
 
 music:
   view: yes
