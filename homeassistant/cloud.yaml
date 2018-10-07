@@ -8,6 +8,8 @@ alexa:
       - light.dusche__spiegellicht
       - light.wohnzimmer__esstisch
       - light.flur__flur
+      - light.garten
+      - light.garten__laterne
       - light.gastezimmer__deckenlicht
       - light.kuche__deckenlicht
       - light.kuche__schranklicht
@@ -22,6 +24,30 @@ alexa:
       - scene.apartment__wakeup
       - scene.apartment__present
       - scene.apartment__absent
+      - script.living_room_tv_turn_on
+      - script.living_room_tv_turn_off
+      - scene.living_room_tv_broadcast
+      - scene.living_room_tv_firetv
+      - script.living_room_tv_channel_1
+      - script.living_room_tv_channel_2
+      - script.living_room_tv_channel_3
+      - script.living_room_tv_channel_4
+      - script.living_room_tv_channel_5
+      - script.living_room_tv_channel_6
+      - script.living_room_tv_channel_7
+      - script.living_room_tv_channel_8
+      - script.living_room_tv_channel_9
+      - script.living_room_tv_channel_10
+      - script.living_room_tv_channel_11
+      - script.living_room_tv_channel_12
+      - script.living_room_tv_channel_13
+      - script.living_room_tv_channel_14
+      - script.living_room_tv_channel_15
+      - script.living_room_tv_channel_16
+      - script.living_room_tv_channel_17
+      - script.living_room_tv_channel_18
+      - script.living_room_tv_channel_19
+      - script.living_room_tv_channel_20
     exclude_domains:
       - alert
       - automation
@@ -63,6 +89,14 @@ alexa:
       display_categories: LIGHT
     light.flur__flur:
       name: Flur
+      description: ""
+      display_categories: LIGHT
+    light.garten:
+      name: Bälle
+      description: ""
+      display_categories: LIGHT
+    light.garten__laterne:
+      name: Laterne
       description: ""
       display_categories: LIGHT
     light.gastezimmer__deckenlicht:
@@ -121,6 +155,102 @@ alexa:
       name: Abwesend
       description: Wohnung auf abwesend setzen
       display_categories: SCENE_TRIGGER
+    script.living_room_tv_turn_on:
+      name: Fernseher ein
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_turn_off:
+      name: Fernseher aus
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_broadcast:
+      name: Fernseher TV Programm
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_firetv:
+      name: Fernseher Fire TV
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_1:
+      name: ARD
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_2:
+      name: ZDF
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_3:
+      name: Dritte
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_4:
+      name: Sat eins
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_5:
+      name: RTL
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_6:
+      name: RTL zwei
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_7:
+      name: Pro Sieben
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_8:
+      name: Kabel eins
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_9:
+      name: Vox
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_10:
+      name: D-MAX
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_11:
+      name: Sport eins
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_12:
+      name: Eurosport
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_13:
+      name: Comedy Central
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_14:
+      name: Disney
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_15:
+      name: Pro Sieben Maxx
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_16:
+      name: Nitro
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_17:
+      name: Sixx
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_18:
+      name: ZDF neo
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_19:
+      name: n-tv
+      description: ""
+      display_categories: SCENE_TRIGGER
+    script.living_room_tv_channel_20:
+      name: Welt
+      description: ""
+      display_categories: SCENE_TRIGGER
 
 google_actions:
   filter:
@@ -132,6 +262,8 @@ google_actions:
       - light.dusche__spiegellicht
       - light.wohnzimmer__esstisch
       - light.flur__flur
+      - light.garten
+      - light.garten__laterne
       - light.gastezimmer__deckenlicht
       - light.kuche__deckenlicht
       - light.kuche__schranklicht
@@ -200,6 +332,16 @@ google_actions:
       aliases:
       - Flur
       room: Flur
+    light.garten:
+      name: Bälle
+      aliases:
+      - Balllicht
+      room: Garten
+    light.garten__laterne:
+      name: Laterne
+      aliases:
+      - Gartenleuchte
+      room: Garten
     light.gastezimmer__deckenlicht:
       name: Deckenlicht Gästezimmer
       aliases:
