@@ -1,7 +1,8 @@
 # define times
 DAY_START = 'sunrise'
 NIGHT_START = 'sunset + 00:15:00'
-NIGHT_OFFSET = 900
+NIGHT_OFFSET_LIGHT = -900
+NIGHT_OFFSET_COVER = 900
 
 # all covers
 COVERS_ALL = [
@@ -57,15 +58,15 @@ LIGHTS_NIGHT_ABSENT = [
     'light.garten',
 ]
 # lights that should go on at night when present
-LIGHTS_NIGHT_PRESENT = LIGHTS_NIGHT_ABSENT + [
+LIGHTS_NIGHT_PRESENT = [
     'light.wohnzimmer__stehlampe',
-]
+] + LIGHTS_NIGHT_ABSENT
 
 # lights that should be on at night when returning home
-LIGHTS_NIGHT_RETURNING = LIGHTS_NIGHT_PRESENT + [
+LIGHTS_NIGHT_RETURNING = [
     'light.flur__flur',
     'light.kuche__schranklicht',
-]
+] + LIGHTS_NIGHT_PRESENT
 
 FANS = [
     'light.bad__lufter',
@@ -75,3 +76,4 @@ FANS = [
 GOOGLE_TTS_DEVICE = 'media_player.wohnzimmer'
 
 SENSOR_APARTMENT_PRESENCE = 'sensor.apartment__present'
+SENSOR_APARTMENT_SLEEPING = 'sensor.apartment__sleeping'
