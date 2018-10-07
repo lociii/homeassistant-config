@@ -23,4 +23,4 @@ class HandleMachineState(hass.Hass):
 
     def speak(self, message):
         self.call_service('media_player/volume_set', entity_id=self.args['media_player'], volume_level=0.5)
-        self.call_service('tts/google_say', entity_id=self.args['media_player'], message=message)
+        self.call_service('tts/amazon_polly_say', entity_id=self.args['media_player'], message=message)
