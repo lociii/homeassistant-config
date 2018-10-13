@@ -37,6 +37,7 @@ async def async_setup_platform(hass, config, async_add_devices,
             continue
 
         # add light
+        _LOGGER.info('adding light {}: {}'.format(scene.scene_id, scene.name))
         devices.append(DigitalstromLight(hass=hass, scene_on=scene_on, 
             scene_off=scene, listener=listener))
 

@@ -1,5 +1,0 @@
-sensor.fritzbox_callmonitor:
-  friendly_name: Anrufstatus
-
-group.fritzbox:
-  friendly_name: FRITZ!Box

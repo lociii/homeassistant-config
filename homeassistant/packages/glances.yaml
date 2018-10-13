@@ -1,3 +1,5 @@
+# https://www.home-assistant.io/components/sensor.glances/
+
 sensor:
   - platform: glances
     name: glances
@@ -16,17 +18,3 @@ sensor:
     - docker_active
     - docker_cpu_use
     - docker_memory_use
-
-group:
-  glances:
-  - sensor.glances_disk_free
-  - sensor.glances_disk_used
-  - sensor.glances_ram_free
-  - sensor.glances_ram_used
-  - sensor.glances_swap_free
-  - sensor.glances_swap_used
-  - sensor.glances_containers_active
-  - sensor.glances_containers_cpu_used
-  - sensor.glances_cpu_load
-  - sensor.glances_cpu_temp
-  - sensor.glances_total

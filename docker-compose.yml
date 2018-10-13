@@ -94,7 +94,7 @@ services:
   homeassistant:
     container_name: homeassistant
     restart: unless-stopped
-    image: homeassistant/home-assistant:0.79.3
+    image: homeassistant/home-assistant:0.80.0
     depends_on:
       - influxdb
       - postgresql
@@ -170,7 +170,7 @@ services:
   # https://hub.docker.com/r/nicolargo/glances/tags/
   glances:
     container_name: glances
-    image: nicolargo/glances:v2.11.1
+    image: nicolargo/glances:latest-alpine
     restart: unless-stopped
     environment:
       - GLANCES_OPT=-w

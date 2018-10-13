@@ -22,10 +22,3 @@ binary_sensor:
         device_class: presence
         value_template: >
           {{ is_state('device_tracker.eva_handy', 'home') or is_state('device_tracker.jens_handy', 'home') }}
-
-group:
-  device_presence:
-    entities:
-    - device_tracker.eva_handy
-    - device_tracker.jens_handy
-    - binary_sensor.people_home

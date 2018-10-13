@@ -8,8 +8,3 @@ sensor:
     - !secret fritzbox_country_code
     - !secret fritzbox_area_code_international
     - !secret fritzbox_area_code_national
-
-group:
-  fritzbox:
-    entities:
-    - sensor.fritzbox_callmonitor

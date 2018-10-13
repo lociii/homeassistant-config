@@ -34,12 +34,3 @@ sensor:
     entity_id: sensor.washer_animal_current_power_usage
     max_age:
       minutes: 5
-
-# package group
-group:
-  washer_animal:
-    entities:
-    - switch.power_plug_washer_animal
-    - sensor.washer_animal_status_text
-    - sensor.washer_animal_current_power_usage
-    - sensor.washer_animal_consumption_last_5_mins_mean

@@ -35,12 +35,3 @@ sensor:
     entity_id: sensor.dryer_current_power_usage
     max_age:
       minutes: 5
-
-# package group
-group:
-  dryer:
-    entities:
-    - switch.power_plug_dryer
-    - sensor.dryer_status_text
-    - sensor.dryer_current_power_usage
-    - sensor.dryer_consumption_last_5_mins_mean

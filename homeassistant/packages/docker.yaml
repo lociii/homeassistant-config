@@ -65,12 +65,6 @@ switch:
     body_on: '{"state": "start"}'
     body_off: '{"state": "stop"}'
     is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
-  - platform: rest
-    resource: http://hadockermon:8126/container/speedtest
-    name: docker_speedtest
-    body_on: '{"state": "start"}'
-    body_off: '{"state": "stop"}'
-    is_on_template: '{{ value_json is not none and value_json.state == "running" }}'
 
 sensor:
   - platform: template
@@ -101,21 +95,3 @@ sensor:
         value_template: '{{ states.switch.docker_nodered.state }}'
       docker_postgresql_text:
         value_template: '{{ states.switch.docker_postgresql.state }}'
-      docker_speedtest_text:
-        value_template: '{{ states.switch.docker_speedtest.state }}'
-
-group:
-  hadockermon:
-    entities:
-    - sensor.docker_appdaemon_text
-    - sensor.docker_chronograf_text
-    - sensor.docker_grafana_text
-    - sensor.docker_hadockermon_text
-    - sensor.docker_homeassistant_text
-    - sensor.docker_influxdb_text
-    - sensor.docker_letsencrypt_text
-    - sensor.docker_mosquitto_text
-    - sensor.docker_nginx_text
-    - sensor.docker_nodered_text
-    - sensor.docker_postgresql_text
-    - sensor.docker_speedtest_text

@@ -1,9 +1,0 @@
-known_device.amazon_echo_bedroom:
-  friendly_name: Echo Schlafzimmer
-known_device.amazon_echo_living_room:
-  friendly_name: Echo Wohnzimmer
-
-binary_sensor.amazon_echo_bedroom_online:
-  friendly_name: Echo Schlafzimmer
-binary_sensor.amazon_echo_living_room_online:
-  friendly_name: Echo Wohnzimmer

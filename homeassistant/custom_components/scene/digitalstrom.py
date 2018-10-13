@@ -21,6 +21,7 @@ async def async_setup_platform(hass, config, async_add_devices,
         if isinstance(scene, DSColorScene) and scene.color in [1, 2] and \
             scene.scene_id <= 9:
             continue
+        _LOGGER.info('adding scene {}: {}'.format(scene.scene_id, scene.name))
         scenes.append(DigitalstromScene(scene=scene))
     async_add_devices(scene for scene in scenes)
 
@@ -40,6 +41,7 @@ class DigitalstromScene(Scene):
         return 'dsscene.{id}'.format(id=self._scene.unique_id)
 
     async def async_activate(self):
+        _LOGGER.info('calling scene {}'.format(self._scene.scene_id))
         await self._scene.turn_on()
 
     def should_poll(self):

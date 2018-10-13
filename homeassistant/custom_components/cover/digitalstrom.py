@@ -37,7 +37,8 @@ async def async_setup_platform(hass, config, async_add_devices,
         if not scene_on:
             continue
 
-        # add light
+        # add cover
+        _LOGGER.info('adding cover {}: {}'.format(scene.scene_id, scene.name))
         devices.append(DigitalstromCover(hass=hass, scene_on=scene_on, 
             scene_off=scene, listener=listener))
 
@@ -52,44 +53,6 @@ class DigitalstromCover(CoverDevice):
         self._listener = listener
         self._state = None
         super().__init__(*args, **kwargs)
-
-        self.register_callback()
-
-    def register_callback(self):
-        async def event_callback(event):
-            # sanity checks
-            if 'name' not in event:
-                return
-            if event['name'] != 'callScene':
-                return
-            if 'properties' not in event:
-                return
-            if 'sceneID' not in event['properties']:
-                return
-            if 'groupID' not in event['properties']:
-                return
-            if 'zoneID' not in event['properties']:
-                return
-
-            # cast event data
-            zone_id = int(event['properties']['zoneID'])
-            group_id = int(event['properties']['groupID'])
-            scene_id = int(event['properties']['sceneID'])
-
-            # device turned on or broadcast turned on
-            if self._scene_on.zone_id == zone_id and \
-                self._scene_on.color == group_id and \
-                    (self._scene_on.scene_id == scene_id or 0 == scene_id):
-                self._state = True
-                await self.async_update_ha_state()
-            # device turned off or broadcast turned off
-            elif self._scene_off.zone_id == zone_id and \
-                self._scene_off.color == group_id and \
-                    (self._scene_off.scene_id == scene_id or 0 == scene_id):
-                self._state = False
-                await self.async_update_ha_state()
-
-        self._listener.register(callback=event_callback)
 
     @property
     def supported_features(self):
@@ -110,20 +73,15 @@ class DigitalstromCover(CoverDevice):
 
     @property
     def is_closed(self):
-        return not self._state if self._state is not None else None
+        return None
 
     async def async_open_cover(self, **kwargs):
+        _LOGGER.info('calling cover scene {}'.format(self._scene_on.scene_id))
         await self._scene_on.turn_on()
-        self._state = True
 
     async def async_close_cover(self, **kwargs):
+        _LOGGER.info('calling cover scene {}'.format(self._scene_off.scene_id))
         await self._scene_off.turn_on()
-        self._state = False
-
-    async def async_added_to_hass(self):
-        state = await async_get_last_state(self._hass, self.entity_id)
-        if state:
-            self._state = state.state == STATE_ON
 
     def should_poll(self):
         return False

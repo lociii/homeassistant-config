@@ -14,18 +14,3 @@ sensor:
     destination: zone.work_eva
     mode: driving
     scan_interval: 600
-
-history_graph:
-  work_traveltime:
-    hours_to_show: 48
-    refresh: 60
-    entities:
-    - sensor.travel_time_jens
-    - sensor.travel_time_eva
-
-group:
-  work_traveltime:
-    entities:
-    - sensor.travel_time_jens
-    - sensor.travel_time_eva
-    - history_graph.work_traveltime

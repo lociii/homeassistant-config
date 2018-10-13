@@ -1,0 +1,516 @@
+title: Wohnung
+
+# custom components
+# weather card: https://community.home-assistant.io/t/custom-animated-weather-card-for-lovelace/58338
+
+resources:
+  - url: /local/tracker-card.js?v=0.1.5
+    type: js
+  - url: /local/custom_ui/weather-card.js
+    type: js
+
+views:
+  - title: Wohnung
+    id: apartment
+    icon: mdi:home
+    theme: dark-mode
+    cards:
+      - type: entities
+        title: Wohnzimmer
+        show_header_toggle: false
+        entities:
+          - entity: cover.wohnzimmer__rolladen_esstisch
+            name: Rolladen Esstisch
+          - entity: scene.wohnzimmer__rolladen_esstisch_abends
+            name: Rolladen Esstisch auf Spalt
+          - entity: cover.wohnzimmer__rolladen_terrasse
+            name: Rolladen Terrasse
+          - entity: scene.wohnzimmer__rolladen_terrasse_abends
+            name: Rolladen Terrasse auf Spalt
+          - entity: cover.wohnzimmer__rolladen_couch
+            name: Rolladen Couch
+          - entity: scene.wohnzimmer__rolladen_couch_abends
+            name: Rolladen Couch auf Spalt
+          - type: divider
+          - entity: light.wohnzimmer__deckenlampe
+            name: Deckenlicht
+          - entity: light.wohnzimmer__wandlampen
+            name: Wandlampen
+          - entity: light.wohnzimmer__stehlampe
+            name: Stehlampe
+          - entity: light.wohnzimmer__esstisch
+            name: Esstisch
+
+      - type: entities
+        title: Schlafzimmer
+        show_header_toggle: false
+        entities:
+          - entity: cover.schlafzimmer__rolladen_schlafzimmer
+            name: Rolladen
+          - entity: scene.schlafzimmer__rolladen_schlafzimmer_abends
+            name: Rolladen auf Spalt
+          - type: divider
+          - entity: light.schlafzimmer__bettlicht
+            name: Bettlicht
+          - entity: light.schlafzimmer__deckenlicht
+            name: Deckenlicht
+
+      - type: entities
+        title: Gästezimmer
+        show_header_toggle: false
+        entities:
+          - entity: cover.gastezimmer__rolladen_gastezimmer
+            name: Rolladen
+          - entity: scene.gastezimmer__rolladen_gastezimmer_abends
+            name: Rolladen auf Spalt
+          - type: divider
+          - entity: light.gastezimmer__deckenlicht
+            name: Licht
+
+      - type: entities
+        title: Büro
+        show_header_toggle: false
+        entities:
+          - entity: cover.arbeitszimmer__rolladen_arbeitszimmer
+            name: Rolladen
+          - entity: scene.arbeitszimmer__rolladen_arbeitszimmer_abends
+            name: Rolladen auf Spalt
+          - type: divider
+          - entity: light.arbeitszimmer__deckenlicht
+            name: Licht
+
+      - type: entities
+        title: Bad
+        show_header_toggle: false
+        entities:
+          - entity: light.bad__deckenlicht
+            name: Deckenlicht
+          - entity: light.bad__spiegellicht
+            name: Spiegellicht
+
+      - type: entities
+        title: Dusche
+        show_header_toggle: false
+        entities:
+          - entity: light.dusche__deckenlicht
+            name: Deckenlicht
+          - entity: light.dusche__spiegellicht
+            name: Spiegellicht
+
+      - type: entities
+        title: Küche
+        show_header_toggle: false
+        entities:
+          - entity: cover.wohnzimmer__rolladen_kuche
+            name: Rolladen
+          - entity: scene.wohnzimmer__rolladen_kuche_abends
+            name: Rolladen auf Spalt
+          - type: divider
+          - entity: light.kuche__deckenlicht
+            name: Deckenlicht
+          - entity: light.kuche__schranklicht
+            name: Schranklicht
+          - entity: light.kuche__spulenlicht
+            name: Spülenlicht
+          - entity: light.kuche__thekenlicht
+            name: Barlicht
+
+      - type: entities
+        title: Flur
+        show_header_toggle: false
+        entities:
+          - entity: light.flur__flur
+            name: Licht
+
+      - type: entities
+        title: Garten
+        show_header_toggle: false
+        entities:
+          - entity: light.garten__laterne
+            name: Laterne
+          - entity: light.garten
+            name: Bälle
+
+      - type: entities
+        title: Szenen
+        show_header_toggle: false
+        entities:
+          - entity: sensor.apartment__sleeping
+            name: Status Schlafen
+          - entity: scene.apartment__sleeping
+            name: Schlafen
+          - entity: scene.apartment__wakeup
+            name: Aufwachen
+          - type: divider
+          - entity: sensor.apartment__present
+            name: Status Anwesenheit
+          - entity: scene.apartment__present
+            name: Anwesend
+          - entity: scene.apartment__absent
+            name: Abwesend
+      - type: entities
+        title: Anwesenheit
+        entities:
+          - entity: binary_sensor.people_home
+            name: Bewohner anwesend?
+            icon: mdi:home
+          - type: divider
+          - entity: device_tracker.eva_handy
+            name: Eva anwesend?
+          - entity: device_tracker.jens_handy
+            name: Jens anwesend?
+
+  - title: Garten
+    id: garden
+    icon: mdi:flower
+    theme: dark-mode
+    cards:
+      - type: entities
+        title: Bewässerung
+        show_header_toggle: false
+        entities:
+          - entity: light.bewasserung__sprenkler
+            name: Sprenkler
+            icon: mdi:water-pump
+          - entity: light.bewasserung__raketen
+            name: Raketen
+            icon: mdi:water-pump
+          - entity: light.bewasserung__busche
+            name: Büsche
+            icon: mdi:water-pump
+          - entity: light.bewasserung__entnahme
+            name: Entnahme
+            icon: mdi:water-pump
+
+  - title: Film und TV
+    id: movie
+    icon: mdi:movie
+    theme: dark-mode
+    cards:
+      - type: media-control
+        entity: media_player.firetv_living_room
+      - type: media-control
+        entity: media_player.firetv_bedroom
+      - type: entities
+        title: TV
+        show_header_toggle: false
+        entities:
+          - entity: script.living_room_tv_turn_on
+            name: Anschalten
+          - entity: script.living_room_tv_turn_off
+            name: Ausschalten
+          - entity: script.living_room_tv_broadcast
+            name: TV
+          - entity: script.living_room_tv_firetv
+            name: FireTV
+      - type: entities
+        title: TV-Programm
+        show_header_toggle: false
+        entities:
+          - entity: script.living_room_tv_channel_1
+            name: ARD
+          - entity: script.living_room_tv_channel_2
+            name: ZDF
+          - entity: script.living_room_tv_channel_3
+            name: SWR3
+          - entity: script.living_room_tv_channel_4
+            name: Sat.1
+          - entity: script.living_room_tv_channel_5
+            name: RTL
+          - entity: script.living_room_tv_channel_6
+            name: RTL2
+          - entity: script.living_room_tv_channel_7
+            name: ProSieben
+          - entity: script.living_room_tv_channel_8
+            name: Kabel eins
+          - entity: script.living_room_tv_channel_9
+            name: VOX
+          - entity: script.living_room_tv_channel_10
+            name: DMAX
+          - entity: script.living_room_tv_channel_11
+            name: Sport1
+          - entity: script.living_room_tv_channel_12
+            name: EuroSport
+          - entity: script.living_room_tv_channel_13
+            name: Comedy Central
+          - entity: script.living_room_tv_channel_14
+            name: Disney
+          - entity: script.living_room_tv_channel_15
+            name: ProSieben Maxx
+          - entity: script.living_room_tv_channel_16
+            name: Nitro
+          - entity: script.living_room_tv_channel_17
+            name: Sixx
+          - entity: script.living_room_tv_channel_18
+            name: ZDFneo
+          - entity: script.living_room_tv_channel_19
+            name: n-tv
+          - entity: script.living_room_tv_channel_20
+            name: Welt
+
+  - title: Musik
+    id: music
+    icon: mdi:music
+    theme: dark-mode
+    cards:
+      - type: media-control
+        entity: media_player.sonos
+      - type: media-control
+        entity: media_player.wohnzimmer
+      - type: media-control
+        entity: media_player.office
+      - type: media-control
+        entity: media_player.gastezimmer
+      - type: media-control
+        entity: media_player.dusche
+
+  - title: Wetter
+    id: weather
+    icon: mdi:weather-cloudy
+    theme: dark-mode
+    cards:
+      - type: custom:weather-card
+        entity_weather: weather.weather_daily
+        entity_sun: sun.sun
+
+  - title: Geräte
+    id: devices
+    icon: mdi:monitor-multiple
+    theme: dark-mode
+    cards:
+      - type: entities
+        title: Samsung Drucker
+        entities:
+          - entity: sensor.samsung_printer_output_tray_0
+            name: Ausgabe
+          - entity: sensor.samsung_printer_toner_black
+            name: Schwarz
+          - entity: sensor.samsung_printer_toner_cyan
+            name: Cyan
+          - entity: sensor.samsung_printer_toner_magenta
+            name: Magenta
+          - entity: sensor.samsung_printer_toner_yellow
+            name: Gelb
+          - entity: sensor.samsung_printer_tray_1
+            name: Papier
+      - type: entities
+        title: Fritz!Box
+        entities:
+          - entity: sensor.fritzbox_callmonitor
+            name: Anrufstatus
+      - type: entities
+        title: Synology
+        entities:
+          - entity: sensor.memory_usage_real
+            name: Speichernutzung
+          - type: divider
+          - entity: sensor.status_smart_sda
+            name: Disk 1
+          - entity: sensor.total_size_volume_1
+            name: Speicherplatz
+          - entity: sensor.volume_used_volume_1
+            name: Belegt
+          - type: divider
+          - entity: sensor.status_smart_sdb
+            name: Disk 2
+          - entity: sensor.total_size_volume_2
+            name: Speicherplatz
+          - entity: sensor.volume_used_volume_2
+            name: Belegt
+      - type: entities
+        title: Automatisierung
+        entities:
+          - entity: binary_sensor.amazon_echo_bedroom_online
+            name: Amazon Echo Schlafzimmer
+          - entity: binary_sensor.amazon_echo_living_room_online
+            name: Amazon Echo Wohnzimmer
+          - entity: binary_sensor.google_home_office_online
+            name: Google Home Arbeitszimmer
+          - entity: binary_sensor.google_home_guestroom_online
+            name: Google Home Gästezimmer
+          - entity: binary_sensor.google_home_shower_online
+            name: Google Home Dusche
+          - entity: binary_sensor.google_home_living_room_online
+            name: Google Home Wohnzimmer
+          - entity: binary_sensor.firetv_bedroom_online
+            name: FireTV Schlafzimmer
+          - entity: binary_sensor.firetv_living_room_online
+            name: FireTV Wohnzimmer
+          - entity: binary_sensor.sonos_playbase_online
+            name: Sonos Wohnzimmer (Playbase)
+          - entity: binary_sensor.sonos_left_online
+            name: Sonos Wohnzimmer (links)
+          - entity: binary_sensor.sonos_right_online
+            name: Sonos Wohnzimmer (rechts)
+          - entity: binary_sensor.sonos_sub_online
+            name: Sonos Wohnzimmer (Sub)
+          - entity: binary_sensor.power_plug_dryer_online
+            name: Steckdose Trockner
+          - entity: binary_sensor.power_plug_washer_human_online
+            name: Steckdose Waschmaschine
+          - entity: binary_sensor.power_plug_washer_animal_online
+            name: Steckdose Pferde-Waschmaschine
+      - type: entities
+        title: Infrastruktur
+        entities:
+          - entity: binary_sensor.ship_online
+            name: Ship
+          - entity: binary_sensor.dss_ip_online
+            name: dSS IP
+          - entity: binary_sensor.dss_gateway_online
+            name: dSS Gateway
+          - entity: binary_sensor.synology_online
+            name: Synology
+          - entity: binary_sensor.samsung_printer_online
+            name: Samsung Drucker
+          - entity: binary_sensor.philips_hue_controller_online
+            name: Philips Hue Hub
+          - entity: binary_sensor.harmony_hub_online
+            name: Logitech Harmony Hub
+
+  - title: Arbeitsweg
+    id: traveldistance
+    icon: mdi:car
+    theme: dark-mode
+    cards:
+      - type: entities
+        title: Fahrzeit
+        entities:
+          - entity: sensor.travel_time_jens
+            name: Jens
+          - entity: sensor.travel_time_eva
+            name: Eva
+      - type: history-graph
+        hours_to_show: 48
+        refresh_interval: 30
+        title: Fahrzeit
+        entities:
+          - entity: sensor.travel_time_jens
+            name: Jens
+          - entity: sensor.travel_time_eva
+            name: Eva
+
+  - title: Wäsche
+    id: laundry
+    icon: mdi:washing-machine
+    theme: dark-mode
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Trockner
+            show_header_toggle: false
+            entities:
+              - entity: sensor.dryer_status_text
+                name: Status
+              - entity: sensor.dryer_current_power_usage
+                name: Verbrauch (aktuell)
+              - entity: sensor.dryer_consumption_last_5_mins_mean
+                name: Verbrauch (letzte 5 Minuten)
+          - type: sensor
+            hours_to_show: 8
+            accuracy: 30
+            name: Verbrauch Trockner
+            entity: sensor.dryer_consumption_last_5_mins_mean
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Waschmaschine
+            show_header_toggle: false
+            entities:
+              - entity: sensor.washer_human_status_text
+                name: Status
+              - entity: sensor.washer_human_current_power_usage
+                name: Verbrauch (aktuell)
+              - entity: sensor.washer_human_consumption_last_5_mins_mean
+                name: Verbrauch (letzte 5 Minuten)
+          - type: sensor
+            hours_to_show: 8
+            accuracy: 30
+            name: Verbrauch Waschmaschine
+            entity: sensor.washer_human_consumption_last_5_mins_mean
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Pferde-Waschmaschine
+            show_header_toggle: false
+            entities:
+              - entity: sensor.washer_animal_status_text
+                name: Status
+              - entity: sensor.washer_animal_current_power_usage
+                name: Verbrauch (aktuell)
+              - entity: sensor.washer_animal_consumption_last_5_mins_mean
+                name: Verbrauch (letzte 5 Minuten)
+          - type: sensor
+            hours_to_show: 8
+            accuracy: 30
+            name: Verbrauch Pferde-Waschmaschine
+            entity: sensor.washer_animal_consumption_last_5_mins_mean
+
+  - title: System
+    id: system
+    icon: mdi:cogs
+    theme: dark-mode
+    cards:
+      - type: custom:tracker-card
+        title:
+        trackers:
+          - sensor.custom_card_tracker
+          - sensor.custom_component_tracker
+      - type: entities
+        title: System
+        entities:
+          - entity: sensor.glances_disk_free
+            name: Festplatte frei
+          - entity: sensor.glances_disk_used
+            name: Festplatte belegt
+          - entity: sensor.glances_ram_free
+            name: RAM frei
+          - entity: sensor.glances_ram_used
+            name: RAM belegt
+          - entity: sensor.glances_swap_free
+            name: Swap frei
+          - entity: sensor.glances_swap_used
+            name: Swap belegt
+          - entity: sensor.glances_cpu_load
+            name: CPU Last
+          - entity: sensor.glances_cpu_temp
+            name: CPU Temperatur
+          - entity: sensor.glances_total
+            name: CPU Anzahl
+      - type: entities
+        title: Docker Container
+        entities:
+          - entity: sensor.docker_appdaemon_text
+            name: AppDaemon
+            icon: mdi:emoticon-devil
+          - entity: sensor.docker_chronograf_text
+            name: Chronograf
+            icon: mdi:watch
+          - entity: sensor.docker_grafana_text
+            name: Grafana
+            icon: mdi:chart-bar
+          - entity: sensor.docker_hadockermon_text
+            name: HADockermon
+            icon: mdi:docker
+          - entity: sensor.docker_homeassistant_text
+            name: HomeAssistant
+            icon: mdi:home-assistant
+          - entity: sensor.docker_influxdb_text
+            name: InfluxDB
+            icon: mdi:database
+          - entity: sensor.docker_letsencrypt_text
+            name: Let's encrypt
+            icon: mdi:certificate
+          - entity: sensor.docker_mosquitto_text
+            name: Mosquitto
+            icon: mdi:hand-pointing-right
+          - entity: sensor.docker_nginx_text
+            name: nginx
+            icon: mdi:engine-outline
+          - entity: sensor.docker_nodered_text
+            name: Node RED
+            icon: mdi:robot
+          - entity: sensor.docker_postgresql_text
+            name: PostgreSQL
+            icon: mdi:database

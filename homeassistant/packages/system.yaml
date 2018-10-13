@@ -68,31 +68,3 @@ binary_sensor:
       harmony_hub_online:
         value_template: >
           {{ is_state('device_tracker.harmony_hub', 'home')}}
-
-group:
-  automation_devices:
-    entities:
-    - binary_sensor.amazon_echo_bedroom_online
-    - binary_sensor.amazon_echo_living_room_online
-    - binary_sensor.google_home_office_online
-    - binary_sensor.google_home_guestroom_online
-    - binary_sensor.google_home_shower_online
-    - binary_sensor.google_home_living_room_online
-    - binary_sensor.firetv_bedroom_online
-    - binary_sensor.firetv_living_room_online
-    - binary_sensor.sonos_playbase_online
-    - binary_sensor.sonos_left_online
-    - binary_sensor.sonos_right_online
-    - binary_sensor.sonos_sub_online
-    - binary_sensor.power_plug_dryer_online
-    - binary_sensor.power_plug_washer_human_online
-    - binary_sensor.power_plug_washer_animal_online
-  infrastructure_devices:
-    entities:
-    - binary_sensor.ship_online
-    - binary_sensor.dss_ip_online
-    - binary_sensor.dss_gateway_online
-    - binary_sensor.synology_online
-    - binary_sensor.samsung_printer_online
-    - binary_sensor.philips_hue_controller_online
-    - binary_sensor.harmony_hub_online

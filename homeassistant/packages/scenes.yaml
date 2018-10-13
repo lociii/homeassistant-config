@@ -1,7 +1,0 @@
-group:
-  scenes:
-    entities:
-    - scene.apartment__sleeping
-    - scene.apartment__wakeup
-    - scene.apartment__present
-    - scene.apartment__absent

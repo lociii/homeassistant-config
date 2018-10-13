@@ -34,12 +34,3 @@ sensor:
     entity_id: sensor.washer_human_current_power_usage
     max_age:
       minutes: 5
-
-# package group
-group:
-  washer_human:
-    entities:
-    - switch.power_plug_washer_human
-    - sensor.washer_human_status_text
-    - sensor.washer_human_current_power_usage
-    - sensor.washer_human_consumption_last_5_mins_mean

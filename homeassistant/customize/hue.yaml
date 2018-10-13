@@ -1,5 +1,0 @@
-binary_sensor.philips_hue_controller_online:
-  friendly_name: Philips Hue Hub
-
-known_device.philips_hue_controller:
-  friendly_name: Philips Hue Hub
