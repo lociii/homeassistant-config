@@ -3,7 +3,7 @@ import time
 from globals import DAY_START, NIGHT_START
 from globals import COVERS_ALL, COVERS_NIGHT_ABSENT
 from globals import LIGHTS_ALL, LIGHTS_NIGHT_ABSENT, LIGHTS_NIGHT_RETURNING
-from globals import FANS
+from globals import FANS, HALLWAY_LIGHT
 from globals import GOOGLE_TTS_DEVICE
 from globals import SENSOR_APARTMENT_PRESENCE
 
@@ -40,6 +40,19 @@ class HandlePresence(hass.Hass):
         # start fan loop, activate for 10 minutes every 15 minutes
         self.absent_turn_on_fans()
 
+    def flash_hallway_light(self, *args, **kwargs):
+        self.turn_on(HALLWAY_LIGHT)
+        time.sleep(1)
+        self.turn_off(HALLWAY_LIGHT)
+        time.sleep(1)
+        self.turn_on(HALLWAY_LIGHT)
+        time.sleep(1)
+        self.turn_off(HALLWAY_LIGHT)
+        time.sleep(1)
+        self.turn_on(HALLWAY_LIGHT)
+        time.sleep(1)
+        self.turn_off(HALLWAY_LIGHT)
+
     def absent_turn_on_fans(self, *args, **kwargs):
         self.log('absent - turn fans on')
 
@@ -63,6 +76,8 @@ class HandlePresence(hass.Hass):
     def leaving_night(self, entity, attribute, old, new, kwargs):
         self.log('leaving at night')
 
+        self.flash_hallway_light()
+
         # close all covers
         for cover in COVERS_ALL:
             self.call_service('cover/close_cover', entity_id=cover)
@@ -78,6 +93,8 @@ class HandlePresence(hass.Hass):
 
     def leaving_day(self, entity, attribute, old, new, kwargs):
         self.log('leaving at day')
+
+        self.flash_hallway_light()
 
         # turn all lights off
         for light in LIGHTS_ALL:

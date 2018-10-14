@@ -4,6 +4,8 @@ NIGHT_START = 'sunset + 00:15:00'
 NIGHT_OFFSET_LIGHT = -900
 NIGHT_OFFSET_COVER = 900
 
+HALLWAY_LIGHT = 'light.flur__flur'
+
 # all covers
 COVERS_ALL = [
     'cover.schlafzimmer__rolladen_schlafzimmer',
