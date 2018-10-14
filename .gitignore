@@ -1,46 +1,39 @@
-*.env
-*.pid
-*.xml
-*.csr
-*.crt
-*.key
-*.log
-*.db
-
-nginx/cert/dhparam.pem
-.storage
-letsencrypt/certs/*
-adbkey*
-__pycache__
-domains.txt
-
-www
-OZW_Log.txt
-home-assistant_v2.db-wal
-home-assistant_v2.db-shm
-google_calendars.yaml
-apple_watch.yaml
-*.db-journal
-lib
-deps
-www
-.uuid
+# secrets
 secrets.yaml
 secrets.txt
-known_devices.yaml
-*.conf
-plex.conf
-phue.conf
-harmony_media_room.conf
-pyozw.sqlite
-withings/
-homebridge/
-/appdaemon/appdaemon.yaml
-.*
-!/.gitignore
-!/zwcfg_0xca115759.xml
-coreappdaemon/appdaemon.yaml
-core
-removed_or_templates/
-/appdaemon/apps/dfreeeze/
+*.env
+
+# nginx and letsencrypt
+*.pem
+*.csr
+domains.txt
+letsencrypt/certs/*
+letsencrypt/accounts/*
+
+# mosquitto
+mosquitto/passwd
+
+# python
+__pycache__
+
+# appdaemon
 /appdaemon/compiled/
+
+# homeassistant
+known_devices.yaml
+harmony_*.conf
+homeassistant/.cloud
+homeassistant/.digitalstrom
+homeassistant/.storage
+adbkey*
+homeassistant/deps
+homeassistant/.HA_VERSION
+homeassistant/.uuid
+*.log
+
+# git
+!/.gitignore
+
+# ide
+.idea
+.vscode

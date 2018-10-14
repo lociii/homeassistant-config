@@ -7,23 +7,12 @@ services:
     restart: unless-stopped
     image: eclipse-mosquitto:1.4.12
     volumes:
-      - ${PWD}/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ${PWD}/mosquitto/passwd:/mosquitto/passwd
+      - ${PWD}/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto_log:/mosquitto/log
       - mosquitto_data:/mosquitto/data
       - /etc/localtime:/etc/localtime:ro
-    # ports:
-    #   - "1883:1883"
-    #   - "9001:9001"
-
-  # https://hub.docker.com/r/library/mongo/tags/
-  # mongodb:
-  #   restart: unless-stopped
-  #   image: mongo
-  #   volumes:
-  #     - /home/loci/docker/mongo:/data/db
-  #     - /etc/localtime:/etc/localtime:ro
-  #   ports:
-  #     - "27017:27017"
+  
 
   # https://hub.docker.com/r/philhawthorne/ha-dockermon/tags/
   hadockermon:
@@ -151,6 +140,7 @@ services:
       - 80:80
       - 443:443
       - 5050:5050
+      - 8883:8883
     command: /bin/sh -c "envsubst '$$MY_DOMAIN' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
 
   # https://hub.docker.com/r/nicolargo/glances/tags/
