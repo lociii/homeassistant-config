@@ -117,20 +117,6 @@ services:
     depends_on:
       - homeassistant
 
-  # https://hub.docker.com/r/nodered/node-red-docker/tags/
-  nodered:
-    container_name: nodered
-    restart: unless-stopped
-    image: nodered/node-red-docker:0.19.4-slim-v8
-    depends_on:
-      - homeassistant
-    user: root
-    volumes:
-      - nodered_data:/data
-      - /etc/localtime:/etc/localtime:ro
-    # ports:
-    #   - "1880:1880"
-
   # not on docker hub yet. waiting for pull request to be merged and
   # new image to be released
   letsencrypt:
@@ -185,5 +171,4 @@ volumes:
   influxdb: {}
   mosquitto_log: {}
   mosquitto_data: {}
-  nodered_data: {}
   postgresql: {}

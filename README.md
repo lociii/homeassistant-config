@@ -42,9 +42,6 @@ Docker is currenly running the following containers, see [compose file](docker-c
 * appdaemon  
   automations for HomeAssistant  
   https://appdaemon.readthedocs.io/en/stable/
-* nodered  
-  flow based automations (not in use yet)  
-  https://nodered.org/
 * letsencrypt  
   dehydrated and lexicon to generate ssl certificates to securely access my installation  
   https://letsencrypt.org/

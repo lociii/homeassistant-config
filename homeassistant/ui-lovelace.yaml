@@ -508,9 +508,6 @@ views:
           - entity: sensor.docker_nginx_text
             name: nginx
             icon: mdi:engine-outline
-          - entity: sensor.docker_nodered_text
-            name: Node RED
-            icon: mdi:robot
           - entity: sensor.docker_postgresql_text
             name: PostgreSQL
             icon: mdi:database
