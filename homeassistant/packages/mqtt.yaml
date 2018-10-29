@@ -1,0 +1,187 @@
+mqtt:
+  broker: mosquitto
+  username: !secret mosquitto_user
+  password: !secret mosquitto_password
+  client_id: homeassistant
+  discovery: false
+  birth_message:
+    topic: 'zigbee2mqtt/bridge/state'
+    payload: 'online'
+  will_message:
+    topic: 'zigbee2mqtt/bridge/state'
+    payload: 'offline'
+
+switch:
+  # power plug entertainment living room
+  - platform: mqtt
+    name: osram_plug_entertainment
+    state_topic: zigbee2mqtt/osram_plug_entertainment
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: zigbee2mqtt/osram_plug_entertainment/set
+  # power plug reading light living room
+  - platform: mqtt
+    name: osram_plug_readinglight
+    state_topic: zigbee2mqtt/osram_plug_readinglight
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: zigbee2mqtt/osram_plug_readinglight/set
+  # power plug floor lamp guestroom
+  - platform: mqtt
+    name: osram_plug_guestroom
+    state_topic: zigbee2mqtt/osram_plug_guestroom
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: zigbee2mqtt/osram_plug_guestroom/set
+
+binary_sensor:
+  # window sensor patio
+  - platform: mqtt
+    name: window_sensor_patio
+    state_topic: zigbee2mqtt/window_sensor_patio
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: false
+    payload_off: true
+    value_template: "{{ value_json.contact }}"
+    device_class: door
+    json_attributes: 
+      - battery
+      - voltage
+  # window sensor kitchen
+  - platform: mqtt
+    name: window_sensor_kitchen
+    state_topic: zigbee2mqtt/door_sensor_kitchen
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: false
+    payload_off: true
+    value_template: "{{ value_json.contact }}"
+    device_class: door
+    json_attributes: 
+      - battery
+      - voltage
+  # window sensor bedroom
+  - platform: mqtt
+    name: window_sensor_guestroom
+    state_topic: zigbee2mqtt/door_sensor_guestroom
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: false
+    payload_off: true
+    value_template: "{{ value_json.contact }}"
+    device_class: door
+    json_attributes: 
+      - battery
+      - voltage
+  # window sensor bedroom
+  - platform: mqtt
+    name: window_sensor_bedroom
+    state_topic: zigbee2mqtt/door_sensor_bedroom
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: false
+    payload_off: true
+    value_template: "{{ value_json.contact }}"
+    device_class: door
+    json_attributes: 
+      - battery
+      - voltage
+  # window sensor office
+  - platform: mqtt
+    name: window_sensor_office
+    state_topic: zigbee2mqtt/door_sensor_office
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: false
+    payload_off: true
+    value_template: "{{ value_json.contact }}"
+    device_class: door
+    json_attributes: 
+      - battery
+      - voltage
+
+sensor:
+  # outdoor temperature sensor
+  - platform: mqtt
+    name: weather_outdoor_temperature
+    state_topic: zigbee2mqtt/weather_outdoor
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "°C"
+    value_template: "{{ value_json.temperature }}"
+    json_attributes: 
+      - battery
+      - voltage
+  - platform: mqtt
+    name: weather_outdoor_humidity
+    state_topic: zigbee2mqtt/weather_outdoor
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.humidity }}"
+    json_attributes: 
+      - battery
+      - voltage
+  - platform: mqtt
+    name: weather_outdoor_pressure
+    state_topic: zigbee2mqtt/weather_outdoor
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "Pa"
+    value_template: "{{ value_json.pressure }}"
+    json_attributes: 
+      - battery
+      - voltage
+  # indoor temperature sensor
+  - platform: mqtt
+    name: weather_indoor_temperature
+    state_topic: zigbee2mqtt/weather_indoor
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "°C"
+    icon: mdi:temperature-celsius
+    value_template: "{{ value_json.temperature }}"
+    json_attributes: 
+      - battery
+      - voltage
+  - platform: mqtt
+    name: weather_indoor_humidity
+    state_topic: zigbee2mqtt/weather_indoor
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "%"
+    icon: mdi:water-percent
+    value_template: "{{ value_json.humidity }}"
+    json_attributes: 
+      - battery
+      - voltage
+  - platform: mqtt
+    name: weather_indoor_pressure
+    state_topic: zigbee2mqtt/weather_indoor
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "Pa"
+    icon: mdi:speedometer
+    value_template: "{{ value_json.pressure }}"
+    json_attributes: 
+      - battery
+      - voltage
+
+  # xiaomi cube
+  - platform: mqtt
+    name: xiaomi_cube
+    state_topic: zigbee2mqtt/xiaomi_cube
+    availability_topic: zigbee2mqtt/bridge/state
+    icon: mdi:gesture-double-tap
+    value_template: "{{ value_json.action }}"
+    json_attributes: 
+      - battery
+      - voltage
+      - angle
+      - side
+      - from_side
+      - to_side
+      - brightness
+      - angle_x_absolute
+      - angle_y_absolute
+      - angle_z
+      - angle_y
+      - angle_x
+      - unknown_data
+    force_update: true
