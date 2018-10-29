@@ -38,8 +38,10 @@ views:
             name: Wandlampen
           - entity: light.wohnzimmer__stehlampe
             name: Stehlampe
-          - entity: light.wohnzimmer__esstisch
+          - entity: light.esszimmer__esstischlicht
             name: Esstisch
+          - entity: light.wohnzimmer__leselampe
+            name: Leselampe
 
       - type: entities
         title: Schlafzimmer
@@ -65,7 +67,10 @@ views:
             name: Rolladen auf Spalt
           - type: divider
           - entity: light.gastezimmer__deckenlicht
-            name: Licht
+            name: Deckenlicht
+          - entity: switch.osram_plug_guestroom
+            icon: mdi:lightbulb
+            name: Stehlampe
 
       - type: entities
         title: Büro
@@ -148,6 +153,7 @@ views:
             name: Anwesend
           - entity: scene.apartment__absent
             name: Abwesend
+
       - type: entities
         title: Anwesenheit
         entities:
@@ -160,11 +166,52 @@ views:
           - entity: device_tracker.jens_handy
             name: Jens anwesend?
 
+      - type: entities
+        title: Klima
+        show_header_toggle: false
+        entities:
+          - entity: sensor.weather_outdoor_temperature
+            icon: mdi:temperature-celsius
+            name: Temperatur
+          - entity: sensor.weather_outdoor_humidity
+            icon: mdi:water-percent
+            name: Luftfeuchtigkeit
+          - entity: sensor.weather_outdoor_pressure
+            icon: mdi:speedometer
+            name: Luftdruck
+
+      - type: entities
+        title: Fenster
+        entities:
+          - entity: binary_sensor.window_sensor_patio
+            name: Terrasse
+          - entity: binary_sensor.window_sensor_kitchen
+            name: Küche
+          - entity: binary_sensor.window_sensor_guestroom
+            name: Gästezimmer
+          - entity: binary_sensor.window_sensor_office
+            name: Büro
+          - entity: binary_sensor.window_sensor_bedroom
+            name: Schlafzimmer
+
   - title: Garten
     id: garden
     icon: mdi:flower
     theme: dark-mode
     cards:
+      - type: entities
+        title: Klima
+        show_header_toggle: false
+        entities:
+          - entity: sensor.weather_outdoor_temperature
+            icon: mdi:temperature-celsius
+            name: Temperatur
+          - entity: sensor.weather_outdoor_humidity
+            icon: mdi:water-percent
+            name: Luftfeuchtigkeit
+          - entity: sensor.weather_outdoor_pressure
+            icon: mdi:speedometer
+            name: Luftdruck
       - type: entities
         title: Bewässerung
         show_header_toggle: false
@@ -181,12 +228,27 @@ views:
           - entity: light.bewasserung__entnahme
             name: Entnahme
             icon: mdi:water-pump
+      - type: entities
+        title: Automatisierung
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.watering_short_night
+            name: Kurze Bewässerung nachts
+            icon: mdi:timer
+          - entity: input_boolean.watering_short_now
+            name: Kurze Bewässerung jetzt
+            icon: mdi:play-circle-outline
 
   - title: Film und TV
     id: movie
     icon: mdi:movie
     theme: dark-mode
     cards:
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - entity: switch.osram_plug_entertainment
+            name: Entertainment
       - type: media-control
         entity: media_player.firetv_living_room
       - type: media-control
