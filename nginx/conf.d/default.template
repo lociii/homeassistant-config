@@ -47,17 +47,3 @@ server {
     proxy_redirect off;
   }
 }
-
-server {
-  ssl_certificate /etc/letsencrypt/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/privkey.pem;
-
-  listen 8883 ssl http2;
-	listen [::]:8883 ssl http2;
-  server_name $MY_DOMAIN;
-
-  location / {
-    proxy_pass http://mosquitto:1883;
-    proxy_redirect off;
-  }
-}
