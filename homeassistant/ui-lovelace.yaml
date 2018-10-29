@@ -170,13 +170,13 @@ views:
         title: Klima
         show_header_toggle: false
         entities:
-          - entity: sensor.weather_outdoor_temperature
+          - entity: sensor.weather_indoor_temperature
             icon: mdi:temperature-celsius
             name: Temperatur
-          - entity: sensor.weather_outdoor_humidity
+          - entity: sensor.weather_indoor_humidity
             icon: mdi:water-percent
             name: Luftfeuchtigkeit
-          - entity: sensor.weather_outdoor_pressure
+          - entity: sensor.weather_indoor_pressure
             icon: mdi:speedometer
             name: Luftdruck
 
