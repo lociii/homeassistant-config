@@ -79,3 +79,7 @@ GOOGLE_TTS_DEVICE = 'media_player.wohnzimmer'
 
 SENSOR_APARTMENT_PRESENCE = 'sensor.apartment__present'
 SENSOR_APARTMENT_SLEEPING = 'sensor.apartment__sleeping'
+
+WATERING_AREA_1 = 'light.bewasserung__sprenkler'
+WATERING_AREA_2 = 'light.bewasserung__raketen'
+WATERING_AREA_3 = 'light.bewasserung__busche'
