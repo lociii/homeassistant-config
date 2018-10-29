@@ -6,7 +6,7 @@ alexa:
       - light.bad__spiegellicht
       - light.dusche__deckenlicht
       - light.dusche__spiegellicht
-      - light.wohnzimmer__esstisch
+      - light.esszimmer__esstischlicht
       - light.flur__flur
       - light.garten
       - light.garten__laterne
@@ -20,6 +20,7 @@ alexa:
       - light.wohnzimmer__deckenlampe
       - light.wohnzimmer__stehlampe
       - light.wohnzimmer__wandlampen
+      - light.wohnzimmer__leselampe
       - scene.apartment__sleeping
       - scene.apartment__wakeup
       - scene.apartment__present
@@ -83,8 +84,12 @@ alexa:
       name: Spiegellicht Dusche
       description: ""
       display_categories: LIGHT
-    light.wohnzimmer__esstisch:
+    light.esszimmer__esstischlicht:
       name: Esstischlicht
+      description: ""
+      display_categories: LIGHT
+    light.wohnzimmer__leselampe:
+      name: Leselampe
       description: ""
       display_categories: LIGHT
     light.flur__flur:
@@ -260,7 +265,7 @@ google_actions:
       - light.bad__spiegellicht
       - light.dusche__deckenlicht
       - light.dusche__spiegellicht
-      - light.wohnzimmer__esstisch
+      - light.esszimmer__esstischlicht
       - light.flur__flur
       - light.garten
       - light.garten__laterne
@@ -274,6 +279,7 @@ google_actions:
       - light.wohnzimmer__deckenlampe
       - light.wohnzimmer__stehlampe
       - light.wohnzimmer__wandlampen
+      - light.wohnzimmer__leselampe
       - scene.apartment__sleeping
       - scene.apartment__wakeup
       - scene.apartment__present
@@ -321,7 +327,7 @@ google_actions:
       aliases:
       - Spiegellicht
       room: Dusche
-    light.wohnzimmer__esstisch:
+    light.esszimmer__esstischlicht:
       name: Esstischlicht
       aliases:
       - Esstisch
@@ -402,6 +408,11 @@ google_actions:
       aliases:
       - Wandlampen
       - Wandlampe
+      room: Wohnzimmer
+    light.wohnzimmer__leselampe:
+      name: Leselampe Wohnzimmer
+      aliases:
+      - Leselampe
       room: Wohnzimmer
     scene.apartment__sleeping:
       name: Schlafen
