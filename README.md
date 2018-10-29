@@ -1,6 +1,7 @@
 # My HomeAssistant setup
 
 Hi, I'm Jens and this is how I set up my home automation using HomeAssistant.
+One of the main targets is to use devices which don't rely on cloud services wherever possible.
 
 ## HomeAssistant environment
 
@@ -81,12 +82,16 @@ Light and shutter control system, see https://www.digitalstrom.com/
 * dSS IP to manage the digitalSTROM installation and provide the API
 * dSS 1GB as gateway to the digitalSTROM system controlled by the dSS IP
 
+### Zigbee
+
+Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3 Model B using a [GBAN CC2530](http://www.gban.cn/en/product_show.asp?id=43) zigbee sniffer.
+
 ## Ecosystem
 
 ### Lights
 
 * digitalSTROM
-* Trådfri via Hue bridge
+* Trådfri via Hue bridge (to be migrated to zigbee2mqtt)
 
 ### Shutters
 
@@ -110,18 +115,20 @@ Light and shutter control system, see https://www.digitalstrom.com/
 * Weather underground
 * Google travel time
 * System sensor using glances
+* Xiaomi Aqara window/door sensors
+* Xiaomi Aqara climate sensors
+
+### Power plugs
+
+* TP Link HS110 power plugs
+* OSRAM smart+ plugs
 
 ### Misc
 
 * Samsung Printer CLX-4190 Series
-* TP Link HS110 power plugs
 
 ### Planned ecosystem
 
-* zigbee2mqtt bridge using CC2530  
-  https://github.com/Koenkk/zigbee2mqtt
-* Xiaomi Aqara window sensors
-* Xiaomi vacuum gen2
-* Xiaomi MiFlora (plant sensors)
-* Xiaomi Aqara temperarur/humidity sensor
-* Xiaomi Aqara magic cube
+* Xiaomi vacuum gen2 (arrived, to be integrated)
+* Xiaomi MiFlora plant sensors (arrived, ESP32 bridge currently broken, [source]](https://github.com/sidddy/flora/issues/9))
+* Xiaomi Aqara magic cube (arrived, not working with zigbee2mqtt right now, [source](https://github.com/Koenkk/zigbee2mqtt/issues/498))

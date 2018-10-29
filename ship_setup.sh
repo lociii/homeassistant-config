@@ -29,6 +29,7 @@ $(local) scp ~/ship-ssh/id_rsa.pub jens@10.211.112.10:/home/jens/.ssh/id_rsa.pub
 # enable public key login (PubkeyAuthentication yes)
 
 # install docker
+# TODO use docker snap since it also contains compose
 $(ship) sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
 $(ship) curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 $(ship) sudo apt-key fingerprint 0EBFCD88
