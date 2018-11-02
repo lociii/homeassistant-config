@@ -102,12 +102,3 @@ influxdb:
 cloud: !include cloud.yaml
 tts: !include tts.yaml
 zone: !include zones.yaml
-
-# https://github.com/custom-components/custom_updater
-custom_updater:
-  track:
-    - components
-    - cards
-    - python_scripts
-  card_urls:
-    - https://raw.githubusercontent.com/kalkih/mini-media-player/master/tracker.json
