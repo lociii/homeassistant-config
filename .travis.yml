@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.6.7"
+before_install:
+  - mv homeassistant/travis_secrets.yaml homeassistant/secrets.yaml
+install:
+  - pip3 install homeassistant
+before_script:
+  - cd homeassistant
+script:
+  - hass -c . --script check_config --info all
