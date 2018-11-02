@@ -117,6 +117,7 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 * System sensor using glances
 * Xiaomi Aqara window/door sensors
 * Xiaomi Aqara climate sensors
+* Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway](https://github.com/sidddy/flora))
 
 ### Power plugs
 
@@ -130,5 +131,4 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 ### Planned ecosystem
 
 * Xiaomi vacuum gen2 (arrived, to be integrated)
-* Xiaomi MiFlora plant sensors (arrived, ESP32 bridge currently broken, [source]](https://github.com/sidddy/flora/issues/9))
 * Xiaomi Aqara magic cube (arrived, not working with zigbee2mqtt right now, [source](https://github.com/Koenkk/zigbee2mqtt/issues/498))

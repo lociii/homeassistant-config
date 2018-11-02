@@ -4,8 +4,6 @@ title: Wohnung
 # weather card: https://community.home-assistant.io/t/custom-animated-weather-card-for-lovelace/58338
 
 resources:
-  - url: /local/tracker-card.js?v=0.1.5
-    type: js
   - url: /local/custom_ui/weather-card.js
     type: js
 
@@ -183,18 +181,18 @@ views:
       - type: entities
         title: Fenster
         entities:
-          - entity: binary_sensor.window_sensor_patio
+          - entity: binary_sensor.door_sensor_patio
             name: Terrasse
-          - entity: binary_sensor.window_sensor_kitchen
+          - entity: binary_sensor.door_sensor_kitchen
             name: Küche
-          - entity: binary_sensor.window_sensor_guestroom
+          - entity: binary_sensor.door_sensor_guestroom
             name: Gästezimmer
-          - entity: binary_sensor.window_sensor_office
+          - entity: binary_sensor.door_sensor_office
             name: Büro
-          - entity: binary_sensor.window_sensor_bedroom
+          - entity: binary_sensor.door_sensor_bedroom
             name: Schlafzimmer
 
-  - title: Garten
+  - title: Garten und Pflanzen
     id: garden
     icon: mdi:flower
     theme: dark-mode
@@ -238,6 +236,15 @@ views:
           - entity: input_boolean.watering_short_now
             name: Kurze Bewässerung jetzt
             icon: mdi:play-circle-outline
+      - type: plant-status
+        name: Pflanze 1
+        entity: plant.plant_one
+      - type: plant-status
+        name: Pflanze 2
+        entity: plant.plant_two
+      - type: plant-status
+        name: Pflanze 3
+        entity: plant.plant_three
 
   - title: Film und TV
     id: movie
@@ -429,6 +436,31 @@ views:
             name: Philips Hue Hub
           - entity: binary_sensor.harmony_hub_online
             name: Logitech Harmony Hub
+      - type: entities
+        title: Batteriestatus
+        entities:
+          - entity: sensor.weather_outdoor_battery
+            name: Klima (aussen)
+          - entity: sensor.weather_indoor_battery
+            name: Klima (innen)
+          - entity: sensor.door_sensor_patio_battery
+            name: Terrassentür
+          - entity: sensor.door_sensor_kitchen_battery
+            name: Küche
+          - entity: sensor.door_sensor_guestroom_battery
+            name: Gästezimmer
+          - entity: sensor.door_sensor_bedroom_battery
+            name: Schlafzimmer
+          - entity: sensor.door_sensor_office_battery
+            name: Büro
+          - entity: sensor.xiaomi_cube_battery
+            name: Xiaomi Cube
+          - entity: sensor.flora_sensor_1_battery
+            name: Flora 1
+          - entity: sensor.flora_sensor_2_battery
+            name: Flora 2
+          - entity: sensor.flora_sensor_3_battery
+            name: Flora 3
 
   - title: Arbeitsweg
     id: traveldistance
@@ -514,11 +546,6 @@ views:
     icon: mdi:cogs
     theme: dark-mode
     cards:
-      - type: custom:tracker-card
-        title:
-        trackers:
-          - sensor.custom_card_tracker
-          - sensor.custom_component_tracker
       - type: entities
         title: System
         entities:
