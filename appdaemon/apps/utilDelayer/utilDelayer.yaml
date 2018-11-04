@@ -1,0 +1,5 @@
+util_delayer:
+  module: utilDelayer
+  class: UtilDelayer
+  simulate: input_boolean.automation_simulate_only
+  global_dependencies: globals

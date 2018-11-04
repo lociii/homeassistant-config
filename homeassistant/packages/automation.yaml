@@ -1,0 +1,3 @@
+input_boolean:
+  automation_simulate_only:
+    initial: off

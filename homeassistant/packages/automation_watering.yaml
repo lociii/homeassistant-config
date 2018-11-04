@@ -1,0 +1,54 @@
+input_boolean:
+  automation_watering_short:
+    initial: off
+  automation_watering_short_night:
+    initial: off
+  automation_watering_long:
+    initial: off
+  automation_watering_long_night:
+    initial: off
+
+input_datetime:
+  automation_watering_night_start:
+    has_date: false
+    has_time: true
+    initial: "04:00"
+
+input_number:
+  automation_watering_short_duration_area_1:
+    initial: 10
+    min: 1
+    max: 60
+    step: 1
+    unit_of_measurement: Min.
+  automation_watering_short_duration_area_2:
+    initial: 10
+    min: 1
+    max: 60
+    step: 1
+    unit_of_measurement: Min.
+  automation_watering_short_duration_area_3:
+    initial: 30
+    min: 1
+    max: 120
+    step: 1
+    unit_of_measurement: Min.
+
+  automation_watering_long_duration_area_1:
+    initial: 20
+    min: 1
+    max: 60
+    step: 1
+    unit_of_measurement: Min.
+  automation_watering_long_duration_area_2:
+    initial: 20
+    min: 1
+    max: 60
+    step: 1
+    unit_of_measurement: Min.
+  automation_watering_long_duration_area_3:
+    initial: 60
+    min: 1
+    max: 120
+    step: 1
+    unit_of_measurement: Min.

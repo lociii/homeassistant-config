@@ -19,15 +19,15 @@ views:
         entities:
           - entity: cover.wohnzimmer__rolladen_esstisch
             name: Rolladen Esstisch
-          - entity: scene.wohnzimmer__rolladen_esstisch_abends
+          - entity: scene.wohnzimmer__rolladen_esstisch_schlitz
             name: Rolladen Esstisch auf Spalt
           - entity: cover.wohnzimmer__rolladen_terrasse
             name: Rolladen Terrasse
-          - entity: scene.wohnzimmer__rolladen_terrasse_abends
+          - entity: scene.wohnzimmer__rolladen_terrasse_schlitz
             name: Rolladen Terrasse auf Spalt
           - entity: cover.wohnzimmer__rolladen_couch
             name: Rolladen Couch
-          - entity: scene.wohnzimmer__rolladen_couch_abends
+          - entity: scene.wohnzimmer__rolladen_couch_schlitz
             name: Rolladen Couch auf Spalt
           - type: divider
           - entity: light.wohnzimmer__deckenlampe
@@ -47,7 +47,7 @@ views:
         entities:
           - entity: cover.schlafzimmer__rolladen_schlafzimmer
             name: Rolladen
-          - entity: scene.schlafzimmer__rolladen_schlafzimmer_abends
+          - entity: scene.schlafzimmer__rolladen_schlafzimmer_schlitz
             name: Rolladen auf Spalt
           - type: divider
           - entity: light.schlafzimmer__bettlicht
@@ -61,7 +61,7 @@ views:
         entities:
           - entity: cover.gastezimmer__rolladen_gastezimmer
             name: Rolladen
-          - entity: scene.gastezimmer__rolladen_gastezimmer_abends
+          - entity: scene.gastezimmer__rolladen_gastezimmer_schlitz
             name: Rolladen auf Spalt
           - type: divider
           - entity: light.gastezimmer__deckenlicht
@@ -76,7 +76,7 @@ views:
         entities:
           - entity: cover.arbeitszimmer__rolladen_arbeitszimmer
             name: Rolladen
-          - entity: scene.arbeitszimmer__rolladen_arbeitszimmer_abends
+          - entity: scene.arbeitszimmer__rolladen_arbeitszimmer_schlitz
             name: Rolladen auf Spalt
           - type: divider
           - entity: light.arbeitszimmer__deckenlicht
@@ -106,7 +106,7 @@ views:
         entities:
           - entity: cover.wohnzimmer__rolladen_kuche
             name: Rolladen
-          - entity: scene.wohnzimmer__rolladen_kuche_abends
+          - entity: scene.wohnzimmer__rolladen_kuche_schlitz
             name: Rolladen auf Spalt
           - type: divider
           - entity: light.kuche__deckenlicht
@@ -600,3 +600,104 @@ views:
           - entity: sensor.docker_postgresql_text
             name: PostgreSQL
             icon: mdi:database
+
+  - title: Automation
+    id: automation
+    icon: mdi:robot
+    theme: dark-mode
+    cards:
+      - type: entities
+        title: Global
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.automation_simulate_only
+            name: Simulationsmodus
+            icon: mdi:alert
+
+      - type: entities
+        title: Licht und Schatten
+        show_header_toggle: false
+        entities:
+          - type: section
+            label: Licht
+          - entity: input_boolean.automation_darkness_lighting
+            name: Nachtmodus
+            icon: mdi:weather-night
+          - entity: input_number.automation_darkness_lighting_offset
+            name: Versatz
+            icon: mdi:timer
+          - type: section
+            label: Schatten
+          - entity: input_boolean.automation_darkness_cover
+            name: Nachtmodus
+            icon: mdi:weather-night
+          - entity: input_number.automation_darkness_cover_offset
+            name: Versatz
+            icon: mdi:timer
+          - entity: input_datetime.automation_darkness_shutdown
+            name: Nächtlicher Shutdown
+            icon: mdi:power
+
+      - type: entities
+        title: Bewässerung
+        show_header_toggle: false
+        entities:
+          - entity: input_datetime.automation_watering_night_start
+            name: Start nächtliche Bewässerung
+            icon: mdi:clock
+
+          - type: section
+            label: Kurze Bewässerung
+          - entity: input_boolean.automation_watering_short
+            name: Aktiv
+            icon: mdi:water
+          - entity: input_boolean.automation_watering_short_night
+            name: Nachts geplant
+            icon: mdi:water
+          - entity: input_number.automation_watering_short_duration_area_1
+            name: Dauer Sprenkler
+            icon: mdi:timer
+          - entity: input_number.automation_watering_short_duration_area_2
+            name: Dauer Raketen
+            icon: mdi:timer
+          - entity: input_number.automation_watering_short_duration_area_3
+            name: Dauer Büsche
+            icon: mdi:timer
+
+          - type: section
+            label: Lange Bewässerung
+          - entity: input_boolean.automation_watering_long
+            name: Aktiv
+            icon: mdi:water
+          - entity: input_boolean.automation_watering_long_night
+            name: Nachts geplant
+            icon: mdi:water
+          - entity: input_number.automation_watering_long_duration_area_1
+            name: Dauer Sprenkler
+            icon: mdi:timer
+          - entity: input_number.automation_watering_long_duration_area_2
+            name: Dauer Raketen
+            icon: mdi:timer
+          - entity: input_number.automation_watering_long_duration_area_3
+            name: Dauer Büsche
+            icon: mdi:timer
+
+      - type: entities
+        title: Sonnenschutz
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.automation_sunprotection
+            name: Sommermodus
+            icon: mdi:weather-sunny
+          - entity: input_boolean.automation_sunprotection_orchids
+            name: Sommermodus (Orchideen)
+            icon: mdi:weather-sunny
+          - entity: input_datetime.automation_sunprotection_south
+            name: Start Süden
+            icon: mdi:timer
+          - entity: input_datetime.automation_sunprotection_west
+            name: Start Westen
+            icon: mdi:timer
+          - entity: input_datetime.automation_sunprotection_orchids
+            name: Start Orchideen
+            icon: mdi:timer

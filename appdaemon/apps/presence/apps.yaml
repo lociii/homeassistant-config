@@ -1,3 +1,0 @@
-presence:
-  module: presence
-  class: HandlePresence

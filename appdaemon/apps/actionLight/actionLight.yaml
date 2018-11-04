@@ -1,0 +1,274 @@
+arbeitszimmer__deckenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.arbeitszimmer__deckenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+bad__deckenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.bad__deckenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+bad__spiegellicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.bad__spiegellicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+dusche__deckenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.dusche__deckenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+dusche__spiegellicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.dusche__spiegellicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+esszimmer__esstischlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.esszimmer__esstischlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+flur__flur:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.flur__flur
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: null # don't update status when absent since the last flash action will turn it off anyways
+  status_sleeping: off
+  flash_when_leaving: on
+  dependencies: util_delayer
+
+grosser_ball:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.grosser_ball
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: on
+  status_absent: on
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+kleiner_ball_links:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.kleiner_ball_links
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: on
+  status_absent: on
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+kleiner_ball_rechts:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.kleiner_ball_rechts
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: on
+  status_absent: on
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+garten__laterne:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.garten__laterne
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: on
+  status_absent: on
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+gastezimmer__deckenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.gastezimmer__deckenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+kuche__deckenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.kuche__deckenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+kuche__schranklicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.kuche__schranklicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  # TODO coming home dark on
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+kuche__spulenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.kuche__spulenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+kuche__thekenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.kuche__thekenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+schlafzimmer__bettlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.schlafzimmer__bettlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+schlafzimmer__deckenlicht:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.schlafzimmer__deckenlicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+
+wohnzimmer__deckenlampe:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.wohnzimmer__deckenlampe
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+wohnzimmer__leselampe:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.wohnzimmer__leselampe
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: null
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+wohnzimmer__stehlampe:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.wohnzimmer__stehlampe
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: on
+  status_absent: off
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer
+wohnzimmer__wandlampen:
+  module: actionLight
+  class: HandleActionLight
+  light_entity: light.wohnzimmer__wandlampen
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  status_present: on
+  status_absent: on
+  status_sleeping: off
+  flash_when_leaving: off
+  dependencies: util_delayer

@@ -1,11 +1,13 @@
 fan_bathroom:
-  module: fans
-  class: HandleFan
+  module: actionFan
+  class: HandleActionFan
   source_device: light.bad__deckenlicht
   target_device: light.bad__lufter
+  delay: 2
 
 fan_shower:
-  module: fans
-  class: HandleFan
+  module: actionFan
+  class: HandleActionFan
   source_device: light.dusche__deckenlicht
   target_device: light.dusche__lufter
+  delay: 2

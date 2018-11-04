@@ -1,3 +1,0 @@
-sleeping:
-  module: sleeping
-  class: HandleSleeping

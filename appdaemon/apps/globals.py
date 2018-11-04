@@ -1,84 +1,18 @@
-# define times
-DAY_START = 'sunrise'
-NIGHT_START = 'sunset + 00:15:00'
-NIGHT_OFFSET_LIGHT = -900
-NIGHT_OFFSET_COVER = 900
+SIMULATE = True
 
-HALLWAY_LIGHT = 'light.flur__flur'
+# watering automation
+AUTOMATION_WATERING_SHORT = 'input_boolean.automation_watering_short'
+AUTOMATION_WATERING_LONG = 'input_boolean.automation_watering_long'
+AUTOMATION_WATERING_SHORT_NIGHT = 'input_boolean.automation_watering_short_night'
+AUTOMATION_WATERING_LONG_NIGHT = 'input_boolean.automation_watering_long_night'
+AUTOMATION_WATERING_NIGHT_START = 'input_datetime.automation_watering_night_start'
 
-# all covers
-COVERS_ALL = [
-    'cover.schlafzimmer__rolladen_schlafzimmer',
-    'cover.arbeitszimmer__rolladen_arbeitszimmer',
-    'cover.gastezimmer__rolladen_gastezimmer',
-    'cover.wohnzimmer__rolladen_kuche',
-    'cover.wohnzimmer__rolladen_esstisch',
-    'cover.wohnzimmer__rolladen_terrasse',
-    'cover.wohnzimmer__rolladen_couch',
-]
-# all lights
-LIGHTS_ALL = [
-    'light.flur__flur',
-    'light.schlafzimmer__bettlicht',
-    'light.schlafzimmer__deckenlicht',
-    'light.gastezimmer__deckenlicht',
-    'light.arbeitszimmer__deckenlicht',
-    'light.bad__deckenlicht',
-    'light.bad__spiegellicht',
-    'light.dusche__deckenlicht',
-    'light.dusche__spiegellicht',
-    'light.kuche__deckenlicht',
-    'light.kuche__schranklicht',
-    'light.kuche__spulenlicht',
-    'light.kuche__thekenlicht',
-    'light.wohnzimmer__deckenlampe',
-    'light.wohnzimmer__stehlampe',
-    'light.wohnzimmer__wandlampen',
-    'light.wohnzimmer__esstisch',
-    'light.garten__laterne',
-    'light.garten',
-]
-
-# covers that should be closed at night when present
-COVERS_NIGHT_PRESENT = [
-    'cover.schlafzimmer__rolladen_schlafzimmer',
-    'cover.arbeitszimmer__rolladen_arbeitszimmer',
-    'cover.gastezimmer__rolladen_gastezimmer',
-    'cover.wohnzimmer__rolladen_kuche',
-    'cover.wohnzimmer__rolladen_esstisch',
-    'cover.wohnzimmer__rolladen_couch',
-]
-# covers that should be closed at night when absent
-COVERS_NIGHT_ABSENT = COVERS_NIGHT_PRESENT + [
-    'cover.wohnzimmer__rolladen_terrasse',
-]
-
-# lights that should go on at night when absent
-LIGHTS_NIGHT_ABSENT = [
-    'light.wohnzimmer__wandlampen',
-    'light.garten__laterne',
-    'light.garten',
-]
-# lights that should go on at night when present
-LIGHTS_NIGHT_PRESENT = [
-    'light.wohnzimmer__stehlampe',
-] + LIGHTS_NIGHT_ABSENT
-
-# lights that should be on at night when returning home
-LIGHTS_NIGHT_RETURNING = [
-    'light.flur__flur',
-    'light.kuche__schranklicht',
-] + LIGHTS_NIGHT_PRESENT
-
-FANS = [
-    'light.bad__lufter',
-    'light.dusche__lufter',
-]
-
-GOOGLE_TTS_DEVICE = 'media_player.wohnzimmer'
-
-SENSOR_APARTMENT_PRESENCE = 'sensor.apartment__present'
-SENSOR_APARTMENT_SLEEPING = 'sensor.apartment__sleeping'
+AUTOMATION_WATERING_SHORT_AREA_ONE = 'input_number.automation_watering_short_duration_area_1'
+AUTOMATION_WATERING_SHORT_AREA_TWO = 'input_number.automation_watering_short_duration_area_2'
+AUTOMATION_WATERING_SHORT_AREA_THREE = 'input_number.automation_watering_short_duration_area_3'
+AUTOMATION_WATERING_LONG_AREA_ONE = 'input_number.automation_watering_long_duration_area_1'
+AUTOMATION_WATERING_LONG_AREA_TWO = 'input_number.automation_watering_long_duration_area_2'
+AUTOMATION_WATERING_LONG_AREA_THREE = 'input_number.automation_watering_long_duration_area_3'
 
 WATERING_AREA_1 = 'light.bewasserung__sprenkler'
 WATERING_AREA_2 = 'light.bewasserung__raketen'

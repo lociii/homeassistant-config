@@ -1,0 +1,4 @@
+announce:
+  module: announce
+  class: Announce
+  device: media_player.wohnzimmer

@@ -1,0 +1,25 @@
+input_boolean:
+  automation_darkness_lighting:
+    initial: off
+  automation_darkness_cover:
+    initial: off
+
+input_datetime:
+  automation_darkness_shutdown:
+    has_date: false
+    has_time: true
+    initial: "23:00"
+
+input_number:
+  automation_darkness_lighting_offset:
+    initial: -15
+    min: -60
+    max: 60
+    step: 1
+    unit_of_measurement: Min.
+  automation_darkness_cover_offset:
+    initial: 15
+    min: -60
+    max: 60
+    step: 1
+    unit_of_measurement: Min.

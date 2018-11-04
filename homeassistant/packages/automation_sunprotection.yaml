@@ -1,0 +1,19 @@
+input_boolean:
+  automation_sunprotection:
+    initial: off
+  automation_sunprotection_orchids:
+    initial: off
+
+input_datetime:
+  automation_sunprotection_south:
+    has_date: false
+    has_time: true
+    initial: "10:00"
+  automation_sunprotection_west:
+    has_date: false
+    has_time: true
+    initial: "12:00"
+  automation_sunprotection_orchids:
+    has_date: false
+    has_time: true
+    initial: "12:00"

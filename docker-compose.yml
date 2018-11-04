@@ -85,7 +85,7 @@ services:
   homeassistant:
     container_name: homeassistant
     restart: unless-stopped
-    image: homeassistant/home-assistant:0.81.4
+    image: homeassistant/home-assistant:0.81.2
     depends_on:
       - influxdb
       - postgresql

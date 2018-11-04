@@ -109,6 +109,7 @@ class DigitalstromSensor(Entity):
 
     async def async_added_to_hass(self):
         state = await async_get_last_state(self._hass, self.entity_id)
+        _LOGGER.info('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
         if state:
             self._state = state.state == STATE_ON
 

@@ -1,0 +1,12 @@
+coming_home:
+  module: actionComingHome
+  class: HandleActionComingHome
+  entities:
+    - light.flur__flur
+    - light.kuche__schranklicht
+  indicator_darkness: input_boolean.automation_darkness_lighting
+  indicator_sleeping: sensor.apartment__sleeping
+  indicator_presence: sensor.apartment__present
+  dependencies:
+    - util_delayer
+    - announce

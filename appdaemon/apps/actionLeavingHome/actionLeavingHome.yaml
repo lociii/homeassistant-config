@@ -1,0 +1,12 @@
+leaving_home:
+  module: actionLeavingHome
+  class: HandleActionLeavingHome
+  fans:
+    - light.bad__lufter
+    - light.dusche__lufter
+  fan_on_duration: 10
+  fan_off_duration: 5
+  indicator_presence: sensor.apartment__present
+  dependencies:
+    - util_delayer
+    - announce
