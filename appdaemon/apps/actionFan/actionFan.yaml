@@ -1,13 +1,23 @@
 fan_bathroom:
   module: actionFan
   class: HandleActionFan
-  source_device: light.bad__deckenlicht
-  target_device: light.bad__lufter
+  fan: light.bad__lufter
+  trigger: light.bad__deckenlicht
   delay: 2
+  indicator_presence: sensor.apartment__present
+  absent_on_duration: 10
+  absent_off_duration: 5
+  dependencies:
+    - util_delayer
 
 fan_shower:
   module: actionFan
   class: HandleActionFan
-  source_device: light.dusche__deckenlicht
-  target_device: light.dusche__lufter
+  fan: light.dusche__lufter
+  trigger: light.dusche__deckenlicht
   delay: 2
+  indicator_presence: sensor.apartment__present
+  absent_on_duration: 10
+  absent_off_duration: 5
+  dependencies:
+    - util_delayer
