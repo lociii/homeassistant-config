@@ -67,6 +67,9 @@ recorder:
       - input_select
       - device_tracker
       - binary_sensor
+      - input_boolean
+      - input_datetime
+      - input_number
   exclude:
     entities:
     - sun.sun
@@ -91,6 +94,9 @@ influxdb:
       - input_select
       - device_tracker
       - binary_sensor
+      - input_boolean
+      - input_datetime
+      - input_number
   exclude:
     entities:
     - sun.sun
