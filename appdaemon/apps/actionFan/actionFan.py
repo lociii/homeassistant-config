@@ -50,17 +50,18 @@ class HandleActionFan(hass.Hass):
     def returning(self, *args, **kwargs):
         if self.timer_cycle is not None:
             self.cancel_timer(self.timer_cycle)
+            self.delayer.add(hass_func='turn_off', entity_id=self.fan)
 
     def absent_turn_on(self, *args, **kwargs):
-        self.log('absent - turn fan {} on'.format(self.fan))
+        self.log('absence fan cycle - turn fan {} on'.format(self.fan))
         self.delayer.add(hass_func='turn_on', entity_id=self.fan)
 
         # set callback to turn fan back off
-        self.timer_cycle = self.run_in(self.absent_turn_off_fans, self.absent_on_duration * 60)
+        self.timer_cycle = self.run_in(self.absent_turn_off, self.absent_on_duration * 60)
 
     def absent_turn_off(self, *args, **kwargs):
-        self.log('absent - turn fan {} off'.format(self.fan))
+        self.log('absence fan cycle - turn fan {} off'.format(self.fan))
         self.delayer.add(hass_func='turn_off', entity_id=self.fan)
 
         # set callback to turn fan back on
-        self.timer_cycle = self.run_in(self.absent_turn_on_fans, self.absent_off_duration * 60)
+        self.timer_cycle = self.run_in(self.absent_turn_on, self.absent_off_duration * 60)
