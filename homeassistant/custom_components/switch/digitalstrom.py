@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import logging
 
-from homeassistant.helpers.entity import Entity
+from homeassistant.components.switch import SwitchDevice
 from homeassistant.helpers.restore_state import async_get_last_state
 from homeassistant.const import STATE_ON
 
@@ -36,13 +36,13 @@ async def async_setup_platform(hass, config, async_add_devices,
             continue
 
         # add sensors
-        devices.append(DigitalstromSensor(hass=hass, scene_on=scene, 
+        devices.append(DigitalstromSwitch(hass=hass, scene_on=scene, 
             scene_off=scene_off, listener=listener))
 
     async_add_devices(device for device in devices)
 
 
-class DigitalstromSensor(Entity):
+class DigitalstromSwitch(SwitchDevice):
     def __init__(self, hass, scene_on, scene_off, listener, *args, **kwargs):
         self._hass = hass
         self._scene_on = scene_on
@@ -97,20 +97,28 @@ class DigitalstromSensor(Entity):
 
     @property
     def unique_id(self):
-        return 'dslight.{id}'.format(id=self._scene_on.unique_id)
+        return 'dsswitch.{id}'.format(id=self._scene_on.unique_id)
 
     @property
     def available(self):
         return True
 
     @property
-    def state(self):
+    def is_on(self):
         return self._state
+
+    async def async_turn_on(self, **kwargs):
+        await self._scene_on.turn_on()
+        self._state = True
+
+    async def async_turn_off(self, **kwargs):
+        await self._scene_off.turn_on()
+        self._state = False
 
     async def async_added_to_hass(self):
         state = await async_get_last_state(self._hass, self.entity_id)
-        _LOGGER.info('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
-        if state:
+        if state is not None:
+            _LOGGER.debug('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
             self._state = state.state == STATE_ON
 
     def should_poll(self):

@@ -118,6 +118,7 @@ class DigitalstromLight(Light):
     async def async_added_to_hass(self):
         state = await async_get_last_state(self._hass, self.entity_id)
         if state:
+            _LOGGER.debug('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
             self._state = state.state == STATE_ON
 
     def should_poll(self):

@@ -71,7 +71,7 @@ async def async_setup(hass, config):
     hass.async_add_job(discovery.async_load_platform(
         hass, 'scene', DOMAIN, {}, config))
     hass.async_add_job(discovery.async_load_platform(
-        hass, 'sensor', DOMAIN, {}, config))
+        hass, 'switch', DOMAIN, {}, config))
 
     _LOGGER.info('preparing digitalstrom event listener')
     from pydigitalstrom.listener import DSEventListener

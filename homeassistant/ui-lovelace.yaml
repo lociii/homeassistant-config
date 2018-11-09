@@ -144,26 +144,19 @@ views:
         title: Szenen
         show_header_toggle: false
         entities:
-          - entity: sensor.apartment__sleeping
-            name: Status Schlafen
-          - entity: scene.apartment__sleeping
+          - entity: switch.apartment__present
+            name: Anwesenheit
+            icon: mdi:home-outline
+          - entity: switch.apartment__sleeping
             name: Schlafen
-          - entity: scene.apartment__wakeup
-            name: Aufwachen
-          - type: divider
-          - entity: sensor.apartment__present
-            name: Status Anwesenheit
-          - entity: scene.apartment__present
-            name: Anwesend
-          - entity: scene.apartment__absent
-            name: Abwesend
+            icon: mdi:sleep
 
       - type: entities
         title: Anwesenheit
         entities:
           - entity: binary_sensor.people_home
             name: Bewohner anwesend?
-            icon: mdi:home
+            icon: mdi:home-outline
           - type: divider
           - entity: device_tracker.eva_handy
             name: Eva anwesend?
