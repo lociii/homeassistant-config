@@ -90,6 +90,9 @@ views:
             name: Deckenlicht
           - entity: light.bad__spiegellicht
             name: Spiegellicht
+          - type: divider
+          - entity: light.bad__lufter
+            name: Lüfter
 
       - type: entities
         title: Dusche
@@ -99,6 +102,9 @@ views:
             name: Deckenlicht
           - entity: light.dusche__spiegellicht
             name: Spiegellicht
+          - type: divider
+          - entity: light.dusche__lufter
+            name: Lüfter
 
       - type: entities
         title: Küche
