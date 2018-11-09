@@ -1,6 +1,6 @@
 leaving_day_turn_lights_off:
-  module: actionLight
-  class: HandleActionLightStatus
+  module: ActionLight
+  class: ActionLight
   trigger_entity: switch.apartment__present
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,off
@@ -29,8 +29,8 @@ leaving_day_turn_lights_off:
   dependencies: util_delayer
 
 leaving_night_turn_lights_off:
-  module: actionLight
-  class: HandleActionLightStatus
+  module: ActionLight
+  class: ActionLight
   trigger_entity: switch.apartment__present
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,on
@@ -56,8 +56,8 @@ leaving_night_turn_lights_off:
   dependencies: util_delayer
 
 leaving_night_turn_lights_on:
-  module: actionLight
-  class: HandleActionLightStatus
+  module: ActionLight
+  class: ActionLight
   trigger_entity: switch.apartment__present
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,on
@@ -69,8 +69,8 @@ leaving_night_turn_lights_on:
   dependencies: util_delayer
 
 returning_dark_turn_lights_on:
-  module: actionLight
-  class: HandleActionLightStatus
+  module: ActionLight
+  class: ActionLight
   trigger_entity: switch.apartment__present
   trigger_status: on
   constrain_input_boolean: input_boolean.automation_darkness_lighting,on
@@ -81,8 +81,8 @@ returning_dark_turn_lights_on:
   dependencies: util_delayer
 
 sleeping_turn_lights_off:
-  module: actionLight
-  class: HandleActionLightStatus
+  module: ActionLight
+  class: ActionLight
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
   action_entities:
@@ -110,8 +110,8 @@ sleeping_turn_lights_off:
   dependencies: util_delayer
 
 sunset_turn_lights_on:
-  module: actionLight
-  class: HandleActionLightStatus
+  module: ActionLight
+  class: ActionLight
   trigger_entity: input_boolean.automation_darkness_lighting
   trigger_status: on
   action_entities:
@@ -122,8 +122,8 @@ sunset_turn_lights_on:
   dependencies: util_delayer
 
 sunset_present_turn_lights_on:
-  module: actionLight
-  class: HandleActionLightStatus
+  module: ActionLight
+  class: ActionLight
   trigger_entity: input_boolean.automation_darkness_lighting
   trigger_status: on
   constrain_input_boolean: switch.apartment__present,on

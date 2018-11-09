@@ -1,7 +1,7 @@
 import appdaemon.plugins.hass.hassapi as hass
 
 
-class HandleActionLightStatus(hass.Hass):
+class ActionLight(hass.Hass):
     def initialize(self):
         self.delayer = self.get_app('util_delayer')
 
