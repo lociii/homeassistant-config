@@ -1,6 +1,0 @@
-leaving_home:
-  module: actionLeavingHome
-  class: HandleActionLeavingHome
-  indicator_presence: sensor.apartment__present
-  dependencies:
-    - announce

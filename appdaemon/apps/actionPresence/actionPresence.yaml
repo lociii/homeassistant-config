@@ -1,0 +1,6 @@
+presence:
+  module: actionPresence
+  class: HandleActionPresence
+  indicator_presence: switch.apartment__present
+  dependencies:
+    - announce
