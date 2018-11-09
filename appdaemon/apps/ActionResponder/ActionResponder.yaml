@@ -1,0 +1,7 @@
+actionresponder_livingroom_light_reading:
+  module: ActionResponder
+  class: ActionResponder
+  trigger_entity: light.wohnzimmer__leselampe
+  action_entities:
+    - switch.osram_plug_readinglight
+  dependencies: util_delayer
