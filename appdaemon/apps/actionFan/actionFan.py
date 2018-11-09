@@ -36,7 +36,7 @@ class HandleActionFan(hass.Hass):
             self.cancel_timer(self.timer_trigger)
 
     def trigger_off(self, *args, **kwargs):
-        self.log('{} turned off, turn off {} in {}} minutes'.format(self.trigger, self.fan, self.delay))
+        self.log('{} turned off, turn off {} in {} minutes'.format(self.trigger, self.fan, self.delay))
         self.timer_trigger = self.run_in(callback=self.trigger_off_delayed, seconds=int(self.delay) * 60)
 
     def trigger_off_delayed(self, *args, **kwargs):
