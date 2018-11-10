@@ -7,7 +7,6 @@ switch:
 input_select:
   # status selector
   washer_human_status:
-    initial: Aus
     icon: mdi:power
     options:
     - "Aus"
