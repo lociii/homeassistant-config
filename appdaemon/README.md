@@ -8,20 +8,21 @@ Automations are split in two parts: Setting a status and changing device behavio
 
 Most lights and all covers in my installation are controlled by digitalSTROM. This system can easily be overwhelmed if too many statuses are changed at the same time. Since AppDaemon is async all device updates will be triggered at almost the same time.  
 Delayer is a simple FIFO stack that executes one queued item each second.  
-See [UtilDelayer](./UtilDelayer)
+See [UtilDelayer](./apps/UtilDelayer)
 
 ## Announcer
 
 Central service to play announcements on a media player.  
-See [UtilAnnouncer](./UtilAnnouncer)
+See [UtilAnnouncer](./apps/UtilAnnouncer)
 
 # Statuses
 
 * Presence (by digitalSTROM)
 * Sleeping (by digitalSTROM)
 * Darkness (based on sunset/sunrise)  
-  see [stateDarkness](./stateDarkness)
+  see [StateDarkness](./apps/StateDarkness)
 * Sun protection (manually activated, based on time of day)
+  see [StateSunprotection](./apps/StateSunprotection)
 * Window open/closed (based on Xiaomi window sensor)
 
 # Automations
@@ -29,37 +30,37 @@ See [UtilAnnouncer](./UtilAnnouncer)
 ## Presence, leaving, returning
 
 Announce status change  
-See [ActionPresence](./ActionPresence)
+See [ActionPresence](./apps/ActionPresence)
 
 ## Cover control
 
 Update cover status based on presence/absence, sleeping/awake, night/day, sun protection on/off and if the window is open or closed.  
-See [ActionCover](./ActionCover)
+See [ActionCover](./apps/ActionCover)
 
 ## Light control
 
 Update light status based on presence/absence, sleeping/awake, night/day.  
-See [ActionLight](./ActionLight)
+See [ActionLight](./apps/ActionLight)
 
 ## Fan control
 * Turn on the bathroom/shower fan when the main room light is turned on.
   Keep it running for some more minutes when the light has been turned off. 
 * Start fan on/off cycle when absent to get more fresh air in the apartment.
-See [ActionFan](./ActionFan)
+See [ActionFan](./apps/ActionFan)
 
 ## Generic state change responder
 Set the status of a device according to the status of another device.
 Used to turn on zigbee lights when a digitalSTROM light (scene) is turned on.
-See [ActionResponder](./ActionResponder)
+See [ActionResponder](./apps/ActionResponder)
 
 ## Watering
 
 Lawn watering cycles.  
-See [watering](./watering)
+See [watering](./apps/watering)
 
 # Notifications
 
 ## Laundry
 
 Announce when the laundry is done based on the power usage of the washing machines/dryer.  
-See [laundry](./laundry)
+See [laundry](./apps/laundry)
