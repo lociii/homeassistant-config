@@ -16,7 +16,7 @@ dining_sunset:
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
   action_scenes:
-    - scene.wohnzimmer___rolladen_esstisch_katzenmodus
+    - scene.wohnzimmer__rolladen_esstisch_katzenmodus
   dependencies: util_delayer
   global_dependencies: global
 

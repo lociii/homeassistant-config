@@ -16,7 +16,7 @@ dining_sunset_shutdown:
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   action_scenes:
-    - scene.wohnzimmer___rolladen_esstisch
+    - scene.wohnzimmer__rolladen_esstisch
   dependencies: util_delayer
   global_dependencies: global
 

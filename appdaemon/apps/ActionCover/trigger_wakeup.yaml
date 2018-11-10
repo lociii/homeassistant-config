@@ -42,7 +42,7 @@ dining_wakeup_sunprotection:
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
   action_scenes:
-    - scene.wohnzimmer___rolladen_esstisch_katzenmodus
+    - scene.wohnzimmer__rolladen_esstisch_katzenmodus
   dependencies: util_delayer
   global_dependencies: global
 
