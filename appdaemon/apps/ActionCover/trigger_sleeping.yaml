@@ -3,22 +3,24 @@ kitchen_sleeping_window_closed:
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_kitchen,off
+  constraint_list:
+    - binary_sensor.door_sensor__kitchen,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche
   dependencies: util_delayer
+  global_dependencies: global
 
 kitchen_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_kitchen,on
+  constraint_list:
+    - binary_sensor.door_sensor__kitchen,on
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 dining_sleeping:
   module: ActionCover
@@ -28,28 +30,31 @@ dining_sleeping:
   action_scenes:
     - scene.wohnzimmer__rolladen_esstisch
   dependencies: util_delayer
+  global_dependencies: global
 
 patio_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_patio,off
+  constraint_list:
+    - binary_sensor.door_sensor__patio,off
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse
   dependencies: util_delayer
+  global_dependencies: global
 
 patio_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_patio,on
+  constraint_list:
+    - binary_sensor.door_sensor__patio,on
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 couch_sleeping:
   module: ActionCover
@@ -59,69 +64,76 @@ couch_sleeping:
   action_scenes:
     - scene.wohnzimmer__rolladen_couch
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_guestroom,off
+  constraint_list:
+    - binary_sensor.door_sensor__guestroom,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_guestroom,on
+  constraint_list:
+    - binary_sensor.door_sensor__guestroom,on
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_bedroom,off
+  constraint_list:
+    - binary_sensor.door_sensor__bedroom,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_bedroom,on
+  constraint_list:
+    - binary_sensor.door_sensor__bedroom,on
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 office_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_office,off
+  constraint_list:
+    - binary_sensor.door_sensor__office,off
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer
   dependencies: util_delayer
+  global_dependencies: global
 
 office_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: on
-  constrain_input_boolean:
-    - binary_sensor.door_sensor_office,on
+  constraint_list:
+    - binary_sensor.door_sensor__office,on
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global

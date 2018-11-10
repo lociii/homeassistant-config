@@ -3,11 +3,12 @@ kitchen_sunset_shutdown_window_closed:
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
-  constrain_input_boolean: 
-    - binary_sensor.door_sensor_kitchen,off
+  constraint_list:
+    - binary_sensor.door_sensor__kitchen,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche
   dependencies: util_delayer
+  global_dependencies: global
 
 dining_sunset_shutdown:
   module: ActionCover
@@ -17,17 +18,19 @@ dining_sunset_shutdown:
   action_scenes:
     - scene.wohnzimmer___rolladen_esstisch
   dependencies: util_delayer
+  global_dependencies: global
 
 patio_sunset_shutdown_absent:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
+  constraint_list:
+    - switch.apartment__present,off
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse
   dependencies: util_delayer
+  global_dependencies: global
 
 couch_sunset_shutdown:
   module: ActionCover
@@ -37,36 +40,40 @@ couch_sunset_shutdown:
   action_scenes:
     - scene.wohnzimmer__rolladen_couch
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_sunset_shutdown_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
-  constrain_input_boolean: 
-    - binary_sensor.door_sensor_guestroom,off
+  constraint_list:
+    - binary_sensor.door_sensor__guestroom,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_sunset_shutdown_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
-  constrain_input_boolean: 
-    - binary_sensor.door_sensor_bedroom,off
+  constraint_list:
+    - binary_sensor.door_sensor__bedroom,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer
   dependencies: util_delayer
+  global_dependencies: global
 
 office_sunset_shutdown_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
-  constrain_input_boolean: 
-    - binary_sensor.door_sensor_office,off
+  constraint_list:
+    - binary_sensor.door_sensor__office,off
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer
   dependencies: util_delayer
+  global_dependencies: global

@@ -3,8 +3,9 @@ patio_returning_dark:
   class: ActionCover
   trigger_entity: switch.apartment__present
   trigger_status: on
-  constrain_input_boolean: 
+  constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse_2
   dependencies: util_delayer
+  global_dependencies: global

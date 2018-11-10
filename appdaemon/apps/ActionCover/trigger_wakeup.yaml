@@ -3,43 +3,48 @@ kitchen_wakeup:
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_2
   dependencies: util_delayer
+  global_dependencies: global
 
 kitchen_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 dining_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
   action_scenes:
     - scene.wohnzimmer__rolladen_esstisch_2
   dependencies: util_delayer
+  global_dependencies: global
 
 dining_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
   action_scenes:
     - scene.wohnzimmer___rolladen_esstisch_katzenmodus
   dependencies: util_delayer
+  global_dependencies: global
 
 patio_wakeup:
   module: ActionCover
@@ -49,80 +54,88 @@ patio_wakeup:
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse_2
   dependencies: util_delayer
+  global_dependencies: global
 
 couch_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
   action_scenes:
     - scene.wohnzimmer__rolladen_couch_2
   dependencies: util_delayer
+  global_dependencies: global
 
 couch_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
   action_scenes:
     - scene.wohnzimmer__rolladen_couch_katzenmodus
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_2
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_2
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 office_wakeup_day:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer_2
   dependencies: util_delayer
+  global_dependencies: global

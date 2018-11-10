@@ -3,11 +3,12 @@ kitchen_sunset_window_closed:
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
-  constrain_input_boolean: 
+  constraint_list:
     - binary_sensor.door_sensor_kitchen,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 dining_sunset:
   module: ActionCover
@@ -17,17 +18,19 @@ dining_sunset:
   action_scenes:
     - scene.wohnzimmer___rolladen_esstisch_katzenmodus
   dependencies: util_delayer
+  global_dependencies: global
 
 patio_sunset_absent:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
+  constraint_list:
+    - switch.apartment__present,off
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse_katzenmodus
   dependencies: util_delayer
+  global_dependencies: global
 
 couch_sunset:
   module: ActionCover
@@ -37,36 +40,40 @@ couch_sunset:
   action_scenes:
     - scene.wohnzimmer__rolladen_couch_katzenmodus
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_sunset_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
-  constrain_input_boolean: 
-    - binary_sensor.door_sensor_guestroom,off
+  constraint_list:
+    - binary_sensor.door_sensor__guestroom,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_sunset_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
-  constrain_input_boolean: 
+  constraint_list:
     - binary_sensor.door_sensor_bedroom,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 office_sunset_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
-  constrain_input_boolean: 
+  constraint_list:
     - binary_sensor.door_sensor_office,off
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global

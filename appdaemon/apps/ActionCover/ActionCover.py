@@ -1,7 +1,7 @@
-import appdaemon.plugins.hass.hassapi as hass
+from globals import AppDaemon
 
 
-class ActionCover(hass.Hass):
+class ActionCover(AppDaemon):
     def initialize(self):
         self.delayer = self.get_app('util_delayer')
 
@@ -10,7 +10,8 @@ class ActionCover(hass.Hass):
         self.action_scenes = self.args['action_scenes']
 
         status_text = 'on' if self.trigger_status else 'off'
-        self.listen_state(cb=self.update_status, entity=self.trigger_entity, new=status_text)
+        self.listen_state(cb=self.update_status, entity=self.trigger_entity, new=status_text,
+                          check_constraint_list=True)
 
     def update_status(self, *args, **kwargs):
         self.log('{} turned {}'.format(self.trigger_entity, self.trigger_status))

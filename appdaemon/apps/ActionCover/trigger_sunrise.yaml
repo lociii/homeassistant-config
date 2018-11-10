@@ -3,79 +3,86 @@ kitchen_sunrise_absent_window_closed:
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
-    - binary_sensor.door_sensor_kitchen,off
+  constraint_list:
+    - switch.apartment__present,off
+    - binary_sensor.door_sensor__kitchen,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_2
   dependencies: util_delayer
+  global_dependencies: global
 
 dining_sunrise_absent:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
+  constraint_list:
+    - switch.apartment__present,off
   action_scenes:
     - scene.wohnzimmer__rolladen_esstisch_2
   dependencies: util_delayer
+  global_dependencies: global
 
 patio_sunrise_absent_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
-    - binary_sensor.door_sensor_patio,off
+  constraint_list:
+    - switch.apartment__present,off
+    - binary_sensor.door_sensor__patio,off
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse_2
   dependencies: util_delayer
+  global_dependencies: global
 
 couch_sunrise_absent:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
+  constraint_list:
+    - switch.apartment__present,off
   action_scenes:
     - scene.wohnzimmer__rolladen_couch_2
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_sunrise_absent_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
-    - binary_sensor.door_sensor_guestroom,off
+  constraint_list:
+    - binary_sensor.door_sensor__guestroom,off
+    - switch.apartment__present,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_2
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_sunrise_absent_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
-    - binary_sensor.door_sensor_bedroom,off
+  constraint_list:
+    - switch.apartment__present,off
+    - binary_sensor.door_sensor__bedroom,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_2
   dependencies: util_delayer
+  global_dependencies: global
 
 office_sunrise_absent_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
-  constrain_input_boolean: 
-    - sensor.apartment__present,off
-    - binary_sensor.door_sensor_office,off
+  constraint_list:
+    - switch.apartment__present,off
+    - binary_sensor.door_sensor__office,off
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer_2
   dependencies: util_delayer
+  global_dependencies: global

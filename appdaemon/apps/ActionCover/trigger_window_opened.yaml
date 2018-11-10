@@ -1,47 +1,51 @@
 kitchen_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_kitchen
+  trigger_entity: binary_sensor.door_sensor__kitchen
   trigger_status: on
-  constrain_input_boolean:
-    - sensor.apartment__present,on
+  constraint_list:
+    - switch.apartment__present,on
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_guestroom
+  trigger_entity: binary_sensor.door_sensor__guestroom
   trigger_status: on
-  constrain_input_boolean:
-    - sensor.apartment__present,on
+  constraint_list:
+    - switch.apartment__present,on
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_bedroom
+  trigger_entity: binary_sensor.door_sensor__bedroom
   trigger_status: on
-  constrain_input_boolean:
-    - sensor.apartment__present,on
+  constraint_list:
+    - switch.apartment__present,on
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global
 
 office_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_office
+  trigger_entity: binary_sensor.door_sensor__office
   trigger_status: on
-  constrain_input_boolean:
-    - sensor.apartment__present,on
+  constraint_list:
+    - switch.apartment__present,on
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer_schlitz
   dependencies: util_delayer
+  global_dependencies: global

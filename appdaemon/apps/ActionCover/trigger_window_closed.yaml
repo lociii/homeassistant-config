@@ -1,43 +1,47 @@
 kitchen_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_kitchen
+  trigger_entity: binary_sensor.door_sensor__kitchen
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche
   dependencies: util_delayer
+  global_dependencies: global
 
 guestroom_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_guestroom
+  trigger_entity: binary_sensor.door_sensor__guestroom
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer
   dependencies: util_delayer
+  global_dependencies: global
 
 bedroom_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_bedroom
+  trigger_entity: binary_sensor.door_sensor__bedroom
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer
   dependencies: util_delayer
+  global_dependencies: global
 
 office_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_office
+  trigger_entity: binary_sensor.door_sensor__office
   trigger_status: off
-  constrain_input_boolean:
+  constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer
   dependencies: util_delayer
+  global_dependencies: global

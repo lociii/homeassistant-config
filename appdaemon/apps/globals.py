@@ -1,17 +1,20 @@
-# watering automation
-AUTOMATION_WATERING_SHORT = 'input_boolean.automation_watering_short'
-AUTOMATION_WATERING_LONG = 'input_boolean.automation_watering_long'
-AUTOMATION_WATERING_SHORT_NIGHT = 'input_boolean.automation_watering_short_night'
-AUTOMATION_WATERING_LONG_NIGHT = 'input_boolean.automation_watering_long_night'
-AUTOMATION_WATERING_NIGHT_START = 'input_datetime.automation_watering_night_start'
+import appdaemon.plugins.hass.hassapi as hass
 
-AUTOMATION_WATERING_SHORT_AREA_ONE = 'input_number.automation_watering_short_duration_area_1'
-AUTOMATION_WATERING_SHORT_AREA_TWO = 'input_number.automation_watering_short_duration_area_2'
-AUTOMATION_WATERING_SHORT_AREA_THREE = 'input_number.automation_watering_short_duration_area_3'
-AUTOMATION_WATERING_LONG_AREA_ONE = 'input_number.automation_watering_long_duration_area_1'
-AUTOMATION_WATERING_LONG_AREA_TWO = 'input_number.automation_watering_long_duration_area_2'
-AUTOMATION_WATERING_LONG_AREA_THREE = 'input_number.automation_watering_long_duration_area_3'
 
-WATERING_AREA_1 = 'light.bewasserung__sprenkler'
-WATERING_AREA_2 = 'light.bewasserung__raketen'
-WATERING_AREA_3 = 'light.bewasserung__busche'
+class AppDaemon(hass.Hass):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.register_constraint('check_constraint_list')
+
+    def check_constraint_list(self, *args, **kwargs):
+        constraints = self.args.get('constraint_list', None)
+
+        if constraints is None:
+            return True
+
+        for constraint in constraints:
+            entity, value = constraint.split(',')
+            if self.get_state(entity) != value:
+                return False
+
+        return True
