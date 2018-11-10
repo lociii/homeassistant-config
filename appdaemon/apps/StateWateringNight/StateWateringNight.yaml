@@ -1,0 +1,22 @@
+
+watering_short_night:
+  module: StateWateringNight
+  class: StateWateringNight
+  trigger: input_boolean.automation_watering_short_night
+  start: input_datetime.automation_watering_night_start
+  target: input_boolean.automation_watering_short
+  message_on: Kurze Bewässerung aktiviert!
+  message_off: Kurze Bewässerung deaktiviert!
+  dependencies:
+    - util_announcer
+
+watering_long_night:
+  module: StateWateringNight
+  class: StateWateringNight
+  trigger: input_boolean.automation_watering_long_night
+  start: input_datetime.automation_watering_night_start
+  target: input_boolean.automation_watering_long
+  message_on: Lange Bewässerung aktiviert!
+  message_off: Lange Bewässerung deaktiviert!
+  dependencies:
+    - util_announcer

@@ -6,45 +6,47 @@ Automations are split in two parts: Setting a status and changing device behavio
 
 ## Delayer
 
-Most lights and all covers in my installation are controlled by digitalSTROM. This system can easily be overwhelmed if too many statuses are changed at the same time. Since AppDaemon is async all device updates will be triggered at almost the same time.  
-Delayer is a simple FIFO stack that executes one queued item each second.  
+Most lights and all covers in my installation are controlled by digitalSTROM. This system can easily be overwhelmed if too many statuses are changed at the same time. Since AppDaemon is async all device updates will be triggered at almost the same time.
+Delayer is a simple FIFO stack that executes one queued item each second.
 See [UtilDelayer](./apps/UtilDelayer)
 
 ## Announcer
 
-Central service to play announcements on a media player.  
+Central service to play announcements on a media player.
 See [UtilAnnouncer](./apps/UtilAnnouncer)
 
 # Statuses
 
 * Presence (by digitalSTROM)
 * Sleeping (by digitalSTROM)
-* Darkness (based on sunset/sunrise)  
+* Darkness (based on sunset/sunrise)
   see [StateDarkness](./apps/StateDarkness)
 * Sun protection (manually activated, based on time of day)
   see [StateSunprotection](./apps/StateSunprotection)
 * Window open/closed (based on Xiaomi window sensor)
+* Nightly watering cycle
+  see [StateWateringNight](./apps/StateWateringNight)
 
 # Automations
 
 ## Presence, leaving, returning
 
-Announce status change  
+Announce status change
 See [ActionPresence](./apps/ActionPresence)
 
 ## Cover control
 
-Update cover status based on presence/absence, sleeping/awake, night/day, sun protection on/off and if the window is open or closed.  
+Update cover status based on presence/absence, sleeping/awake, night/day, sun protection on/off and if the window is open or closed.
 See [ActionCover](./apps/ActionCover)
 
 ## Light control
 
-Update light status based on presence/absence, sleeping/awake, night/day.  
+Update light status based on presence/absence, sleeping/awake, night/day.
 See [ActionLight](./apps/ActionLight)
 
 ## Fan control
 * Turn on the bathroom/shower fan when the main room light is turned on.
-  Keep it running for some more minutes when the light has been turned off. 
+  Keep it running for some more minutes when the light has been turned off.
 * Start fan on/off cycle when absent to get more fresh air in the apartment.
 See [ActionFan](./apps/ActionFan)
 
@@ -55,12 +57,12 @@ See [ActionResponder](./apps/ActionResponder)
 
 ## Watering
 
-Lawn watering cycles.  
-See [watering](./apps/watering)
+Lawn watering cycles.
+See [ActionWatering](./apps/ActionWatering)
 
 # Notifications
 
 ## Laundry
 
-Announce when the laundry is done based on the power usage of the washing machines/dryer.  
+Announce when the laundry is done based on the power usage of the washing machines/dryer.
 See [laundry](./apps/laundry)
