@@ -1,11 +1,11 @@
-darkness_lighting:
-  module: stateDarkness
-  class: HandleStateDarkness
+state_darkness_lighting:
+  module: StateDarkness
+  class: StateDarkness
   indicator: input_boolean.automation_darkness_lighting
   offset: input_number.automation_darkness_lighting_offset
 
-darkness_cover:
-  module: stateDarkness
-  class: HandleStateDarkness
+state_darkness_cover:
+  module: StateDarkness
+  class: StateDarkness
   indicator: input_boolean.automation_darkness_cover
   offset: input_number.automation_darkness_cover_offset

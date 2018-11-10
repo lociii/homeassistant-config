@@ -614,27 +614,41 @@ views:
             icon: mdi:alert
 
       - type: entities
-        title: Licht und Schatten
+        title: Licht
         show_header_toggle: false
         entities:
-          - type: section
-            label: Licht
           - entity: input_boolean.automation_darkness_lighting
             name: Nachtmodus
             icon: mdi:weather-night
           - entity: input_number.automation_darkness_lighting_offset
             name: Versatz
             icon: mdi:timer
-          - type: section
-            label: Schatten
+
+      - type: entities
+        title: Schatten
+        show_header_toggle: false
+        entities:
           - entity: input_boolean.automation_darkness_cover
             name: Nachtmodus
             icon: mdi:weather-night
           - entity: input_number.automation_darkness_cover_offset
             name: Versatz
             icon: mdi:timer
+          - type: section
+            label: Shutdown
+          - entity: input_boolean.automation_darkness_cover_shutdown
+            name: Shutdown
+            icon: mdi:weather-night
           - entity: input_datetime.automation_darkness_shutdown
             name: Nächtlicher Shutdown
+            icon: mdi:power
+          - type: section
+            label: Schlafen im Dunkeln
+          - entity: input_boolean.automation_darkness_cover_protection
+            name: Schlafen im Dunkeln
+            icon: mdi:weather-night
+          - entity: input_number.automation_darkness_cover_protection
+            name: Versatz
             icon: mdi:power
 
       - type: entities

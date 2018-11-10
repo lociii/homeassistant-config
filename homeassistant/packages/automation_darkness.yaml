@@ -3,6 +3,10 @@ input_boolean:
     initial: off
   automation_darkness_cover:
     initial: off
+  automation_darkness_cover_shutdown:
+    initial: off
+  automation_darkness_cover_protection:
+    initial: off
 
 input_datetime:
   automation_darkness_shutdown:
@@ -21,5 +25,11 @@ input_number:
     initial: 15
     min: -60
     max: 60
+    step: 1
+    unit_of_measurement: Min.
+  automation_darkness_cover_protection:
+    initial: -45
+    min: -120
+    max: 0
     step: 1
     unit_of_measurement: Min.

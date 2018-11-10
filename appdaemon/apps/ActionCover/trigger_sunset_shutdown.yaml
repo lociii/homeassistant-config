@@ -1,0 +1,72 @@
+kitchen_sunset_shutdown_window_closed:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_darkness_cover_shutdown
+  trigger_status: on
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_kitchen,off
+  action_scenes:
+    - scene.wohnzimmer__rolladen_kuche
+  dependencies: util_delayer
+
+dining_sunset_shutdown:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_darkness_cover_shutdown
+  trigger_status: on
+  action_scenes:
+    - scene.wohnzimmer___rolladen_esstisch
+  dependencies: util_delayer
+
+patio_sunset_shutdown_absent:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_status: on
+  constrain_input_boolean: 
+    - sensor.apartment__present,off
+  action_scenes:
+    - scene.wohnzimmer__rolladen_terrasse
+  dependencies: util_delayer
+
+couch_sunset_shutdown:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_status: on
+  action_scenes:
+    - scene.wohnzimmer__rolladen_couch
+  dependencies: util_delayer
+
+guestroom_sunset_shutdown_window_closed:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_status: on
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_guestroom,off
+  action_scenes:
+    - scene.gastezimmer__rolladen_gastezimmer
+  dependencies: util_delayer
+
+bedroom_sunset_shutdown_window_closed:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_status: on
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_bedroom,off
+  action_scenes:
+    - scene.schlafzimmer__rolladen_schlafzimmer
+  dependencies: util_delayer
+
+office_sunset_shutdown_window_closed:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_status: on
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_office,off
+  action_scenes:
+    - scene.arbeitszimmer__rolladen_arbeitszimmer
+  dependencies: util_delayer

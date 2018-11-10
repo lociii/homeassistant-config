@@ -1,0 +1,10 @@
+patio_returning_dark:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: switch.apartment__present
+  trigger_status: on
+  constrain_input_boolean: 
+    - input_boolean.automation_darkness_cover,on
+  action_scenes:
+    - scene.wohnzimmer__rolladen_terrasse_2
+  dependencies: util_delayer

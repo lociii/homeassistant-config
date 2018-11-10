@@ -1,8 +1,8 @@
 import appdaemon.plugins.hass.hassapi as hass
 
 
-class HandleStateDarkness(hass.Hass):
-    def __init__(self, *args, **kwargs):
+class StateDarkness(hass.Hass):
+    def initialize(self):
         self.timer_sunset = None
         self.timer_sunrise = None
         super().__init__(*args, **kwargs)
@@ -10,7 +10,6 @@ class HandleStateDarkness(hass.Hass):
         self.indicator = self.args['indicator']
         self.offset = self.args['offset']
 
-    def initialize(self):
         self.set_timers()
 
         # listen to state changes on the offset inputs and reset the timers

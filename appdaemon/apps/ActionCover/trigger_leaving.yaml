@@ -1,0 +1,66 @@
+kitchen_leaving_window_open:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: switch.apartment__present
+  trigger_status: off
+  constrain_input_boolean:
+    - binary_sensor.door_sensor_kitchen,on
+  action_scenes:
+    - scene.wohnzimmer__rolladen_kuche
+  dependencies: util_delayer
+
+patio_leaving_window_open:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: switch.apartment__present
+  trigger_status: off
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_patio,on
+  action_scenes:
+    - scene.wohnzimmer__rolladen_terrasse
+  dependencies: util_delayer
+
+patio_leaving_dark:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: switch.apartment__present
+  trigger_status: off
+  constrain_input_boolean: 
+    - input_boolean.automation_darkness_cover,on
+    - binary_sensor.door_sensor_patio,off
+  action_scenes:
+    - scene.wohnzimmer__rolladen_terrasse
+  dependencies: util_delayer
+
+guestroom_leaving_window_open:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: switch.apartment__present
+  trigger_status: off
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_guestroom,on
+  action_scenes:
+    - scene.gastezimmer__rolladen_gastezimmer
+  dependencies: util_delayer
+
+bedroom_leaving_window_open:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: switch.apartment__present
+  trigger_status: off
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_bedroom,on
+  action_scenes:
+    - scene.schlafzimmer__rolladen_schlafzimmer
+  dependencies: util_delayer
+
+office_leaving_window_open:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: switch.apartment__present
+  trigger_status: off
+  constrain_input_boolean: 
+    - binary_sensor.door_sensor_office,on
+  action_scenes:
+    - scene.arbeitszimmer__rolladen_arbeitszimmer
+  dependencies: util_delayer

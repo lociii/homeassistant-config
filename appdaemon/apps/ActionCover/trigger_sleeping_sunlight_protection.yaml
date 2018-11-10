@@ -1,0 +1,59 @@
+kitchen_sleeping_window_open_sunlight_protection:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_darkness_cover_protection
+  trigger_status: on
+  constrain_input_boolean:
+    - binary_sensor.door_sensor_kitchen,on
+    - switch.apartment__sleeping,on
+  action_scenes:
+    - scene.wohnzimmer__rolladen_kuche
+  dependencies: util_delayer
+
+patio_sleeping_window_open_sunlight_protection:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_darkness_cover_protection
+  trigger_status: on
+  constrain_input_boolean:
+    - binary_sensor.door_sensor_patio,on
+    - switch.apartment__sleeping,on
+  action_scenes:
+    - scene.wohnzimmer__rolladen_terrasse
+  dependencies: util_delayer
+
+guestroom_sleeping_window_open_sunlight_protection:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_darkness_cover_protection
+  trigger_status: on
+  constrain_input_boolean:
+    - binary_sensor.door_sensor_guestroom,on
+    - switch.apartment__sleeping,on
+  action_scenes:
+    - scene.gastezimmer__rolladen_gastezimmer
+  dependencies: util_delayer
+
+bedroom_sleeping_window_open_sunlight_protection:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_darkness_cover_protection
+  trigger_status: on
+  constrain_input_boolean:
+    - binary_sensor.door_sensor_bedroom,on
+    - switch.apartment__sleeping,on
+  action_scenes:
+    - scene.schlafzimmer__rolladen_schlafzimmer
+  dependencies: util_delayer
+
+office_sleeping_window_open_sunlight_protection:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_darkness_cover_protection
+  trigger_status: on
+  constrain_input_boolean:
+    - binary_sensor.door_sensor_office,on
+    - switch.apartment__sleeping,on
+  action_scenes:
+    - scene.arbeitszimmer__rolladen_arbeitszimmer
+  dependencies: util_delayer
