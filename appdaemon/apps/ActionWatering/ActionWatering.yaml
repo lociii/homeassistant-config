@@ -1,0 +1,41 @@
+watering_short:
+  module: ActionWatering
+  class: ActionWatering
+  trigger: input_boolean.automation_watering_short
+  trigger_night: input_boolean.automation_watering_short_night
+  start_night: input_datetime.automation_watering_night_start
+  areas:
+    - entity: light.bewasserung__sprenkler
+      duration: input_number.automation_watering_short_duration_area_1
+    - entity: light.bewasserung__raketen
+      duration: input_number.automation_watering_short_duration_area_2
+    - entity: light.bewasserung__busche
+      duration: input_number.automation_watering_short_duration_area_3
+  message_on: Kurze Bewässerung aktiviert!
+  message_off: Kurze Bewässerung deaktiviert!
+  message_started: Kurze Bewässerung gestartet!
+  message_stopped: Kurze Bewässerung beendet!
+  dependencies:
+    - util_delayer
+    - util_announcer
+
+watering_long:
+  module: ActionWatering
+  class: ActionWatering
+  trigger: input_boolean.automation_watering_long
+  trigger_night: input_boolean.automation_watering_long_night
+  start_night: input_datetime.automation_watering_night_start
+  areas:
+    - entity: light.bewasserung__sprenkler
+      duration: input_number.automation_watering_long_duration_area_1
+    - entity: light.bewasserung__raketen
+      duration: input_number.automation_watering_long_duration_area_2
+    - entity: light.bewasserung__busche
+      duration: input_number.automation_watering_long_duration_area_3
+  message_on: Lange Bewässerung aktiviert!
+  message_off: Lange Bewässerung deaktiviert!
+  message_started: Lange Bewässerung gestartet!
+  message_stopped: Lange Bewässerung beendet!
+  dependencies:
+    - util_delayer
+    - util_announcer
