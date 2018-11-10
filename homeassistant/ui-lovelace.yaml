@@ -685,18 +685,30 @@ views:
         title: Sonnenschutz
         show_header_toggle: false
         entities:
-          - entity: input_boolean.automation_sunprotection
-            name: Sommermodus
+          - type: section
+            label: Automation
+          - entity: input_boolean.automation_setting_sunprotection
+            name: Aktiv
             icon: mdi:weather-sunny
-          - entity: input_boolean.automation_sunprotection_orchids
-            name: Sommermodus (Orchideen)
+          - entity: input_boolean.automation_setting_sunprotection_orchids
+            name: Aktiv (Orchideen)
             icon: mdi:weather-sunny
-          - entity: input_datetime.automation_sunprotection_south
-            name: Start Süden
+          - type: section
+            label: Startzeiten
+          - entity: input_datetime.automation_setting_sunprotection_south
+            name: Süden
             icon: mdi:timer
-          - entity: input_datetime.automation_sunprotection_west
-            name: Start Westen
+          - entity: input_datetime.automation_setting_sunprotection_west
+            name: Westen
             icon: mdi:timer
-          - entity: input_datetime.automation_sunprotection_orchids
-            name: Start Orchideen
+          - entity: input_datetime.automation_setting_sunprotection_orchids
+            name: Orchideen
             icon: mdi:timer
+          - type: section
+            label: Status
+          - entity: input_boolean.automation_trigger_sunprotection_south
+            name: Süden
+          - entity: input_boolean.automation_trigger_sunprotection_west
+            name: Westen
+          - entity: input_boolean.automation_setting_sunprotection_orchids
+            name: Orchideen

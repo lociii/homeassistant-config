@@ -1,0 +1,20 @@
+sunprotection_south:
+  module: StateSunprotection
+  class: StateSunprotection
+  switch: input_boolean.automation_setting_sunprotection
+  start_time: input_datetime.automation_setting_sunprotection_south
+  indicator: input_boolean.automation_trigger_sunprotection_south
+
+sunprotection_west:
+  module: StateSunprotection
+  class: StateSunprotection
+  switch: input_boolean.automation_setting_sunprotection
+  start_time: input_datetime.automation_setting_sunprotection_west
+  indicator: input_boolean.automation_trigger_sunprotection_west
+
+sunprotection_orchids:
+  module: StateSunprotection
+  class: StateSunprotection
+  switch: input_boolean.automation_setting_sunprotection
+  start_time: input_datetime.automation_setting_sunprotection_orchids
+  indicator: input_boolean.automation_trigger_sunprotection_orchids
