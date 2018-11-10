@@ -1,5 +1,6 @@
 import appdaemon.plugins.hass.hassapi as hass
 
+
 class ActionResponder(hass.Hass):
     """
     trigger on/off actions on a list of devices triggered by a single device
