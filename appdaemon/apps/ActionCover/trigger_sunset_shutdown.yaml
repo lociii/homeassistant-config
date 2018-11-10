@@ -21,7 +21,7 @@ dining_sunset_shutdown:
 patio_sunset_shutdown_absent:
   module: ActionCover
   class: ActionCover
-  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constrain_input_boolean: 
     - sensor.apartment__present,off
@@ -32,7 +32,7 @@ patio_sunset_shutdown_absent:
 couch_sunset_shutdown:
   module: ActionCover
   class: ActionCover
-  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   action_scenes:
     - scene.wohnzimmer__rolladen_couch
@@ -41,7 +41,7 @@ couch_sunset_shutdown:
 guestroom_sunset_shutdown_window_closed:
   module: ActionCover
   class: ActionCover
-  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constrain_input_boolean: 
     - binary_sensor.door_sensor_guestroom,off
@@ -52,7 +52,7 @@ guestroom_sunset_shutdown_window_closed:
 bedroom_sunset_shutdown_window_closed:
   module: ActionCover
   class: ActionCover
-  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constrain_input_boolean: 
     - binary_sensor.door_sensor_bedroom,off
@@ -63,7 +63,7 @@ bedroom_sunset_shutdown_window_closed:
 office_sunset_shutdown_window_closed:
   module: ActionCover
   class: ActionCover
-  trigger_entity: input_boolean.input_boolean.automation_darkness_cover_shutdown
+  trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constrain_input_boolean: 
     - binary_sensor.door_sensor_office,off
