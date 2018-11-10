@@ -28,29 +28,21 @@ $(local) scp ~/ship-ssh/id_rsa.pub jens@10.211.112.10:/home/jens/.ssh/id_rsa.pub
 # disable password login (PasswordAuthentication no)
 # enable public key login (PubkeyAuthentication yes)
 
-# install docker
-# TODO use docker snap since it also contains compose
-$(ship) sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
-$(ship) curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-$(ship) sudo apt-key fingerprint 0EBFCD88
-$(ship) sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
-$(ship) sudo apt update
-$(ship) sudo apt install docker-ce
+# install snap package manager
+$(ship) sudo apt install snapd
 
-# manage docker as non root
-$(ship) sudo groupadd docker
-$(ship) sudo usermod -aG docker $USER
-# log out and back in to re-evaluate groups
+# install docker
+$(ship) sudo snap install docker
+$(ship) sudo addgroup --system docker
+$(ship) sudo adduser $USER docker
+$(ship) newgrp docker
+
+# restart docker
+$(ship) sudo snap disable docker
+$(ship) sudo snap enable docker
 
 # test docker setup
 $(ship) docker run hello-world
-
-# make docker start at boot
-$(ship) sudo systemctl enable docker
-
-# install compose as docker container (see https://github.com/docker/compose/releases for latest version)
-$(ship) sudo curl -L --fail https://github.com/docker/compose/releases/download/1.22.0/run.sh -o /usr/local/bin/docker-compose
-$(ship) sudo chmod +x /usr/local/bin/docker-compose
 
 # clone home assistant config repo
 git clone git@github.com:lociii/homeassistant-config.git ~/homeassistant
@@ -63,11 +55,12 @@ $(ship) openssl dhparam 2048 -out ~/homeassistant/nginx/cert/dhparam.pem
 # create letsencrypt/domains.txt and add the domains you want to generate certificates for
 
 # create influxdb
-$(ship) docker-compose exec influxdb influx
+$(ship) docker-compose run --rm influxdb influx
 $(influxdb) CREATE DATABASE home_assistant
 
 # firetv - generate adb key used to connect
-$(ship) docker-compose run homeassistant bash
+# can be done using docker-compose run since the package doesn't need to be persintent on image
+$(ship) docker-compose run --rm homeassistant bash
 $(homeassistant) apt install adb
 $(homeassistant) adb start-server
 $(homeassistant) adb connect <firetv>  # confirm connection on firetv (tick always allow), repeat for each firetv
