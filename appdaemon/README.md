@@ -8,12 +8,12 @@ Automations are split in two parts: Setting a status and changing device behavio
 
 Most lights and all covers in my installation are controlled by digitalSTROM. This system can easily be overwhelmed if too many statuses are changed at the same time. Since AppDaemon is async all device updates will be triggered at almost the same time.  
 Delayer is a simple FIFO stack that executes one queued item each second.  
-See [utilDelayer](./utilDelayer)
+See [UtilDelayer](./UtilDelayer)
 
-## Announce
+## Announcer
 
 Central service to play announcements on a media player.  
-See [announce](./announce)
+See [UtilAnnouncer](./UtilAnnouncer)
 
 # Statuses
 
@@ -26,42 +26,36 @@ See [announce](./announce)
 
 # Automations
 
-## Leaving home
+## Presence, leaving, returning
 
-Flash defined lights, announce absence and start fan cycle.  
-See [actionLeavingHome](./actionLeavingHome)
-
-## Coming home
-
-Announce presence, turn on some lights when it's dark.  
-See [actionComingHome](./actionComingHome)
+Announce status change  
+See [ActionPresence](./ActionPresence)
 
 ## Cover control
 
 Update cover status based on presence/absence, sleeping/awake, night/day, sun protection on/off and if the window is open or closed.  
-See [actionCover](./actionCover)
+See [ActionCover](./ActionCover)
 
 ## Light control
 
 Update light status based on presence/absence, sleeping/awake, night/day.  
-See [actionLight](./actionLight)
+See [ActionLight](./ActionLight)
+
+## Fan control
+* Turn on the bathroom/shower fan when the main room light is turned on.
+  Keep it running for some more minutes when the light has been turned off. 
+* Start fan on/off cycle when absent to get more fresh air in the apartment.
+See [ActionFan](./ActionFan)
+
+## Generic state change responder
+Set the status of a device according to the status of another device.
+Used to turn on zigbee lights when a digitalSTROM light (scene) is turned on.
+See [ActionResponder](./ActionResponder)
 
 ## Watering
 
 Lawn watering cycles.  
 See [watering](./watering)
-
-# Responders
-
-## Bathroom/shower fan
-
-Turn on the bathroom/shower fan when the main room light is turned on. Keep it running for some more minutes when the light has been turned off.  
-See [actionFan](./actionFan)
-
-## Reading light
-
-The reading light can be controlled by a digitalSTROM wall switch. Turn on/off the light when the switch is toggled.  
-See [readinglight](./readinglight)
 
 # Notifications
 

@@ -1,0 +1,4 @@
+util_announcer:
+  module: UtilAnnouncer
+  class: UtilAnnouncer
+  device: media_player.wohnzimmer

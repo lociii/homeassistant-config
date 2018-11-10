@@ -1,6 +1,6 @@
 fan_bathroom:
-  module: actionFan
-  class: HandleActionFan
+  module: ActionFan
+  class: ActionFan
   fan: light.bad__lufter
   trigger: light.bad__deckenlicht
   delay: 2
@@ -11,8 +11,8 @@ fan_bathroom:
     - util_delayer
 
 fan_shower:
-  module: actionFan
-  class: HandleActionFan
+  module: ActionFan
+  class: ActionFan
   fan: light.dusche__lufter
   trigger: light.dusche__deckenlicht
   delay: 2

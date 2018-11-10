@@ -1,13 +1,9 @@
 import appdaemon.plugins.hass.hassapi as hass
 
 
-class Announce(hass.Hass):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.device = self.args['device']
-
+class UtilAnnouncer(hass.Hass):
     def initialize(self):
-        pass
+        self.device = self.args['device']
 
     def speak(self, message):
         self.call_service('media_player/volume_set', entity_id=self.device, volume_level=0.5)

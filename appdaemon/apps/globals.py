@@ -1,5 +1,3 @@
-SIMULATE = True
-
 # watering automation
 AUTOMATION_WATERING_SHORT = 'input_boolean.automation_watering_short'
 AUTOMATION_WATERING_LONG = 'input_boolean.automation_watering_long'
