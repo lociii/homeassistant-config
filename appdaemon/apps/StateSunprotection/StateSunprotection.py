@@ -12,7 +12,7 @@ class StateSunprotection(hass.Hass):
 
         # global setting turned off
         self.listen_state(cb=self.deactivate, entity=self.switch, new='off')
-        
+
         # update begin timer when start time changes
         self.listen_state(cb=self.set_timer_begin, entity=self.start_time)
 
@@ -40,7 +40,9 @@ class StateSunprotection(hass.Hass):
         self.deactivate()
 
     def activate(self, *args, **kwargs):
+        self.log('sunprotection activated')
         self.turn_on(self.indicator)
 
     def deactivate(self, *args, **kwargs):
+        self.log('sunprotection deactivated')
         self.turn_off(self.indicator)
