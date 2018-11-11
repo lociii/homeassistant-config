@@ -1,4 +1,3 @@
-
 watering_short_night:
   module: StateWateringNight
   class: StateWateringNight
