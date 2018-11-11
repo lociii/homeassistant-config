@@ -22,7 +22,7 @@ class ActionWatering(hass.Hass):
         for area in self.areas:
             self.area_timers.append(self.run_in(
                 callback=self.start_area, seconds=delay, start_action='turn_on', start_entity=area['entity']))
-            delay += int(float(self.get_state(area['duration'])))# * 60
+            delay += int(float(self.get_state(area['duration']))) * 60
             self.area_timers.append(self.run_in(
                 callback=self.start_area, seconds=delay, start_action='turn_off', start_entity=area['entity']))
             delay += 15
