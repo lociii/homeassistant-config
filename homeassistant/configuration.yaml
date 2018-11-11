@@ -63,6 +63,7 @@ recorder:
       - switch
       - light
       - cover
+      - vacuum
       - media_player
       - input_select
       - device_tracker
@@ -90,6 +91,7 @@ influxdb:
       - switch
       - light
       - cover
+      - vacuum
       - media_player
       - input_select
       - device_tracker
