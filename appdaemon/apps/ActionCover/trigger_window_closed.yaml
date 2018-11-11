@@ -1,7 +1,7 @@
 kitchen_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor__kitchen
+  trigger_entity: binary_sensor.door_sensor_kitchen
   trigger_status: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
@@ -13,7 +13,7 @@ kitchen_window_closed_dark:
 guestroom_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor__guestroom
+  trigger_entity: binary_sensor.door_sensor_guestroom
   trigger_status: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
@@ -25,7 +25,7 @@ guestroom_window_closed_dark:
 bedroom_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor__bedroom
+  trigger_entity: binary_sensor.door_sensor_bedroom
   trigger_status: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
@@ -37,7 +37,7 @@ bedroom_window_closed_dark:
 office_window_closed_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor__office
+  trigger_entity: binary_sensor.door_sensor_office
   trigger_status: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on

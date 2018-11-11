@@ -4,7 +4,7 @@ kitchen_sunset_shutdown_window_closed:
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constraint_list:
-    - binary_sensor.door_sensor__kitchen,off
+    - binary_sensor.door_sensor_kitchen,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche
   dependencies: util_delayer
@@ -48,7 +48,7 @@ guestroom_sunset_shutdown_window_closed:
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constraint_list:
-    - binary_sensor.door_sensor__guestroom,off
+    - binary_sensor.door_sensor_guestroom,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer
   dependencies: util_delayer
@@ -60,7 +60,7 @@ bedroom_sunset_shutdown_window_closed:
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constraint_list:
-    - binary_sensor.door_sensor__bedroom,off
+    - binary_sensor.door_sensor_bedroom,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer
   dependencies: util_delayer
@@ -72,7 +72,7 @@ office_sunset_shutdown_window_closed:
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   constraint_list:
-    - binary_sensor.door_sensor__office,off
+    - binary_sensor.door_sensor_office,off
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer
   dependencies: util_delayer

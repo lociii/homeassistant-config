@@ -5,7 +5,7 @@ kitchen_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment__present,off
-    - binary_sensor.door_sensor__kitchen,off
+    - binary_sensor.door_sensor_kitchen,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_2
   dependencies: util_delayer
@@ -30,7 +30,7 @@ patio_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment__present,off
-    - binary_sensor.door_sensor__patio,off
+    - binary_sensor.door_sensor_patio,off
   action_scenes:
     - scene.wohnzimmer__rolladen_terrasse_2
   dependencies: util_delayer
@@ -54,7 +54,7 @@ guestroom_sunrise_absent_window_closed:
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
   constraint_list:
-    - binary_sensor.door_sensor__guestroom,off
+    - binary_sensor.door_sensor_guestroom,off
     - switch.apartment__present,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_2
@@ -68,7 +68,7 @@ bedroom_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment__present,off
-    - binary_sensor.door_sensor__bedroom,off
+    - binary_sensor.door_sensor_bedroom,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_2
   dependencies: util_delayer
@@ -81,7 +81,7 @@ office_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment__present,off
-    - binary_sensor.door_sensor__office,off
+    - binary_sensor.door_sensor_office,off
   action_scenes:
     - scene.arbeitszimmer__rolladen_arbeitszimmer_2
   dependencies: util_delayer

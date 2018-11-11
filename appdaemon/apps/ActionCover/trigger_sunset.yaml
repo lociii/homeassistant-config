@@ -48,7 +48,7 @@ guestroom_sunset_window_closed:
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
   constraint_list:
-    - binary_sensor.door_sensor__guestroom,off
+    - binary_sensor.door_sensor_guestroom,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_schlitz
   dependencies: util_delayer
