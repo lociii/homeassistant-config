@@ -7,7 +7,7 @@ class ActionPresence(hass.Hass):
         self.indicator_presence = self.args['indicator_presence']
 
         self.listen_state(cb=self.present, entity=self.indicator_presence, new='on', old='off')
-        self.listen_state(cbself.absent, entity=self.indicator_presence, new='off', old='on')
+        self.listen_state(cb=self.absent, entity=self.indicator_presence, new='off', old='on')
 
     def present(self, *args, **kwargs):
         self.announcer.speak(message='Willkommen zurück!')
