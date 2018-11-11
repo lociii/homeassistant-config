@@ -137,8 +137,12 @@ views:
         entities:
           - entity: light.garten__laterne
             name: Laterne
-          - entity: light.garten
-            name: Bälle
+          - entity: light.garden_one
+            name: Große Ball
+          - entity: light.garden_two
+            name: Kleiner Ball (vorne)
+          - entity: light.garden_three
+            name: Kleiner Ball (hinten)
 
       - type: entities
         title: Szenen
@@ -431,8 +435,6 @@ views:
             name: Synology
           - entity: binary_sensor.samsung_printer_online
             name: Samsung Drucker
-          - entity: binary_sensor.philips_hue_controller_online
-            name: Philips Hue Hub
           - entity: binary_sensor.harmony_hub_online
             name: Logitech Harmony Hub
       - type: entities

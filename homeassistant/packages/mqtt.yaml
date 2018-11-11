@@ -87,6 +87,29 @@ binary_sensor:
     value_template: "{{ value_json.contact }}"
     device_class: door
 
+light:
+  - platform: mqtt_json
+    name: garden_one
+    state_topic: zigbee2mqtt/light_garden_one
+    availability_topic: zigbee2mqtt/bridge/state
+    brightness: true
+    xy: true
+    command_topic: zigbee2mqtt/light_garden_one/set
+  - platform: mqtt_json
+    name: garden_two
+    state_topic: zigbee2mqtt/light_garden_two
+    availability_topic: zigbee2mqtt/bridge/state
+    brightness: true
+    xy: true
+    command_topic: zigbee2mqtt/light_garden_two/set
+  - platform: mqtt_json
+    name: garden_three
+    state_topic: zigbee2mqtt/light_garden_three
+    availability_topic: zigbee2mqtt/bridge/state
+    brightness: true
+    xy: true
+    command_topic: zigbee2mqtt/light_garden_three/set
+
 sensor:
   # window sensor patio
   - platform: mqtt
@@ -95,7 +118,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes: 
+    json_attributes:
       - voltage
       - linkquality
   # window sensor kitchen
@@ -105,7 +128,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes: 
+    json_attributes:
       - voltage
       - linkquality
   # window sensor bedroom
@@ -115,7 +138,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes: 
+    json_attributes:
       - voltage
       - linkquality
   # window sensor bedroom
@@ -125,7 +148,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes: 
+    json_attributes:
       - voltage
       - linkquality
   # window sensor office
@@ -135,7 +158,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes: 
+    json_attributes:
       - voltage
       - linkquality
   # outdoor temperature sensor
@@ -145,7 +168,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "°C"
     value_template: "{{ value_json.temperature }}"
-    json_attributes: 
+    json_attributes:
       - battery
       - voltage
       - linkquality
@@ -174,7 +197,7 @@ sensor:
     unit_of_measurement: "°C"
     icon: mdi:temperature-celsius
     value_template: "{{ value_json.temperature }}"
-    json_attributes: 
+    json_attributes:
       - battery
       - voltage
       - linkquality
@@ -205,7 +228,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     icon: mdi:gesture-double-tap
     value_template: "{{ value_json.action }}"
-    json_attributes: 
+    json_attributes:
       - battery
       - voltage
       - linkquality

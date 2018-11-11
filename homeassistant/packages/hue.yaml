@@ -1,4 +1,0 @@
-hue:
-  bridges:
-  - host: !secret hue_ip
-    allow_hue_groups: true

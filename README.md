@@ -91,7 +91,7 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 ### Lights
 
 * digitalSTROM
-* Trådfri via Hue bridge (to be migrated to zigbee2mqtt)
+* Trådfri via zigbee2mqtt
 
 ### Shutters
 
