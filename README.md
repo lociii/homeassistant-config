@@ -1,3 +1,6 @@
+[![Travis CI build status](https://travis-ci.org/lociii/homeassistant-config.svg)](https://travis-ci.org/lociii/homeassistant-config)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+
 # My HomeAssistant setup
 
 Hi, I'm Jens and this is how I set up my home automation using HomeAssistant.
