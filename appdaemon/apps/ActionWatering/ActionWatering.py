@@ -32,15 +32,14 @@ class ActionWatering(hass.Hass):
 
         # announce start
         self.announcer.speak(self.message_on)
+        self.log('watering cycle started')
 
     def finalize(self, *args, **kwargs):
         # turn the trigger off which will also deactivate everyting and announce the end of the cycle
         self.turn_off(self.trigger)
 
     def start_area(self, kwargs):
-        action = kwargs.get('start_action')
-        entity = kwargs.get('start_entity')
-        self.delayer.add(hass_func=action, entity_id=entity)
+        self.delayer.add(hass_func=kwargs.get('start_action'), entity_id=kwargs.get('start_entity'))
 
     def deactivate(self, *args, **kwargs):
         # stop timers
@@ -53,3 +52,4 @@ class ActionWatering(hass.Hass):
             self.delayer.add(hass_func='turn_off', entity_id=area['entity'])
 
         self.announcer.speak(self.message_off)
+        self.log('watering cycle finished')
