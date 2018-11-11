@@ -7,51 +7,51 @@ One of the main targets is to use devices which don't rely on cloud services whe
 
 ### NUC
 
-NUC7I5BNK with Core i5 7260U, 16GB RAM and 500GB Samsung 860 EVO M2 SSD.  
+NUC7I5BNK with Core i5 7260U, 16GB RAM and 500GB Samsung 860 EVO M2 SSD.
 This machine is called "ship".
 
 ### Docker host installation
 
-Running debian server with docker and compose.  
+Running debian server with docker and compose.
 See [setup instructions](ship_setup.sh) for details
 
 ### Docker containers
 
 Docker is currenly running the following containers, see [compose file](docker-compose.yml) for details
 
-* mosquitto  
-  MQTT broker by eclipse  
+* mosquitto
+  MQTT broker by eclipse
   https://mosquitto.org/
-* hadockermon  
-  docker monitoring for HomeAssistant  
+* hadockermon
+  docker monitoring for HomeAssistant
   https://github.com/philhawthorne/ha-dockermon
-* postgresql  
-  database for HomeAssistant recorder component  
+* postgresql
+  database for HomeAssistant recorder component
   https://www.postgresql.org/
-* influxdb  
-  time series database  
+* influxdb
+  time series database
   https://www.influxdata.com/time-series-platform/influxdb/
-* grafana  
-  analytics for postgresql and influxdb data  
+* grafana
+  analytics for postgresql and influxdb data
   https://grafana.com/
-* chronograf  
-  a frontend for influxdb data  
+* chronograf
+  a frontend for influxdb data
   https://www.influxdata.com/time-series-platform/chronograf/
-* homeassistant  
-  the thing it's all about  
+* homeassistant
+  the thing it's all about
   https://www.home-assistant.io/
-* appdaemon  
-  automations for HomeAssistant  
+* appdaemon
+  automations for HomeAssistant
   https://appdaemon.readthedocs.io/en/stable/
-* letsencrypt  
-  dehydrated and lexicon to generate ssl certificates to securely access my installation  
+* letsencrypt
+  dehydrated and lexicon to generate ssl certificates to securely access my installation
   https://letsencrypt.org/
-* nginx  
-  reverse proxy in front of HomeAssistant handling all ssl needs  
+* nginx
+  reverse proxy in front of HomeAssistant handling all ssl needs
   https://www.nginx.com/
-* glances  
-  access docker host system stats from the 
-  HomeAssistant container  
+* glances
+  access docker host system stats from the
+  HomeAssistant container
   https://nicolargo.github.io/glances/
 
 TODO: install "notifications app" on firetv
@@ -127,8 +127,8 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 ### Misc
 
 * Samsung Printer CLX-4190 Series
+* Xiaomi Roborock vacuum gen2
 
 ### Planned ecosystem
 
-* Xiaomi vacuum gen2 (arrived, to be integrated)
 * Xiaomi Aqara magic cube (arrived, not working with zigbee2mqtt right now, [source](https://github.com/Koenkk/zigbee2mqtt/issues/498))

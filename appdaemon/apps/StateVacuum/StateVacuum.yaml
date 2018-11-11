@@ -1,0 +1,8 @@
+state_vacuum:
+  module: StateVacuum
+  class: StateVacuum
+  presence: switch.apartment__present
+  delay: input_number.automation_vacuum_absent_delay
+  target: input_boolean.automation_vacuum_cleaning
+  constrain_days: mon,tue,wed,thu,fri
+  constrain_input_boolean: input_boolean.automation_vacuum_cleaning_done,off

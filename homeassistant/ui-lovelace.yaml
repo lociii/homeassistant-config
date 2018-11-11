@@ -621,7 +621,7 @@ views:
             name: Nachtmodus
             icon: mdi:weather-night
           - entity: input_number.automation_darkness_lighting_offset
-            name: Versatz
+            name: Verzögerung
             icon: mdi:timer
 
       - type: entities
@@ -632,7 +632,7 @@ views:
             name: Nachtmodus
             icon: mdi:weather-night
           - entity: input_number.automation_darkness_cover_offset
-            name: Versatz
+            name: Verzögerung
             icon: mdi:timer
           - type: section
             label: Shutdown
@@ -648,7 +648,7 @@ views:
             name: Schlafen im Dunkeln
             icon: mdi:weather-night
           - entity: input_number.automation_darkness_cover_protection
-            name: Versatz
+            name: Verzögerung
             icon: mdi:power
 
       - type: entities
@@ -726,3 +726,17 @@ views:
             name: Westen
           - entity: input_boolean.automation_setting_sunprotection_orchids
             name: Orchideen
+
+      - type: entities
+        title: Staubsauger
+        show_header_toggle: false
+        entities:
+          - entity: input_boolean.automation_vacuum_cleaning
+            name: Aktiv
+            icon: mdi:play
+          - entity: input_boolean.automation_vacuum_cleaning_done
+            name: Fertig
+            icon: mdi:check-outline
+          - entity: input_number.automation_vacuum_absent_delay
+            name: Verzögerung
+            icon: mdi:timer

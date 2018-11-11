@@ -26,6 +26,8 @@ See [UtilAnnouncer](./apps/UtilAnnouncer)
 * Window open/closed (based on Xiaomi window sensor)
 * Nightly watering cycle
   see [StateWateringNight](./apps/StateWateringNight)
+* Vacuum cleaning status
+  see [StateVacuum](./apps/StateVacuum)
 
 # Automations
 
@@ -59,6 +61,11 @@ See [ActionResponder](./apps/ActionResponder)
 
 Lawn watering cycles.
 See [ActionWatering](./apps/ActionWatering)
+
+## Vacuum cleaning
+
+Vacuum as long as noone is home, pause cycle when someone returns and continue later on.
+See [ActionVacuum](./apps/ActionVacuum)
 
 # Notifications
 

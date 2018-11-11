@@ -1,0 +1,5 @@
+vacuum_reset_done:
+  module: StateVacuumResetDone
+  class: StateVacuumResetDone
+  target: input_boolean.automation_vacuum_cleaning_done
+  constrain_input_boolean: input_boolean.automation_vacuum_cleaning_done,on
