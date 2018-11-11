@@ -5,7 +5,6 @@ class StateDarkness(hass.Hass):
     def initialize(self):
         self.timer_sunset = None
         self.timer_sunrise = None
-        super().__init__(*args, **kwargs)
 
         self.indicator = self.args['indicator']
         self.offset = self.args['offset']
@@ -21,8 +20,10 @@ class StateDarkness(hass.Hass):
         # cancel existing timers
         if self.timer_sunset:
             self.cancel_timer(self.timer_sunset)
+            self.timer_sunset = None
         if self.timer_sunrise:
             self.cancel_timer(self.timer_sunrise)
+            self.timer_sunrise = None
 
         offset = int(float(self.get_state(self.offset)))
         self.timer_sunset = self.run_at_sunset(self.callback_sunset, offset=offset)

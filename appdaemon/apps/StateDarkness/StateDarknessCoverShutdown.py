@@ -28,7 +28,9 @@ class StateDarknessCoverShutdown(hass.Hass):
         self.timer = self.run_daily(callback=self.activate, start=start_time)
 
     def activate(self, *args, **kwargs):
+        self.log('darkness shutdown turned on for {}'.format(self.indicator))
         self.turn_on(self.indicator)
 
     def deactivate(self, *args, **kwargs):
+        self.log('darkness shutdown turned off for {}'.format(self.indicator))
         self.turn_off(self.indicator)

@@ -28,7 +28,9 @@ class StateDarknessCoverProtection(hass.Hass):
         self.timer = self.run_at_sunrise(self.activate, offset=offset)
 
     def activate(self, *args, **kwargs):
+        self.log('darkness sunlight protection turned on for {}'.format(self.indicator))
         self.turn_on(self.indicator)
 
     def deactivate(self, *args, **kwargs):
+        self.log('darkness sunlight protection turned off for {}'.format(self.indicator))
         self.turn_off(self.indicator)
