@@ -5,3 +5,23 @@ actionresponder_livingroom_light_reading:
   action_entities:
     - switch.osram_plug_readinglight
   dependencies: util_delayer
+
+actionresponder_shower_fan:
+  module: ActionResponder
+  class: ActionResponder
+  trigger_entity: light.dusche__deckenlicht
+  action_entities:
+    - light.dusche__lufter
+  on_delay: 15
+  off_delay: 120
+  dependencies: util_delayer
+
+actionresponder_bathroom_fan:
+  module: ActionResponder
+  class: ActionResponder
+  trigger_entity: light.bad__deckenlicht
+  action_entities:
+    - light.bad__lufter
+  on_delay: 15
+  off_delay: 120
+  dependencies: util_delayer

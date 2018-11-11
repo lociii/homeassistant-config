@@ -1,0 +1,19 @@
+fan_bathroom_absent:
+  module: ActionFanAbsent
+  class: ActionFanAbsent
+  fan: light.bad__lufter
+  indicator_presence: switch.apartment__present
+  absent_on_duration: 10
+  absent_off_duration: 5
+  dependencies:
+    - util_delayer
+
+fan_shower_absent:
+  module: ActionFanAbsent
+  class: ActionFanAbsent
+  fan: light.dusche__lufter
+  indicator_presence: switch.apartment__present
+  absent_on_duration: 10
+  absent_off_duration: 5
+  dependencies:
+    - util_delayer
