@@ -20,11 +20,13 @@ class StateVacuum(hass.Hass):
         delay = int(float(self.get_state(self.delay))) * 60
         self.timer = self.run_in(callback=self.activate, seconds=delay)
 
-        self.log('start cleaning cycle in {} seconds'.format(delay))
+        self.log('absent - start cleaning cycle in {} seconds'.format(delay))
 
     def activate(self, *args, **kwargs):
         # start cleaning
         self.turn_on(self.target)
+
+        self.log('absent - cleaning cycle started')
 
     def deactivate(self, *args, **kwargs):
         # reset timer
@@ -34,3 +36,5 @@ class StateVacuum(hass.Hass):
 
         # deactivate cleaning
         self.turn_off(self.target)
+
+        self.log('present - cleaning cycle stopped')
