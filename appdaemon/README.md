@@ -28,6 +28,8 @@ See [UtilAnnouncer](./apps/UtilAnnouncer)
   see [StateWateringNight](./apps/StateWateringNight)
 * Vacuum cleaning status
   see [StateVacuum](./apps/StateVacuum)
+* Laundry status based on machine power consumption
+  see [StateLaundry](./apps/StateLaundry)
 
 # Automations
 
@@ -71,5 +73,5 @@ See [ActionVacuum](./apps/ActionVacuum)
 
 ## Laundry
 
-Announce when the laundry is done based on the power usage of the washing machines/dryer.
-See [laundry](./apps/laundry)
+Announce when the laundry is done.
+See [NotifyLaundry](./apps/NotifyLaundry)

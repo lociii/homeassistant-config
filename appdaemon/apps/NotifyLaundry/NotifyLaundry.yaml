@@ -1,0 +1,23 @@
+laundry_dryer_notify:
+  module: NotifyLaundry
+  class: NotifyLaundry
+  trigger: input_select.dryer_status
+  message: Der Trockner ist fertig!
+  dependencies:
+    - util_announcer
+
+laundry_animal_notify:
+  module: NotifyLaundry
+  class: NotifyLaundry
+  trigger: input_select.washer_animal_status
+  message: Die Pferde-Waschmaschine ist fertig!
+  dependencies:
+    - util_announcer
+
+laundry_human_notify:
+  module: NotifyLaundry
+  class: NotifyLaundry
+  trigger: input_select.washer_human_status
+  message: Die Waschmaschine ist fertig!
+  dependencies:
+    - util_announcer
