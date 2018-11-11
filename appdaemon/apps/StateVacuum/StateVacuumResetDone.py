@@ -11,3 +11,4 @@ class StateVacuumResetDone(hass.Hass):
 
     def deactivate(self, *args, **kwargs):
         self.turn_off(self.target)
+        self.log('cleaning done status reset')
