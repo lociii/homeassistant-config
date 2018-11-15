@@ -25,7 +25,7 @@ class StateDarkness(hass.Hass):
             self.cancel_timer(self.timer_sunrise)
             self.timer_sunrise = None
 
-        offset = int(float(self.get_state(self.offset)))
+        offset = int(float(self.get_state(self.offset))) * 60
         self.timer_sunset = self.run_at_sunset(self.callback_sunset, offset=offset)
         self.timer_sunrise = self.run_at_sunrise(self.callback_sunrise, offset=offset * -1)
 
