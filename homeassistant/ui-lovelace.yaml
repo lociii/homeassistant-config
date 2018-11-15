@@ -724,15 +724,21 @@ views:
             label: Status
           - entity: input_boolean.automation_trigger_sunprotection_south
             name: Süden
+            icon: mdi:compass-outline
           - entity: input_boolean.automation_trigger_sunprotection_west
             name: Westen
+            icon: mdi:compass-outline
           - entity: input_boolean.automation_setting_sunprotection_orchids
             name: Orchideen
+            icon: mdi:flower-outline
 
       - type: entities
         title: Staubsauger
         show_header_toggle: false
         entities:
+          - entity: vacuum.xiaomi_vacuum_cleaner
+            name: Staubsauger
+            icon: mdi:robot-vacuum
           - entity: input_boolean.automation_vacuum_cleaning
             name: Aktiv
             icon: mdi:play
