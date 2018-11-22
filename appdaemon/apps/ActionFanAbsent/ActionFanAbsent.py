@@ -10,8 +10,8 @@ class ActionFanAbsent(hass.Hass):
         self.absent_on_duration = self.args['absent_on_duration']
         self.absent_off_duration = self.args['absent_off_duration']
 
-        self.listen_state(self.leaving, self.indicator_presence, new='False', old='True')
-        self.listen_state(self.returning, self.indicator_presence, new='True', old='False')
+        self.listen_state(self.leaving, self.indicator_presence, new='off', old='on')
+        self.listen_state(self.returning, self.indicator_presence, new='on', old='off')
 
     def leaving(self, *args, **kwargs):
         self.log('leaving - starting absence fan cycle for {}'.format(self.fan))
