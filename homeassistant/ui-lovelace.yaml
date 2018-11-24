@@ -548,6 +548,13 @@ views:
     theme: dark-mode
     cards:
       - type: entities
+        title: MQTT
+        show_header_toggle: false
+        entities:
+          - entity: switch.zigbee2mqtt_permit_join
+            name: Neue Geräte zulassen
+            icon: mdi:access-point
+      - type: entities
         title: System
         entities:
           - entity: sensor.glances_disk_free

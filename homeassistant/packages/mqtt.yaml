@@ -12,6 +12,16 @@ mqtt:
     payload: 'offline'
 
 switch:
+  # allow joining new devices on zigbee2mqtt
+  - platform: mqtt
+    name: zigbee2mqtt_permit_join
+    state_topic: zigbee2mqtt/bridge/config/permit_join
+    command_topic: zigbee2mqtt/bridge/config/permit_join
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_off: "false"
+    payload_on: "true"
+    state_off: "false"
+    state_on: "true"
   # power plug entertainment living room
   - platform: mqtt
     name: osram_plug_entertainment
