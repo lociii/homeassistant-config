@@ -49,6 +49,7 @@ alexa:
       - script.living_room_tv_channel_18
       - script.living_room_tv_channel_19
       - script.living_room_tv_channel_20
+      - switch.osram_plug_guestroom
     exclude_domains:
       - alert
       - automation
@@ -256,6 +257,10 @@ alexa:
       name: Welt
       description: ""
       display_categories: SCENE_TRIGGER
+    switch.osram_plug_guestroom:
+      name: Stehlampe Arbeitszimmer
+      description: ""
+      display_categories: LIGHT
 
 google_actions:
   filter:
@@ -284,6 +289,7 @@ google_actions:
       - scene.apartment__wakeup
       - scene.apartment__present
       - scene.apartment__absent
+      - switch.osram_plug_guestroom
     exclude_domains:
       - alert
       - automation
@@ -428,3 +434,6 @@ google_actions:
     scene.apartment__absent:
       name: Abwesend
       room: Wohnung
+    switch.osram_plug_guestroom:
+      name: Stehlampe Gästezimmer
+      room: Gästezimmer
