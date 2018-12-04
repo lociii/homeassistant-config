@@ -120,6 +120,7 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 * System sensor using glances
 * Xiaomi Aqara window/door sensors
 * Xiaomi Aqara climate sensors
+* Xiaomi Aqara water leakage sensors
 * Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway](https://github.com/sidddy/flora))
 
 ### Power plugs
@@ -127,11 +128,11 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 * TP Link HS110 power plugs
 * OSRAM smart+ plugs
 
-### Misc
+### Utility
 
 * Samsung Printer CLX-4190 Series
 * Xiaomi Roborock vacuum gen2
 
 ### Planned ecosystem
 
-* Xiaomi Aqara magic cube (arrived, not working with zigbee2mqtt right now, [source](https://github.com/Koenkk/zigbee2mqtt/issues/498))
+* Xiaomi Aqara magic cube

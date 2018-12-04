@@ -96,6 +96,24 @@ binary_sensor:
     payload_off: true
     value_template: "{{ value_json.contact }}"
     device_class: door
+  # water leakage one
+  - platform: mqtt
+    name: water_leakage_one
+    state_topic: zigbee2mqtt/water_leak_one
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: true
+    payload_off: false
+    value_template: "{{ value_json.water_leak }}"
+    device_class: moisture
+  # water leakage one
+  - platform: mqtt
+    name: water_leakage_two
+    state_topic: zigbee2mqtt/water_leak_two
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: true
+    payload_off: false
+    value_template: "{{ value_json.water_leak }}"
+    device_class: moisture
 
 light:
   - platform: mqtt_json
@@ -165,6 +183,26 @@ sensor:
   - platform: mqtt
     name: door_sensor_office_battery
     state_topic: zigbee2mqtt/door_sensor_office
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.battery }}"
+    json_attributes:
+      - voltage
+      - linkquality
+  # water leakage sensor one
+  - platform: mqtt
+    name: water_leakage_one_battery
+    state_topic: zigbee2mqtt/water_leak_one
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.battery }}"
+    json_attributes:
+      - voltage
+      - linkquality
+  # water leakage sensor two
+  - platform: mqtt
+    name: water_leakage_two_battery
+    state_topic: zigbee2mqtt/water_leak_two
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"

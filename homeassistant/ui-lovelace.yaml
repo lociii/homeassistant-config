@@ -462,6 +462,10 @@ views:
             name: Flora 2
           - entity: sensor.flora_sensor_3_battery
             name: Flora 3
+          - entity: sensor.water_leakage_one_battery
+            name: Wassersensor 1
+          - entity: sensor.water_leakage_two_battery
+            name: Wassersensor 2
 
   - title: Arbeitsweg
     id: traveldistance
