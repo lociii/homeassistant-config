@@ -9,9 +9,8 @@ resources:
 
 views:
   - title: Wohnung
-    id: apartment
+    path: apartment
     icon: mdi:home
-    theme: dark-mode
     cards:
       - type: entities
         title: Wohnzimmer
@@ -204,9 +203,8 @@ views:
             name: Schlafzimmer
 
   - title: Garten und Pflanzen
-    id: garden
+    path: garden
     icon: mdi:flower
-    theme: dark-mode
     cards:
       - type: entities
         title: Klima
@@ -265,9 +263,8 @@ views:
         entity: plant.plant_three
 
   - title: Film und TV
-    id: movie
+    path: movie
     icon: mdi:movie
-    theme: dark-mode
     cards:
       - type: entities
         show_header_toggle: false
@@ -336,9 +333,8 @@ views:
             name: Welt
 
   - title: Musik
-    id: music
+    path: music
     icon: mdi:music
-    theme: dark-mode
     cards:
       - type: entities
         title: Sonos
@@ -366,18 +362,16 @@ views:
 
 
   - title: Wetter
-    id: weather
+    path: weather
     icon: mdi:weather-cloudy
-    theme: dark-mode
     cards:
       - type: custom:weather-card
         entity_weather: weather.weather_daily
         entity_sun: sun.sun
 
   - title: Geräte
-    id: devices
+    path: devices
     icon: mdi:monitor-multiple
-    theme: dark-mode
     cards:
       - type: entities
         title: Samsung Drucker
@@ -509,9 +503,8 @@ views:
             name: Wassersensor 2
 
   - title: Auto
-    id: car
+    path: car
     icon: mdi:car
-    theme: dark-mode
     cards:
       - type: entities
         title: Fahrzeit
@@ -540,9 +533,8 @@ views:
             name: Eva
 
   - title: Wäsche
-    id: laundry
+    path: laundry
     icon: mdi:washing-machine
-    theme: dark-mode
     cards:
       - type: vertical-stack
         cards:
@@ -597,9 +589,8 @@ views:
             entity: sensor.washer_animal_consumption_last_5_mins_mean
 
   - title: System
-    id: system
+    path: system
     icon: mdi:cogs
-    theme: dark-mode
     cards:
       - type: entities
         title: MQTT
@@ -666,9 +657,8 @@ views:
             icon: mdi:database
 
   - title: Automation
-    id: automation
+    path: automation
     icon: mdi:robot
-    theme: dark-mode
     cards:
       - type: entities
         title: Global
