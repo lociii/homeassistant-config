@@ -2,7 +2,7 @@
 import logging
 
 from homeassistant.components.switch import SwitchDevice
-from homeassistant.helpers.restore_state import async_get_last_state
+from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.const import STATE_ON
 
 _LOGGER = logging.getLogger(__name__)
@@ -12,7 +12,7 @@ DEPENDENCIES = ['digitalstrom']
 
 async def async_setup_platform(hass, config, async_add_devices,
                                discovery_info=None):
-    from custom_components.digitalstrom import DOMAIN, DOMAIN_LISTENER
+    from ..digitalstrom.const import DOMAIN, DOMAIN_LISTENER
     from pydigitalstrom.devices.scene import DSScene
 
     client = hass.data[DOMAIN]
@@ -36,13 +36,13 @@ async def async_setup_platform(hass, config, async_add_devices,
             continue
 
         # add sensors
-        devices.append(DigitalstromSwitch(hass=hass, scene_on=scene, 
+        devices.append(DigitalstromSwitch(hass=hass, scene_on=scene,
             scene_off=scene_off, listener=listener))
 
     async_add_devices(device for device in devices)
 
 
-class DigitalstromSwitch(SwitchDevice):
+class DigitalstromSwitch(RestoreEntity, SwitchDevice):
     def __init__(self, hass, scene_on, scene_off, listener, *args, **kwargs):
         self._hass = hass
         self._scene_on = scene_on
@@ -116,10 +116,13 @@ class DigitalstromSwitch(SwitchDevice):
         self._state = False
 
     async def async_added_to_hass(self):
-        state = await async_get_last_state(self._hass, self.entity_id)
-        if state is not None:
-            _LOGGER.debug('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
-            self._state = state.state == STATE_ON
+        await super().async_added_to_hass()
+        state = await self.async_get_last_state()
+        if not state:
+            return
+
+        _LOGGER.debug('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
+        self._state = state.state == STATE_ON
 
     def should_poll(self):
         return False

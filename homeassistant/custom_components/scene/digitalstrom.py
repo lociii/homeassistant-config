@@ -10,7 +10,7 @@ DEPENDENCIES = ['digitalstrom']
 
 async def async_setup_platform(hass, config, async_add_devices,
                                discovery_info=None):
-    from custom_components.digitalstrom import DOMAIN
+    from ..digitalstrom.const import DOMAIN
     from pydigitalstrom.devices.scene import DSColorScene
 
     client = hass.data[DOMAIN]

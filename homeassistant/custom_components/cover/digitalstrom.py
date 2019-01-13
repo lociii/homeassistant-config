@@ -3,7 +3,6 @@ import logging
 
 from homeassistant.components.cover import CoverDevice, ENTITY_ID_FORMAT, \
     SUPPORT_CLOSE, SUPPORT_OPEN
-from homeassistant.helpers.restore_state import async_get_last_state
 from homeassistant.const import STATE_ON
 
 _LOGGER = logging.getLogger(__name__)
@@ -13,7 +12,7 @@ DEPENDENCIES = ['digitalstrom']
 
 async def async_setup_platform(hass, config, async_add_devices,
                                discovery_info=None):
-    from custom_components.digitalstrom import DOMAIN, DOMAIN_LISTENER
+    from ..digitalstrom.const import DOMAIN, DOMAIN_LISTENER
     from pydigitalstrom.devices.scene import DSColorScene
 
     client = hass.data[DOMAIN]
@@ -30,7 +29,7 @@ async def async_setup_platform(hass, config, async_add_devices,
 
         # get turn on counterpart
         scene_on = scenes.get('{zone_id}.{color}.{scene_id}'.format(
-            zone_id=scene.zone_id, color=scene.color, 
+            zone_id=scene.zone_id, color=scene.color,
             scene_id=scene.scene_id + 5), None)
 
         # no turn on scene found, skip
@@ -39,7 +38,7 @@ async def async_setup_platform(hass, config, async_add_devices,
 
         # add cover
         _LOGGER.info('adding cover {}: {}'.format(scene.scene_id, scene.name))
-        devices.append(DigitalstromCover(hass=hass, scene_on=scene_on, 
+        devices.append(DigitalstromCover(hass=hass, scene_on=scene_on,
             scene_off=scene, listener=listener))
 
     async_add_devices(device for device in devices)

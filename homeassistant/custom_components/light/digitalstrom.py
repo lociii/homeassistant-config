@@ -2,7 +2,7 @@
 import logging
 
 from homeassistant.components.light import Light, ENTITY_ID_FORMAT
-from homeassistant.helpers.restore_state import async_get_last_state
+from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.const import STATE_ON
 
 _LOGGER = logging.getLogger(__name__)
@@ -12,7 +12,7 @@ DEPENDENCIES = ['digitalstrom']
 
 async def async_setup_platform(hass, config, async_add_devices,
                                discovery_info=None):
-    from custom_components.digitalstrom import DOMAIN, DOMAIN_LISTENER
+    from ..digitalstrom.const import DOMAIN, DOMAIN_LISTENER
     from pydigitalstrom.devices.scene import DSColorScene
 
     client = hass.data[DOMAIN]
@@ -29,7 +29,7 @@ async def async_setup_platform(hass, config, async_add_devices,
 
         # get turn on counterpart
         scene_on = scenes.get('{zone_id}.{color}.{scene_id}'.format(
-            zone_id=scene.zone_id, color=scene.color, 
+            zone_id=scene.zone_id, color=scene.color,
             scene_id=scene.scene_id + 5), None)
 
         # no turn on scene found, skip
@@ -38,13 +38,13 @@ async def async_setup_platform(hass, config, async_add_devices,
 
         # add light
         _LOGGER.info('adding light {}: {}'.format(scene.scene_id, scene.name))
-        devices.append(DigitalstromLight(hass=hass, scene_on=scene_on, 
+        devices.append(DigitalstromLight(hass=hass, scene_on=scene_on,
             scene_off=scene, listener=listener))
 
     async_add_devices(device for device in devices)
 
 
-class DigitalstromLight(Light):
+class DigitalstromLight(RestoreEntity, Light):
     def __init__(self, hass, scene_on, scene_off, listener, *args, **kwargs):
         self._hass = hass
         self._scene_on = scene_on
@@ -116,10 +116,13 @@ class DigitalstromLight(Light):
         self._state = False
 
     async def async_added_to_hass(self):
-        state = await async_get_last_state(self._hass, self.entity_id)
-        if state:
-            _LOGGER.debug('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
-            self._state = state.state == STATE_ON
+        await super().async_added_to_hass()
+        state = await self.async_get_last_state()
+        if not state:
+            return
+
+        _LOGGER.debug('trying to restore state of entity {} to {}'.format(self.entity_id, state.state))
+        self._state = state.state == STATE_ON
 
     def should_poll(self):
         return False
