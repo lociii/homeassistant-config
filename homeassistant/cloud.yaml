@@ -258,7 +258,7 @@ alexa:
       description: ""
       display_categories: SCENE_TRIGGER
     switch.osram_plug_guestroom:
-      name: Stehlampe Arbeitszimmer
+      name: Stehlampe Gästezimmer
       description: ""
       display_categories: LIGHT
 
