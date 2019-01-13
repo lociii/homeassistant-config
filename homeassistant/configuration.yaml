@@ -110,3 +110,6 @@ influxdb:
 cloud: !include cloud.yaml
 tts: !include tts.yaml
 zone: !include zones.yaml
+
+lovelace:
+  mode: yaml

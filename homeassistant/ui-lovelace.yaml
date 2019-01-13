@@ -115,6 +115,10 @@ views:
           - entity: scene.wohnzimmer__rolladen_kuche_schlitz
             name: Rolladen auf Spalt
           - type: divider
+          - entity: switch.osram_plug_kitchen
+            icon: mdi:coffee
+            name: Kaffeemaschine
+          - type: divider
           - entity: light.kuche__deckenlicht
             name: Deckenlicht
           - entity: light.kuche__schranklicht
@@ -157,6 +161,7 @@ views:
 
       - type: entities
         title: Anwesenheit
+        show_header_toggle: false
         entities:
           - entity: binary_sensor.people_home
             name: Bewohner anwesend?
@@ -183,7 +188,10 @@ views:
 
       - type: entities
         title: Fenster
+        show_header_toggle: false
         entities:
+          - entity: binary_sensor.door_sensor_entrance
+            name: Wohnungstür
           - entity: binary_sensor.door_sensor_patio
             name: Terrasse
           - entity: binary_sensor.door_sensor_kitchen
@@ -230,15 +238,22 @@ views:
             name: Entnahme
             icon: mdi:water-pump
       - type: entities
-        title: Automatisierung
+        title: Zyklen
         show_header_toggle: false
         entities:
-          - entity: input_boolean.watering_short_night
-            name: Kurze Bewässerung nachts
-            icon: mdi:timer
-          - entity: input_boolean.watering_short_now
+          - entity: input_boolean.automation_watering_short
             name: Kurze Bewässerung jetzt
             icon: mdi:play-circle-outline
+          - entity: input_boolean.automation_watering_short_night
+            name: Kurze Bewässerung nachts
+            icon: mdi:timer
+          - type: divider
+          - entity: input_boolean.automation_watering_long
+            name: Lange Bewässerung jetzt
+            icon: mdi:play-circle-outline
+          - entity: input_boolean.automation_watering_long_night
+            name: Lange Bewässerung nachts
+            icon: mdi:timer
       - type: plant-status
         name: Pflanze 1
         entity: plant.plant_one
@@ -326,15 +341,20 @@ views:
     theme: dark-mode
     cards:
       - type: media-control
-        entity: media_player.sonos
+        entity: media_player.sonos_livingroom
+        name: Sonos Wohnzimmer
       - type: media-control
         entity: media_player.wohnzimmer
+        name: Google Home Wohnzimmer
       - type: media-control
         entity: media_player.office
+        name: Google Home Büro
       - type: media-control
-        entity: media_player.gastezimmer
+        entity: media_player.sonos_guestroom
+        name: Sonos Gästezimmer
       - type: media-control
-        entity: media_player.dusche
+        entity: media_player.sonos_shower
+        name: Sonos Dusche
 
   - title: Wetter
     id: weather
@@ -397,11 +417,7 @@ views:
           - entity: binary_sensor.amazon_echo_living_room_online
             name: Amazon Echo Wohnzimmer
           - entity: binary_sensor.google_home_office_online
-            name: Google Home Arbeitszimmer
-          - entity: binary_sensor.google_home_guestroom_online
-            name: Google Home Gästezimmer
-          - entity: binary_sensor.google_home_shower_online
-            name: Google Home Dusche
+            name: Google Home Büro
           - entity: binary_sensor.google_home_living_room_online
             name: Google Home Wohnzimmer
           - entity: binary_sensor.firetv_bedroom_online
@@ -416,6 +432,10 @@ views:
             name: Sonos Wohnzimmer (rechts)
           - entity: binary_sensor.sonos_sub_online
             name: Sonos Wohnzimmer (Sub)
+          - entity: binary_sensor.sonos_guestroom_online
+            name: Sonos Gästezimmer
+          - entity: binary_sensor.sonos_shower_online
+            name: Sonos Dusche
           - entity: binary_sensor.power_plug_dryer_online
             name: Steckdose Trockner
           - entity: binary_sensor.power_plug_washer_human_online
@@ -467,8 +487,8 @@ views:
           - entity: sensor.water_leakage_two_battery
             name: Wassersensor 2
 
-  - title: Arbeitsweg
-    id: traveldistance
+  - title: Auto
+    id: car
     icon: mdi:car
     theme: dark-mode
     cards:
@@ -479,6 +499,14 @@ views:
             name: Jens
           - entity: sensor.travel_time_eva
             name: Eva
+      - type: entities
+        title: Standheizung
+        show_header_toggle: false
+        entities:
+          - entity: scene.car_heating_on
+            name: Anschalten
+          - entity: scene.car_heating_off
+            name: Ausschalten
       - type: history-graph
         hours_to_show: 48
         refresh_interval: 30
@@ -560,6 +588,7 @@ views:
             icon: mdi:access-point
       - type: entities
         title: System
+        show_header_toggle: false
         entities:
           - entity: sensor.glances_disk_free
             name: Festplatte frei
@@ -581,6 +610,7 @@ views:
             name: CPU Anzahl
       - type: entities
         title: Docker Container
+        show_header_toggle: false
         entities:
           - entity: sensor.docker_appdaemon_text
             name: AppDaemon
