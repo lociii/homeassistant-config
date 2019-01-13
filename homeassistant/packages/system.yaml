@@ -10,12 +10,6 @@ binary_sensor:
       google_home_office_online:
         value_template: >
           {{ is_state('device_tracker.google_home_mini_eva', 'home')}}
-      google_home_guestroom_online:
-        value_template: >
-          {{ is_state('device_tracker.google_home_mini_gastezimmer', 'home')}}
-      google_home_shower_online:
-        value_template: >
-          {{ is_state('device_tracker.google_home_mini_jens_dusche', 'home')}}
       google_home_living_room_online:
         value_template: >
           {{ is_state('device_tracker.google_home_wohnzimmer', 'home')}}
@@ -37,6 +31,12 @@ binary_sensor:
       sonos_sub_online:
         value_template: >
           {{ is_state('device_tracker.sonos_sub', 'home')}}
+      sonos_guestroom_online:
+        value_template: >
+          {{ is_state('device_tracker.sonos_guestroom', 'home')}}
+      sonos_shower_online:
+        value_template: >
+          {{ is_state('device_tracker.sonos_shower', 'home')}}
       power_plug_dryer_online:
         value_template: >
           {{ is_state('device_tracker.steckdose_trockner', 'home')}}

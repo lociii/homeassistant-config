@@ -1,4 +1,10 @@
 sonos:
   media_player:
-    name: sonos
-    hosts: !secret sonos_playbase_ip
+    name: sonos_livingroom
+    hosts: !secret sonos_livingroom_ip
+  media_player:
+    name: sonos_guestroom
+    hosts: !secret sonos_guestroom_ip
+  media_player:
+    name: sonos_shower
+    hosts: !secret sonos_shower_ip
