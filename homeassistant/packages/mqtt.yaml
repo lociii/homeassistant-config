@@ -49,9 +49,18 @@ switch:
     payload_on: "ON"
     value_template: "{{ value_json.state }}"
     command_topic: zigbee2mqtt/osram_plug_guestroom/set
+  # power plug coffee machine kitchen
+  - platform: mqtt
+    name: osram_plug_kitchen
+    state_topic: zigbee2mqtt/osram_plug_kitchen
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: zigbee2mqtt/osram_plug_kitchen/set
 
 binary_sensor:
-  # window sensor patio
+  # door sensor patio
   - platform: mqtt
     name: door_sensor_patio
     state_topic: zigbee2mqtt/door_sensor_patio
@@ -96,6 +105,15 @@ binary_sensor:
     payload_off: true
     value_template: "{{ value_json.contact }}"
     device_class: door
+  # door sensor entrance
+  - platform: mqtt
+    name: door_sensor_entrance
+    state_topic: zigbee2mqtt/door_sensor_entrance
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_on: false
+    payload_off: true
+    value_template: "{{ value_json.contact }}"
+    device_class: door
   # water leakage one
   - platform: mqtt
     name: water_leakage_one
@@ -116,21 +134,24 @@ binary_sensor:
     device_class: moisture
 
 light:
-  - platform: mqtt_json
+  - platform: mqtt
+    schema: json
     name: garden_one
     state_topic: zigbee2mqtt/light_garden_one
     availability_topic: zigbee2mqtt/bridge/state
     brightness: true
     xy: true
     command_topic: zigbee2mqtt/light_garden_one/set
-  - platform: mqtt_json
+  - platform: mqtt
+    schema: json
     name: garden_two
     state_topic: zigbee2mqtt/light_garden_two
     availability_topic: zigbee2mqtt/bridge/state
     brightness: true
     xy: true
     command_topic: zigbee2mqtt/light_garden_two/set
-  - platform: mqtt_json
+  - platform: mqtt
+    schema: json
     name: garden_three
     state_topic: zigbee2mqtt/light_garden_three
     availability_topic: zigbee2mqtt/bridge/state
