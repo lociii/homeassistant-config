@@ -210,6 +210,16 @@ sensor:
     json_attributes:
       - voltage
       - linkquality
+  # door sensor entrance
+  - platform: mqtt
+    name: door_sensor_entrance_battery
+    state_topic: zigbee2mqtt/door_sensor_entrance
+    availability_topic: zigbee2mqtt/bridge/state
+    unit_of_measurement: "%"
+    value_template: "{{ value_json.battery }}"
+    json_attributes:
+      - voltage
+      - linkquality
   # water leakage sensor one
   - platform: mqtt
     name: water_leakage_one_battery

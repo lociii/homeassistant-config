@@ -493,6 +493,8 @@ views:
             name: Schlafzimmer
           - entity: sensor.door_sensor_office_battery
             name: Büro
+          - entity: sensor.door_sensor_entrance_battery
+            name: Eingang
           - entity: sensor.xiaomi_cube_battery
             name: Xiaomi Cube
           - entity: sensor.flora_sensor_1_battery
