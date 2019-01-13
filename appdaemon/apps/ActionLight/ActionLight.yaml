@@ -17,6 +17,7 @@ leaving_day_turn_lights_off:
     - light.garden_two
     - light.garden_three
     - light.gastezimmer__deckenlicht
+    - switch.osram_plug_guestroom
     - light.kuche__deckenlicht
     - light.kuche__schranklicht
     - light.kuche__spulenlicht
@@ -45,6 +46,7 @@ leaving_night_turn_lights_off:
     - light.esszimmer__esstischlicht
     - light.flur__flur
     - light.gastezimmer__deckenlicht
+    - switch.osram_plug_guestroom
     - light.kuche__deckenlicht
     - light.kuche__schranklicht
     - light.kuche__spulenlicht
@@ -81,6 +83,7 @@ returning_dark_turn_lights_on:
   action_entities:
     - light.flur__flur
     - light.kuche__schranklicht
+    - light.wohnzimmer__stehlampe
   action_status: on
   dependencies: util_delayer
 
@@ -102,6 +105,7 @@ sleeping_turn_lights_off:
     - light.garden_two
     - light.garden_three
     - light.gastezimmer__deckenlicht
+    - switch.osram_plug_guestroom
     - light.kuche__deckenlicht
     - light.kuche__schranklicht
     - light.kuche__spulenlicht
