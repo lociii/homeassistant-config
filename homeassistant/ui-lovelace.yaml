@@ -667,6 +667,12 @@ views:
           - entity: input_boolean.automation_simulate_only
             name: Simulationsmodus
             icon: mdi:alert
+          - entity: input_boolean.automation_setting_mode_freezing
+            name: Modus Frostgefahr
+            icon: mdi:snowflake
+          - entity: input_boolean.automation_setting_mode_guest
+            name: Modus Gast anwesend
+            icon: mdi:bed-empty
 
       - type: entities
         title: Licht

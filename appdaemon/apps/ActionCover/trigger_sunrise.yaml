@@ -6,6 +6,7 @@ kitchen_sunrise_absent_window_closed:
   constraint_list:
     - switch.apartment__present,off
     - binary_sensor.door_sensor_kitchen,off
+    - input_boolean.automation_setting_mode_freezing,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_2
   dependencies: util_delayer

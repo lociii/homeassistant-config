@@ -5,6 +5,7 @@ kitchen_wakeup:
   trigger_status: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
+    - input_boolean.automation_setting_mode_freezing,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_2
   dependencies: util_delayer
@@ -17,6 +18,7 @@ kitchen_wakeup_sunprotection:
   trigger_status: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
+    - input_boolean.automation_setting_mode_freezing,off
   action_scenes:
     - scene.wohnzimmer__rolladen_kuche_schlitz
   dependencies: util_delayer
@@ -62,7 +64,7 @@ couch_wakeup:
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
   constraint_list:
-    - input_boolean.automation_trigger_sunprotection_south,off
+    - input_boolean.automation_trigger_sunprotection_west,off
   action_scenes:
     - scene.wohnzimmer__rolladen_couch_2
   dependencies: util_delayer
@@ -74,7 +76,7 @@ couch_wakeup_sunprotection:
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
   constraint_list:
-    - input_boolean.automation_trigger_sunprotection_south,on
+    - input_boolean.automation_trigger_sunprotection_west,on
   action_scenes:
     - scene.wohnzimmer__rolladen_couch_katzenmodus
   dependencies: util_delayer
@@ -86,7 +88,8 @@ guestroom_wakeup:
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
   constraint_list:
-    - input_boolean.automation_trigger_sunprotection_south,off
+    - input_boolean.automation_trigger_sunprotection_west,off
+    - input_boolean.automation_setting_mode_guest,off
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_2
   dependencies: util_delayer
@@ -98,7 +101,7 @@ guestroom_wakeup_sunprotection:
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
   constraint_list:
-    - input_boolean.automation_trigger_sunprotection_south,on
+    - input_boolean.automation_trigger_sunprotection_west,on
   action_scenes:
     - scene.gastezimmer__rolladen_gastezimmer_schlitz
   dependencies: util_delayer
@@ -110,7 +113,7 @@ bedroom_wakeup:
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
   constraint_list:
-    - input_boolean.automation_trigger_sunprotection_south,off
+    - input_boolean.automation_trigger_sunprotection_west,off
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_2
   dependencies: util_delayer
@@ -122,7 +125,7 @@ bedroom_wakeup_sunprotection:
   trigger_entity: switch.apartment__sleeping
   trigger_status: off
   constraint_list:
-    - input_boolean.automation_trigger_sunprotection_south,on
+    - input_boolean.automation_trigger_sunprotection_west,on
   action_scenes:
     - scene.schlafzimmer__rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
