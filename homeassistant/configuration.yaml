@@ -114,3 +114,9 @@ zone: !include zones.yaml
 
 lovelace:
   mode: yaml
+
+panel_iframe:
+  paperless:
+    title: Paperless
+    url: https://home.schoenbuchallee.de:815
+    icon: mdi:newspaper

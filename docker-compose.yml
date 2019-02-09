@@ -132,7 +132,9 @@ services:
     ports:
       - 80:80  # http redirect to ssl
       - 443:443  # ssl
+      - 815:815 # paperless
       - 5050:5050  # appdaemon
+      - 9001:9001  # mosquitto websocket
     command: /bin/sh -c "envsubst '$$MY_DOMAIN' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
 
   # https://hub.docker.com/r/nicolargo/glances/tags/
@@ -146,6 +148,86 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
 
+  ################################
+  # OWNTRACKS
+  ################################
+
+  owntracks:
+      image: owntracks/recorder:0.8.3-4
+      volumes:
+        - owntracks_config:/config
+        - owntracks_store:/store
+      restart: unless-stopped
+      environment:
+        - OTR_HOST=mosquitto
+        - OTR_USER=$MQTT_USER
+        - OTR_PASS=$MQTT_PASSWORD
+      ports:
+        - 8083:8083
+
+  ################################
+  # PAPERLESS
+  ################################
+
+  paperless_webserver:
+    image: danielquinn/paperless:latest
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl" , "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - paperless_data:/usr/src/paperless/data
+      - paperless_media:/usr/src/paperless/media
+      # You have to adapt the local path you want the consumption
+      # directory to mount to by modifying the part before the ':'.
+      - ./consume:/consume
+    # The reason the line is here is so that the webserver that doesn't do
+    # any text recognition and doesn't have to install unnecessary
+    # languages the user might have set in the env-file by overwriting the
+    # value with nothing.
+    environment:
+      - PAPERLESS_OCR_LANGUAGES=
+      - PAPERLESS_PASSPHRASE=$PAPERLESS_PASSPHRASE
+    command: ["runserver", "--insecure", "--noreload", "0.0.0.0:8000"]
+
+  paperless_consumer:
+    image: danielquinn/paperless:latest
+    restart: unless-stopped
+    depends_on:
+      - paperless_webserver
+    volumes:
+      - paperless_data:/usr/src/paperless/data
+      - paperless_media:/usr/src/paperless/media
+      # This should be set to the same value as the consume directory
+      # in the webserver service above.
+      - ./consume:/consume
+      # Likewise, you can add a local path to mount a directory for
+      # exporting. This is not strictly needed for paperless to
+      # function, only if you're exporting your files: uncomment
+      # it and fill in a local path if you know you're going to
+      # want to export your documents.
+      # - /path/to/another/arbitrary/place:/export
+    environment:
+      # passphrase to gpg encode document for storage
+      - PAPERLESS_PASSPHRASE=$PAPERLESS_PASSPHRASE
+      # list of languages to be supported for ocr
+      - PAPERLESS_OCR_LANGUAGES=$PAPERLESS_OCR_LANGUAGES
+      # mail host settings
+      - PAPERLESS_CONSUME_MAIL_HOST=$PAPERLESS_CONSUME_MAIL_HOST
+      - PAPERLESS_CONSUME_MAIL_PORT=$PAPERLESS_CONSUME_MAIL_PORT
+      - PAPERLESS_CONSUME_MAIL_USER=$PAPERLESS_CONSUME_MAIL_USER
+      - PAPERLESS_CONSUME_MAIL_PASS=$PAPERLESS_CONSUME_MAIL_PASS
+      - PAPERLESS_CONSUME_MAIL_INBOX=$PAPERLESS_CONSUME_MAIL_INBOX
+      # secret phrase that must be contained in the email body to allow import
+      - PAPERLESS_EMAIL_SECRET=$PAPERLESS_EMAIL_SECRET
+      # define how many threads are allowed for ocr
+      - PAPERLESS_OCR_THREADS=4
+      # accept documents even if the ocr could not detect the language
+      - PAPERLESS_FORGIVING_OCR=True
+    command: ["document_consumer"]
+
 volumes:
   chronograf: {}
   grafana: {}
@@ -154,3 +236,9 @@ volumes:
   mosquitto_log: {}
   mosquitto_data: {}
   postgresql: {}
+
+  owntracks_config: {}
+  owntracks_store: {}
+
+  paperless_data: {}
+  paperless_media: {}
