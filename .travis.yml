@@ -2,7 +2,7 @@ language: python
 python:
   - "3.6.6"
 before_install:
-  - touch adbkey adbkey.pub
+  - touch homeassistant/firetv/adbkey homeassistant/firetv/adbkey.pub
   - mv homeassistant/travis_secrets.yaml homeassistant/secrets.yaml
 install:
   - pip3 install homeassistant
