@@ -167,9 +167,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/door_sensor_patio
   # window sensor kitchen
   - platform: mqtt
     name: door_sensor_kitchen_battery
@@ -177,9 +175,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/door_sensor_kitchen
   # window sensor bedroom
   - platform: mqtt
     name: door_sensor_guestroom_battery
@@ -187,9 +183,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/door_sensor_guestroom
   # window sensor bedroom
   - platform: mqtt
     name: door_sensor_bedroom_battery
@@ -197,9 +191,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/door_sensor_bedroom
   # window sensor office
   - platform: mqtt
     name: door_sensor_office_battery
@@ -207,9 +199,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/door_sensor_office
   # door sensor entrance
   - platform: mqtt
     name: door_sensor_entrance_battery
@@ -217,9 +207,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/door_sensor_entrance
   # water leakage sensor one
   - platform: mqtt
     name: water_leakage_one_battery
@@ -227,9 +215,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/water_leak_one
   # water leakage sensor two
   - platform: mqtt
     name: water_leakage_two_battery
@@ -237,9 +223,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "%"
     value_template: "{{ value_json.battery }}"
-    json_attributes:
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/water_leak_two
   # outdoor temperature sensor
   - platform: mqtt
     name: weather_outdoor_temperature
@@ -247,10 +231,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     unit_of_measurement: "°C"
     value_template: "{{ value_json.temperature }}"
-    json_attributes:
-      - battery
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/weather_outdoor
   - platform: mqtt
     name: weather_outdoor_humidity
     state_topic: zigbee2mqtt/weather_outdoor
@@ -276,10 +257,7 @@ sensor:
     unit_of_measurement: "°C"
     icon: mdi:temperature-celsius
     value_template: "{{ value_json.temperature }}"
-    json_attributes:
-      - battery
-      - voltage
-      - linkquality
+    json_attributes_topic: zigbee2mqtt/weather_indoor
   - platform: mqtt
     name: weather_indoor_humidity
     state_topic: zigbee2mqtt/weather_indoor
@@ -307,21 +285,7 @@ sensor:
     availability_topic: zigbee2mqtt/bridge/state
     icon: mdi:gesture-double-tap
     value_template: "{{ value_json.action }}"
-    json_attributes:
-      - battery
-      - voltage
-      - linkquality
-      - angle
-      - side
-      - from_side
-      - to_side
-      - brightness
-      - angle_x_absolute
-      - angle_y_absolute
-      - angle_z
-      - angle_y
-      - angle_x
-      - unknown_data
+    json_attributes_topic: zigbee2mqtt/xiaomi_cube
     force_update: true
   - platform: template
     sensors:
