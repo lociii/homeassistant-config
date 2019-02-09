@@ -6,7 +6,7 @@ kitchen_window_closed_dark:
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
-    - scene.wohnzimmer_rolladen_kuche
+    - scene.wohnzimmer_rolladen_kuche_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -18,7 +18,7 @@ guestroom_window_closed_dark:
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
-    - scene.gastezimmer_rolladen_gastezimmer
+    - scene.gastezimmer_rolladen_gastezimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -30,7 +30,7 @@ bedroom_window_closed_dark:
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
-    - scene.schlafzimmer_rolladen_schlafzimmer
+    - scene.schlafzimmer_rolladen_schlafzimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -42,6 +42,6 @@ office_window_closed_dark:
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
-    - scene.arbeitszimmer_rolladen_arbeitszimmer
+    - scene.arbeitszimmer_rolladen_arbeitszimmer_closed
   dependencies: util_delayer
   global_dependencies: global

@@ -6,7 +6,7 @@ kitchen_sunset_shutdown_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_kitchen,off
   action_scenes:
-    - scene.wohnzimmer_rolladen_kuche
+    - scene.wohnzimmer_rolladen_kuche_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -16,7 +16,7 @@ dining_sunset_shutdown:
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   action_scenes:
-    - scene.wohnzimmer_rolladen_esstisch
+    - scene.wohnzimmer_rolladen_esstisch_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -28,7 +28,7 @@ patio_sunset_shutdown_absent:
   constraint_list:
     - switch.apartment_present,off
   action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse
+    - scene.wohnzimmer_rolladen_terrasse_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -38,7 +38,7 @@ couch_sunset_shutdown:
   trigger_entity: input_boolean.automation_darkness_cover_shutdown
   trigger_status: on
   action_scenes:
-    - scene.wohnzimmer_rolladen_couch
+    - scene.wohnzimmer_rolladen_couch_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -50,7 +50,7 @@ guestroom_sunset_shutdown_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_guestroom,off
   action_scenes:
-    - scene.gastezimmer_rolladen_gastezimmer
+    - scene.gastezimmer_rolladen_gastezimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -62,7 +62,7 @@ bedroom_sunset_shutdown_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_bedroom,off
   action_scenes:
-    - scene.schlafzimmer_rolladen_schlafzimmer
+    - scene.schlafzimmer_rolladen_schlafzimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -74,6 +74,6 @@ office_sunset_shutdown_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_office,off
   action_scenes:
-    - scene.arbeitszimmer_rolladen_arbeitszimmer
+    - scene.arbeitszimmer_rolladen_arbeitszimmer_closed
   dependencies: util_delayer
   global_dependencies: global

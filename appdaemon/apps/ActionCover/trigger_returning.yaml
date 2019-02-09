@@ -6,6 +6,6 @@ patio_returning_dark:
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse_2
+    - scene.wohnzimmer_rolladen_terrasse_open
   dependencies: util_delayer
   global_dependencies: global

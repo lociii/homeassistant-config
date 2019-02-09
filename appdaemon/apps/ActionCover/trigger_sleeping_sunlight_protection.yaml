@@ -7,7 +7,7 @@ kitchen_sleeping_window_open_sunlight_protection:
     - binary_sensor.door_sensor_kitchen,on
     - switch.apartment_sleeping,on
   action_scenes:
-    - scene.wohnzimmer_rolladen_kuche
+    - scene.wohnzimmer_rolladen_kuche_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -20,7 +20,7 @@ patio_sleeping_window_open_sunlight_protection:
     - binary_sensor.door_sensor_patio,on
     - switch.apartment_sleeping,on
   action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse
+    - scene.wohnzimmer_rolladen_terrasse_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -33,7 +33,7 @@ guestroom_sleeping_window_open_sunlight_protection:
     - binary_sensor.door_sensor_guestroom,on
     - switch.apartment_sleeping,on
   action_scenes:
-    - scene.gastezimmer_rolladen_gastezimmer
+    - scene.gastezimmer_rolladen_gastezimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -46,7 +46,7 @@ bedroom_sleeping_window_open_sunlight_protection:
     - binary_sensor.door_sensor_bedroom,on
     - switch.apartment_sleeping,on
   action_scenes:
-    - scene.schlafzimmer_rolladen_schlafzimmer
+    - scene.schlafzimmer_rolladen_schlafzimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -59,6 +59,6 @@ office_sleeping_window_open_sunlight_protection:
     - binary_sensor.door_sensor_office,on
     - switch.apartment_sleeping,on
   action_scenes:
-    - scene.arbeitszimmer_rolladen_arbeitszimmer
+    - scene.arbeitszimmer_rolladen_arbeitszimmer_closed
   dependencies: util_delayer
   global_dependencies: global

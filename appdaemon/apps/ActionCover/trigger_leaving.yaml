@@ -6,7 +6,7 @@ kitchen_leaving_window_open:
   constraint_list:
     - binary_sensor.door_sensor_kitchen,on
   action_scenes:
-    - scene.wohnzimmer_rolladen_kuche
+    - scene.wohnzimmer_rolladen_kuche_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -18,7 +18,7 @@ patio_leaving_window_open:
   constraint_list:
     - binary_sensor.door_sensor_patio,on
   action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse
+    - scene.wohnzimmer_rolladen_terrasse_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -31,7 +31,7 @@ patio_leaving_dark:
     - input_boolean.automation_darkness_cover,on
     - binary_sensor.door_sensor_patio,off
   action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse
+    - scene.wohnzimmer_rolladen_terrasse_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -43,7 +43,7 @@ guestroom_leaving_window_open:
   constraint_list:
     - binary_sensor.door_sensor_guestroom,on
   action_scenes:
-    - scene.gastezimmer_rolladen_gastezimmer
+    - scene.gastezimmer_rolladen_gastezimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -55,7 +55,7 @@ bedroom_leaving_window_open:
   constraint_list:
     - binary_sensor.door_sensor_bedroom,on
   action_scenes:
-    - scene.schlafzimmer_rolladen_schlafzimmer
+    - scene.schlafzimmer_rolladen_schlafzimmer_closed
   dependencies: util_delayer
   global_dependencies: global
 
@@ -67,6 +67,6 @@ office_leaving_window_open:
   constraint_list:
     - binary_sensor.door_sensor_office,on
   action_scenes:
-    - scene.arbeitszimmer_rolladen_arbeitszimmer
+    - scene.arbeitszimmer_rolladen_arbeitszimmer_closed
   dependencies: util_delayer
   global_dependencies: global
