@@ -1,73 +1,73 @@
 leaving_day_turn_lights_off:
   module: ActionLight
   class: ActionLight
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,off
   action_entities:
-    - light.arbeitszimmer__deckenlicht
-    - light.bad__deckenlicht
-    - light.bad__spiegellicht
-    - light.dusche__deckenlicht
-    - light.dusche__spiegellicht
-    - light.esszimmer__esstischlicht
-    - light.flur__flur
-    - light.garten__laterne
+    - light.arbeitszimmer_deckenlicht
+    - light.bad_deckenlicht
+    - light.bad_spiegellicht
+    - light.dusche_deckenlicht
+    - light.dusche_spiegellicht
+    - light.esszimmer_esstischlicht
+    - light.flur_flur
+    - light.garten_laterne
     - light.garden_one
     - light.garden_two
     - light.garden_three
-    - light.gastezimmer__deckenlicht
+    - light.gastezimmer_deckenlicht
     - switch.osram_plug_guestroom
-    - light.kuche__deckenlicht
-    - light.kuche__schranklicht
-    - light.kuche__spulenlicht
-    - light.kuche__thekenlicht
-    - light.schlafzimmer__bettlicht
-    - light.schlafzimmer__deckenlicht
-    - light.wohnzimmer__deckenlampe
-    - light.wohnzimmer__leselampe
-    - light.wohnzimmer__stehlampe
-    - light.wohnzimmer__wandlampen
+    - light.kuche_deckenlicht
+    - light.kuche_schranklicht
+    - light.kuche_spulenlicht
+    - light.kuche_thekenlicht
+    - light.schlafzimmer_bettlicht
+    - light.schlafzimmer_deckenlicht
+    - light.wohnzimmer_deckenlampe
+    - light.wohnzimmer_leselampe
+    - light.wohnzimmer_stehlampe
+    - light.wohnzimmer_wandlampen
   action_status: off
   dependencies: util_delayer
 
 leaving_night_turn_lights_off:
   module: ActionLight
   class: ActionLight
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,on
   action_entities:
-    - light.arbeitszimmer__deckenlicht
-    - light.bad__deckenlicht
-    - light.bad__spiegellicht
-    - light.dusche__deckenlicht
-    - light.dusche__spiegellicht
-    - light.esszimmer__esstischlicht
-    - light.flur__flur
-    - light.gastezimmer__deckenlicht
+    - light.arbeitszimmer_deckenlicht
+    - light.bad_deckenlicht
+    - light.bad_spiegellicht
+    - light.dusche_deckenlicht
+    - light.dusche_spiegellicht
+    - light.esszimmer_esstischlicht
+    - light.flur_flur
+    - light.gastezimmer_deckenlicht
     - switch.osram_plug_guestroom
-    - light.kuche__deckenlicht
-    - light.kuche__schranklicht
-    - light.kuche__spulenlicht
-    - light.kuche__thekenlicht
-    - light.schlafzimmer__bettlicht
-    - light.schlafzimmer__deckenlicht
-    - light.wohnzimmer__deckenlampe
-    - light.wohnzimmer__leselampe
-    - light.wohnzimmer__stehlampe
+    - light.kuche_deckenlicht
+    - light.kuche_schranklicht
+    - light.kuche_spulenlicht
+    - light.kuche_thekenlicht
+    - light.schlafzimmer_bettlicht
+    - light.schlafzimmer_deckenlicht
+    - light.wohnzimmer_deckenlampe
+    - light.wohnzimmer_leselampe
+    - light.wohnzimmer_stehlampe
   action_status: off
   dependencies: util_delayer
 
 leaving_night_turn_lights_on:
   module: ActionLight
   class: ActionLight
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,on
   action_entities:
-    - light.wohnzimmer__wandlampen
-    - light.garten__laterne
+    - light.wohnzimmer_wandlampen
+    - light.garten_laterne
     - light.garden_one
     - light.garden_two
     - light.garden_three
@@ -77,45 +77,45 @@ leaving_night_turn_lights_on:
 returning_dark_turn_lights_on:
   module: ActionLight
   class: ActionLight
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: on
   constrain_input_boolean: input_boolean.automation_darkness_lighting,on
   action_entities:
-    - light.flur__flur
-    - light.kuche__schranklicht
-    - light.wohnzimmer__stehlampe
+    - light.flur_flur
+    - light.kuche_schranklicht
+    - light.wohnzimmer_stehlampe
   action_status: on
   dependencies: util_delayer
 
 sleeping_turn_lights_off:
   module: ActionLight
   class: ActionLight
-  trigger_entity: switch.apartment__sleeping
+  trigger_entity: switch.apartment_sleeping
   trigger_status: on
   action_entities:
-    - light.arbeitszimmer__deckenlicht
-    - light.bad__deckenlicht
-    - light.bad__spiegellicht
-    - light.dusche__deckenlicht
-    - light.dusche__spiegellicht
-    - light.esszimmer__esstischlicht
-    - light.flur__flur
-    - light.garten__laterne
+    - light.arbeitszimmer_deckenlicht
+    - light.bad_deckenlicht
+    - light.bad_spiegellicht
+    - light.dusche_deckenlicht
+    - light.dusche_spiegellicht
+    - light.esszimmer_esstischlicht
+    - light.flur_flur
+    - light.garten_laterne
     - light.garden_one
     - light.garden_two
     - light.garden_three
-    - light.gastezimmer__deckenlicht
+    - light.gastezimmer_deckenlicht
     - switch.osram_plug_guestroom
-    - light.kuche__deckenlicht
-    - light.kuche__schranklicht
-    - light.kuche__spulenlicht
-    - light.kuche__thekenlicht
-    - light.schlafzimmer__bettlicht
-    - light.schlafzimmer__deckenlicht
-    - light.wohnzimmer__deckenlampe
-    - light.wohnzimmer__leselampe
-    - light.wohnzimmer__stehlampe
-    - light.wohnzimmer__wandlampen
+    - light.kuche_deckenlicht
+    - light.kuche_schranklicht
+    - light.kuche_spulenlicht
+    - light.kuche_thekenlicht
+    - light.schlafzimmer_bettlicht
+    - light.schlafzimmer_deckenlicht
+    - light.wohnzimmer_deckenlampe
+    - light.wohnzimmer_leselampe
+    - light.wohnzimmer_stehlampe
+    - light.wohnzimmer_wandlampen
   action_status: off
   dependencies: util_delayer
 
@@ -125,8 +125,8 @@ sunset_turn_lights_on:
   trigger_entity: input_boolean.automation_darkness_lighting
   trigger_status: on
   action_entities:
-    - light.wohnzimmer__wandlampen
-    - light.garten__laterne
+    - light.wohnzimmer_wandlampen
+    - light.garten_laterne
     - light.garden_one
     - light.garden_two
     - light.garden_three
@@ -138,8 +138,8 @@ sunset_present_turn_lights_on:
   class: ActionLight
   trigger_entity: input_boolean.automation_darkness_lighting
   trigger_status: on
-  constrain_input_boolean: switch.apartment__present,on
+  constrain_input_boolean: switch.apartment_present,on
   action_entities:
-    - light.wohnzimmer__stehlampe
+    - light.wohnzimmer_stehlampe
   action_status: on
   dependencies: util_delayer

@@ -6,7 +6,7 @@ kitchen_sunset_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_kitchen,off
   action_scenes:
-    - scene.wohnzimmer__rolladen_kuche_schlitz
+    - scene.wohnzimmer_rolladen_kuche_schlitz
   dependencies: util_delayer
   global_dependencies: global
 
@@ -16,7 +16,7 @@ dining_sunset:
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
   action_scenes:
-    - scene.wohnzimmer__rolladen_esstisch_katzenmodus
+    - scene.wohnzimmer_rolladen_esstisch_katzenmodus
   dependencies: util_delayer
   global_dependencies: global
 
@@ -26,9 +26,9 @@ patio_sunset_absent:
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
   constraint_list:
-    - switch.apartment__present,off
+    - switch.apartment_present,off
   action_scenes:
-    - scene.wohnzimmer__rolladen_terrasse_katzenmodus
+    - scene.wohnzimmer_rolladen_terrasse_katzenmodus
   dependencies: util_delayer
   global_dependencies: global
 
@@ -38,7 +38,7 @@ couch_sunset:
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: on
   action_scenes:
-    - scene.wohnzimmer__rolladen_couch_katzenmodus
+    - scene.wohnzimmer_rolladen_couch_katzenmodus
   dependencies: util_delayer
   global_dependencies: global
 
@@ -50,7 +50,7 @@ guestroom_sunset_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_guestroom,off
   action_scenes:
-    - scene.gastezimmer__rolladen_gastezimmer_schlitz
+    - scene.gastezimmer_rolladen_gastezimmer_schlitz
   dependencies: util_delayer
   global_dependencies: global
 
@@ -62,7 +62,7 @@ bedroom_sunset_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_bedroom,off
   action_scenes:
-    - scene.schlafzimmer__rolladen_schlafzimmer_schlitz
+    - scene.schlafzimmer_rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
   global_dependencies: global
 
@@ -74,6 +74,6 @@ office_sunset_window_closed:
   constraint_list:
     - binary_sensor.door_sensor_office,off
   action_scenes:
-    - scene.arbeitszimmer__rolladen_arbeitszimmer_schlitz
+    - scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
   dependencies: util_delayer
   global_dependencies: global

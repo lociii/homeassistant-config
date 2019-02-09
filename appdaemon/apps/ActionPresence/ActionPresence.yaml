@@ -1,6 +1,6 @@
 action_presence:
   module: ActionPresence
   class: ActionPresence
-  indicator_presence: switch.apartment__present
+  indicator_presence: switch.apartment_present
   dependencies:
     - util_announcer

@@ -1,72 +1,72 @@
 kitchen_leaving_window_open:
   module: ActionCover
   class: ActionCover
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constraint_list:
     - binary_sensor.door_sensor_kitchen,on
   action_scenes:
-    - scene.wohnzimmer__rolladen_kuche
+    - scene.wohnzimmer_rolladen_kuche
   dependencies: util_delayer
   global_dependencies: global
 
 patio_leaving_window_open:
   module: ActionCover
   class: ActionCover
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constraint_list:
     - binary_sensor.door_sensor_patio,on
   action_scenes:
-    - scene.wohnzimmer__rolladen_terrasse
+    - scene.wohnzimmer_rolladen_terrasse
   dependencies: util_delayer
   global_dependencies: global
 
 patio_leaving_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
     - binary_sensor.door_sensor_patio,off
   action_scenes:
-    - scene.wohnzimmer__rolladen_terrasse
+    - scene.wohnzimmer_rolladen_terrasse
   dependencies: util_delayer
   global_dependencies: global
 
 guestroom_leaving_window_open:
   module: ActionCover
   class: ActionCover
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constraint_list:
     - binary_sensor.door_sensor_guestroom,on
   action_scenes:
-    - scene.gastezimmer__rolladen_gastezimmer
+    - scene.gastezimmer_rolladen_gastezimmer
   dependencies: util_delayer
   global_dependencies: global
 
 bedroom_leaving_window_open:
   module: ActionCover
   class: ActionCover
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constraint_list:
     - binary_sensor.door_sensor_bedroom,on
   action_scenes:
-    - scene.schlafzimmer__rolladen_schlafzimmer
+    - scene.schlafzimmer_rolladen_schlafzimmer
   dependencies: util_delayer
   global_dependencies: global
 
 office_leaving_window_open:
   module: ActionCover
   class: ActionCover
-  trigger_entity: switch.apartment__present
+  trigger_entity: switch.apartment_present
   trigger_status: off
   constraint_list:
     - binary_sensor.door_sensor_office,on
   action_scenes:
-    - scene.arbeitszimmer__rolladen_arbeitszimmer
+    - scene.arbeitszimmer_rolladen_arbeitszimmer
   dependencies: util_delayer
   global_dependencies: global

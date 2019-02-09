@@ -1,30 +1,30 @@
 alexa:
   filter:
     include_entities:
-      - light.arbeitszimmer__deckenlicht
-      - light.bad__deckenlicht
-      - light.bad__spiegellicht
-      - light.dusche__deckenlicht
-      - light.dusche__spiegellicht
-      - light.esszimmer__esstischlicht
-      - light.flur__flur
+      - light.arbeitszimmer_deckenlicht
+      - light.bad_deckenlicht
+      - light.bad_spiegellicht
+      - light.dusche_deckenlicht
+      - light.dusche_spiegellicht
+      - light.esszimmer_esstischlicht
+      - light.flur_flur
       - light.garten
-      - light.garten__laterne
-      - light.gastezimmer__deckenlicht
-      - light.kuche__deckenlicht
-      - light.kuche__schranklicht
-      - light.kuche__spulenlicht
-      - light.kuche__thekenlicht
-      - light.schlafzimmer__bettlicht
-      - light.schlafzimmer__deckenlicht
-      - light.wohnzimmer__deckenlampe
-      - light.wohnzimmer__stehlampe
-      - light.wohnzimmer__wandlampen
-      - light.wohnzimmer__leselampe
-      - scene.apartment__sleeping
-      - scene.apartment__wakeup
-      - scene.apartment__present
-      - scene.apartment__absent
+      - light.garten_laterne
+      - light.gastezimmer_deckenlicht
+      - light.kuche_deckenlicht
+      - light.kuche_schranklicht
+      - light.kuche_spulenlicht
+      - light.kuche_thekenlicht
+      - light.schlafzimmer_bettlicht
+      - light.schlafzimmer_deckenlicht
+      - light.wohnzimmer_deckenlampe
+      - light.wohnzimmer_stehlampe
+      - light.wohnzimmer_wandlampen
+      - light.wohnzimmer_leselampe
+      - scene.apartment_sleeping
+      - scene.apartment_wakeup
+      - scene.apartment_present
+      - scene.apartment_absent
       - script.living_room_tv_turn_on
       - script.living_room_tv_turn_off
       - scene.living_room_tv_broadcast
@@ -65,35 +65,35 @@ alexa:
       - switch
       - sensor
   entity_config:
-    light.arbeitszimmer__deckenlicht:
+    light.arbeitszimmer_deckenlicht:
       name: Deckenlicht Arbeitszimmer
       description: ""
       display_categories: LIGHT
-    light.bad__deckenlicht:
+    light.bad_deckenlicht:
       name: Deckenlicht Bad
       description: ""
       display_categories: LIGHT
-    light.bad__spiegellicht:
+    light.bad_spiegellicht:
       name: Spiegellicht Bad
       description: ""
       display_categories: LIGHT
-    light.dusche__deckenlicht:
+    light.dusche_deckenlicht:
       name: Deckenlicht Dusche
       description: ""
       display_categories: LIGHT
-    light.dusche__spiegellicht:
+    light.dusche_spiegellicht:
       name: Spiegellicht Dusche
       description: ""
       display_categories: LIGHT
-    light.esszimmer__esstischlicht:
+    light.esszimmer_esstischlicht:
       name: Esstischlicht
       description: ""
       display_categories: LIGHT
-    light.wohnzimmer__leselampe:
+    light.wohnzimmer_leselampe:
       name: Leselampe
       description: ""
       display_categories: LIGHT
-    light.flur__flur:
+    light.flur_flur:
       name: Flur
       description: ""
       display_categories: LIGHT
@@ -101,63 +101,63 @@ alexa:
       name: Bälle
       description: ""
       display_categories: LIGHT
-    light.garten__laterne:
+    light.garten_laterne:
       name: Laterne
       description: ""
       display_categories: LIGHT
-    light.gastezimmer__deckenlicht:
+    light.gastezimmer_deckenlicht:
       name: Deckenlicht Gästezimmer
       description: ""
       display_categories: LIGHT
-    light.kuche__deckenlicht:
+    light.kuche_deckenlicht:
       name: Deckenlicht Küche
       description: ""
       display_categories: LIGHT
-    light.kuche__schranklicht:
+    light.kuche_schranklicht:
       name: Schranklicht
       description: ""
       display_categories: LIGHT
-    light.kuche__spulenlicht:
+    light.kuche_spulenlicht:
       name: Spülenlicht
       description: ""
       display_categories: LIGHT
-    light.kuche__thekenlicht:
+    light.kuche_thekenlicht:
       name: Barlicht
       description: ""
       display_categories: LIGHT
-    light.schlafzimmer__bettlicht:
+    light.schlafzimmer_bettlicht:
       name: Bettlicht
       description: ""
       display_categories: LIGHT
-    light.schlafzimmer__deckenlicht:
+    light.schlafzimmer_deckenlicht:
       name: Deckenlicht Schlafzimmer
       description: ""
       display_categories: LIGHT
-    light.wohnzimmer__deckenlampe:
+    light.wohnzimmer_deckenlampe:
       name: Deckenlicht Wohnzimmer
       description: ""
       display_categories: LIGHT
-    light.wohnzimmer__stehlampe:
+    light.wohnzimmer_stehlampe:
       name: Stehlampe
       description: ""
       display_categories: LIGHT
-    light.wohnzimmer__wandlampen:
+    light.wohnzimmer_wandlampen:
       name: Wandlampen
       description: ""
       display_categories: LIGHT
-    scene.apartment__sleeping:
+    scene.apartment_sleeping:
       name: Schlafen
       description: Wohnung auf schlafend setzen
       display_categories: SCENE_TRIGGER
-    scene.apartment__wakeup:
+    scene.apartment_wakeup:
       name: Aufwachen
       description: Wohnung auf wach setzen
       display_categories: SCENE_TRIGGER
-    scene.apartment__present:
+    scene.apartment_present:
       name: Anwesend
       description: Wohnung auf anwesend setzen
       display_categories: SCENE_TRIGGER
-    scene.apartment__absent:
+    scene.apartment_absent:
       name: Abwesend
       description: Wohnung auf abwesend setzen
       display_categories: SCENE_TRIGGER
@@ -265,30 +265,30 @@ alexa:
 google_actions:
   filter:
     include_entities:
-      - light.arbeitszimmer__deckenlicht
-      - light.bad__deckenlicht
-      - light.bad__spiegellicht
-      - light.dusche__deckenlicht
-      - light.dusche__spiegellicht
-      - light.esszimmer__esstischlicht
-      - light.flur__flur
+      - light.arbeitszimmer_deckenlicht
+      - light.bad_deckenlicht
+      - light.bad_spiegellicht
+      - light.dusche_deckenlicht
+      - light.dusche_spiegellicht
+      - light.esszimmer_esstischlicht
+      - light.flur_flur
       - light.garten
-      - light.garten__laterne
-      - light.gastezimmer__deckenlicht
-      - light.kuche__deckenlicht
-      - light.kuche__schranklicht
-      - light.kuche__spulenlicht
-      - light.kuche__thekenlicht
-      - light.schlafzimmer__bettlicht
-      - light.schlafzimmer__deckenlicht
-      - light.wohnzimmer__deckenlampe
-      - light.wohnzimmer__stehlampe
-      - light.wohnzimmer__wandlampen
-      - light.wohnzimmer__leselampe
-      - scene.apartment__sleeping
-      - scene.apartment__wakeup
-      - scene.apartment__present
-      - scene.apartment__absent
+      - light.garten_laterne
+      - light.gastezimmer_deckenlicht
+      - light.kuche_deckenlicht
+      - light.kuche_schranklicht
+      - light.kuche_spulenlicht
+      - light.kuche_thekenlicht
+      - light.schlafzimmer_bettlicht
+      - light.schlafzimmer_deckenlicht
+      - light.wohnzimmer_deckenlampe
+      - light.wohnzimmer_stehlampe
+      - light.wohnzimmer_wandlampen
+      - light.wohnzimmer_leselampe
+      - scene.apartment_sleeping
+      - scene.apartment_wakeup
+      - scene.apartment_present
+      - scene.apartment_absent
       - switch.osram_plug_guestroom
     exclude_domains:
       - alert
@@ -305,41 +305,41 @@ google_actions:
       - switch
       - sensor
   entity_config:
-    light.arbeitszimmer__deckenlicht:
+    light.arbeitszimmer_deckenlicht:
       name: Deckenlicht Arbeitszimmer
       aliases:
       - Deckenlicht
       - Licht
       room: Arbeitszimmer
-    light.bad__deckenlicht:
+    light.bad_deckenlicht:
       name: Deckenlicht Bad
       aliases:
       - Deckenlicht
       - Licht
       room: Bad
-    light.bad__spiegellicht:
+    light.bad_spiegellicht:
       name: Spiegellicht Bad
       aliases:
       - Spiegellicht
       room: Bad
-    light.dusche__deckenlicht:
+    light.dusche_deckenlicht:
       name: Deckenlicht Dusche
       aliases:
       - Deckenlicht
       - Licht
       room: Dusche
-    light.dusche__spiegellicht:
+    light.dusche_spiegellicht:
       name: Spiegellicht Dusche
       aliases:
       - Spiegellicht
       room: Dusche
-    light.esszimmer__esstischlicht:
+    light.esszimmer_esstischlicht:
       name: Esstischlicht
       aliases:
       - Esstisch
       - Essen
       room: Esszimmer
-    light.flur__flur:
+    light.flur_flur:
       name: Flurlicht
       aliases:
       - Flur
@@ -349,89 +349,89 @@ google_actions:
       aliases:
       - Balllicht
       room: Garten
-    light.garten__laterne:
+    light.garten_laterne:
       name: Laterne
       aliases:
       - Gartenleuchte
       room: Garten
-    light.gastezimmer__deckenlicht:
+    light.gastezimmer_deckenlicht:
       name: Deckenlicht Gästezimmer
       aliases:
       - Deckenlicht
       - Licht
       room: Gästezimmer
-    light.kuche__deckenlicht:
+    light.kuche_deckenlicht:
       name: Deckenlicht Küche
       aliases:
       - Deckenlicht
       - Licht
       room: Küche
-    light.kuche__schranklicht:
+    light.kuche_schranklicht:
       name: Schranklicht Küche
       aliases:
       - Schranklicht
       room: Küche
-    light.kuche__spulenlicht:
+    light.kuche_spulenlicht:
       name: Spülenlicht Küche
       aliases:
       - Spülenlicht
       - Spüle
       room: Küche
-    light.kuche__thekenlicht:
+    light.kuche_thekenlicht:
       name: Thekenlicht Küche
       aliases:
       - Thekenlicht
       - Theke
       room: Küche
-    light.schlafzimmer__bettlicht:
+    light.schlafzimmer_bettlicht:
       name: Bettlicht Schlafzimmer
       aliases:
       - Bettlicht
       - Bett
       room: Schlafzimmer
-    light.schlafzimmer__deckenlicht:
+    light.schlafzimmer_deckenlicht:
       name: Deckenlicht Schlafzimmer
       aliases:
       - Deckenlicht
       - Licht
       - Schrank
       room: Schlafzimmer
-    light.wohnzimmer__deckenlampe:
+    light.wohnzimmer_deckenlampe:
       name: Deckenlicht Wohnzimmer
       aliases:
       - Deckenlicht
       - Licht
       room: Wohnzimmer
-    light.wohnzimmer__stehlampe:
+    light.wohnzimmer_stehlampe:
       name: Stehlampe Wohnzimmer
       aliases:
       - Stehlampe
       - Lampe
       - Stehlicht
       room: Wohnzimmer
-    light.wohnzimmer__wandlampen:
+    light.wohnzimmer_wandlampen:
       name: Wandlampen Wohnzimmer
       aliases:
       - Wandlampen
       - Wandlampe
       room: Wohnzimmer
-    light.wohnzimmer__leselampe:
+    light.wohnzimmer_leselampe:
       name: Leselampe Wohnzimmer
       aliases:
       - Leselampe
       room: Wohnzimmer
-    scene.apartment__sleeping:
+    scene.apartment_sleeping:
       name: Schlafen
       room: Wohnung
-    scene.apartment__wakeup:
+    scene.apartment_wakeup:
       name: Aufwachen
       room: Wohnung
       aliases:
       - Aufstehen
-    scene.apartment__present:
+    scene.apartment_present:
       name: Anwesend
       room: Wohnung
-    scene.apartment__absent:
+    scene.apartment_absent:
       name: Abwesend
       room: Wohnung
     switch.osram_plug_guestroom:

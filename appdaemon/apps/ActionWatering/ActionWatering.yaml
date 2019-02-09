@@ -3,11 +3,11 @@ watering_short:
   class: ActionWatering
   trigger: input_boolean.automation_watering_short
   areas:
-    - entity: light.bewasserung__sprenkler
+    - entity: light.bewasserung_sprenkler
       duration: input_number.automation_watering_short_duration_area_1
-    - entity: light.bewasserung__raketen
+    - entity: light.bewasserung_raketen
       duration: input_number.automation_watering_short_duration_area_2
-    - entity: light.bewasserung__busche
+    - entity: light.bewasserung_busche
       duration: input_number.automation_watering_short_duration_area_3
   message_on: Kurze Bewässerung gestartet!
   message_off: Kurze Bewässerung beendet!
@@ -20,11 +20,11 @@ watering_long:
   class: ActionWatering
   trigger: input_boolean.automation_watering_long
   areas:
-    - entity: light.bewasserung__sprenkler
+    - entity: light.bewasserung_sprenkler
       duration: input_number.automation_watering_long_duration_area_1
-    - entity: light.bewasserung__raketen
+    - entity: light.bewasserung_raketen
       duration: input_number.automation_watering_long_duration_area_2
-    - entity: light.bewasserung__busche
+    - entity: light.bewasserung_busche
       duration: input_number.automation_watering_long_duration_area_3
   message_on: Lange Bewässerung gestartet!
   message_off: Lange Bewässerung beendet!
