@@ -5,7 +5,7 @@ services:
   mosquitto:
     container_name: mosquitto
     restart: unless-stopped
-    image: eclipse-mosquitto:1.5.5
+    image: eclipse-mosquitto:1.5.6
     volumes:
       - ${PWD}/mosquitto/passwd:/mosquitto/passwd
       - ${PWD}/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
@@ -42,7 +42,7 @@ services:
   influxdb:
     container_name: influxdb
     restart: unless-stopped
-    image: influxdb:1.7.2-alpine
+    image: influxdb:1.7.3-alpine
     volumes:
       - ${PWD}/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - influxdb:/var/lib/influxdb
@@ -55,7 +55,7 @@ services:
   grafana:
     container_name: grafana
     restart: unless-stopped
-    image: grafana/grafana:5.4.2
+    image: grafana/grafana:5.4.3
     depends_on:
       - influxdb
     volumes:
@@ -67,7 +67,7 @@ services:
   chronograf:
     container_name: chronograf
     restart: unless-stopped
-    image: chronograf:1.7.5
+    image: chronograf:1.7.7
     depends_on:
       - influxdb
     volumes:
@@ -79,7 +79,7 @@ services:
   homeassistant:
     container_name: homeassistant
     restart: unless-stopped
-    image: homeassistant/home-assistant:0.85.1
+    image: homeassistant/home-assistant:0.87.0
     depends_on:
       - influxdb
       - postgresql
@@ -152,6 +152,7 @@ services:
   # OWNTRACKS
   ################################
 
+  # https://hub.docker.com/r/owntracks/recorder/tags
   owntracks:
       image: owntracks/recorder:0.8.3-4
       volumes:
@@ -169,6 +170,7 @@ services:
   # PAPERLESS
   ################################
 
+  # https://hub.docker.com/r/danielquinn/paperless/tags
   paperless_webserver:
     image: danielquinn/paperless:latest
     restart: unless-stopped
@@ -192,6 +194,7 @@ services:
       - PAPERLESS_PASSPHRASE=$PAPERLESS_PASSPHRASE
     command: ["runserver", "--insecure", "--noreload", "0.0.0.0:8000"]
 
+  # https://hub.docker.com/r/danielquinn/paperless/tags
   paperless_consumer:
     image: danielquinn/paperless:latest
     restart: unless-stopped
