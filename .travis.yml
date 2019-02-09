@@ -1,11 +1,13 @@
 language: python
 python:
-  - "3.6.7"
+  - "3.6.6"
 before_install:
+  - touch adbkey adbkey.pub
   - mv homeassistant/travis_secrets.yaml homeassistant/secrets.yaml
 install:
   - pip3 install homeassistant
+  - hass --version
 before_script:
   - cd homeassistant
 script:
-  - hass -c . --script check_config --info all
+  - hass -c . --script check_config
