@@ -130,7 +130,6 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 
 ### Utility
 
-* Samsung Printer CLX-4190 Series
 * Xiaomi Roborock vacuum gen2
 
 ### Planned ecosystem

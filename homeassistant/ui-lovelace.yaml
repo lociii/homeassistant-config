@@ -374,22 +374,6 @@ views:
     icon: mdi:monitor-multiple
     cards:
       - type: entities
-        title: Samsung Drucker
-        show_header_toggle: false
-        entities:
-          - entity: sensor.samsung_printer_output_tray_0
-            name: Ausgabe
-          - entity: sensor.samsung_printer_toner_black
-            name: Schwarz
-          - entity: sensor.samsung_printer_toner_cyan
-            name: Cyan
-          - entity: sensor.samsung_printer_toner_magenta
-            name: Magenta
-          - entity: sensor.samsung_printer_toner_yellow
-            name: Gelb
-          - entity: sensor.samsung_printer_tray_1
-            name: Papier
-      - type: entities
         title: Fritz!Box
         show_header_toggle: false
         entities:
@@ -465,8 +449,6 @@ views:
             name: dSS Gateway
           - entity: binary_sensor.synology_online
             name: Synology
-          - entity: binary_sensor.samsung_printer_online
-            name: Samsung Drucker
           - entity: binary_sensor.harmony_hub_online
             name: Logitech Harmony Hub
       - type: entities
