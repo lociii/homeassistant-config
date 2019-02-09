@@ -1,6 +1,7 @@
 alexa:
   filter:
     include_entities:
+      - switch.heating_on
       - light.arbeitszimmer_deckenlicht
       - light.bad_deckenlicht
       - light.bad_spiegellicht
@@ -65,6 +66,10 @@ alexa:
       - switch
       - sensor
   entity_config:
+    switch.heating_on:
+      name: Standheizung
+      description: Standheizung Skoda
+      display_categories: SWITCH
     light.arbeitszimmer_deckenlicht:
       name: Deckenlicht Arbeitszimmer
       description: ""
@@ -265,6 +270,7 @@ alexa:
 google_actions:
   filter:
     include_entities:
+      - switch.heating_on
       - light.arbeitszimmer_deckenlicht
       - light.bad_deckenlicht
       - light.bad_spiegellicht
@@ -305,6 +311,9 @@ google_actions:
       - switch
       - sensor
   entity_config:
+    switch.heating_on:
+      name: Standheizung
+      room: Parkplatz
     light.arbeitszimmer_deckenlicht:
       name: Deckenlicht Arbeitszimmer
       aliases:
