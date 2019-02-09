@@ -2,11 +2,11 @@ media_player:
   - platform: firetv
     name: firetv_bedroom
     host: !secret firetv_bedroom_ip
-    adbkey: /config/firetv/adbkey
+    adbkey: !secret firetv_adbkey_path
   - platform: firetv
     name: firetv_living_room
     host: !secret firetv_living_room_ip
-    adbkey: /config/firetv/adbkey
+    adbkey: !secret firetv_adbkey_path
 
 notify:
   - platform: nfandroidtv

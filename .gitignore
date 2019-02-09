@@ -25,7 +25,7 @@ harmony_*.conf
 homeassistant/.cloud
 homeassistant/.digitalstrom
 homeassistant/.storage
-adbkey*
+homeassistant/firetv/adbkey*
 homeassistant/deps
 homeassistant/.HA_VERSION
 homeassistant/.uuid
