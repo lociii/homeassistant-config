@@ -28,7 +28,7 @@ async def async_setup_platform(hass, config, async_add_devices,
             continue
 
         # get turn on counterpart
-        scene_on = scenes.get('{zone_id}.{color}.{scene_id}'.format(
+        scene_on = scenes.get('{zone_id}_{color}_{scene_id}'.format(
             zone_id=scene.zone_id, color=scene.color,
             scene_id=scene.scene_id + 5), None)
 
@@ -64,7 +64,7 @@ class DigitalstromCover(CoverDevice):
 
     @property
     def unique_id(self):
-        return 'dscover.{id}'.format(id=self._scene_off.unique_id)
+        return 'dscover_{id}'.format(id=self._scene_off.unique_id)
 
     @property
     def available(self):

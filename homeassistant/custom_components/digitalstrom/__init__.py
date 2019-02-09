@@ -14,7 +14,7 @@ from .const import CONF_APARTMENT, DOMAIN, DOMAIN_LISTENER, CONFIG_PATH
 
 _LOGGER = logging.getLogger(__name__)
 
-REQUIREMENTS = ['pydigitalstrom==0.4.1']
+REQUIREMENTS = ['pydigitalstrom==0.5.0']
 
 # Validation of the user's configuration
 CONFIG_SCHEMA = vol.Schema({

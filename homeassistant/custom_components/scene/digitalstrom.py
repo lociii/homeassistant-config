@@ -33,7 +33,7 @@ class DigitalstromScene(Scene):
 
     @property
     def unique_id(self):
-        return 'dsscene.{id}'.format(id=self._scene.unique_id)
+        return 'dsscene_{id}'.format(id=self._scene.unique_id)
 
     async def async_activate(self):
         _LOGGER.info('calling scene {}'.format(self._scene.scene_id))

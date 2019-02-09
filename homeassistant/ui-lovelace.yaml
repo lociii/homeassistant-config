@@ -16,54 +16,54 @@ views:
         title: Wohnzimmer
         show_header_toggle: false
         entities:
-          - entity: cover.wohnzimmer__rolladen_esstisch
+          - entity: cover.wohnzimmer_rolladen_esstisch
             name: Rolladen Esstisch
-          - entity: scene.wohnzimmer__rolladen_esstisch_schlitz
+          - entity: scene.wohnzimmer_rolladen_esstisch_schlitz
             name: Rolladen Esstisch auf Spalt
-          - entity: cover.wohnzimmer__rolladen_terrasse
+          - entity: cover.wohnzimmer_rolladen_terrasse
             name: Rolladen Terrasse
-          - entity: scene.wohnzimmer__rolladen_terrasse_schlitz
+          - entity: scene.wohnzimmer_rolladen_terrasse_schlitz
             name: Rolladen Terrasse auf Spalt
-          - entity: cover.wohnzimmer__rolladen_couch
+          - entity: cover.wohnzimmer_rolladen_couch
             name: Rolladen Couch
-          - entity: scene.wohnzimmer__rolladen_couch_schlitz
+          - entity: scene.wohnzimmer_rolladen_couch_schlitz
             name: Rolladen Couch auf Spalt
           - type: divider
-          - entity: light.wohnzimmer__deckenlampe
+          - entity: light.wohnzimmer_deckenlampe
             name: Deckenlicht
-          - entity: light.wohnzimmer__wandlampen
+          - entity: light.wohnzimmer_wandlampen
             name: Wandlampen
-          - entity: light.wohnzimmer__stehlampe
+          - entity: light.wohnzimmer_stehlampe
             name: Stehlampe
-          - entity: light.esszimmer__esstischlicht
+          - entity: light.esszimmer_esstischlicht
             name: Esstisch
-          - entity: light.wohnzimmer__leselampe
+          - entity: light.wohnzimmer_leselampe
             name: Leselampe
 
       - type: entities
         title: Schlafzimmer
         show_header_toggle: false
         entities:
-          - entity: cover.schlafzimmer__rolladen_schlafzimmer
+          - entity: cover.schlafzimmer_rolladen_schlafzimmer
             name: Rolladen
-          - entity: scene.schlafzimmer__rolladen_schlafzimmer_schlitz
+          - entity: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
             name: Rolladen auf Spalt
           - type: divider
-          - entity: light.schlafzimmer__bettlicht
+          - entity: light.schlafzimmer_bettlicht
             name: Bettlicht
-          - entity: light.schlafzimmer__deckenlicht
+          - entity: light.schlafzimmer_deckenlicht
             name: Deckenlicht
 
       - type: entities
         title: Gästezimmer
         show_header_toggle: false
         entities:
-          - entity: cover.gastezimmer__rolladen_gastezimmer
+          - entity: cover.gastezimmer_rolladen_gastezimmer
             name: Rolladen
-          - entity: scene.gastezimmer__rolladen_gastezimmer_schlitz
+          - entity: scene.gastezimmer_rolladen_gastezimmer_schlitz
             name: Rolladen auf Spalt
           - type: divider
-          - entity: light.gastezimmer__deckenlicht
+          - entity: light.gastezimmer_deckenlicht
             name: Deckenlicht
           - entity: switch.osram_plug_guestroom
             icon: mdi:lightbulb
@@ -73,72 +73,72 @@ views:
         title: Büro
         show_header_toggle: false
         entities:
-          - entity: cover.arbeitszimmer__rolladen_arbeitszimmer
+          - entity: cover.arbeitszimmer_rolladen_arbeitszimmer
             name: Rolladen
-          - entity: scene.arbeitszimmer__rolladen_arbeitszimmer_schlitz
+          - entity: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
             name: Rolladen auf Spalt
           - type: divider
-          - entity: light.arbeitszimmer__deckenlicht
+          - entity: light.arbeitszimmer_deckenlicht
             name: Licht
 
       - type: entities
         title: Bad
         show_header_toggle: false
         entities:
-          - entity: light.bad__deckenlicht
+          - entity: light.bad_deckenlicht
             name: Deckenlicht
-          - entity: light.bad__spiegellicht
+          - entity: light.bad_spiegellicht
             name: Spiegellicht
           - type: divider
-          - entity: light.bad__lufter
+          - entity: light.bad_lufter
             name: Lüfter
 
       - type: entities
         title: Dusche
         show_header_toggle: false
         entities:
-          - entity: light.dusche__deckenlicht
+          - entity: light.dusche_deckenlicht
             name: Deckenlicht
-          - entity: light.dusche__spiegellicht
+          - entity: light.dusche_spiegellicht
             name: Spiegellicht
           - type: divider
-          - entity: light.dusche__lufter
+          - entity: light.dusche_lufter
             name: Lüfter
 
       - type: entities
         title: Küche
         show_header_toggle: false
         entities:
-          - entity: cover.wohnzimmer__rolladen_kuche
+          - entity: cover.wohnzimmer_rolladen_kuche
             name: Rolladen
-          - entity: scene.wohnzimmer__rolladen_kuche_schlitz
+          - entity: scene.wohnzimmer_rolladen_kuche_schlitz
             name: Rolladen auf Spalt
           - type: divider
           - entity: switch.osram_plug_kitchen
             icon: mdi:coffee
             name: Kaffeemaschine
           - type: divider
-          - entity: light.kuche__deckenlicht
+          - entity: light.kuche_deckenlicht
             name: Deckenlicht
-          - entity: light.kuche__schranklicht
+          - entity: light.kuche_schranklicht
             name: Schranklicht
-          - entity: light.kuche__spulenlicht
+          - entity: light.kuche_spulenlicht
             name: Spülenlicht
-          - entity: light.kuche__thekenlicht
+          - entity: light.kuche_thekenlicht
             name: Barlicht
 
       - type: entities
         title: Flur
         show_header_toggle: false
         entities:
-          - entity: light.flur__flur
+          - entity: light.flur_flur
             name: Licht
 
       - type: entities
         title: Garten
         show_header_toggle: false
         entities:
-          - entity: light.garten__laterne
+          - entity: light.garten_laterne
             name: Laterne
           - entity: light.garden_one
             name: Große Ball
@@ -151,10 +151,10 @@ views:
         title: Szenen
         show_header_toggle: false
         entities:
-          - entity: switch.apartment__present
+          - entity: switch.apartment_present
             name: Anwesenheit
             icon: mdi:home-outline
-          - entity: switch.apartment__sleeping
+          - entity: switch.apartment_sleeping
             name: Schlafen
             icon: mdi:sleep
 
@@ -223,16 +223,16 @@ views:
         title: Bewässerung
         show_header_toggle: false
         entities:
-          - entity: light.bewasserung__sprenkler
+          - entity: light.bewasserung_sprenkler
             name: Sprenkler
             icon: mdi:water-pump
-          - entity: light.bewasserung__raketen
+          - entity: light.bewasserung_raketen
             name: Raketen
             icon: mdi:water-pump
-          - entity: light.bewasserung__busche
+          - entity: light.bewasserung_busche
             name: Büsche
             icon: mdi:water-pump
-          - entity: light.bewasserung__entnahme
+          - entity: light.bewasserung_entnahme
             name: Entnahme
             icon: mdi:water-pump
       - type: entities

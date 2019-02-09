@@ -28,7 +28,7 @@ async def async_setup_platform(hass, config, async_add_devices,
             continue
 
         # get turn on counterpart
-        scene_off = scenes.get('{zone_id}.{scene_id}'.format(
+        scene_off = scenes.get('{zone_id}_{scene_id}'.format(
             zone_id=scene.zone_id, scene_id=scene.scene_id + 1), None)
 
         # no turn off scene found, skip
@@ -97,7 +97,7 @@ class DigitalstromSwitch(RestoreEntity, SwitchDevice):
 
     @property
     def unique_id(self):
-        return 'dsswitch.{id}'.format(id=self._scene_on.unique_id)
+        return 'dsswitch_{id}'.format(id=self._scene_on.unique_id)
 
     @property
     def available(self):
