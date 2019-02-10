@@ -16,6 +16,14 @@ async def async_setup_platform(hass, config, async_add_devices,
     client = hass.data[DOMAIN]
     scenes = []
     for scene in client.get_scenes().values():
+        # only color scenes have a special check
+        if isinstance(scene, DSColorScene):
+            # area and broadcast scenes (yellow/1 and grey/2 up to id 9)
+            # shouldn't be added since they'll be processed as
+            # lights and covers
+            if scene.color in (1, 2) and scene.scene_id <= 9:
+                continue
+
         _LOGGER.info('adding scene {}: {}'.format(scene.scene_id, scene.name))
         scenes.append(DigitalstromScene(scene=scene))
     async_add_devices(scene for scene in scenes)
