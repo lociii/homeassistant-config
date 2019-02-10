@@ -1,0 +1,151 @@
+title: Automation
+path: automation
+icon: mdi:robot
+cards:
+  - type: entities
+    title: Global
+    show_header_toggle: false
+    entities:
+      - entity: input_boolean.automation_simulate_only
+        name: Simulationsmodus
+        icon: mdi:alert
+      - entity: input_boolean.automation_setting_mode_freezing
+        name: Modus Frostgefahr
+        icon: mdi:snowflake
+      - entity: input_boolean.automation_setting_mode_guest
+        name: Modus Gast anwesend
+        icon: mdi:bed-empty
+
+  - type: entities
+    title: Licht
+    show_header_toggle: false
+    entities:
+      - entity: input_boolean.automation_darkness_lighting
+        name: Nachtmodus
+        icon: mdi:weather-night
+      - entity: input_number.automation_darkness_lighting_offset
+        name: Verzögerung
+        icon: mdi:timer
+
+  - type: entities
+    title: Schatten
+    show_header_toggle: false
+    entities:
+      - entity: input_boolean.automation_darkness_cover
+        name: Nachtmodus
+        icon: mdi:weather-night
+      - entity: input_number.automation_darkness_cover_offset
+        name: Verzögerung
+        icon: mdi:timer
+      - type: section
+        label: Shutdown
+      - entity: input_boolean.automation_darkness_cover_shutdown
+        name: Shutdown
+        icon: mdi:weather-night
+      - entity: input_datetime.automation_darkness_shutdown
+        name: Nächtlicher Shutdown
+        icon: mdi:power
+      - type: section
+        label: Schlafen im Dunkeln
+      - entity: input_boolean.automation_darkness_cover_protection
+        name: Schlafen im Dunkeln
+        icon: mdi:weather-night
+      - entity: input_number.automation_darkness_cover_protection
+        name: Verzögerung
+        icon: mdi:power
+
+  - type: entities
+    title: Bewässerung
+    show_header_toggle: false
+    entities:
+      - entity: input_datetime.automation_watering_night_start
+        name: Start nächtliche Bewässerung
+        icon: mdi:clock
+
+      - type: section
+        label: Kurze Bewässerung
+      - entity: input_boolean.automation_watering_short
+        name: Aktiv
+        icon: mdi:water
+      - entity: input_boolean.automation_watering_short_night
+        name: Nachts geplant
+        icon: mdi:water
+      - entity: input_number.automation_watering_short_duration_area_1
+        name: Dauer Sprenkler
+        icon: mdi:timer
+      - entity: input_number.automation_watering_short_duration_area_2
+        name: Dauer Raketen
+        icon: mdi:timer
+      - entity: input_number.automation_watering_short_duration_area_3
+        name: Dauer Büsche
+        icon: mdi:timer
+
+      - type: section
+        label: Lange Bewässerung
+      - entity: input_boolean.automation_watering_long
+        name: Aktiv
+        icon: mdi:water
+      - entity: input_boolean.automation_watering_long_night
+        name: Nachts geplant
+        icon: mdi:water
+      - entity: input_number.automation_watering_long_duration_area_1
+        name: Dauer Sprenkler
+        icon: mdi:timer
+      - entity: input_number.automation_watering_long_duration_area_2
+        name: Dauer Raketen
+        icon: mdi:timer
+      - entity: input_number.automation_watering_long_duration_area_3
+        name: Dauer Büsche
+        icon: mdi:timer
+
+  - type: entities
+    title: Sonnenschutz
+    show_header_toggle: false
+    entities:
+      - type: section
+        label: Automation
+      - entity: input_boolean.automation_setting_sunprotection
+        name: Aktiv
+        icon: mdi:weather-sunny
+      - entity: input_boolean.automation_setting_sunprotection_orchids
+        name: Aktiv (Orchideen)
+        icon: mdi:weather-sunny
+      - type: section
+        label: Startzeiten
+      - entity: input_datetime.automation_setting_sunprotection_south
+        name: Süden
+        icon: mdi:timer
+      - entity: input_datetime.automation_setting_sunprotection_west
+        name: Westen
+        icon: mdi:timer
+      - entity: input_datetime.automation_setting_sunprotection_orchids
+        name: Orchideen
+        icon: mdi:timer
+      - type: section
+        label: Status
+      - entity: input_boolean.automation_trigger_sunprotection_south
+        name: Süden
+        icon: mdi:compass-outline
+      - entity: input_boolean.automation_trigger_sunprotection_west
+        name: Westen
+        icon: mdi:compass-outline
+      - entity: input_boolean.automation_setting_sunprotection_orchids
+        name: Orchideen
+        icon: mdi:flower-outline
+
+  - type: entities
+    title: Staubsauger
+    show_header_toggle: false
+    entities:
+      - entity: vacuum.xiaomi_vacuum_cleaner
+        name: Staubsauger
+        icon: mdi:robot-vacuum
+      - entity: input_boolean.automation_vacuum_cleaning
+        name: Aktiv
+        icon: mdi:play
+      - entity: input_boolean.automation_vacuum_cleaning_done
+        name: Fertig
+        icon: mdi:check-outline
+      - entity: input_number.automation_vacuum_absent_delay
+        name: Verzögerung
+        icon: mdi:timer

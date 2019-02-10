@@ -1,0 +1,7 @@
+title: Wetter
+path: weather
+icon: mdi:weather-cloudy
+cards:
+  - type: custom:weather-card
+    entity_weather: weather.weather_daily
+    entity_sun: sun.sun

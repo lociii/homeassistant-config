@@ -1,0 +1,193 @@
+title: Wohnung
+path: apartment
+icon: mdi:home
+cards:
+  - type: entities
+    title: Wohnzimmer
+    show_header_toggle: false
+    entities:
+      - entity: cover.wohnzimmer_rolladen_esstisch
+        name: Rolladen Esstisch
+      - entity: scene.wohnzimmer_rolladen_esstisch_schlitz
+        name: Rolladen Esstisch auf Spalt
+      - entity: cover.wohnzimmer_rolladen_terrasse
+        name: Rolladen Terrasse
+      - entity: scene.wohnzimmer_rolladen_terrasse_schlitz
+        name: Rolladen Terrasse auf Spalt
+      - entity: cover.wohnzimmer_rolladen_couch
+        name: Rolladen Couch
+      - entity: scene.wohnzimmer_rolladen_couch_schlitz
+        name: Rolladen Couch auf Spalt
+      - type: divider
+      - entity: light.wohnzimmer_deckenlampe
+        name: Deckenlicht
+      - entity: light.wohnzimmer_wandlampen
+        name: Wandlampen
+      - entity: light.wohnzimmer_stehlampe
+        name: Stehlampe
+      - entity: light.esszimmer_esstischlicht
+        name: Esstisch
+      - entity: light.wohnzimmer_leselampe
+        name: Leselampe
+
+  - type: entities
+    title: Schlafzimmer
+    show_header_toggle: false
+    entities:
+      - entity: cover.schlafzimmer_rolladen_schlafzimmer
+        name: Rolladen
+      - entity: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
+        name: Rolladen auf Spalt
+      - type: divider
+      - entity: light.schlafzimmer_bettlicht
+        name: Bettlicht
+      - entity: light.schlafzimmer_deckenlicht
+        name: Deckenlicht
+
+  - type: entities
+    title: Gästezimmer
+    show_header_toggle: false
+    entities:
+      - entity: cover.gastezimmer_rolladen_gastezimmer
+        name: Rolladen
+      - entity: scene.gastezimmer_rolladen_gastezimmer_schlitz
+        name: Rolladen auf Spalt
+      - type: divider
+      - entity: light.gastezimmer_deckenlicht
+        name: Deckenlicht
+      - entity: switch.osram_plug_guestroom
+        icon: mdi:lightbulb
+        name: Stehlampe
+
+  - type: entities
+    title: Büro
+    show_header_toggle: false
+    entities:
+      - entity: cover.arbeitszimmer_rolladen_arbeitszimmer
+        name: Rolladen
+      - entity: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
+        name: Rolladen auf Spalt
+      - type: divider
+      - entity: light.arbeitszimmer_deckenlicht
+        name: Licht
+
+  - type: entities
+    title: Bad
+    show_header_toggle: false
+    entities:
+      - entity: light.bad_deckenlicht
+        name: Deckenlicht
+      - entity: light.bad_spiegellicht
+        name: Spiegellicht
+      - type: divider
+      - entity: light.bad_lufter
+        name: Lüfter
+
+  - type: entities
+    title: Dusche
+    show_header_toggle: false
+    entities:
+      - entity: light.dusche_deckenlicht
+        name: Deckenlicht
+      - entity: light.dusche_spiegellicht
+        name: Spiegellicht
+      - type: divider
+      - entity: light.dusche_lufter
+        name: Lüfter
+
+  - type: entities
+    title: Küche
+    show_header_toggle: false
+    entities:
+      - entity: cover.wohnzimmer_rolladen_kuche
+        name: Rolladen
+      - entity: scene.wohnzimmer_rolladen_kuche_schlitz
+        name: Rolladen auf Spalt
+      - type: divider
+      - entity: switch.osram_plug_kitchen
+        icon: mdi:coffee
+        name: Kaffeemaschine
+      - type: divider
+      - entity: light.kuche_deckenlicht
+        name: Deckenlicht
+      - entity: light.kuche_schranklicht
+        name: Schranklicht
+      - entity: light.kuche_spulenlicht
+        name: Spülenlicht
+      - entity: light.kuche_thekenlicht
+        name: Barlicht
+
+  - type: entities
+    title: Flur
+    show_header_toggle: false
+    entities:
+      - entity: light.flur_flur
+        name: Licht
+
+  - type: entities
+    title: Garten
+    show_header_toggle: false
+    entities:
+      - entity: light.garten_laterne
+        name: Laterne
+      - entity: light.garden_one
+        name: Große Ball
+      - entity: light.garden_two
+        name: Kleiner Ball (vorne)
+      - entity: light.garden_three
+        name: Kleiner Ball (hinten)
+
+  - type: entities
+    title: Szenen
+    show_header_toggle: false
+    entities:
+      - entity: switch.apartment_present
+        name: Anwesenheit
+        icon: mdi:home-outline
+      - entity: switch.apartment_sleeping
+        name: Schlafen
+        icon: mdi:sleep
+
+  - type: entities
+    title: Anwesenheit
+    show_header_toggle: false
+    entities:
+      - entity: binary_sensor.people_home
+        name: Bewohner anwesend?
+        icon: mdi:home-outline
+      - type: divider
+      - entity: device_tracker.eva_handy
+        name: Eva anwesend?
+      - entity: device_tracker.jens_handy
+        name: Jens anwesend?
+
+  - type: entities
+    title: Klima
+    show_header_toggle: false
+    entities:
+      - entity: sensor.weather_indoor_temperature
+        icon: mdi:temperature-celsius
+        name: Temperatur
+      - entity: sensor.weather_indoor_humidity
+        icon: mdi:water-percent
+        name: Luftfeuchtigkeit
+      - entity: sensor.weather_indoor_pressure
+        icon: mdi:speedometer
+        name: Luftdruck
+
+  - type: entities
+    title: Fenster
+    show_header_toggle: false
+    entities:
+      - entity: binary_sensor.door_sensor_entrance
+        name: Wohnungstür
+      - entity: binary_sensor.door_sensor_patio
+        name: Terrasse
+      - entity: binary_sensor.door_sensor_kitchen
+        name: Küche
+      - entity: binary_sensor.door_sensor_guestroom
+        name: Gästezimmer
+      - entity: binary_sensor.door_sensor_office
+        name: Büro
+      - entity: binary_sensor.door_sensor_bedroom
+        name: Schlafzimmer

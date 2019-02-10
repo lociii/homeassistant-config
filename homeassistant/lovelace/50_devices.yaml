@@ -1,0 +1,114 @@
+title: Geräte
+path: devices
+icon: mdi:monitor-multiple
+cards:
+  - type: entities
+    title: Fritz!Box
+    show_header_toggle: false
+    entities:
+      - entity: sensor.fritzbox_callmonitor
+        name: Anrufstatus
+  - type: entities
+    title: Synology
+    show_header_toggle: false
+    entities:
+      - entity: sensor.memory_usage_real
+        name: Speichernutzung
+      - type: divider
+      - entity: sensor.status_smart_sda
+        name: Disk 1
+      - entity: sensor.total_size_volume_1
+        name: Speicherplatz
+      - entity: sensor.volume_used_volume_1
+        name: Belegt
+      - type: divider
+      - entity: sensor.status_smart_sdb
+        name: Disk 2
+      - entity: sensor.total_size_volume_2
+        name: Speicherplatz
+      - entity: sensor.volume_used_volume_2
+        name: Belegt
+  - type: entities
+    title: Automatisierung
+    show_header_toggle: false
+    entities:
+      - entity: binary_sensor.amazon_echo_bedroom_online
+        name: Amazon Echo Schlafzimmer
+      - entity: binary_sensor.amazon_echo_living_room_online
+        name: Amazon Echo Wohnzimmer
+      - entity: binary_sensor.google_home_office_online
+        name: Google Home Büro
+      - entity: binary_sensor.google_home_living_room_online
+        name: Google Home Wohnzimmer
+      - entity: binary_sensor.firetv_bedroom_online
+        name: FireTV Schlafzimmer
+      - entity: binary_sensor.firetv_living_room_online
+        name: FireTV Wohnzimmer
+      - entity: binary_sensor.sonos_playbase_online
+        name: Sonos Wohnzimmer (Playbase)
+      - entity: binary_sensor.sonos_left_online
+        name: Sonos Wohnzimmer (links)
+      - entity: binary_sensor.sonos_right_online
+        name: Sonos Wohnzimmer (rechts)
+      - entity: binary_sensor.sonos_sub_online
+        name: Sonos Wohnzimmer (Sub)
+      - entity: binary_sensor.sonos_guestroom_online
+        name: Sonos Gästezimmer
+      - entity: binary_sensor.sonos_shower_online
+        name: Sonos Dusche
+      - entity: binary_sensor.power_plug_dryer_online
+        name: Steckdose Trockner
+      - entity: binary_sensor.power_plug_washer_human_online
+        name: Steckdose Waschmaschine
+      - entity: binary_sensor.power_plug_washer_animal_online
+        name: Steckdose Pferde-Waschmaschine
+      - entity: binary_sensor.esp_standing_desk_online
+        name: ESP Schreibtisch
+      - entity: binary_sensor.esp_carheating_online
+        name: ESP Standheizung
+  - type: entities
+    title: Infrastruktur
+    show_header_toggle: false
+    entities:
+      - entity: binary_sensor.ship_online
+        name: Ship
+      - entity: binary_sensor.dss_ip_online
+        name: dSS IP
+      - entity: binary_sensor.dss_gateway_online
+        name: dSS Gateway
+      - entity: binary_sensor.synology_online
+        name: Synology
+      - entity: binary_sensor.harmony_hub_online
+        name: Logitech Harmony Hub
+  - type: entities
+    title: Batteriestatus
+    show_header_toggle: false
+    entities:
+      - entity: sensor.weather_outdoor_battery
+        name: Klima (aussen)
+      - entity: sensor.weather_indoor_battery
+        name: Klima (innen)
+      - entity: sensor.door_sensor_patio_battery
+        name: Terrassentür
+      - entity: sensor.door_sensor_kitchen_battery
+        name: Küche
+      - entity: sensor.door_sensor_guestroom_battery
+        name: Gästezimmer
+      - entity: sensor.door_sensor_bedroom_battery
+        name: Schlafzimmer
+      - entity: sensor.door_sensor_office_battery
+        name: Büro
+      - entity: sensor.door_sensor_entrance_battery
+        name: Eingang
+      - entity: sensor.xiaomi_cube_battery
+        name: Xiaomi Cube
+      - entity: sensor.flora_sensor_1_battery
+        name: Flora 1
+      - entity: sensor.flora_sensor_2_battery
+        name: Flora 2
+      - entity: sensor.flora_sensor_3_battery
+        name: Flora 3
+      - entity: sensor.water_leakage_one_battery
+        name: Wassersensor 1
+      - entity: sensor.water_leakage_two_battery
+        name: Wassersensor 2

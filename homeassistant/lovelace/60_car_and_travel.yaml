@@ -1,0 +1,29 @@
+title: Auto
+path: car
+icon: mdi:car
+cards:
+  - type: entities
+    title: Fahrzeit
+    show_header_toggle: false
+    entities:
+      - entity: sensor.travel_time_jens
+        name: Jens
+      - entity: sensor.travel_time_eva
+        name: Eva
+  - type: entities
+    title: Standheizung
+    show_header_toggle: false
+    entities:
+      - entity: scene.car_heating_on
+        name: Anschalten
+      - entity: scene.car_heating_off
+        name: Ausschalten
+  - type: history-graph
+    hours_to_show: 48
+    refresh_interval: 30
+    title: Fahrzeit
+    entities:
+      - entity: sensor.travel_time_jens
+        name: Jens
+      - entity: sensor.travel_time_eva
+        name: Eva

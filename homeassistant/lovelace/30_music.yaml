@@ -1,0 +1,27 @@
+title: Musik
+path: music
+icon: mdi:music
+cards:
+  - type: entities
+    title: Sonos
+    show_header_toggle: false
+    entities:
+    - type: media-control
+      entity: media_player.sonos
+      name: Sonos Wohnzimmer
+    - type: media-control
+      entity: media_player.guest_room
+      name: Sonos Gästezimmer
+    - type: media-control
+      entity: media_player.shower
+      name: Sonos Dusche
+  - type: entities
+    title: Google Home
+    show_header_toggle: false
+    entities:
+    - type: media-control
+      entity: media_player.wohnzimmer
+      name: Google Home Wohnzimmer
+    - type: media-control
+      entity: media_player.office
+      name: Google Home Büro

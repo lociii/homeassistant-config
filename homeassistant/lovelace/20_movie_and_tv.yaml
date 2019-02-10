@@ -1,0 +1,69 @@
+title: Film und TV
+path: movie
+icon: mdi:movie
+cards:
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - entity: switch.osram_plug_entertainment
+        name: Entertainment
+  - type: media-control
+    entity: media_player.firetv_living_room
+  - type: media-control
+    entity: media_player.firetv_bedroom
+  - type: entities
+    title: TV
+    show_header_toggle: false
+    entities:
+      - entity: script.living_room_tv_turn_on
+        name: Anschalten
+      - entity: script.living_room_tv_turn_off
+        name: Ausschalten
+      - entity: script.living_room_tv_broadcast
+        name: TV
+      - entity: script.living_room_tv_firetv
+        name: FireTV
+  - type: entities
+    title: TV-Programm
+    show_header_toggle: false
+    entities:
+      - entity: script.living_room_tv_channel_1
+        name: ARD
+      - entity: script.living_room_tv_channel_2
+        name: ZDF
+      - entity: script.living_room_tv_channel_3
+        name: SWR3
+      - entity: script.living_room_tv_channel_4
+        name: Sat.1
+      - entity: script.living_room_tv_channel_5
+        name: RTL
+      - entity: script.living_room_tv_channel_6
+        name: RTL2
+      - entity: script.living_room_tv_channel_7
+        name: ProSieben
+      - entity: script.living_room_tv_channel_8
+        name: Kabel eins
+      - entity: script.living_room_tv_channel_9
+        name: VOX
+      - entity: script.living_room_tv_channel_10
+        name: DMAX
+      - entity: script.living_room_tv_channel_11
+        name: Sport1
+      - entity: script.living_room_tv_channel_12
+        name: EuroSport
+      - entity: script.living_room_tv_channel_13
+        name: Comedy Central
+      - entity: script.living_room_tv_channel_14
+        name: Disney
+      - entity: script.living_room_tv_channel_15
+        name: ProSieben Maxx
+      - entity: script.living_room_tv_channel_16
+        name: Nitro
+      - entity: script.living_room_tv_channel_17
+        name: Sixx
+      - entity: script.living_room_tv_channel_18
+        name: ZDFneo
+      - entity: script.living_room_tv_channel_19
+        name: n-tv
+      - entity: script.living_room_tv_channel_20
+        name: Welt
