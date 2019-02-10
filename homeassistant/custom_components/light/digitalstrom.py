@@ -76,10 +76,10 @@ class DigitalstromLight(RestoreEntity, Light):
             group_id = int(event['properties']['groupID'])
             scene_id = int(event['properties']['sceneID'])
 
-            # device turned on ot broadcast turned on
+            # device turned on or broadcast turned on
             if self._scene_on.zone_id == zone_id and \
                 self._scene_on.color == group_id and \
-                    (self._scene_on.scene_id == scene_id or 0 == scene_id):
+                    (self._scene_on.scene_id == scene_id or 5 == scene_id):
                 self._state = True
                 await self.async_update_ha_state()
             # device turned off or broadcast turned off
