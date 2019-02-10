@@ -1,3 +1,4 @@
+# turn all lights off when leaving by day
 leaving_day_turn_lights_off:
   module: ActionLight
   class: ActionLight
@@ -5,32 +6,25 @@ leaving_day_turn_lights_off:
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,off
   action_entities:
-    - light.arbeitszimmer_deckenlicht
-    - light.bad_deckenlicht
-    - light.bad_spiegellicht
-    - light.dusche_deckenlicht
-    - light.dusche_spiegellicht
-    - light.esszimmer_esstischlicht
-    - light.flur_flur
-    - light.garten_laterne
+    - light.arbeitszimmer_alle_lichter
+    - light.bad_alle_lichter
+    - light.dusche_alle_lichter
+    - light.esszimmer_alle_lichter
+    - light.flur_alle_lichter
+    - light.garten_alle_lichter
     - light.garden_one
     - light.garden_two
     - light.garden_three
-    - light.gastezimmer_deckenlicht
+    - light.gastezimmer_alle_lichter
     - switch.osram_plug_guestroom
-    - light.kuche_deckenlicht
-    - light.kuche_schranklicht
-    - light.kuche_spulenlicht
-    - light.kuche_thekenlicht
-    - light.schlafzimmer_bettlicht
-    - light.schlafzimmer_deckenlicht
-    - light.wohnzimmer_deckenlampe
-    - light.wohnzimmer_leselampe
-    - light.wohnzimmer_stehlampe
-    - light.wohnzimmer_wandlampen
+    - light.kuche_alle_lichter
+    - light.schlafzimmer_alle_lichter
+    - light.wohnzimmer_alle_lichter
   action_status: off
   dependencies: util_delayer
 
+# turn all lights off except the garden and living room
+# wall lights when leaving at night
 leaving_night_turn_lights_off:
   module: ActionLight
   class: ActionLight
@@ -38,27 +32,23 @@ leaving_night_turn_lights_off:
   trigger_status: off
   constrain_input_boolean: input_boolean.automation_darkness_lighting,on
   action_entities:
-    - light.arbeitszimmer_deckenlicht
-    - light.bad_deckenlicht
-    - light.bad_spiegellicht
-    - light.dusche_deckenlicht
-    - light.dusche_spiegellicht
-    - light.esszimmer_esstischlicht
-    - light.flur_flur
-    - light.gastezimmer_deckenlicht
+    - light.arbeitszimmer_alle_lichter
+    - light.bad_alle_lichter
+    - light.dusche_alle_lichter
+    - light.esszimmer_alle_lichter
+    - light.flur_alle_lichter
+    - light.gastezimmer_alle_lichter
     - switch.osram_plug_guestroom
-    - light.kuche_deckenlicht
-    - light.kuche_schranklicht
-    - light.kuche_spulenlicht
-    - light.kuche_thekenlicht
-    - light.schlafzimmer_bettlicht
-    - light.schlafzimmer_deckenlicht
+    - light.kuche_alle_lichter
+    - light.schlafzimmer_alle_lichter
     - light.wohnzimmer_deckenlampe
     - light.wohnzimmer_leselampe
     - light.wohnzimmer_stehlampe
   action_status: off
   dependencies: util_delayer
 
+# make sure garden lights and living room wall lights
+# are turned on when leaving at night
 leaving_night_turn_lights_on:
   module: ActionLight
   class: ActionLight
@@ -74,6 +64,7 @@ leaving_night_turn_lights_on:
   action_status: on
   dependencies: util_delayer
 
+# turn some lights on when returning at night
 returning_dark_turn_lights_on:
   module: ActionLight
   class: ActionLight
@@ -87,38 +78,31 @@ returning_dark_turn_lights_on:
   action_status: on
   dependencies: util_delayer
 
+# turn all lights of when sleep mode starts
 sleeping_turn_lights_off:
   module: ActionLight
   class: ActionLight
   trigger_entity: switch.apartment_sleeping
   trigger_status: on
   action_entities:
-    - light.arbeitszimmer_deckenlicht
-    - light.bad_deckenlicht
-    - light.bad_spiegellicht
-    - light.dusche_deckenlicht
-    - light.dusche_spiegellicht
-    - light.esszimmer_esstischlicht
-    - light.flur_flur
-    - light.garten_laterne
+    - light.arbeitszimmer_alle_lichter
+    - light.bad_alle_lichter
+    - light.dusche_alle_lichter
+    - light.esszimmer_alle_lichter
+    - light.flur_alle_lichter
+    - light.garten_alle_lichter
     - light.garden_one
     - light.garden_two
     - light.garden_three
-    - light.gastezimmer_deckenlicht
+    - light.gastezimmer_alle_lichter
     - switch.osram_plug_guestroom
-    - light.kuche_deckenlicht
-    - light.kuche_schranklicht
-    - light.kuche_spulenlicht
-    - light.kuche_thekenlicht
-    - light.schlafzimmer_bettlicht
-    - light.schlafzimmer_deckenlicht
-    - light.wohnzimmer_deckenlampe
-    - light.wohnzimmer_leselampe
-    - light.wohnzimmer_stehlampe
-    - light.wohnzimmer_wandlampen
+    - light.kuche_alle_lichter
+    - light.schlafzimmer_alle_lichter
+    - light.wohnzimmer_alle_lichter
   action_status: off
   dependencies: util_delayer
 
+# turn garden and living room wall lights on at sunset
 sunset_turn_lights_on:
   module: ActionLight
   class: ActionLight
@@ -133,6 +117,7 @@ sunset_turn_lights_on:
   action_status: on
   dependencies: util_delayer
 
+# turn the living room floor light on at sunset when present
 sunset_present_turn_lights_on:
   module: ActionLight
   class: ActionLight
