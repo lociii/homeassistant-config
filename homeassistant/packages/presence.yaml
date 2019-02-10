@@ -22,3 +22,11 @@ binary_sensor:
         device_class: presence
         value_template: >
           {{ is_state('device_tracker.eva_handy', 'home') or is_state('device_tracker.jens_handy', 'home') }}
+      eva_home:
+        device_class: presence
+        value_template: >
+          {{ is_state('device_tracker.eva_handy', 'home') }}
+      jens_home:
+        device_class: presence
+        value_template: >
+          {{ is_state('device_tracker.jens_handy', 'home') }}
