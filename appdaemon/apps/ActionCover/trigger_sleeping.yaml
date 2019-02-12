@@ -5,8 +5,9 @@ kitchen_sleeping_window_closed:
   trigger_status: on
   constraint_list:
     - binary_sensor.door_sensor_kitchen,off
-  action_scenes:
-    - scene.wohnzimmer_rolladen_kuche_closed
+  action_entities:
+    - cover.wohnzimmer_rolladen_kuche
+  action_status: off
   dependencies: util_delayer
   global_dependencies: global
 
@@ -27,8 +28,9 @@ dining_sleeping:
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
   trigger_status: on
-  action_scenes:
-    - scene.wohnzimmer_rolladen_esstisch_closed
+  action_entities:
+    - cover.wohnzimmer_rolladen_esstisch
+  action_status: off
   dependencies: util_delayer
   global_dependencies: global
 
@@ -39,8 +41,9 @@ patio_sleeping_window_closed:
   trigger_status: on
   constraint_list:
     - binary_sensor.door_sensor_patio,off
-  action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse_closed
+  action_entities:
+    - cover.wohnzimmer_rolladen_terrasse
+  action_status: off
   dependencies: util_delayer
   global_dependencies: global
 
@@ -61,8 +64,9 @@ couch_sleeping:
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
   trigger_status: on
-  action_scenes:
-    - scene.wohnzimmer_rolladen_couch_closed
+  action_entities:
+    - cover.wohnzimmer_rolladen_couch
+  action_status: off
   dependencies: util_delayer
   global_dependencies: global
 
@@ -73,8 +77,9 @@ guestroom_sleeping_window_closed:
   trigger_status: on
   constraint_list:
     - binary_sensor.door_sensor_guestroom,off
-  action_scenes:
-    - scene.gastezimmer_rolladen_gastezimmer_closed
+  action_entities:
+    - cover.gastezimmer_rolladen_gastezimmer
+  action_status: off
   dependencies: util_delayer
   global_dependencies: global
 
@@ -97,8 +102,9 @@ bedroom_sleeping_window_closed:
   trigger_status: on
   constraint_list:
     - binary_sensor.door_sensor_bedroom,off
-  action_scenes:
-    - scene.schlafzimmer_rolladen_schlafzimmer_closed
+  action_entities:
+    - cover.schlafzimmer_rolladen_schlafzimmer
+  action_status: off
   dependencies: util_delayer
   global_dependencies: global
 
@@ -121,8 +127,9 @@ office_sleeping_window_closed:
   trigger_status: on
   constraint_list:
     - binary_sensor.door_sensor_office,off
-  action_scenes:
-    - scene.arbeitszimmer_rolladen_arbeitszimmer_closed
+  action_entities:
+    - cover.arbeitszimmer_rolladen_arbeitszimmer
+  action_status: off
   dependencies: util_delayer
   global_dependencies: global
 

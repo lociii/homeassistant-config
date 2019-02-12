@@ -6,8 +6,9 @@ kitchen_wakeup:
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
     - input_boolean.automation_setting_mode_freezing,off
-  action_scenes:
-    - scene.wohnzimmer_rolladen_kuche_open
+  action_entities:
+    - cover.wohnzimmer_rolladen_kuche
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global
 
@@ -31,8 +32,9 @@ dining_wakeup:
   trigger_status: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
-  action_scenes:
-    - scene.wohnzimmer_rolladen_esstisch_open
+  action_entities:
+    - cover.wohnzimmer_rolladen_esstisch
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global
 
@@ -53,8 +55,9 @@ patio_wakeup:
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
   trigger_status: off
-  action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse_open
+  action_entities:
+    - cover.wohnzimmer_rolladen_terrasse
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global
 
@@ -65,8 +68,9 @@ couch_wakeup:
   trigger_status: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,off
-  action_scenes:
-    - scene.wohnzimmer_rolladen_couch_open
+  action_entities:
+    - cover.wohnzimmer_rolladen_couch
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global
 
@@ -90,8 +94,9 @@ guestroom_wakeup:
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,off
     - input_boolean.automation_setting_mode_guest,off
-  action_scenes:
-    - scene.gastezimmer_rolladen_gastezimmer_open
+  action_entities:
+    - cover.gastezimmer_rolladen_gastezimmer
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global
 
@@ -114,8 +119,9 @@ bedroom_wakeup:
   trigger_status: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,off
-  action_scenes:
-    - scene.schlafzimmer_rolladen_schlafzimmer_open
+  action_entities:
+    - cover.schlafzimmer_rolladen_schlafzimmer
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global
 
@@ -138,7 +144,8 @@ office_wakeup_day:
   trigger_status: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
-  action_scenes:
-    - scene.arbeitszimmer_rolladen_arbeitszimmer_open
+  action_entities:
+    - cover.arbeitszimmer_rolladen_arbeitszimmer
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global

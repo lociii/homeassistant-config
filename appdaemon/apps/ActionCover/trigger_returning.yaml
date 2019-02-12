@@ -5,7 +5,8 @@ patio_returning_dark:
   trigger_status: on
   constraint_list:
     - input_boolean.automation_darkness_cover,on
-  action_scenes:
-    - scene.wohnzimmer_rolladen_terrasse_open
+  action_entities:
+    - cover.wohnzimmer_rolladen_terrasse
+  action_status: on
   dependencies: util_delayer
   global_dependencies: global
