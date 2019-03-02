@@ -118,5 +118,13 @@ lovelace:
 panel_iframe:
   paperless:
     title: Paperless
-    url: https://home.schoenbuchallee.de:815
+    url: https://home.schoenbuchallee.de:8001
     icon: mdi:newspaper
+  traccar:
+    title: Traccar
+    url: https://home.schoenbuchallee.de:8002
+    icon: mdi:satellite-variant
+  synology:
+    title: Synology
+    url: https://home.schoenbuchallee.de:5000
+    icon: mdi:nas

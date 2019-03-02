@@ -31,6 +31,9 @@ homeassistant/.HA_VERSION
 homeassistant/.uuid
 *.log
 
+# traccar
+traccar/logs/*.log.*
+
 # git
 !/.gitignore
 

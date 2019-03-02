@@ -1,3 +1,4 @@
+# HOME ASSISTANT (NON HTTPS REDIRECT)
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
@@ -7,6 +8,7 @@ server {
 	return 301 https://$server_name$request_uri;
 }
 
+# HOME ASSISTANT
 server {
   ssl_certificate /etc/letsencrypt/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/privkey.pem;
@@ -34,12 +36,13 @@ server {
   }
 }
 
+# APPDAEMON
 server {
   ssl_certificate /etc/letsencrypt/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/privkey.pem;
 
-  listen 5050 ssl http2;
-	listen [::]:5050 ssl http2;
+  listen 8000 ssl http2;
+	listen [::]:8000 ssl http2;
   server_name $MY_DOMAIN;
 
   location / {
@@ -48,29 +51,13 @@ server {
   }
 }
 
+# PAPERLESS
 server {
   ssl_certificate /etc/letsencrypt/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/privkey.pem;
 
-  listen 9001 ssl http2;
-	listen [::]:9001 ssl http2;
-  server_name $MY_DOMAIN;
-  add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
-
-   location / {
-    proxy_pass http://mosquitto:9001;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection $connection_upgrade;
-  }
-}
-
-server {
-  ssl_certificate /etc/letsencrypt/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/privkey.pem;
-
-  listen 815 ssl http2;
-	listen [::]:815 ssl http2;
+  listen 8001 ssl http2;
+	listen [::]:8001 ssl http2;
   server_name $MY_DOMAIN;
 
   add_header Content-Security-Policy "frame-ancestors 'self' $MY_DOMAIN";
@@ -83,6 +70,78 @@ server {
     proxy_set_header X-Ssl on;
 
     proxy_pass http://paperless_webserver:8000;
+    proxy_redirect off;
+  }
+}
+
+# TRACCAR
+server {
+  ssl_certificate /etc/letsencrypt/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/privkey.pem;
+
+  listen 8002 ssl http2;
+	listen [::]:8002 ssl http2;
+  server_name $MY_DOMAIN;
+
+  add_header Content-Security-Policy "frame-ancestors 'self' $MY_DOMAIN";
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+    proxy_set_header X-Ssl on;
+
+    proxy_pass http://traccar:8082;
+    proxy_redirect off;
+  }
+
+  location /api/socket {
+    proxy_pass http://traccar:8082/api/socket;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection $connection_upgrade;
+  }
+}
+
+# TRACCAR CLIENT PROTOCOL
+server {
+  ssl_certificate /etc/letsencrypt/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/privkey.pem;
+
+  listen 5055 ssl http2;
+	listen [::]:5055 ssl http2;
+  server_name $MY_DOMAIN;
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+    proxy_set_header X-Ssl on;
+
+    proxy_pass http://traccar:5055;
+    proxy_redirect off;
+  }
+}
+
+# SYNOLOGY
+server {
+  ssl_certificate /etc/letsencrypt/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/privkey.pem;
+
+  listen 5000 ssl http2;
+	listen [::]:5000 ssl http2;
+  server_name $MY_DOMAIN;
+
+  location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+    proxy_set_header X-Ssl on;
+
+    proxy_pass http://10.211.112.30:5000;
     proxy_redirect off;
   }
 }

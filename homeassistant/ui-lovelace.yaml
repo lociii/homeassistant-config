@@ -6,15 +6,27 @@ resources:
 
   # weather card
   # https://github.com/bramkragten/custom-ui/tree/master/weather-card
-  - url: /local/custom_ui/weather-card.js?v=1d5fd95
+  - url: /local/custom_ui/weather-card.js?v=bc4a508
     type: js
   # card tools - generic helper methods for custom lovelace cards
   # https://github.com/thomasloven/lovelace-card-tools
-  - url: /local/custom_ui/card-tools.js?v=297fcc7-1
+  - url: /local/custom_ui/card-tools.js?v=5fbed48
     type: js
   # layout card - get more control of the card order in lovelace
   # https://github.com/thomasloven/lovelace-layout-card
-  - url: /local/custom_ui/layout-card.js?v=a313b78
+  - url: /local/custom_ui/layout-card.js?v=b012ea6
+    type: js
+  # auto entities card - populate entities automatically based on filters
+  # https://github.com/thomasloven/lovelace-auto-entities
+  - url: /local/custom_ui/auto-entities-card.js?v=be13234
+    type: js
+  # foldable group card
+  # https://github.com/thomasloven/lovelace-fold-entity-row
+  - url: /local/custom_ui/fold-entity-row.js?v=6d11d3c
+    type: js
+  # secondary info row with template support
+  # https://github.com/MizterB/lovelace-secondaryinfo-entity-row
+  - url: /local/custom_ui/secondaryinfo-entity-row.js?v=9027cd5
     type: js
 
 views:
@@ -659,62 +671,45 @@ views:
           - entity: switch.zigbee2mqtt_permit_join
             name: Neue Geräte zulassen
             icon: mdi:access-point
+
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: System
+          show_header_toggle: false
+        filter:
+          include:
+            - entity_id: "sensor.glances*"
+
       - type: entities
-        title: System
+        title: Docker
         show_header_toggle: false
         entities:
-          - entity: sensor.glances_disk_free
-            name: Festplatte frei
-          - entity: sensor.glances_disk_used
-            name: Festplatte belegt
-          - entity: sensor.glances_ram_free
-            name: RAM frei
-          - entity: sensor.glances_ram_used
-            name: RAM belegt
-          - entity: sensor.glances_swap_free
-            name: Swap frei
-          - entity: sensor.glances_swap_used
-            name: Swap belegt
-          - entity: sensor.glances_cpu_load
-            name: CPU Last
-          - entity: sensor.glances_cpu_temp
-            name: CPU Temperatur
-          - entity: sensor.glances_total
-            name: CPU Anzahl
-      - type: entities
-        title: Docker Container
-        show_header_toggle: false
-        entities:
-          - entity: sensor.docker_appdaemon_text
-            name: AppDaemon
-            icon: mdi:emoticon-devil
-          - entity: sensor.docker_chronograf_text
-            name: Chronograf
-            icon: mdi:watch
-          - entity: sensor.docker_grafana_text
-            name: Grafana
-            icon: mdi:chart-bar
-          - entity: sensor.docker_hadockermon_text
-            name: HADockermon
-            icon: mdi:docker
-          - entity: sensor.docker_homeassistant_text
-            name: HomeAssistant
-            icon: mdi:home-assistant
-          - entity: sensor.docker_influxdb_text
-            name: InfluxDB
-            icon: mdi:database
-          - entity: sensor.docker_letsencrypt_text
-            name: Let's encrypt
-            icon: mdi:certificate
-          - entity: sensor.docker_mosquitto_text
-            name: Mosquitto
-            icon: mdi:hand-pointing-right
-          - entity: sensor.docker_nginx_text
-            name: nginx
-            icon: mdi:engine-outline
-          - entity: sensor.docker_postgresql_text
-            name: PostgreSQL
-            icon: mdi:database
+        - type: custom:auto-entities
+          card:
+            type: custom:fold-entity-row
+            head:
+              type: section
+              label: Active containers
+            open: true
+          filter:
+            include:
+              - entity_id: "switch.ha_dockermon*"
+                state: "on"
+        - type: custom:auto-entities
+          card:
+            type: custom:fold-entity-row
+            head:
+              type: section
+              label: Inactive containers
+          filter:
+            include:
+              - entity_id: "switch.ha_dockermon*"
+                state: "off"
+                # options:
+                #   type: "custom:secondaryinfo-entity-row"
+                #   secondary_info: "[[ attributes.status ]]"
+
 
   #########################################
   # AUTOMATION
@@ -851,7 +846,7 @@ views:
           - entity: input_boolean.automation_trigger_sunprotection_west
             name: Westen
             icon: mdi:compass-outline
-          - entity: input_boolean.automation_setting_sunprotection_orchids
+          - entity: input_boolean.automation_trigger_sunprotection_orchids
             name: Orchideen
             icon: mdi:flower-outline
 

@@ -53,11 +53,23 @@ Docker is currenly running the following containers, see [compose file](docker-c
   reverse proxy in front of HomeAssistant handling all ssl needs
   https://www.nginx.com/
 * glances
-  access docker host system stats from the
-  HomeAssistant container
+  access docker host system stats from the HomeAssistant container
   https://nicolargo.github.io/glances/
+* traccar
+  position tracking and analytics
+  https://www.traccar.org/
+* paperless
+  document tracking and indexing
+  https://github.com/the-paperless-project/paperless
 
 TODO: install "notifications app" on firetv
+
+## Custom components
+
+### HADockermon
+
+Sensor that makes containers available as switches
+https://github.com/custom-components/switch.hadockermon
 
 ## Infrastructure
 

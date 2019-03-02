@@ -1,26 +1,39 @@
 customElements.define('card-tools',
 class {
-  static CUSTOM_TYPE_PREFIX() { return "custom:"}
-  static version() { return "0.3"}
-
-  static v() {return version};
+  static get CUSTOM_TYPE_PREFIX() { return "custom:"}
+  static get version() { return "0.4"}
 
   static checkVersion(v) {
-    if (this.version() < v) {
+    if (this.version < v) {
       throw new Error(`Old version of card-tools found. Get the latest version of card-tools.js from https://github.com/thomasloven/lovelace-card-tools`);
     }
   }
 
-  static litElement() {
-    return Object.getPrototypeOf(customElements.get('hui-error-entity-row'));
+  static get LitElement() {
+    return Object.getPrototypeOf(customElements.get('home-assistant-main'));
+  }
+  static litElement() { // Backwards compatibility - deprecated
+    return this.LitElement;
   }
 
-  static litHtml() {
+  static get LitHtml() {
     return this.litElement().prototype.html;
   }
+  static litHtml() { // Backwards compatibility - deprecated
+    return this.LitHtml;
+  }
 
-  static hass() {
-    return document.querySelector('home-assistant').hass;
+  static get LitCSS() {
+    return this.litElement().prototype.css;
+  }
+
+  static get hass() {
+    var hass = function() { // Backwards compatibility - deprecated
+      return hass;
+    }
+    for (var k in document.querySelector('home-assistant').hass)
+      hass[k] = document.querySelector('home-assistant').hass[k];
+    return hass;
   }
 
   static fireEvent(ev, detail, entity=null) {
@@ -33,16 +46,33 @@ class {
     if(entity) {
       entity.dispatchEvent(ev);
     } else {
-    document
+      var root = document
+        .querySelector("home-assistant")
+        .shadowRoot.querySelector("home-assistant-main")
+        .shadowRoot.querySelector("app-drawer-layout partial-panel-resolver")
+        .shadowRoot.querySelector("ha-panel-lovelace")
+        .shadowRoot.querySelector("hui-root")
+      if (root)
+        root
+          .shadowRoot.querySelector("ha-app-layout #view")
+          .firstElementChild
+          .dispatchEvent(ev);
+    }
+  }
+
+  static get lovelace() {
+    var root = document
       .querySelector("home-assistant")
       .shadowRoot.querySelector("home-assistant-main")
       .shadowRoot.querySelector("app-drawer-layout partial-panel-resolver")
       .shadowRoot.querySelector("ha-panel-lovelace")
       .shadowRoot.querySelector("hui-root")
-      .shadowRoot.querySelector("ha-app-layout #view")
-      .firstElementChild
-      .dispatchEvent(ev);
+    if (root) {
+      var ll =  root.lovelace
+      ll.current_view = root.___curView;
+      return ll;
     }
+    return null;
   }
 
   static createThing(thing, config) {
@@ -73,8 +103,8 @@ class {
       delete config.error;
       return _createError(err, config);
     }
-    if(tag.startsWith(this.CUSTOM_TYPE_PREFIX()))
-      tag = tag.substr(this.CUSTOM_TYPE_PREFIX().length);
+    if(tag.startsWith(this.CUSTOM_TYPE_PREFIX))
+      tag = tag.substr(this.CUSTOM_TYPE_PREFIX.length);
     else
       tag = `hui-${tag}-${thing}`;
 
@@ -143,7 +173,7 @@ class {
     }
 
     const type = config.type || "default";
-    if(SPECIAL_TYPES.has(type) || type.startsWith(this.CUSTOM_TYPE_PREFIX()))
+    if(SPECIAL_TYPES.has(type) || type.startsWith(this.CUSTOM_TYPE_PREFIX))
       return this.createThing("row", config);
 
     const domain = config.entity.split(".", 1)[0];
@@ -151,7 +181,7 @@ class {
     return this.createThing("entity-row", config);
   }
 
-  static deviceID() {
+  static get deviceID() {
     const ID_STORAGE_KEY = 'lovelace-player-device-id';
     if(window['fully'] && typeof fully.getDeviceId === "function")
       return fully.getDeviceId();
@@ -181,32 +211,124 @@ class {
     return /\[\[\s+.*\s+\]\]/.test(text);
   }
 
-  static parseTemplate(text, error) {
-    if(typeof(text) !== "string") return text;
-    const _parse = (str) => {
-      try {
-        str = str.replace(/^\[\[\s+|\s+\]\]$/g, '')
-        const parts = str.split(".");
-        let v = this.hass().states[`${parts[0]}.${parts[1]}`];
-        parts.shift();
-        parts.shift();
-        parts.forEach(item => v = v[item]);
-        return v;
-      } catch (err) {
-        return error || `[[ Template matching failed ${str} ]]`;
+  static parseTemplateString(str, specialData = {}) {
+    if(typeof(str) !== "string") return text;
+    const FUNCTION = /^[a-zA-Z0-9_]+\(.*\)$/;
+    const EXPR = /([^=<>!]+)\s*(==|!=|<|>|<=|>=)\s*([^=<>!]+)/;
+    const SPECIAL = /^\{.+\}$/;
+    const STRING = /^"[^"]*"|'[^']*'$/;
+
+    if(typeof(specialData) === "string") specialData = {};
+    specialData = Object.assign({
+      user: this.hass.user.name,
+      browser: this.deviceID,
+      hash: location.hash.substr(1) || ' ',
+    }, specialData);
+
+    const _parse_function = (str) => {
+      let args = [str.substr(0, str.indexOf('(')).trim()]
+      str = str.substr(str.indexOf('(')+1);
+      while(str) {
+        let index = 0;
+        let parens = 0;
+        let quote = false;
+        while(str[index]) {
+          let c = str[index++];
+
+          if(c === quote && index > 1 && str[index-2] !== "\\")
+              quote = false;
+          else if(`"'`.includes(c))
+            quote = c;
+          if(quote) continue;
+
+          if(c === '(')
+            parens = parens + 1;
+          else if(c === ')') {
+            parens = parens - 1;
+            continue
+          }
+          if(parens > 0) continue;
+
+          if(",)".includes(c)) break;
+        }
+        args.push(str.substr(0, index-1).trim());
+        str = str.substr(index);
+      }
+      return args;
+    };
+
+    const _parse_special = (str) => {
+      str = str.substr(1, str.length - 2);
+      return specialData[str] || `{${str}}`;
+    };
+
+    const _parse_entity = (str) => {
+      str = str.split(".");
+      let v;
+      if(str[0].match(SPECIAL)) {
+        v = _parse_special(str.shift());
+        v = this.hass.states[v] || v;
+      } else {
+        v = this.hass.states[`${str.shift()}.${str.shift()}`];
+        if(!str.length) return v['state'];
+      }
+      str.forEach(item => v=v[item]);
+      return v;
+    }
+
+    const _eval_expr = (str) => {
+      str = EXPR.exec(str);
+      if(str === null) return false;
+      const lhs = this.parseTemplateString(str[1]);
+      const rhs = this.parseTemplateString(str[3]);
+      var expr = ''
+      if(!parseFloat(lhs))
+        expr = `"${lhs}" ${str[2]} "${rhs}"`;
+      else
+        expr = `${parseFloat(lhs)} ${str[2]} ${parseFloat(rhs)}`
+      return eval(expr);
+    }
+
+    const _eval_function = (args) => {
+      if(args[0] === "if") {
+        if(_eval_expr(args[1]))
+          return this.parseTemplateString(args[2]);
+        return this.parseTemplateString(args[3]);
       }
     }
-    text = text.replace(/(\[\[\s.*?\s\]\])/g, (str, p1, offset, s) => _parse(str));
+
+    try {
+      str = str.trim();
+      if(str.match(STRING))
+        return str.substr(1, str.length - 2);
+      if(str.match(SPECIAL))
+        return _parse_special(str);
+      if(str.match(FUNCTION))
+        return _eval_function(_parse_function(str));
+      if(str.includes("."))
+        return _parse_entity(str);
+      return str;
+    } catch (err) {
+      return `[[ Template matching failed: ${str} ]]`;
+    }
+  }
+
+  static parseTemplate(text, data = {}) {
+    if(typeof(text) !== "string") return text;
+    // Note: .*? is javascript regex syntax for NON-greedy matching
+    var RE_template = /\[\[\s(.*?)\s\]\]/g;
+    text = text.replace(RE_template, (str, p1, offset, s) => this.parseTemplateString(p1, data));
     return text;
   }
 
-  static args() {
-    var url = document.currentScript.src
+  static args(script=null) {
+    script = script || document.currentScript;
+    var url = script.src;
     url = url.substr(url.indexOf("?")+1)
     let args = {};
     url.split("&").forEach((a) => {
       if(a.indexOf("=")) {
-        var parts = a.split("=");
+        let parts = a.split("=");
         args[parts[0]] = parts[1]
       } else {
         args[a] = true;
@@ -216,10 +338,61 @@ class {
   }
 
   static localize(key, def="") {
-    const language = this.hass().language;
-    if(this.hass().resources[language] && this.hass().resources[language][key])
-      return this.hass().resources[language][key];
+    const language = this.hass.language;
+    if(this.hass.resources[language] && this.hass.resources[language][key])
+      return this.hass.resources[language][key];
     return def;
+  }
+
+  static popUp(title, message, large=false) {
+    let popup = document.createElement('div');
+    popup.innerHTML = `
+    <style>
+      app-toolbar {
+        color: var(--more-info-header-color);
+        background-color: var(--more-info-header-background);
+      }
+    </style>
+    <app-toolbar>
+      <paper-icon-button
+        icon="hass:close"
+        dialog-dismiss=""
+      ></paper-icon-button>
+      <div class="main-title" main-title="">
+        ${title}
+      </div>
+    </app-toolbar>
+  `;
+    popup.appendChild(message);
+    this.moreInfo(Object.keys(this.hass.states)[0]);
+    let moreInfo = document.querySelector("home-assistant")._moreInfoEl;
+    moreInfo._page = "none";
+    moreInfo.shadowRoot.appendChild(popup);
+    moreInfo.large = large;
+
+    setTimeout(() => {
+      let interval = setInterval(() => {
+        if (moreInfo.getAttribute('aria-hidden')) {
+          popup.parentNode.removeChild(popup);
+          clearInterval(interval);
+        } else {
+          message.hass = this.hass;
+        }
+      }, 100)
+    }, 1000);
+  }
+  static closePopUp() {
+    let moreInfo = document.querySelector("home-assistant")._moreInfoEl;
+    if (moreInfo) moreInfo.close()
+  }
+
+  static logger(message, script=null) {
+    if(!('debug' in this.args(script))) return;
+
+    if(typeof message !== "string")
+      message = JSON.stringify(message);
+    console.log(`%cDEBUG:%c ${message}`,
+      "color: blue; font-weight: bold", "");
   }
 
 });
@@ -228,6 +401,6 @@ class {
 var cardTools = customElements.get('card-tools');
 
 console.info(`%cCARD-TOOLS IS INSTALLED
-%cDeviceID: ${customElements.get('card-tools').deviceID()}`,
+%cDeviceID: ${customElements.get('card-tools').deviceID}`,
 "color: green; font-weight: bold",
 "");
