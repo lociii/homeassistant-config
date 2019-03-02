@@ -26,7 +26,7 @@ resources:
     type: js
   # secondary info row with template support
   # https://github.com/MizterB/lovelace-secondaryinfo-entity-row
-  - url: /local/custom_ui/secondaryinfo-entity-row.js?v=9027cd5
+  - url: /local/custom_ui/secondaryinfo-entity-row.js?v=9027cd5-1
     type: js
 
 views:
@@ -585,17 +585,6 @@ views:
               - entity: scene.car_heating_off
                 name: Ausschalten
 
-          - type: iframe
-            url: https://www.svz-bw.de/verkehrslage_vollbild.html?zoom=4&lat=5396668.06567&lon=503440.98106&layers=BTTTFFTTTTTTTFFFFFFTTTTTTTTTTT
-            aspect_ratio: 75%
-
-          - break
-
-          - type: iframe
-            url: https://www.svz-bw.de/fileadmin/templates/vizbw1/kameradetail.php?id=S142
-            aspect_ratio: 100%
-
-
   #########################################
   # LAUNDRY
   #########################################
@@ -662,53 +651,62 @@ views:
 
   - title: System
     path: system
+    panel: true
     icon: mdi:cogs
     cards:
-      - type: entities
-        title: MQTT
-        show_header_toggle: false
-        entities:
-          - entity: switch.zigbee2mqtt_permit_join
-            name: Neue Geräte zulassen
-            icon: mdi:access-point
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: entities
+            title: MQTT
+            show_header_toggle: false
+            entities:
+              - entity: switch.zigbee2mqtt_permit_join
+                name: Neue Geräte zulassen
+                icon: mdi:access-point
 
-      - type: custom:auto-entities
-        card:
-          type: entities
-          title: System
-          show_header_toggle: false
-        filter:
-          include:
-            - entity_id: "sensor.glances*"
+          - type: custom:auto-entities
+            card:
+              type: entities
+              title: System
+              show_header_toggle: false
+            filter:
+              include:
+                - entity_id: "sensor.glances*"
 
-      - type: entities
-        title: Docker
-        show_header_toggle: false
-        entities:
-        - type: custom:auto-entities
-          card:
-            type: custom:fold-entity-row
-            head:
-              type: section
-              label: Active containers
-            open: true
-          filter:
-            include:
-              - entity_id: "switch.ha_dockermon*"
-                state: "on"
-        - type: custom:auto-entities
-          card:
-            type: custom:fold-entity-row
-            head:
-              type: section
-              label: Inactive containers
-          filter:
-            include:
-              - entity_id: "switch.ha_dockermon*"
-                state: "off"
-                # options:
-                #   type: "custom:secondaryinfo-entity-row"
-                #   secondary_info: "[[ attributes.status ]]"
+          - break
+
+          - type: entities
+            title: Docker
+            show_header_toggle: false
+            entities:
+            - type: custom:auto-entities
+              card:
+                type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Active containers
+                open: true
+              filter:
+                include:
+                  - entity_id: "switch.ha_dockermon*"
+                    state: "on"
+                    options:
+                      type: "custom:secondaryinfo-entity-row"
+                      secondary_info: "Status: [[ {entity}.attributes.status ]]"
+            - type: custom:auto-entities
+              card:
+                type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Inactive containers
+              filter:
+                include:
+                  - entity_id: "switch.ha_dockermon*"
+                    state: "off"
+                    options:
+                      type: "custom:secondaryinfo-entity-row"
+                      secondary_info: "Status: [[ {entity}.attributes.status ]]"
 
 
   #########################################
