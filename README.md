@@ -61,6 +61,9 @@ Docker is currenly running the following containers, see [compose file](docker-c
 * paperless
   document tracking and indexing
   https://github.com/the-paperless-project/paperless
+* volumerize
+  backup docker volumes
+  https://github.com/blacklabelops/volumerize
 
 TODO: install "notifications app" on firetv
 
