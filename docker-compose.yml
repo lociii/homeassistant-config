@@ -175,8 +175,8 @@ services:
     depends_on:
       - traccar_db
     volumes:
-      - ${PWD}/traccar/logs:/opt/traccar/logs
-      - ${PWD}/traccar/traccar.xml:/opt/traccar/conf/traccar.xml
+      - ${PWD}/traccar/traccar.xml:/opt/traccar/conf/traccar.xml:ro
+      - traccar_logs:/opt/traccar/logs:rw
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
 
@@ -247,6 +247,35 @@ services:
       - PAPERLESS_FORGIVING_OCR=True
     command: ["document_consumer"]
 
+  ################################
+  # VOLUMERIZE (BACKUP)
+  ################################
+
+  backup:
+    container_name: backup
+    image: blacklabelops/volumerize:1.5.0
+    restart: unless-stopped
+    environment:
+        - TZ=Europe/Berlin
+        - VOLUMERIZE_SOURCE=/source
+        - VOLUMERIZE_TARGET=$VOLUMERIZE_TARGET
+        - VOLUMERIZE_JOBBER_TIME=0 20 */12 * * *
+        - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
+        - JOB_NAME2=RemoveOldBackups
+        - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
+        - JOB_TIME2=0 0 * * * *
+    volumes:
+        - chronograf:/source/chronograf:ro
+        - grafana:/source/grafana:ro
+        - homeassistant_media:/source/homeassistant_media
+        - influxdb:/source/influxdb
+        - mosquitto_data:/source/mosquitto_data
+        - postgresql:/source/postgresql
+        - traccar_db:/source/traccar_db
+        - paperless_data:/source/paperless_data
+        - paperless_media:/source/paperless_media
+        - volumerize_cache:/volumerize-cache
+
 volumes:
   chronograf: {}
   grafana: {}
@@ -256,11 +285,10 @@ volumes:
   mosquitto_data: {}
   postgresql: {}
 
-  owntracks_config: {}
-  owntracks_store: {}
-
   traccar_db: {}
   traccar_logs: {}
 
   paperless_data: {}
   paperless_media: {}
+
+  volumerize_cache: {}
