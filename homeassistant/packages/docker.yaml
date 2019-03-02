@@ -7,3 +7,32 @@ binary_sensor:
   - platform: hadockermon
     host: hadockermon
     port: 8126
+
+automation:
+  - alias: 'Start letsencrypt every night to renew certificate'
+    trigger:
+      platform: time
+      at: '03:00:00'
+    action:
+      service: switch.turn_on
+      data:
+        entity_id:
+          - switch.ha_dockermon_letsencrypt
+  - alias: 'Stop nginx to pick up new certificate'
+    trigger:
+      platform: time
+      at: '03:15:00'
+    action:
+      service: switch.turn_off
+      data:
+        entity_id:
+          - switch.ha_dockermon_nginx
+  - alias: 'Start nginx with new certificate'
+    trigger:
+      platform: time
+      at: '03:20:00'
+    action:
+      service: switch.turn_on
+      data:
+        entity_id:
+          - switch.ha_dockermon_nginx
