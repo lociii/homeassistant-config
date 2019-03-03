@@ -18,9 +18,9 @@ class StateSunprotection(hass.Hass):
 
         # add begin and end timers
         self.set_timer_begin()
-        self.timer_end = self.run_at_sunset(callback=self.check_deactivate)
+        self.timer_end = self.run_at_sunset(callback=self.deactivate)
 
-    def set_timer_begin(self):
+    def set_timer_begin(self, *args, **kwargs):
         if self.timer_begin is not None:
             self.cancel_timer(self.timer_begin)
 
@@ -32,12 +32,6 @@ class StateSunprotection(hass.Hass):
         if self.get_state(self.switch) == 'off':
             return
         self.activate()
-
-    def check_deactivate(self, *args, **kwargs):
-        # automation is deactivated
-        if self.get_state(self.switch) == 'off':
-            return
-        self.deactivate()
 
     def activate(self, *args, **kwargs):
         self.log('sunprotection activated')
