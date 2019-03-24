@@ -51,6 +51,7 @@ alexa:
       - script.living_room_tv_channel_19
       - script.living_room_tv_channel_20
       - switch.osram_plug_guestroom
+      - switch.osram_plug_computer
     exclude_domains:
       - alert
       - automation
@@ -266,6 +267,10 @@ alexa:
       name: Stehlampe Gästezimmer
       description: ""
       display_categories: LIGHT
+    switch.osram_plug_computer:
+      name: Gameboy
+      description: ""
+      display_categories: SWITCH
 
 google_actions:
   filter:
@@ -296,6 +301,7 @@ google_actions:
       - scene.apartment_present
       - scene.apartment_absent
       - switch.osram_plug_guestroom
+      - switch.osram_plug_computer
     exclude_domains:
       - alert
       - automation
@@ -445,4 +451,7 @@ google_actions:
       room: Wohnung
     switch.osram_plug_guestroom:
       name: Stehlampe Gästezimmer
+      room: Gästezimmer
+    switch.osram_plug_computer:
+      name: Gameboy
       room: Gästezimmer

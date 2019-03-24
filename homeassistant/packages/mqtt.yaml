@@ -58,6 +58,15 @@ switch:
     payload_on: "ON"
     value_template: "{{ value_json.state }}"
     command_topic: zigbee2mqtt/osram_plug_kitchen/set
+  # power plug computer guest room
+  - platform: mqtt
+    name: osram_plug_computer
+    state_topic: zigbee2mqtt/osram_plug_computer
+    availability_topic: zigbee2mqtt/bridge/state
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: zigbee2mqtt/osram_plug_computer/set
 
 binary_sensor:
   # door sensor patio
