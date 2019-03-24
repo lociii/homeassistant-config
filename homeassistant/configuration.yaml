@@ -17,6 +17,10 @@ homeassistant:
   auth_providers:
   - type: homeassistant
   - type: legacy_api_password
+    api_password: !secret http_password
+
+# enable default components
+default_config:
 
 # enable to auth provider
 auth:
@@ -25,9 +29,6 @@ auth:
 frontend:
   themes: !include themes.yaml
 
-# Enables configuration UI
-config:
-
 # check for updates and send anonymous component usage stats
 updater:
   include_used_components: true
@@ -35,24 +36,8 @@ updater:
 # Discover some devices automatically
 discovery:
 
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
-
-# Enables support for tracking state changes over time
-history:
-
-# View all events in a logbook
-logbook:
-
-# Enables a map showing the location of tracked devices
-map:
-
-# enable sun component
-sun:
-
 http:
   base_url: !secret base_url
-  api_password: !secret http_password
 
 recorder:
   purge_keep_days: 30

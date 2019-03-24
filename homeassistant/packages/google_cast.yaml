@@ -2,5 +2,3 @@ cast:
   media_player:
   - host: !secret google_home_living_room_ip
   - host: !secret google_home_office_ip
-  - host: !secret google_home_guestroom_ip
-  - host: !secret google_home_shower_ip

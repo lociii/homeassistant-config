@@ -5,7 +5,7 @@ services:
   mosquitto:
     container_name: mosquitto
     restart: unless-stopped
-    image: eclipse-mosquitto:1.5.6
+    image: eclipse-mosquitto:1.5.8
     volumes:
       - ${PWD}/mosquitto/passwd:/mosquitto/passwd
       - ${PWD}/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
@@ -19,7 +19,7 @@ services:
   hadockermon:
     container_name: hadockermon
     restart: unless-stopped
-    image: philhawthorne/ha-dockermon:v0.0.10
+    image: philhawthorne/ha-dockermon:v0.0.11
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${PWD}/ha-dockermon.yaml:/config/configuration.yaml
@@ -42,7 +42,7 @@ services:
   influxdb:
     container_name: influxdb
     restart: unless-stopped
-    image: influxdb:1.7.3-alpine
+    image: influxdb:1.7.4-alpine
     volumes:
       - ${PWD}/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - influxdb:/var/lib/influxdb
@@ -67,7 +67,7 @@ services:
   chronograf:
     container_name: chronograf
     restart: unless-stopped
-    image: chronograf:1.7.7
+    image: chronograf:1.7.8
     depends_on:
       - influxdb
     volumes:
@@ -79,7 +79,7 @@ services:
   homeassistant:
     container_name: homeassistant
     restart: unless-stopped
-    image: homeassistant/home-assistant:0.87.0
+    image: homeassistant/home-assistant:0.90.1
     depends_on:
       - influxdb
       - postgresql
@@ -120,7 +120,7 @@ services:
   # https://hub.docker.com/r/library/nginx
   nginx:
     container_name: nginx
-    image: nginx:1.15.8
+    image: nginx:1.15.9
     restart: unless-stopped
     volumes:
       - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -157,7 +157,7 @@ services:
   # https://hub.docker.com/_/mariadb
   traccar_db:
     container_name: traccar_db
-    image: mariadb:10.4.2
+    image: mariadb:10.4.3
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=$TRACCAR_DB_ROOT_PASSWORD
@@ -271,10 +271,10 @@ services:
         - homeassistant_media:/source/homeassistant_media
         - influxdb:/source/influxdb
         - mosquitto_data:/source/mosquitto_data
-        - postgresql:/source/postgresql
-        - traccar_db:/source/traccar_db
         - paperless_data:/source/paperless_data
         - paperless_media:/source/paperless_media
+        - postgresql:/source/postgresql
+        - traccar_db:/source/traccar_db
         - volumerize_cache:/volumerize-cache
 
 volumes:
