@@ -113,3 +113,11 @@ panel_iframe:
     title: Synology
     url: https://home.schoenbuchallee.de:5000
     icon: mdi:nas
+  grafana:
+    title: Grafana
+    url: http://ship:3000
+    icon: mdi:chart-areaspline
+  chronograf:
+    title: Chronograf
+    url: http://ship:8888
+    icon: mdi:clock-outline
