@@ -186,7 +186,7 @@ services:
 
   # https://hub.docker.com/r/danielquinn/paperless
   paperless_webserver:
-    container_name: paperless-webserver
+    container_name: paperless_webserver
     image: danielquinn/paperless:latest
     restart: unless-stopped
     healthcheck:
@@ -211,7 +211,7 @@ services:
 
   # https://hub.docker.com/r/danielquinn/paperless
   paperless_consumer:
-    container_name: paperless-consumer
+    container_name: paperless_consumer
     image: danielquinn/paperless:latest
     restart: unless-stopped
     depends_on:
@@ -250,6 +250,7 @@ services:
   ################################
   # VOLUMERIZE (BACKUP)
   ################################
+  # touch known_hosts in /root/.ssh/ and run "docker-compose exec backup list" once to add host key verification
 
   # https://hub.docker.com/r/blacklabelops/volumerize
   backup:
@@ -260,22 +261,26 @@ services:
         - TZ=Europe/Berlin
         - VOLUMERIZE_SOURCE=/source
         - VOLUMERIZE_TARGET=$VOLUMERIZE_TARGET
-        - VOLUMERIZE_JOBBER_TIME=0 20 */12 * * *
+        - VOLUMERIZE_JOBBER_TIME=0 15 0 * * *
         - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
+        # include nginx to restart the proxy container after backup/restore - first item gets started last
+        - VOLUMERIZE_CONTAINERS=nginx chronograf grafana homeassistant influxdb mosquitto paperless_webserver paperless_consumer postgresql traccar traccar_db
         - JOB_NAME2=RemoveOldBackups
         - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
-        - JOB_TIME2=0 0 * * * *
+        - JOB_TIME2=0 0 0 * * *
     volumes:
         - chronograf:/source/chronograf:ro
         - grafana:/source/grafana:ro
-        - homeassistant_media:/source/homeassistant_media
-        - influxdb:/source/influxdb
-        - mosquitto_data:/source/mosquitto_data
-        - paperless_data:/source/paperless_data
-        - paperless_media:/source/paperless_media
-        - postgresql:/source/postgresql
-        - traccar_db:/source/traccar_db
+        - homeassistant_media:/source/homeassistant_media:ro
+        - influxdb:/source/influxdb:ro
+        - mosquitto_data:/source/mosquitto_data:ro
+        - paperless_data:/source/paperless_data:ro
+        - paperless_media:/source/paperless_media:ro
+        - postgresql:/source/postgresql:ro
+        - traccar_db:/source/traccar_db:ro
         - volumerize_cache:/volumerize-cache
+        - /var/run/docker.sock:/var/run/docker.sock
+        - volumerize_ssh:/root/.ssh/
 
 volumes:
   chronograf: {}
@@ -293,3 +298,4 @@ volumes:
   paperless_media: {}
 
   volumerize_cache: {}
+  volumerize_ssh: {}
