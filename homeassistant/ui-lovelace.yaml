@@ -543,6 +543,8 @@ views:
             name: ESP Schreibtisch
           - entity: binary_sensor.esp_carheating_online
             name: ESP Standheizung
+          - entity: binary_sensor.esp_miflora_online
+            name: ESP MiFlora
       - type: entities
         title: Infrastruktur
         show_header_toggle: false
