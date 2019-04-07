@@ -299,51 +299,58 @@ views:
   #########################################
 
   - title: Garten und Pflanzen
-    path: garden
+    path: garden_and_plants
+    panel: true
     icon: mdi:flower
     cards:
-      - type: entities
-        title: Bewässerung
-        show_header_toggle: false
-        entities:
-          - entity: light.bewasserung_sprenkler
-            name: Sprenkler
-            icon: mdi:water-pump
-          - entity: light.bewasserung_raketen
-            name: Raketen
-            icon: mdi:water-pump
-          - entity: light.bewasserung_busche
-            name: Büsche
-            icon: mdi:water-pump
-          - entity: light.bewasserung_entnahme
-            name: Entnahme
-            icon: mdi:water-pump
-      - type: entities
-        title: Zyklen
-        show_header_toggle: false
-        entities:
-          - entity: input_boolean.automation_watering_short
-            name: Kurze Bewässerung jetzt
-            icon: mdi:play-circle-outline
-          - entity: input_boolean.automation_watering_short_night
-            name: Kurze Bewässerung nachts
-            icon: mdi:timer
-          - type: divider
-          - entity: input_boolean.automation_watering_long
-            name: Lange Bewässerung jetzt
-            icon: mdi:play-circle-outline
-          - entity: input_boolean.automation_watering_long_night
-            name: Lange Bewässerung nachts
-            icon: mdi:timer
-      - type: plant-status
-        name: Pflanze 1
-        entity: plant.plant_one
-      - type: plant-status
-        name: Pflanze 2
-        entity: plant.plant_two
-      - type: plant-status
-        name: Pflanze 3
-        entity: plant.plant_three
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: entities
+            title: Bewässerung
+            show_header_toggle: false
+            entities:
+              - entity: light.bewasserung_sprenkler
+                name: Sprenkler
+                icon: mdi:water-pump
+              - entity: light.bewasserung_raketen
+                name: Raketen
+                icon: mdi:water-pump
+              - entity: light.bewasserung_busche
+                name: Büsche
+                icon: mdi:water-pump
+              - entity: light.bewasserung_entnahme
+                name: Entnahme
+                icon: mdi:water-pump
+          - type: entities
+            title: Zyklen
+            show_header_toggle: false
+            entities:
+              - entity: input_boolean.automation_watering_short
+                name: Kurze Bewässerung jetzt
+                icon: mdi:play-circle-outline
+              - entity: input_boolean.automation_watering_short_night
+                name: Kurze Bewässerung nachts
+                icon: mdi:timer
+              - type: divider
+              - entity: input_boolean.automation_watering_long
+                name: Lange Bewässerung jetzt
+                icon: mdi:play-circle-outline
+              - entity: input_boolean.automation_watering_long_night
+                name: Lange Bewässerung nachts
+                icon: mdi:timer
+
+          - break
+
+          - type: plant-status
+            name: Grünlilie neben Orchideen
+            entity: plant.plant_one
+          - type: plant-status
+            name: Einblatt auf Bar
+            entity: plant.plant_two
+          - type: plant-status
+            name: Benjamini neben TV
+            entity: plant.plant_three
 
   #########################################
   # MOVIE AND TV
@@ -432,7 +439,7 @@ views:
         show_header_toggle: false
         entities:
         - type: media-control
-          entity: media_player.sonos
+          entity: media_player.living_room
           name: Sonos Wohnzimmer
         - type: media-control
           entity: media_player.guest_room
@@ -603,17 +610,6 @@ views:
                 name: Jens
               - entity: sensor.travel_time_eva
                 name: Eva
-          - type: history-graph
-            hours_to_show: 48
-            refresh_interval: 30
-            title: Fahrzeit
-            entities:
-              - entity: sensor.travel_time_jens
-                name: Jens
-              - entity: sensor.travel_time_eva
-                name: Eva
-
-          - break
 
           - type: entities
             title: Standheizung
@@ -623,6 +619,51 @@ views:
                 name: Anschalten
               - entity: scene.car_heating_off
                 name: Ausschalten
+
+          - break
+
+          - type: custom:mini-graph-card
+            name: Fahrzeit Jens
+            entities:
+            - entity: sensor.travel_time_jens
+              name: Fahrzeit Jens
+            icon: mdi:timer
+            unit: Minuten
+            hour24: true
+            hours_to_show: 48
+            points_per_hour: 2
+            lower_bound: 0
+            show:
+              labels: false
+            color_thresholds:
+              - value: 45
+                color: "#ff3300"
+              - value: 30
+                color: "#ff9900"
+              - value: 0
+                color: "#009933"
+
+          - type: custom:mini-graph-card
+            name: Fahrzeit Eva
+            entities:
+            - entity: sensor.travel_time_eva
+              name: Fahrzeit Eva
+            icon: mdi:timer
+            unit: Minuten
+            hour24: true
+            hours_to_show: 48
+            points_per_hour: 2
+            lower_bound: 0
+            show:
+              labels: false
+            color_thresholds:
+              - value: 45
+                color: "#ff3300"
+              - value: 30
+                color: "#ff9900"
+              - value: 0
+                color: "#009933"
+
 
   #########################################
   # LAUNDRY
