@@ -3,69 +3,72 @@ binary_sensor:
     sensors:
       amazon_echo_bedroom_online:
         value_template: >
-          {{ is_state('device_tracker.amazon_echo_schlafzimmer', 'home')}}
+          {{ is_state('device_tracker.amazon_echo_schlafzimmer', 'home') }}
       amazon_echo_living_room_online:
         value_template: >
-          {{ is_state('device_tracker.amazon_echo_wohnzimmer', 'home')}}
+          {{ is_state('device_tracker.amazon_echo_wohnzimmer', 'home') }}
       google_home_office_online:
         value_template: >
-          {{ is_state('device_tracker.google_home_mini_eva', 'home')}}
+          {{ is_state('device_tracker.google_home_mini_eva', 'home') }}
       google_home_living_room_online:
         value_template: >
-          {{ is_state('device_tracker.google_home_wohnzimmer', 'home')}}
+          {{ is_state('device_tracker.google_home_wohnzimmer', 'home') }}
       firetv_bedroom_online:
         value_template: >
-          {{ is_state('device_tracker.firetv_schlafzimmer', 'home')}}
+          {{ is_state('device_tracker.firetv_schlafzimmer', 'home') }}
       firetv_living_room_online:
         value_template: >
-          {{ is_state('device_tracker.firetv_wohnzimmer', 'home')}}
+          {{ is_state('device_tracker.firetv_wohnzimmer', 'home') }}
       sonos_left_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_links', 'home')}}
+          {{ is_state('device_tracker.sonos_links', 'home') }}
       sonos_playbase_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_playbase', 'home')}}
+          {{ is_state('device_tracker.sonos_playbase', 'home') }}
       sonos_right_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_rechts', 'home')}}
+          {{ is_state('device_tracker.sonos_rechts', 'home') }}
       sonos_sub_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_sub', 'home')}}
+          {{ is_state('device_tracker.sonos_sub', 'home') }}
       sonos_guestroom_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_guestroom', 'home')}}
+          {{ is_state('device_tracker.sonos_guestroom', 'home') }}
       sonos_shower_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_shower', 'home')}}
+          {{ is_state('device_tracker.sonos_shower', 'home') }}
       power_plug_dryer_online:
         value_template: >
-          {{ is_state('device_tracker.steckdose_trockner', 'home')}}
+          {{ is_state('device_tracker.steckdose_trockner', 'home') }}
       power_plug_washer_human_online:
         value_template: >
-          {{ is_state('device_tracker.steckdose_waschmaschine_mensch', 'home')}}
+          {{ is_state('device_tracker.steckdose_waschmaschine_mensch', 'home') }}
       power_plug_washer_animal_online:
         value_template: >
-          {{ is_state('device_tracker.steckdose_waschmaschine_tier', 'home')}}
+          {{ is_state('device_tracker.steckdose_waschmaschine_tier', 'home') }}
 
       esp_standing_desk_online:
         value_template: >
-          {{ is_state('device_tracker.esp_standing_desk', 'home')}}
+          {{ is_state('device_tracker.esp_standing_desk', 'home') }}
       esp_carheating_online:
         value_template: >
-          {{ is_state('device_tracker.esp_carheating', 'home')}}
+          {{ is_state('device_tracker.esp_carheating', 'home') }}
+      esp_miflora_online:
+        value_template: >
+          {{ is_state('device_tracker.esp_miflora', 'home') }}
 
       ship_online:
         value_template: >
-          {{ is_state('device_tracker.ship', 'home')}}
+          {{ is_state('device_tracker.ship', 'home') }}
       dss_ip_online:
         value_template: >
-          {{ is_state('device_tracker.dss_ip', 'home')}}
+          {{ is_state('device_tracker.dss_ip', 'home') }}
       dss_gateway_online:
         value_template: >
-          {{ is_state('device_tracker.dss_gateway', 'home')}}
+          {{ is_state('device_tracker.dss_gateway', 'home') }}
       synology_online:
         value_template: >
-          {{ is_state('device_tracker.synology', 'home')}}
+          {{ is_state('device_tracker.synology', 'home') }}
       harmony_hub_online:
         value_template: >
-          {{ is_state('device_tracker.harmony_hub', 'home')}}
+          {{ is_state('device_tracker.harmony_hub', 'home') }}
