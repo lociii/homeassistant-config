@@ -368,6 +368,160 @@ sensor:
     state_topic: miflora/sensor/xiaomi_miflora_3_battery_level/state
     unit_of_measurement: "%"
 
+  # flora sensor 4
+  - platform: mqtt
+    name: flora_sensor_4_temperature
+    state_topic: miflora/sensor/xiaomi_miflora_4_temperature/state
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: flora_sensor_4_moisture
+    state_topic: miflora/sensor/xiaomi_miflora_4_moisture/state
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: flora_sensor_4_light
+    state_topic: miflora/sensor/xiaomi_miflora_4_illuminance/state
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    name: flora_sensor_4_conductivity
+    state_topic: miflora/sensor/xiaomi_miflora_4_soil_conductivity/state
+    unit_of_measurement: "µS/cm"
+  - platform: mqtt
+    name: flora_sensor_4_battery
+    state_topic: miflora/sensor/xiaomi_miflora_4_battery_level/state
+    unit_of_measurement: "%"
+
+  # flora sensor 5
+  - platform: mqtt
+    name: flora_sensor_5_temperature
+    state_topic: miflora/sensor/xiaomi_miflora_5_temperature/state
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: flora_sensor_5_moisture
+    state_topic: miflora/sensor/xiaomi_miflora_5_moisture/state
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: flora_sensor_5_light
+    state_topic: miflora/sensor/xiaomi_miflora_5_illuminance/state
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    name: flora_sensor_5_conductivity
+    state_topic: miflora/sensor/xiaomi_miflora_5_soil_conductivity/state
+    unit_of_measurement: "µS/cm"
+  - platform: mqtt
+    name: flora_sensor_5_battery
+    state_topic: miflora/sensor/xiaomi_miflora_5_battery_level/state
+    unit_of_measurement: "%"
+
+  # flora sensor 6
+  - platform: mqtt
+    name: flora_sensor_6_temperature
+    state_topic: miflora/sensor/xiaomi_miflora_6_temperature/state
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: flora_sensor_6_moisture
+    state_topic: miflora/sensor/xiaomi_miflora_6_moisture/state
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: flora_sensor_6_light
+    state_topic: miflora/sensor/xiaomi_miflora_6_illuminance/state
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    name: flora_sensor_6_conductivity
+    state_topic: miflora/sensor/xiaomi_miflora_6_soil_conductivity/state
+    unit_of_measurement: "µS/cm"
+  - platform: mqtt
+    name: flora_sensor_6_battery
+    state_topic: miflora/sensor/xiaomi_miflora_6_battery_level/state
+    unit_of_measurement: "%"
+
+  # flora sensor 7
+  - platform: mqtt
+    name: flora_sensor_7_temperature
+    state_topic: miflora/sensor/xiaomi_miflora_7_temperature/state
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: flora_sensor_7_moisture
+    state_topic: miflora/sensor/xiaomi_miflora_7_moisture/state
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: flora_sensor_7_light
+    state_topic: miflora/sensor/xiaomi_miflora_7_illuminance/state
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    name: flora_sensor_7_conductivity
+    state_topic: miflora/sensor/xiaomi_miflora_7_soil_conductivity/state
+    unit_of_measurement: "µS/cm"
+  - platform: mqtt
+    name: flora_sensor_7_battery
+    state_topic: miflora/sensor/xiaomi_miflora_7_battery_level/state
+    unit_of_measurement: "%"
+
+  # flora sensor 8
+  - platform: mqtt
+    name: flora_sensor_8_temperature
+    state_topic: miflora/sensor/xiaomi_miflora_8_temperature/state
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: flora_sensor_8_moisture
+    state_topic: miflora/sensor/xiaomi_miflora_8_moisture/state
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: flora_sensor_8_light
+    state_topic: miflora/sensor/xiaomi_miflora_8_illuminance/state
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    name: flora_sensor_8_conductivity
+    state_topic: miflora/sensor/xiaomi_miflora_8_soil_conductivity/state
+    unit_of_measurement: "µS/cm"
+  - platform: mqtt
+    name: flora_sensor_8_battery
+    state_topic: miflora/sensor/xiaomi_miflora_8_battery_level/state
+    unit_of_measurement: "%"
+
+  # flora sensor 9
+  - platform: mqtt
+    name: flora_sensor_9_temperature
+    state_topic: miflora/sensor/xiaomi_miflora_9_temperature/state
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: flora_sensor_9_moisture
+    state_topic: miflora/sensor/xiaomi_miflora_9_moisture/state
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: flora_sensor_9_light
+    state_topic: miflora/sensor/xiaomi_miflora_9_illuminance/state
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    name: flora_sensor_9_conductivity
+    state_topic: miflora/sensor/xiaomi_miflora_9_soil_conductivity/state
+    unit_of_measurement: "µS/cm"
+  - platform: mqtt
+    name: flora_sensor_9_battery
+    state_topic: miflora/sensor/xiaomi_miflora_9_battery_level/state
+    unit_of_measurement: "%"
+
+  # flora sensor 10
+  - platform: mqtt
+    name: flora_sensor_10_temperature
+    state_topic: miflora/sensor/xiaomi_miflora_10_temperature/state
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    name: flora_sensor_10_moisture
+    state_topic: miflora/sensor/xiaomi_miflora_10_moisture/state
+    unit_of_measurement: "%"
+  - platform: mqtt
+    name: flora_sensor_10_light
+    state_topic: miflora/sensor/xiaomi_miflora_10_illuminance/state
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    name: flora_sensor_10_conductivity
+    state_topic: miflora/sensor/xiaomi_miflora_10_soil_conductivity/state
+    unit_of_measurement: "µS/cm"
+  - platform: mqtt
+    name: flora_sensor_10_battery
+    state_topic: miflora/sensor/xiaomi_miflora_10_battery_level/state
+    unit_of_measurement: "%"
+
 plant:
   plant_one:
     sensors:
@@ -402,6 +556,97 @@ plant:
       temperature: sensor.flora_sensor_3_temperature
       conductivity: sensor.flora_sensor_3_conductivity
       brightness: sensor.flora_sensor_3_light
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 15
+    min_conductivity: 500
+    min_temperature: 15
+
+  plant_four:
+    sensors:
+      moisture: sensor.flora_sensor_4_moisture
+      battery: sensor.flora_sensor_4_battery
+      temperature: sensor.flora_sensor_4_temperature
+      conductivity: sensor.flora_sensor_4_conductivity
+      brightness: sensor.flora_sensor_4_light
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 15
+    min_conductivity: 500
+    min_temperature: 15
+
+  plant_five:
+    sensors:
+      moisture: sensor.flora_sensor_5_moisture
+      battery: sensor.flora_sensor_5_battery
+      temperature: sensor.flora_sensor_5_temperature
+      conductivity: sensor.flora_sensor_5_conductivity
+      brightness: sensor.flora_sensor_5_light
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 15
+    min_conductivity: 500
+    min_temperature: 15
+
+  plant_six:
+    sensors:
+      moisture: sensor.flora_sensor_6_moisture
+      battery: sensor.flora_sensor_6_battery
+      temperature: sensor.flora_sensor_6_temperature
+      conductivity: sensor.flora_sensor_6_conductivity
+      brightness: sensor.flora_sensor_6_light
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 15
+    min_conductivity: 500
+    min_temperature: 15
+
+  plant_seven:
+    sensors:
+      moisture: sensor.flora_sensor_7_moisture
+      battery: sensor.flora_sensor_7_battery
+      temperature: sensor.flora_sensor_7_temperature
+      conductivity: sensor.flora_sensor_7_conductivity
+      brightness: sensor.flora_sensor_7_light
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 15
+    min_conductivity: 500
+    min_temperature: 15
+
+  plant_eight:
+    sensors:
+      moisture: sensor.flora_sensor_8_moisture
+      battery: sensor.flora_sensor_8_battery
+      temperature: sensor.flora_sensor_8_temperature
+      conductivity: sensor.flora_sensor_8_conductivity
+      brightness: sensor.flora_sensor_8_light
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 15
+    min_conductivity: 500
+    min_temperature: 15
+
+  plant_nine:
+    sensors:
+      moisture: sensor.flora_sensor_9_moisture
+      battery: sensor.flora_sensor_9_battery
+      temperature: sensor.flora_sensor_9_temperature
+      conductivity: sensor.flora_sensor_9_conductivity
+      brightness: sensor.flora_sensor_9_light
+    min_moisture: 20
+    max_moisture: 60
+    min_battery: 15
+    min_conductivity: 500
+    min_temperature: 15
+
+  plant_ten:
+    sensors:
+      moisture: sensor.flora_sensor_10_moisture
+      battery: sensor.flora_sensor_10_battery
+      temperature: sensor.flora_sensor_10_temperature
+      conductivity: sensor.flora_sensor_10_conductivity
+      brightness: sensor.flora_sensor_10_light
     min_moisture: 20
     max_moisture: 60
     min_battery: 15

@@ -343,14 +343,35 @@ views:
           - break
 
           - type: plant-status
-            name: Grünlilie neben Orchideen
-            entity: plant.plant_one
+            name: Aloe Vera auf Bar
+            entity: plant.plant_four
           - type: plant-status
             name: Einblatt auf Bar
             entity: plant.plant_two
           - type: plant-status
+            name: Flamingoblume auf Esstisch
+            entity: plant.plant_five
+          - type: plant-status
             name: Benjamini neben TV
             entity: plant.plant_three
+          - type: plant-status
+            name: Grünlilie neben TV
+            entity: plant.plant_six
+          - type: plant-status
+            name: Grünlilie neben Orchideen
+            entity: plant.plant_one
+          - type: plant-status
+            name: Palme Wohnzimmer
+            entity: plant.plant_seven
+          - type: plant-status
+            name: Efeutute Gästezimmer
+            entity: plant.plant_eight
+          - type: plant-status
+            name: Yucca Gästezimmer
+            entity: plant.plant_nine
+          - type: plant-status
+            name: Drachenbaum Gästezimmer
+            entity: plant.plant_ten
 
   #########################################
   # MOVIE AND TV
