@@ -74,14 +74,21 @@ TODO: install "notifications app" on firetv
 Sensor that makes containers available as switches
 https://github.com/custom-components/switch.hadockermon
 
+### digitalSTROM
+
+Homegrown component to control my lights and shutters which are based on [digitalSTROM](https://www.digitalstrom.com/).
+
+Check the underlying library for more details: [pydigitalstrom](https://github.com/lociii/pydigitalstrom)
+
 ## Infrastructure
 
 ### Internet connection
 
-Internet -> Fritz!Box 7412 (providing PPPoE passthrough) -> UniFi USG
+Internet (DSL) -> Fritz!Box 7412 (providing PPPoE passthrough) -> UniFi USG
 
 ### Network
 
+* UniFi USG
 * Ubiquiti UniFi Switch US-24 250W
 * Ubiquiti UniFi AP-AC-Pro (Mainfloor)
 * Ubiquiti UniFi AP (Basement)
@@ -89,7 +96,7 @@ Internet -> Fritz!Box 7412 (providing PPPoE passthrough) -> UniFi USG
 
 ### Phone
 
-Another Fritz!Box 7412 using the existing internet connection handling VoIP connections.
+Another Fritz!Box 7412 just for VoIP connections.
 
 Gigaset DECT base station connected to Fritz!Box and some DECT handsets.
 
@@ -98,7 +105,7 @@ Gigaset DECT base station connected to Fritz!Box and some DECT handsets.
 Light and shutter control system, see https://www.digitalstrom.com/
 
 * dSS IP to manage the digitalSTROM installation and provide the API
-* dSS 1GB as gateway to the digitalSTROM system controlled by the dSS IP
+* dSS 1GB as gateway to the digitalSTROM bus system, controlled by the dSS IP
 
 ### Zigbee
 
@@ -126,21 +133,21 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 
 ### Presence detection
 
-* UniFi presence sensor
+* UniFi presence sensor (mobile phones connected to WiFi)
 
 ### Sensors
 
-* Weather underground
-* Google travel time
-* System sensor using glances
+* Darksky weather
+* Waze travel time
+* System sensor using glances (monitoring the docker host machine "ship")
 * Xiaomi Aqara window/door sensors
 * Xiaomi Aqara climate sensors
 * Xiaomi Aqara water leakage sensors
-* Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway](https://github.com/sidddy/flora))
+* Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway running ESPHome](https://esphome.io/components/sensor/xiaomi_miflora.html))
 
 ### Power plugs
 
-* TP Link HS110 power plugs
+* TP Link HS110
 * OSRAM smart+ plugs
 
 ### Utility
@@ -150,3 +157,4 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 ### Planned ecosystem
 
 * Xiaomi Aqara magic cube
+* Gosund SP111 
