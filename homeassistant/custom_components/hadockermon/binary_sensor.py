@@ -20,7 +20,6 @@ __version__ = '0.0.3'
 
 _LOGGER = logging.getLogger(__name__)
 
-REQUIREMENTS = ['pydockermon==1.0.0']
 DEFAULT_NAME = 'HA Dockermon'
 CONTAINER_NAME = '{} {}'
 
