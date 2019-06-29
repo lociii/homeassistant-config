@@ -9,30 +9,43 @@ class {
     }
   }
 
+  static deprecationWarning() {
+    if(window.cardTools_deprecationWarning) return;
+    console.warn("One or more of your lovelace plugins are using the functions cardTools.litElement(), cardTools.litHtml() or cardTools.hass(). Those are replaced with better alternatives and will be removed a some point in the future.")
+    console.warn("If you are a plugin developer, make sure you are using the new functions (see documentation).");
+    console.warn("If you are a plugin user, feel free to ignore this warning (or poke the developer of your plugins - not me though, I already know about this).")
+    console.warn("Best regards / thomasloven - " + (document.currentScript && document.currentScript.src));
+  window.cardTools_deprecationWarning = true;
+  }
+
   static get LitElement() {
     return Object.getPrototypeOf(customElements.get('home-assistant-main'));
   }
   static litElement() { // Backwards compatibility - deprecated
+    this.deprecationWarning();
     return this.LitElement;
   }
 
   static get LitHtml() {
-    return this.litElement().prototype.html;
+    return this.LitElement.prototype.html;
   }
   static litHtml() { // Backwards compatibility - deprecated
+    this.deprecationWarning();
     return this.LitHtml;
   }
 
   static get LitCSS() {
-    return this.litElement().prototype.css;
+    return this.LitElement.prototype.css;
   }
 
   static get hass() {
     var hass = function() { // Backwards compatibility - deprecated
+      this.deprecationWarning();
       return hass;
     }
     for (var k in document.querySelector('home-assistant').hass)
       hass[k] = document.querySelector('home-assistant').hass[k];
+    hass.original = document.querySelector('home-assistant').hass;
     return hass;
   }
 
@@ -46,27 +59,32 @@ class {
     if(entity) {
       entity.dispatchEvent(ev);
     } else {
-      var root = document
-        .querySelector("home-assistant")
-        .shadowRoot.querySelector("home-assistant-main")
-        .shadowRoot.querySelector("app-drawer-layout partial-panel-resolver")
-        .shadowRoot.querySelector("ha-panel-lovelace")
-        .shadowRoot.querySelector("hui-root")
-      if (root)
-        root
-          .shadowRoot.querySelector("ha-app-layout #view")
-          .firstElementChild
-          .dispatchEvent(ev);
+      var root = document.querySelector("home-assistant");
+      root = root && root.shadowRoot;
+      root = root && root.querySelector("home-assistant-main");
+      root = root && root.shadowRoot;
+      root = root && root.querySelector("app-drawer-layout partial-panel-resolver");
+      root = root && root.shadowRoot || root;
+      root = root && root.querySelector("ha-panel-lovelace");
+      root = root && root.shadowRoot;
+      root = root && root.querySelector("hui-root");
+      root = root && root.shadowRoot;
+      root = root && root.querySelector("ha-app-layout #view");
+      root = root && root.firstElementChild;
+      if (root) root.dispatchEvent(ev);
     }
   }
 
   static get lovelace() {
-    var root = document
-      .querySelector("home-assistant")
-      .shadowRoot.querySelector("home-assistant-main")
-      .shadowRoot.querySelector("app-drawer-layout partial-panel-resolver")
-      .shadowRoot.querySelector("ha-panel-lovelace")
-      .shadowRoot.querySelector("hui-root")
+    var root = document.querySelector("home-assistant");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("home-assistant-main");
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("app-drawer-layout partial-panel-resolver");
+    root = root && root.shadowRoot || root;
+    root = root && root.querySelector("ha-panel-lovelace")
+    root = root && root.shadowRoot;
+    root = root && root.querySelector("hui-root")
     if (root) {
       var ll =  root.lovelace
       ll.current_view = root.___curView;
@@ -117,7 +135,7 @@ class {
       config
     );
     element.style.display = "None";
-    const time = setTimeout(() => {
+    const timer = setTimeout(() => {
       element.style.display = "";
     }, 2000);
     // Remove error if element is defined later
@@ -158,6 +176,7 @@ class {
       light: "toggle",
       media_player: "media-player",
       lock: "lock",
+      remote: "toggle",
       scene: "scene",
       script: "script",
       sensor: "sensor",
@@ -165,6 +184,7 @@ class {
       switch: "toggle",
       vacuum: "toggle",
       water_heater: "climate",
+      input_datetime: "input-datetime",
     };
 
     if(!config || typeof config !== "object" || (!config.entity && !config.type)) {
@@ -282,7 +302,7 @@ class {
       const lhs = this.parseTemplateString(str[1]);
       const rhs = this.parseTemplateString(str[3]);
       var expr = ''
-      if(!parseFloat(lhs))
+      if(parseFloat(lhs) != lhs)
         expr = `"${lhs}" ${str[2]} "${rhs}"`;
       else
         expr = `${parseFloat(lhs)} ${str[2]} ${parseFloat(rhs)}`
@@ -369,17 +389,17 @@ class {
     moreInfo._page = "none";
     moreInfo.shadowRoot.appendChild(popup);
     moreInfo.large = large;
+    document.querySelector("home-assistant").provideHass(message);
 
     setTimeout(() => {
       let interval = setInterval(() => {
         if (moreInfo.getAttribute('aria-hidden')) {
           popup.parentNode.removeChild(popup);
           clearInterval(interval);
-        } else {
-          message.hass = this.hass;
         }
       }, 100)
     }, 1000);
+  return moreInfo;
   }
   static closePopUp() {
     let moreInfo = document.querySelector("home-assistant")._moreInfoEl;

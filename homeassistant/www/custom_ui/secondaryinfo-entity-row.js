@@ -1,16 +1,16 @@
 customElements.whenDefined('card-tools').then(() => {
 
-    class SecondaryInfoEntityRow extends cardTools.litElement() {
-        version() { return "0.2"; }
+    class SecondaryInfoEntityRow extends cardTools.LitElement {
+        version() { return "0.3.1"; }
 
         render() {
-            return cardTools.litHtml()`
+            return cardTools.LitHtml`
                 ${this._wrappedElement}
             `;
         }
 
         setConfig(config) {
-            cardTools.checkVersion(0.3);
+            cardTools.checkVersion(0.4);
             this._config = config;
             this._wrappedElement = this._createElement(config);
             this.requestUpdate();

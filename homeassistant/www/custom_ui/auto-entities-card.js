@@ -1,23 +1,26 @@
 customElements.whenDefined('card-tools').then(() => {
-  class AutoEntities extends cardTools.litElement() {
-
+  class AutoEntities extends cardTools.LitElement {
+  
     setConfig(config) {
       if(!config || !config.card)
         throw new Error("Invalid configuration");
-
+  
       this._config = config;
       this.data = {};
-
+  
       this.entities = this.get_entities() || [];
       this.card = cardTools.createCard(Object.assign({entities: this.entities}, config.card));
     }
-
-
+  
+  
     match(pattern, str){
       if (typeof(str) === "string" && typeof(pattern) === "string") {
         if((pattern.startsWith('/') && pattern.endsWith('/')) || pattern.indexOf('*') !== -1) {
-          if(pattern[0] !== '/')
-            pattern = `/${pattern.replace(/\*/g, '.*')}/`;
+          if(pattern[0] !== '/') {
+            pattern = pattern.replace(/\./g, '\.');
+            pattern = pattern.replace(/\*/g, '.*');
+            pattern = `/^${pattern}$/`;
+          }
           var regex = new RegExp(pattern.substr(1).slice(0,-1));
           return regex.test(str);
         }
@@ -39,7 +42,7 @@ customElements.whenDefined('card-tools').then(() => {
       }
       return str === pattern;
     }
-
+  
     match_filter(hass, entities, filter) {
       let retval = [];
       let count = -1;
@@ -48,7 +51,7 @@ customElements.whenDefined('card-tools').then(() => {
         if(!hass.states) return;
         const e = (typeof(i) === "string")?hass.states[i]:hass.states[i.entity];
         if(!e) return;
-
+  
         let unmatched = false;
         Object.keys(filter).forEach((filterKey) => {
           const key = filterKey.split(" ")[0];
@@ -120,15 +123,15 @@ customElements.whenDefined('card-tools').then(() => {
       });
       return retval;
     }
-
+  
     get_entities()
     {
       let entities = [];
       if(this._config.entities)
         this._config.entities.forEach((e) => entities.push(e));
-
+  
       if(this._hass && this._config.filter) {
-
+  
         if(this._config.filter.include){
           this._config.filter.include.forEach((f) => {
             const add = this.match_filter(this._hass, Object.keys(this._hass.states), f);
@@ -144,7 +147,7 @@ customElements.whenDefined('card-tools').then(() => {
             toAdd.forEach((i) => entities.push(i));
           });
         }
-
+  
         if(this._config.filter.exclude) {
           this._config.filter.exclude.forEach((f) => {
             const remove = this.match_filter(this._hass, entities, f);
@@ -157,18 +160,18 @@ customElements.whenDefined('card-tools').then(() => {
       }
       return entities;
     }
-
+  
     createRenderRoot() {
       return this;
     }
     render() {
       if(this.entities.length === 0 && this._config.show_empty === false)
-        return cardTools.litHtml()``;
-      return cardTools.litHtml()`
+        return cardTools.LitHtml``;
+      return cardTools.LitHtml`
         <div id="root">${this.card}</div>
       `;
     }
-
+  
     async get_data(hass) {
       try {
       this.data.areas = await hass.callWS({type: "config/area_registry/list"});
@@ -177,7 +180,7 @@ customElements.whenDefined('card-tools').then(() => {
       } catch (err) {
       }
     }
-
+  
     _compare_arrays(a,b) {
       if(a === b) return true;
       if(a == null || b == null) return false;
@@ -189,7 +192,7 @@ customElements.whenDefined('card-tools').then(() => {
       }
       return true;
     }
-
+  
     set hass(hass) {
       this._hass = hass;
       this.get_data(hass).then(() => {
@@ -197,23 +200,23 @@ customElements.whenDefined('card-tools').then(() => {
         {
           this.card.hass = this._hass;
         }
-
+  
         const oldEntities = this.entities.map((e) => e.entity);
         this.entities = this.get_entities() || [];
         const newEntities = this.entities.map((e) => e.entity);
-
+  
         if(!this._compare_arrays(oldEntities, newEntities)) {
           this.card.setConfig(Object.assign({entities: this.entities}, this._config.card));
           this.requestUpdate();
         }
       });
     }
-
+  
   }
-
+  
   customElements.define('auto-entities', AutoEntities);
   });
-
+  
   window.setTimeout(() => {
     if(customElements.get('card-tools')) return;
     customElements.define('auto-entities', class extends HTMLElement{

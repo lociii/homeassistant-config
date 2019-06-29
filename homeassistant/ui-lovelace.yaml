@@ -10,27 +10,27 @@ resources:
     type: js
   # card tools - generic helper methods for custom lovelace cards
   # https://github.com/thomasloven/lovelace-card-tools
-  - url: /local/custom_ui/card-tools.js?v=5fbed48
+  - url: /local/custom_ui/card-tools.js?v=0efed83
     type: js
   # layout card - get more control of the card order in lovelace
   # https://github.com/thomasloven/lovelace-layout-card
-  - url: /local/custom_ui/layout-card.js?v=b012ea6
+  - url: /local/custom_ui/layout-card.js?v=6e58241
     type: js
   # auto entities card - populate entities automatically based on filters
   # https://github.com/thomasloven/lovelace-auto-entities
-  - url: /local/custom_ui/auto-entities-card.js?v=be13234
+  - url: /local/custom_ui/auto-entities-card.js?v=8057bdf
     type: js
   # foldable group card
   # https://github.com/thomasloven/lovelace-fold-entity-row
-  - url: /local/custom_ui/fold-entity-row.js?v=6d11d3c
+  - url: /local/custom_ui/fold-entity-row.js?v=f0486b0
     type: js
   # secondary info row with template support
   # https://github.com/MizterB/lovelace-secondaryinfo-entity-row
-  - url: /local/custom_ui/secondaryinfo-entity-row.js?v=9027cd5-1
+  - url: /local/custom_ui/secondaryinfo-entity-row.js?v=04324ab
     type: js
   # graph card to render some stats history
   # https://github.com/kalkih/mini-graph-card
-  - url: /local/custom_ui/mini-graph-card-bundle.js?v=8b9e02d
+  - url: /local/custom_ui/mini-graph-card-bundle.js?v=ffe4c4a
     type: module
 
 views:
