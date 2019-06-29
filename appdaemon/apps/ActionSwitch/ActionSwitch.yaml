@@ -1,0 +1,10 @@
+# turn some switches off when leaving
+leaving_turn_switches_off:
+  module: ActionSwitch
+  class: ActionSwitch
+  trigger_entity: switch.apartment_present
+  trigger_status: off
+  action_entities:
+    - switch.osram_plug_kitchen
+  action_status: off
+  dependencies: util_delayer
