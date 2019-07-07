@@ -34,6 +34,9 @@ homeassistant/.uuid
 # traccar
 traccar/logs/*.log.*
 
+# ftp home dir
+ftp_data/*
+
 # git
 !/.gitignore
 
