@@ -7,12 +7,21 @@ input_boolean:
   automation_trigger_sunprotection_orchids:
 
 input_datetime:
-  automation_setting_sunprotection_south:
+  automation_setting_sunprotection_south_starts:
     has_date: false
     has_time: true
-  automation_setting_sunprotection_west:
+  automation_setting_sunprotection_south_ends:
     has_date: false
     has_time: true
-  automation_setting_sunprotection_orchids:
+  automation_setting_sunprotection_west_starts:
+    has_date: false
+    has_time: true
+  automation_setting_sunprotection_west_ends:
+    has_date: false
+    has_time: true
+  automation_setting_sunprotection_orchids_starts:
+    has_date: false
+    has_time: true
+  automation_setting_sunprotection_orchids_ends:
     has_date: false
     has_time: true

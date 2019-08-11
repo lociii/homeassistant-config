@@ -980,15 +980,24 @@ views:
             name: Aktiv (Orchideen)
             icon: mdi:weather-sunny
           - type: section
-            label: Startzeiten
-          - entity: input_datetime.automation_setting_sunprotection_south
-            name: Süden
+            label: Zeiten
+          - entity: input_datetime.automation_setting_sunprotection_south_starts
+            name: Start Süden
             icon: mdi:timer
-          - entity: input_datetime.automation_setting_sunprotection_west
-            name: Westen
+          - entity: input_datetime.automation_setting_sunprotection_south_ends
+            name: Ende Süden
             icon: mdi:timer
-          - entity: input_datetime.automation_setting_sunprotection_orchids
-            name: Orchideen
+          - entity: input_datetime.automation_setting_sunprotection_west_starts
+            name: Start Westen
+            icon: mdi:timer
+          - entity: input_datetime.automation_setting_sunprotection_west_ends
+            name: Ende Westen
+            icon: mdi:timer
+          - entity: input_datetime.automation_setting_sunprotection_orchids_starts
+            name: Start Orchideen
+            icon: mdi:timer
+          - entity: input_datetime.automation_setting_sunprotection_orchids_ends
+            name: Ende Orchideen
             icon: mdi:timer
           - type: section
             label: Status

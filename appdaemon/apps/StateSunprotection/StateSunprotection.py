@@ -8,7 +8,9 @@ class StateSunprotection(hass.Hass):
 
         self.switch = self.args['switch']
         self.start_time = self.args['start_time']
+        self.end_time = self.args['end_time']
         self.indicator = self.args['indicator']
+        self.darkness = self.args['darkness']
 
         # global setting turned off
         self.listen_state(cb=self.deactivate, entity=self.switch, new='off')
@@ -18,7 +20,7 @@ class StateSunprotection(hass.Hass):
 
         # add begin and end timers
         self.set_timer_begin()
-        self.timer_end = self.run_at_sunset(callback=self.deactivate)
+        self.set_timer_end()
 
     def set_timer_begin(self, *args, **kwargs):
         if self.timer_begin is not None:
@@ -27,11 +29,27 @@ class StateSunprotection(hass.Hass):
         start_time = self.parse_time(self.get_state(self.start_time))
         self.timer_begin = self.run_daily(callback=self.check_activate, start=start_time)
 
+    def set_timer_end(self, *args, **kwargs):
+        if self.timer_end is not None:
+            self.cancel_timer(self.timer_end)
+
+        end_time = self.parse_time(self.get_state(self.end_time))
+        self.timer_end = self.run_daily(callback=self.check_deactivate, start=end_time)
+
     def check_activate(self, *args, **kwargs):
         # automation is deactivated
         if self.get_state(self.switch) == 'off':
             return
         self.activate()
+
+    def check_deactivate(self, *args, **kwargs):
+        # automation is deactivated
+        if self.get_state(self.switch) == 'off':
+            return
+        # don't open covers if it's already dark
+        if self.get_state(self.darkness) == 'on':
+            return
+        self.deactivate()
 
     def activate(self, *args, **kwargs):
         self.log('sunprotection activated')
