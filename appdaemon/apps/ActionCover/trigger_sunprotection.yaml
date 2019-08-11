@@ -59,3 +59,81 @@ bedroom_sunprotection:
     - scene.schlafzimmer_rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
   global_dependencies: global
+
+kitchen_sunprotection_off:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_trigger_sunprotection_south
+  trigger_status: off
+  constraint_list:
+    - input_boolean.automation_darkness_cover,off
+  action_entities:
+    - cover.wohnzimmer_rolladen_kuche
+  action_status: on
+  dependencies: util_delayer
+  global_dependencies: global
+
+dining_sunprotection_off:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_trigger_sunprotection_south
+  trigger_status: off
+  constraint_list:
+    - input_boolean.automation_darkness_cover,off
+  action_entities:
+    - cover.wohnzimmer_rolladen_esstisch
+  action_status: on
+  dependencies: util_delayer
+  global_dependencies: global
+
+patio_sunprotection_absent_off:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_trigger_sunprotection_west
+  trigger_status: off
+  constraint_list:
+    - input_boolean.automation_darkness_cover,off
+  action_entities:
+    - cover.wohnzimmer_rolladen_terrasse
+  action_status: on
+  dependencies: util_delayer
+  global_dependencies: global
+
+couch_sunprotection_off:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_trigger_sunprotection_orchids
+  trigger_status: off
+  constraint_list:
+    - input_boolean.automation_darkness_cover,off
+  action_entities:
+    - cover.wohnzimmer_rolladen_couch
+  action_status: on
+  dependencies: util_delayer
+  global_dependencies: global
+
+guestroom_sunprotection_off:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_trigger_sunprotection_west
+  trigger_status: off
+  constraint_list:
+    - input_boolean.automation_darkness_cover,off
+  action_entities:
+    - cover.gastezimmer_rolladen_gastezimmer
+  action_status: on
+  dependencies: util_delayer
+  global_dependencies: global
+
+bedroom_sunprotection_off:
+  module: ActionCover
+  class: ActionCover
+  trigger_entity: input_boolean.automation_trigger_sunprotection_west
+  trigger_status: off
+  constraint_list:
+    - input_boolean.automation_darkness_cover,off
+  action_entities:
+    - cover.schlafzimmer_rolladen_schlafzimmer
+  action_status: on
+  dependencies: util_delayer
+  global_dependencies: global

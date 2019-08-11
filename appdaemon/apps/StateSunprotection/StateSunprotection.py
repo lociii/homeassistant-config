@@ -10,7 +10,6 @@ class StateSunprotection(hass.Hass):
         self.start_time = self.args['start_time']
         self.end_time = self.args['end_time']
         self.indicator = self.args['indicator']
-        self.darkness = self.args['darkness']
 
         # global setting turned off
         self.listen_state(cb=self.deactivate, entity=self.switch, new='off')
@@ -45,9 +44,6 @@ class StateSunprotection(hass.Hass):
     def check_deactivate(self, *args, **kwargs):
         # automation is deactivated
         if self.get_state(self.switch) == 'off':
-            return
-        # don't open covers if it's already dark
-        if self.get_state(self.darkness) == 'on':
             return
         self.deactivate()
 

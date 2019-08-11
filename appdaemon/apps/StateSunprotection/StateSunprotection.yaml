@@ -4,7 +4,6 @@ sunprotection_south:
   switch: input_boolean.automation_setting_sunprotection
   start_time: input_datetime.automation_setting_sunprotection_south_starts
   end_time: input_datetime.automation_setting_sunprotection_south_ends
-  darkness: input_boolean.automation_darkness_cover
   indicator: input_boolean.automation_trigger_sunprotection_south
 
 sunprotection_west:
@@ -13,7 +12,6 @@ sunprotection_west:
   switch: input_boolean.automation_setting_sunprotection
   start_time: input_datetime.automation_setting_sunprotection_west_starts
   end_time: input_datetime.automation_setting_sunprotection_west_ends
-  darkness: input_boolean.automation_darkness_cover
   indicator: input_boolean.automation_trigger_sunprotection_west
 
 sunprotection_orchids:
@@ -22,5 +20,4 @@ sunprotection_orchids:
   switch: input_boolean.automation_setting_sunprotection_orchids
   start_time: input_datetime.automation_setting_sunprotection_orchids_starts
   end_time: input_datetime.automation_setting_sunprotection_orchids_ends
-  darkness: input_boolean.automation_darkness_cover
   indicator: input_boolean.automation_trigger_sunprotection_orchids
