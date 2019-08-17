@@ -4,7 +4,8 @@ leaving_day_turn_lights_off:
   class: ActionLight
   trigger_entity: switch.apartment_present
   trigger_status: off
-  constrain_input_boolean: input_boolean.automation_darkness_lighting,off
+  constraint_list:
+    - input_boolean.automation_darkness_lighting,off
   action_entities:
     - light.arbeitszimmer_alle_lichter
     - light.bad_alle_lichter
@@ -30,7 +31,8 @@ leaving_night_turn_lights_off:
   class: ActionLight
   trigger_entity: switch.apartment_present
   trigger_status: off
-  constrain_input_boolean: input_boolean.automation_darkness_lighting,on
+  constraint_list: 
+    -input_boolean.automation_darkness_lighting,on
   action_entities:
     - light.arbeitszimmer_alle_lichter
     - light.bad_alle_lichter
@@ -54,7 +56,8 @@ leaving_night_turn_lights_on:
   class: ActionLight
   trigger_entity: switch.apartment_present
   trigger_status: off
-  constrain_input_boolean: input_boolean.automation_darkness_lighting,on
+  constraint_list:
+    - input_boolean.automation_darkness_lighting,on
   action_entities:
     - light.wohnzimmer_wandlampen
     - light.garten_laterne
@@ -70,7 +73,8 @@ returning_dark_turn_lights_on:
   class: ActionLight
   trigger_entity: switch.apartment_present
   trigger_status: on
-  constrain_input_boolean: input_boolean.automation_darkness_lighting,on
+  constraint_list:
+    - input_boolean.automation_darkness_lighting,on
   action_entities:
     - light.flur_flur
     - light.kuche_schranklicht
@@ -123,8 +127,37 @@ sunset_present_turn_lights_on:
   class: ActionLight
   trigger_entity: input_boolean.automation_darkness_lighting
   trigger_status: on
-  constrain_input_boolean: switch.apartment_present,on
+  constraint_list:
+    - switch.apartment_present,on
   action_entities:
     - light.wohnzimmer_stehlampe
   action_status: on
+  dependencies: util_delayer
+
+# turn the shower ceiling light on when movement detected
+movement_shower_turn_light_on:
+  module: ActionLight
+  class: ActionLight
+  trigger_entity: binary_sensor.occupancy_shower
+  trigger_status: on
+  constraint_list:
+    - switch.apartment_present,on
+    - switch.apartment_sleeping,off
+  action_entities:
+    - light.dusche_deckenlicht
+  action_status: on
+  dependencies: util_delayer
+
+  # turn the shower ceiling light off when movement gone
+movement_shower_turn_light_off:
+  module: ActionLight
+  class: ActionLight
+  trigger_entity: binary_sensor.occupancy_shower
+  trigger_status: off
+  constraint_list:
+    - switch.apartment_present,on
+    - switch.apartment_sleeping,off
+  action_entities:
+    - light.dusche_deckenlicht
+  action_status: off
   dependencies: util_delayer
