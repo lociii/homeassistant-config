@@ -32,7 +32,8 @@ homeassistant/.uuid
 *.log
 
 # custom components are managed by hacs
-homeassistant/custom_components
+homeassistant/custom_components/*
+!homeassistant/custom_components/.gitkeep
 
 # traccar
 traccar/logs/*.log.*
