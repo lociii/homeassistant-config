@@ -1,13 +1,25 @@
 language: python
-python:
-  - "3.6.6"
+python: "3.6.6"
 before_install:
-  - touch homeassistant/firetv/adbkey homeassistant/firetv/adbkey.pub
-  - mv homeassistant/travis_secrets.yaml homeassistant/secrets.yaml
+  - cd homeassistant/
+  - touch firetv/adbkey firetv/adbkey.pub
+  - mv travis_secrets.yaml secrets.yaml
+  - cd custom_components
+  # install hacs
+  - git clone https://github.com/custom-components/hacs.git hacs_temp
+  - cd hacs_temp
+  - git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+  - cd ../
+  - cp -r hacs_temp/custom_components/hacs hacs
+  - rm -rf hacs_temp
+  # install digitalstrom custom component
+  - git clone https://github.com/lociii/homeassistant-digitalstrom.git digitalstrom_temp
+  - cp -r digitalstrom_temp/custom_components/digitalstrom digitalstrom
+  - rm -rf digitalstrom_temp
 install:
   - pip3 install homeassistant
   - hass --version
 before_script:
   - cd homeassistant
 script:
-  - hass -c . --script check_config
+  - hass -c . --script check_config --info all

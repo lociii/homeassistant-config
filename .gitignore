@@ -31,10 +31,8 @@ homeassistant/.HA_VERSION
 homeassistant/.uuid
 *.log
 
-# hacs
-homeassistant/custom_components/
-!homeassistant/custom_components/digitalstrom
-!homeassistant/custom_components/hadockermon
+# custom components are managed by hacs
+homeassistant/custom_components
 
 # traccar
 traccar/logs/*.log.*
