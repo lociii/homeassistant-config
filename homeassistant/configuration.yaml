@@ -98,6 +98,10 @@ zone: !include zones.yaml
 lovelace:
   mode: yaml
 
+hacs:
+  token: !secret hacs_github_token
+  sidepanel_title: HACS
+
 panel_iframe:
   paperless:
     title: Paperless
