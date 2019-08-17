@@ -80,6 +80,12 @@ Homegrown component to control my lights and shutters which are based on [digita
 
 Check the underlying library for more details: [pydigitalstrom](https://github.com/lociii/pydigitalstrom)
 
+### HACS
+
+The [Home Assistant Community Store](https://hacs.netlify.com/), a project started by [@ludeeus](https://twitter.com/ludeeus) to make installing and managing non-core components much easier. Thanks from here for the great work!
+
+HACS is used to install several other components.
+
 ## Infrastructure
 
 ### Internet connection
@@ -143,12 +149,13 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 * Xiaomi Aqara window/door sensors
 * Xiaomi Aqara climate sensors
 * Xiaomi Aqara water leakage sensors
+* Xiaomi Aqara occopancy sensors
 * Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway running ESPHome](https://esphome.io/components/sensor/xiaomi_miflora.html))
 
 ### Power plugs
 
 * TP Link HS110
-* OSRAM smart+ plugs
+* OSRAM smart+ plugs (built in zigbee router)
 
 ### Utility
 
