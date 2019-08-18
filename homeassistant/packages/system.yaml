@@ -33,10 +33,10 @@ binary_sensor:
           {{ is_state('device_tracker.sonos_sub', 'home') }}
       sonos_guestroom_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_guestroom', 'home') }}
+          {{ is_state('device_tracker.sonos_gastezimmer', 'home') }}
       sonos_shower_online:
         value_template: >
-          {{ is_state('device_tracker.sonos_shower', 'home') }}
+          {{ is_state('device_tracker.sonos_dusche', 'home') }}
       power_plug_dryer_online:
         value_template: >
           {{ is_state('device_tracker.steckdose_trockner', 'home') }}
@@ -52,10 +52,10 @@ binary_sensor:
           {{ is_state('device_tracker.esp_standing_desk', 'home') }}
       esp_carheating_online:
         value_template: >
-          {{ is_state('device_tracker.esp_carheating', 'home') }}
+          {{ is_state('device_tracker.esp32_carheat', 'home') }}
       esp_miflora_online:
         value_template: >
-          {{ is_state('device_tracker.esp_miflora', 'home') }}
+          {{ is_state('device_tracker.esp32_miflora', 'home') }}
 
       ship_online:
         value_template: >
