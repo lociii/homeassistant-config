@@ -580,38 +580,38 @@ views:
             name: Synology
           - entity: binary_sensor.harmony_hub_online
             name: Logitech Harmony Hub
+
       - type: entities
         title: Batteriestatus
         show_header_toggle: false
         entities:
-          - entity: sensor.weather_outdoor_battery
-            name: Klima (aussen)
-          - entity: sensor.weather_indoor_battery
-            name: Klima (innen)
-          - entity: sensor.door_sensor_patio_battery
-            name: Terrassentür
-          - entity: sensor.door_sensor_kitchen_battery
-            name: Küche
-          - entity: sensor.door_sensor_guestroom_battery
-            name: Gästezimmer
-          - entity: sensor.door_sensor_bedroom_battery
-            name: Schlafzimmer
-          - entity: sensor.door_sensor_office_battery
-            name: Büro
-          - entity: sensor.door_sensor_entrance_battery
-            name: Eingang
-          - entity: sensor.xiaomi_cube_battery
-            name: Xiaomi Cube
-          - entity: sensor.flora_sensor_1_battery
-            name: Flora 1
-          - entity: sensor.flora_sensor_2_battery
-            name: Flora 2
-          - entity: sensor.flora_sensor_3_battery
-            name: Flora 3
-          - entity: sensor.water_leakage_one_battery
-            name: Wassersensor 1
-          - entity: sensor.water_leakage_two_battery
-            name: Wassersensor 2
+        - type: custom:auto-entities
+          card:
+            type: custom:fold-entity-row
+            head:
+              type: section
+              label: Batterie niedrig
+            open: true
+          filter:
+            include:
+              - entity_id: "sensor.*battery*"
+                state: "<=20"
+                options:
+                  type: "custom:secondaryinfo-entity-row"
+                  secondary_info: "Letzte Anderung: [[ {entity}.last_changed ]]"
+        - type: custom:auto-entities
+          card:
+            type: custom:fold-entity-row
+            head:
+              type: section
+              label: Batterie OK
+          filter:
+            include:
+              - entity_id: "sensor.*battery*"
+                state: ">20"
+                options:
+                  type: "custom:secondaryinfo-entity-row"
+                  secondary_info: "Letzte Anderung: [[ {entity}.last_changed ]]"
 
   #########################################
   # CAR AND TRAVEL
