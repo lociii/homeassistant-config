@@ -1,38 +1,60 @@
-switch:
-  - platform: hadockermon
-    host: hadockermon
-    port: 8126
-
-binary_sensor:
-  - platform: hadockermon
-    host: hadockermon
-    port: 8126
+docker_monitor:
+  containers:
+    - appdaemon
+    - backup
+    - chronograf
+    - ftp
+    - glances
+    - grafana
+    - hadockermon
+    - homeassistant
+    - influxdb
+    - letsencrypt
+    - mosquitto
+    - nginx
+    - paperless_consumer
+    - paperless_webserver
+    - postgresql
+    - traccar
+    - traccar_db
+  monitored_conditions:
+    - utilization_version
+    - container_status
+    - container_uptime
+    - container_image
+    - container_memory_usage
+    - container_memory_percentage_usage
+    - container_cpu_percentage_usage
+    - container_network_speed_up
+    - container_network_speed_down
+    - container_network_total_up
+    - container_network_total_down
 
 automation:
   - alias: 'Start letsencrypt every night to renew certificate'
     trigger:
       platform: time
-      at: '03:00:00'
+      at: '04:00:00'
     action:
       service: switch.turn_on
       data:
         entity_id:
-          - switch.ha_dockermon_letsencrypt
+          - switch.docker_letsencrypt
   - alias: 'Stop nginx to pick up new certificate'
     trigger:
       platform: time
-      at: '03:15:00'
+      at: '04:15:00'
     action:
       service: switch.turn_off
       data:
         entity_id:
-          - switch.ha_dockermon_nginx
+          - switch.docker_nginx
   - alias: 'Start nginx with new certificate'
     trigger:
       platform: time
-      at: '03:20:00'
+      at: '04:16:00'
     action:
       service: switch.turn_on
       data:
         entity_id:
-          - switch.ha_dockermon_nginx
+          - switch.docker_nginx
