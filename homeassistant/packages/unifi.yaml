@@ -1,9 +1,16 @@
-device_tracker:
-  - platform: unifi
+# unifi device tracker is set up via integrations - config not required anymore
+
+sensor:
+  - platform: unifigateway
     host: !secret unifi_host
     username: !secret unifi_username
     password: !secret unifi_password
     site_id: !secret unifi_siteid
     verify_ssl: False
-    new_device_defaults:
-      track_new_devices: false
+    monitored_conditions:
+      - vpn
+      - www
+      - wan
+      - wlan
+      - alerts
+      - firmware
