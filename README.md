@@ -25,9 +25,6 @@ Docker is currenly running the following containers, see [compose file](docker-c
 * mosquitto
   MQTT broker by eclipse
   https://mosquitto.org/
-* hadockermon
-  docker monitoring for HomeAssistant
-  https://github.com/philhawthorne/ha-dockermon
 * postgresql
   database for HomeAssistant recorder component
   https://www.postgresql.org/
@@ -69,10 +66,11 @@ TODO: install "notifications app" on firetv
 
 ## Custom components
 
-### HADockermon
+### Docker Monitor
 
-Sensor that makes containers available as switches
-https://github.com/custom-components/switch.hadockermon
+Add statistics of Docker containers as sensors and make the containers themselves available as switches.
+HACS compatible fork: https://github.com/lociii/home-assistant-custom-components
+Original repo: https://github.com/Sanderhuisman/home-assistant-custom-components
 
 ### digitalSTROM
 

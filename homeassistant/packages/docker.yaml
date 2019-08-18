@@ -6,7 +6,6 @@ docker_monitor:
     - ftp
     - glances
     - grafana
-    - hadockermon
     - homeassistant
     - influxdb
     - letsencrypt

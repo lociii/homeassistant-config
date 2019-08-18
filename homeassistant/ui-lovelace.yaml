@@ -843,7 +843,7 @@ views:
                 open: true
               filter:
                 include:
-                  - entity_id: "switch.ha_dockermon*"
+                  - entity_id: "switch.docker_*"
                     state: "on"
                     options:
                       type: "custom:secondaryinfo-entity-row"
@@ -856,7 +856,7 @@ views:
                   label: Inactive containers
               filter:
                 include:
-                  - entity_id: "switch.ha_dockermon*"
+                  - entity_id: "switch.docker_*"
                     state: "off"
                     options:
                       type: "custom:secondaryinfo-entity-row"

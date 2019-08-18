@@ -17,6 +17,11 @@ before_install:
   - cp -r digitalstrom_temp/custom_components/digitalstrom digitalstrom
   - rm -rf digitalstrom_temp
   - cd ../
+  # install docker monitor custom component
+  - git clone https://github.com/lociii/home-assistant-custom-components.git docker_monitor_temp
+  - cp -r docker_monitor_temp/custom_components/docker_monitor docker_monitor
+  - rm -rf docker_monitor
+  - cd ../
 install:
   - pip3 install homeassistant
   - hass --version
