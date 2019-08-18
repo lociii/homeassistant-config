@@ -64,6 +64,10 @@ Docker is currenly running the following containers, see [compose file](docker-c
 
 TODO: install "notifications app" on firetv
 
+## Automations
+
+Automations are preferrably implemented using [AppDameon](appdaemon).
+
 ## Custom components
 
 ### Docker Monitor

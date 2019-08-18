@@ -1,6 +1,1 @@
-digitalstrom:
-  host: !secret dss_host
-  port: !secret dss_port
-  username: dssadmin
-  password: !secret dss_password
-  alias: Apartment
+# digitalstrom set up via integrations - config not required anymore

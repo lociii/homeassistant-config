@@ -40,7 +40,7 @@ See [ActionPresence](./apps/ActionPresence)
 
 ## Cover control
 
-Update cover status based on presence/absence, sleeping/awake, night/day, sun protection on/off and if the window is open or closed.
+Update cover status based on presence/absence, sleeping/awake, night/day, sun protection on/off, window open/closed and presence detection.
 See [ActionCover](./apps/ActionCover)
 
 ## Light control
