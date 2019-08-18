@@ -91,7 +91,8 @@ influxdb:
     instance: production
     source: homeassistant
 
-cloud: !include cloud.yaml
+# enable cloud component, exposes entities are defined on the web interface
+cloud:
 tts: !include tts.yaml
 zone: !include zones.yaml
 
