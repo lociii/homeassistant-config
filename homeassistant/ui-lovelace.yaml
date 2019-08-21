@@ -4,34 +4,27 @@ resources:
   - url: https://fonts.googleapis.com/css?family=Roboto+Condensed
     type: css
 
-  # weather card
-  # https://github.com/bramkragten/custom-ui/tree/master/weather-card
-  - url: /local/custom_ui/weather-card.js?v=bc4a508
-    type: js
-  # card tools - generic helper methods for custom lovelace cards
-  # https://github.com/thomasloven/lovelace-card-tools
-  - url: /local/custom_ui/card-tools.js?v=0efed83
-    type: js
-  # layout card - get more control of the card order in lovelace
-  # https://github.com/thomasloven/lovelace-layout-card
-  - url: /local/custom_ui/layout-card.js?v=6e58241
-    type: js
-  # auto entities card - populate entities automatically based on filters
-  # https://github.com/thomasloven/lovelace-auto-entities
-  - url: /local/custom_ui/auto-entities-card.js?v=8057bdf
-    type: js
-  # foldable group card
-  # https://github.com/thomasloven/lovelace-fold-entity-row
-  - url: /local/custom_ui/fold-entity-row.js?v=f0486b0
-    type: js
-  # secondary info row with template support
-  # https://github.com/MizterB/lovelace-secondaryinfo-entity-row
-  - url: /local/custom_ui/secondaryinfo-entity-row.js?v=04324ab
-    type: js
-  # graph card to render some stats history
-  # https://github.com/kalkih/mini-graph-card
-  - url: /local/custom_ui/mini-graph-card-bundle.js?v=ffe4c4a
+  # hacs managed cards
+  - url: /local/community/button-card/button-card.js
     type: module
+  - url: /local/community/calendar-card/calendar-card.js
+    type: js
+  - url: /local/community/compact-custom-header/compact-custom-header.js
+    type: module
+  - url: /local/community/lovelace-fold-entity-row/fold-entity-row.js
+    type: module
+  - url: /local/community/mini-graph-card/mini-graph-card-bundle.js
+    type: module
+  - url: /local/community/secondaryinfo-entity-row/secondaryinfo-entity-row.js
+    type: js
+  - url: /local/community/simple-weather-card/simple-weather-card-bundle.js
+    type: module
+  - url: /local/community/lovelace-card-tools/card-tools.js
+    type: js
+  - url: /local/community/lovelace-layout-card/layout-card.js
+    type: js
+  - url: /local/community/lovelace-auto-entities/auto-entities.js
+    type: js
 
 views:
   #########################################
@@ -487,9 +480,10 @@ views:
     path: weather
     icon: mdi:weather-cloudy
     cards:
-      - type: custom:weather-card
+      - type: custom:simple-weather-card
         entity: weather.weather_daily
-        icons: "/local/icons/weather_icons/animated/"
+        name: " "
+        backdrop: true
 
 
   #########################################
@@ -510,21 +504,21 @@ views:
         title: Synology
         show_header_toggle: false
         entities:
-          - entity: sensor.memory_usage_real
+          - entity: sensor.synology_dsm_memory_usage_real
             name: Speichernutzung
           - type: divider
-          - entity: sensor.status_smart_sda
+          - entity: sensor.synology_dsm_status_smart_sda
             name: Disk 1
-          - entity: sensor.total_size_volume_1
+          - entity: sensor.synology_dsm_total_size_volume_1
             name: Speicherplatz
-          - entity: sensor.volume_used_volume_1
+          - entity: sensor.synology_dsm_volume_used_volume_1
             name: Belegt
           - type: divider
-          - entity: sensor.status_smart_sdb
+          - entity: sensor.synology_dsm_status_smart_sdb
             name: Disk 2
-          - entity: sensor.total_size_volume_2
+          - entity: sensor.synology_dsm_total_size_volume_2
             name: Speicherplatz
-          - entity: sensor.volume_used_volume_2
+          - entity: sensor.synology_dsm_volume_used_volume_2
             name: Belegt
       - type: entities
         title: Automatisierung
@@ -1027,3 +1021,126 @@ views:
           - entity: input_number.automation_vacuum_absent_delay
             name: Verzögerung
             icon: mdi:timer
+
+  #########################################
+  # AUTOMATION
+  #########################################
+
+  - title: Tablet
+    path: tablet
+    panel: true
+    icon: mdi:tablet
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: custom:button-card
+            entity: switch.apartment_present
+            show_name: false
+            show_label: true
+            label: Anwesenheit
+            icon: mdi:home
+            color: rgb(0, 255, 0)
+            state:
+              - value: "off"
+                color: rgb(255, 0, 0)
+
+          - type: custom:simple-weather-card
+            entity: weather.weather_daily
+            name: " "
+            backdrop: true
+
+          - type: horizontal-stack
+            cards:
+              - type: glance
+                title:  Klima innen
+                entities:
+                  - entity: sensor.weather_indoor_temperature
+                    icon: mdi:temperature-celsius
+                    name: Temperatur
+                  - entity: sensor.weather_indoor_humidity
+                    icon: mdi:water-percent
+                    name: Luftfeuchtigkeit
+                  - entity: sensor.weather_indoor_pressure
+                    icon: mdi:speedometer
+                    name: Luftdruck
+
+          - type: horizontal-stack
+            cards:
+              - type: glance
+                title:  Klima außen
+                entities:
+                  - entity: sensor.weather_outdoor_temperature
+                    icon: mdi:temperature-celsius
+                    name: Temperatur
+                  - entity: sensor.weather_outdoor_humidity
+                    icon: mdi:water-percent
+                    name: Luftfeuchtigkeit
+                  - entity: sensor.weather_outdoor_pressure
+                    icon: mdi:speedometer
+                    name: Luftdruck
+
+          - break
+
+          - type: custom:mini-graph-card
+            name: Fahrzeit Eva
+            entities:
+            - entity: sensor.travel_time_eva
+              name: Fahrzeit Eva
+            icon: mdi:timer
+            unit: Minuten
+            hour24: true
+            hours_to_show: 48
+            points_per_hour: 2
+            lower_bound: 0
+            show:
+              labels: false
+            color_thresholds:
+              - value: 45
+                color: "#ff3300"
+              - value: 30
+                color: "#ff9900"
+              - value: 0
+                color: "#009933"
+
+          - type: custom:calendar-card
+            title: Eva
+            progressBar: true
+            numberOfDays: 3
+            timeFormat: HH:mm
+            entities:
+              - calendar.eva_private
+
+          - break
+
+          - type: custom:mini-graph-card
+            name: Fahrzeit Jens
+            entities:
+            - entity: sensor.travel_time_jens
+              name: Fahrzeit Jens
+            icon: mdi:timer
+            unit: Minuten
+            hour24: true
+            hours_to_show: 48
+            points_per_hour: 2
+            lower_bound: 0
+            show:
+              labels: false
+            color_thresholds:
+              - value: 45
+                color: "#ff3300"
+              - value: 30
+                color: "#ff9900"
+              - value: 0
+                color: "#009933"
+
+          - type: custom:layout-card
+            layout: vertical
+            cards:
+              - type: custom:calendar-card
+                title: Jens
+                progressBar: true
+                numberOfDays: 3
+                entities:
+                  - calendar.jens_private
+                  - calendar.jens_work

@@ -1,6 +1,20 @@
-zone.home:
-  friendly_name: Home
-zone.work_jens:
-  friendly_name: Arbeit Jens
+switch.osram_plug_computer:
+  friendly_name: Gameboy
 zone.work_eva:
   friendly_name: Arbeit Eva
+zone.work_jens:
+  friendly_name: Arbeit Jens
+switch.osram_plug_guestroom:
+  friendly_name: Stehlampe Gästezimmer
+binary_sensor.door_sensor_bedroom:
+  friendly_name: Fenster Schlafzimmer
+binary_sensor.door_sensor_entrance:
+  friendly_name: Wohnungstür
+binary_sensor.door_sensor_guestroom:
+  friendly_name: Fenster Gästezimmer
+binary_sensor.door_sensor_kitchen:
+  friendly_name: Fenster Küche
+binary_sensor.door_sensor_office:
+  friendly_name: Fenster Arbeitszimmer
+binary_sensor.door_sensor_patio:
+  friendly_name: Terrassentür

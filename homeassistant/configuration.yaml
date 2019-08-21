@@ -34,6 +34,8 @@ updater:
 # Discover some devices automatically
 discovery:
 
+webhook:
+
 http:
   base_url: !secret base_url
 
@@ -112,3 +114,8 @@ panel_iframe:
     title: Traccar
     url: https://home.schoenbuchallee.de:8002
     icon: mdi:satellite-variant
+  networkmap:
+    title: 'Zigbee Map'
+    url: '/local/community/zigbee2mqtt_networkmap/map.html'
+    icon: 'mdi:graphql'
+

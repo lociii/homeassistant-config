@@ -29,11 +29,15 @@ homeassistant/firetv/adbkey*
 homeassistant/deps
 homeassistant/.HA_VERSION
 homeassistant/.uuid
+homeassistant/google_calendars.yaml
+homeassistant/.google.token
 *.log
 
 # custom components are managed by hacs
 homeassistant/custom_components/*
 !homeassistant/custom_components/.gitkeep
+homeassistant/www/*
+!homeassistant/www/.gitkeep
 
 # traccar
 traccar/logs/*.log.*

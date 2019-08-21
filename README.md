@@ -1,4 +1,3 @@
-[![Travis CI build status](https://travis-ci.org/lociii/homeassistant-config.svg)](https://travis-ci.org/lociii/homeassistant-config)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 # My HomeAssistant setup
@@ -13,7 +12,7 @@ One of the main targets is to use devices which don't rely on cloud services whe
 NUC7I5BNK with Core i5 7260U, 16GB RAM and 500GB Samsung 860 EVO M2 SSD.
 This machine is called "ship".
 
-### Docker host installation
+### Docker host installationdigitalSTROM
 
 Running debian server with docker and compose.
 See [setup instructions](ship_setup.sh) for details
