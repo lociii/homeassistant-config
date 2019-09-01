@@ -3,12 +3,11 @@ secrets.yaml
 secrets.txt
 *.env
 
-# nginx and letsencrypt
-*.pem
-*.csr
-domains.txt
-letsencrypt/certs/*
-letsencrypt/accounts/*
+# logs
+*.log
+
+# traefik
+traefik/acme/acme.json
 
 # mosquitto
 mosquitto/passwd
@@ -31,7 +30,6 @@ homeassistant/.HA_VERSION
 homeassistant/.uuid
 homeassistant/google_calendars.yaml
 homeassistant/.google.token
-*.log
 
 # custom components are managed by hacs
 homeassistant/custom_components/*

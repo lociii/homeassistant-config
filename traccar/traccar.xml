@@ -4,6 +4,7 @@
 <properties>
 
     <entry key='config.default'>./conf/default.xml</entry>
+    <entry key='web.port'>8082</entry>
 
     <!--
 

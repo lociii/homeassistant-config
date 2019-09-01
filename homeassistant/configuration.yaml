@@ -36,6 +36,8 @@ discovery:
 
 webhook:
 
+stream:
+
 http:
   base_url: !secret base_url
 
@@ -108,11 +110,11 @@ hacs:
 panel_iframe:
   paperless:
     title: Paperless
-    url: https://home.schoenbuchallee.de:8001
+    url: https://paperless.home.schoenbuchallee.de
     icon: mdi:newspaper
   traccar:
     title: Traccar
-    url: https://home.schoenbuchallee.de:8002
+    url: https://traccar.home.schoenbuchallee.de
     icon: mdi:satellite-variant
   networkmap:
     title: 'Zigbee Map'

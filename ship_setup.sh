@@ -47,9 +47,6 @@ $(ship) docker run hello-world
 # clone home assistant config repo
 git clone git@github.com:lociii/homeassistant-config.git ~/homeassistant
 
-# generate diffie helman cipher
-$(ship) openssl dhparam 2048 -out ~/homeassistant/nginx/cert/dhparam.pem
-
 # fill .env and homeassistant/secrets.yaml with their respective content
 
 # create letsencrypt/domains.txt and add the domains you want to generate certificates for

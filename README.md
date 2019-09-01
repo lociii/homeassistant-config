@@ -45,12 +45,9 @@ Docker is currenly running the following containers, see [compose file](docker-c
 * letsencrypt
   dehydrated and lexicon to generate ssl certificates to securely access my installation
   https://letsencrypt.org/
-* nginx
-  reverse proxy in front of HomeAssistant handling all ssl needs
-  https://www.nginx.com/
-* glances
-  access docker host system stats from the HomeAssistant container
-  https://nicolargo.github.io/glances/
+* traefik
+  reverse ssl proxy
+  https://traefik.io/
 * traccar
   position tracking and analytics
   https://www.traccar.org/
