@@ -1,0 +1,14 @@
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+
+binary_sensor:
+  - platform: template
+    sensors:
+      wallpanel_display_driving_cards:
+        friendly_name: Display driving cards only between 5am and noon
+        entity_id: sensor.time
+        value_template: >
+           {% set ct = now().hour + now().minute/60 + now().second/3600 %}
+           {{ 5 <= ct <= 12 }}

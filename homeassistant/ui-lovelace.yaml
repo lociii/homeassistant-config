@@ -1038,7 +1038,7 @@ views:
             icon: mdi:timer
 
   #########################################
-  # AUTOMATION
+  # WALL PANEL
   #########################################
 
   - title: Tablet
@@ -1060,6 +1060,19 @@ views:
               - value: "off"
                 color: rgb(255, 0, 0)
 
+          - type: conditional
+            conditions:
+              - entity: calendar.waste
+                state: 'on'
+            card:
+              type: custom:calendar-card
+              title: Müllkalendar
+              progressBar: true
+              numberOfDays: 3
+              hideTime: true
+              entities:
+                - calendar.waste
+
           - type: custom:simple-weather-card
             entity: weather.weather_daily
             name: " "
@@ -1068,58 +1081,57 @@ views:
           - type: horizontal-stack
             cards:
               - type: glance
-                title:  Klima innen
+                title: Temperatur
                 entities:
                   - entity: sensor.weather_indoor_temperature
                     icon: mdi:temperature-celsius
-                    name: Temperatur
-                  - entity: sensor.weather_indoor_humidity
-                    icon: mdi:water-percent
-                    name: Luftfeuchtigkeit
-                  - entity: sensor.weather_indoor_pressure
-                    icon: mdi:speedometer
-                    name: Luftdruck
-
-          - type: horizontal-stack
-            cards:
-              - type: glance
-                title:  Klima außen
-                entities:
+                    name: Innen
                   - entity: sensor.weather_outdoor_temperature
                     icon: mdi:temperature-celsius
-                    name: Temperatur
-                  - entity: sensor.weather_outdoor_humidity
-                    icon: mdi:water-percent
-                    name: Luftfeuchtigkeit
-                  - entity: sensor.weather_outdoor_pressure
-                    icon: mdi:speedometer
-                    name: Luftdruck
+                    name: Aussen
+
+          - type: picture-entity
+            entity: camera.catdoor
+            camera_view: live
+            show_name: Katzentür
+            show_state: false
 
           - break
 
-          - type: custom:mini-graph-card
-            name: Fahrzeit Eva
-            entities:
-            - entity: sensor.travel_time_eva
+          - type: markdown
+            content: >
+              # Eva
+
+          - type: conditional
+            conditions:
+              - entity: binary_sensor.eva_home
+                state: 'on'
+              - entity: binary_sensor.wallpanel_display_driving_cards
+                state: 'on'
+            card:
+              type: custom:mini-graph-card
               name: Fahrzeit Eva
-            icon: mdi:timer
-            unit: Minuten
-            hour24: true
-            hours_to_show: 48
-            points_per_hour: 2
-            lower_bound: 0
-            show:
-              labels: false
-            color_thresholds:
-              - value: 45
-                color: "#ff3300"
-              - value: 30
-                color: "#ff9900"
-              - value: 0
-                color: "#009933"
+              entities:
+              - entity: sensor.travel_time_eva
+                name: Fahrzeit Eva
+              icon: mdi:timer
+              unit: Minuten
+              hour24: true
+              hours_to_show: 48
+              points_per_hour: 2
+              lower_bound: 0
+              show:
+                labels: false
+              color_thresholds:
+                - value: 45
+                  color: "#ff3300"
+                - value: 30
+                  color: "#ff9900"
+                - value: 0
+                  color: "#009933"
 
           - type: custom:calendar-card
-            title: Eva
+            title: ''
             progressBar: true
             numberOfDays: 3
             timeFormat: HH:mm
@@ -1128,32 +1140,43 @@ views:
 
           - break
 
-          - type: custom:mini-graph-card
-            name: Fahrzeit Jens
-            entities:
-            - entity: sensor.travel_time_jens
+          - type: markdown
+            content: >
+              # Jens
+
+          - type: conditional
+            conditions:
+              - entity: binary_sensor.jens_home
+                state: 'on'
+              - entity: binary_sensor.wallpanel_display_driving_cards
+                state: 'on'
+            card:
+              type: custom:mini-graph-card
               name: Fahrzeit Jens
-            icon: mdi:timer
-            unit: Minuten
-            hour24: true
-            hours_to_show: 48
-            points_per_hour: 2
-            lower_bound: 0
-            show:
-              labels: false
-            color_thresholds:
-              - value: 45
-                color: "#ff3300"
-              - value: 30
-                color: "#ff9900"
-              - value: 0
-                color: "#009933"
+              entities:
+              - entity: sensor.travel_time_jens
+                name: Fahrzeit Jens
+              icon: mdi:timer
+              unit: Minuten
+              hour24: true
+              hours_to_show: 48
+              points_per_hour: 2
+              lower_bound: 0
+              show:
+                labels: false
+              color_thresholds:
+                - value: 45
+                  color: "#ff3300"
+                - value: 30
+                  color: "#ff9900"
+                - value: 0
+                  color: "#009933"
 
           - type: custom:layout-card
             layout: vertical
             cards:
               - type: custom:calendar-card
-                title: Jens
+                title: ''
                 progressBar: true
                 numberOfDays: 3
                 entities:
