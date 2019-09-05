@@ -26,6 +26,21 @@ resources:
   - url: /local/community/lovelace-auto-entities/auto-entities.js
     type: js
 
+cch:
+  compact_header: true
+  exceptions:
+  - conditions:
+      user: WallPanel
+    config:
+      disable_sidebar: true
+      menu: hide
+      options: clock
+      clock_format: 24
+      hide_tabs: automation
+      hide_help: true
+      hide_config: true
+      hide_unused: true
+
 views:
   #########################################
   # LIGHT AND COVER
