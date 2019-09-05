@@ -1102,7 +1102,7 @@ views:
               show_name: false
               styles:
                 card:
-                  - padding: 10px
+                  - padding: 15px
                 grid:
                   - grid-template-areas: '"i n" "office office" "hallway hallway" "guestroom guestroom"'
                   - grid-template-columns: 1fr
