@@ -35,14 +35,16 @@ script:
           entity_id: switch.heating_off
 
 automation:
-  - trigger:
+  - alias: turn_car_heating_on
+    trigger:
       platform: state
       entity_id: switch.heating_on
       to: 'on'
     action:
       service: script.turn_on
       entity_id: script.timer_on_off
-  - trigger:
+  - alias: turn_car_heating_off
+    trigger:
       platform: state
       entity_id: switch.heating_off
       to: 'on'
