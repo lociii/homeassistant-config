@@ -808,6 +808,33 @@ views:
               - value: 1
                 color: "#c0392b"
 
+
+  #########################################
+  # CATS
+  #########################################
+
+  - title: Katzen
+    path: cats
+    panel: true
+    icon: mdi:cat
+    cards:
+      - type: custom:layout-card
+        layout: vertical
+        cards:
+          - type: entities
+            title: Katzenklos
+            show_header_toggle: false
+            entities:
+              - entity: sensor.usage_catlitter_office
+                name: Büro
+                icon: mdi:timer
+              - entity: sensor.usage_catlitter_hallway
+                name: Flur
+                icon: mdi:timer
+              - entity: sensor.usage_catlitter_guestroom
+                name: Gästezimmer
+                icon: mdi:timer
+
   #########################################
   # SYSTEM
   #########################################
@@ -1053,12 +1080,57 @@ views:
             entity: switch.apartment_present
             show_name: false
             show_label: true
-            label: Anwesenheit
+            label: Anwesend
             icon: mdi:home
             color: rgb(0, 255, 0)
             state:
               - value: "off"
+                label: Abwesend
                 color: rgb(255, 0, 0)
+            styles:
+              card:
+                - height: 150px
+
+          - type: conditional
+            conditions:
+              - entity: input_number.count_usage_catlitter
+                state_not: "0.0"
+            card:
+              type: custom:button-card
+              entity: script.catlitter_reset_all
+              icon: mdi:cat
+              show_name: false
+              styles:
+                card:
+                  - padding: 10px
+                grid:
+                  - grid-template-areas: '"i n" "office office" "hallway hallway" "guestroom guestroom"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content min-content
+                icon:
+                  - height: 50px
+                custom_fields:
+                  office:
+                    - padding-bottom: 4px
+                    - align-self: middle
+                    - justify-self: start
+                    - --text-color-sensor: '[[[ if (states["input_number.count_usage_catlitter_office"].state > 0) return "red"; ]]]'
+                  hallway:
+                    - padding-bottom: 4px
+                    - align-self: middle
+                    - justify-self: start
+                    - --text-color-sensor: '[[[ if (states["input_number.count_usage_catlitter_hallway"].state > 0) return "red"; ]]]'
+                  guestroom:
+                    - align-self: middle
+                    - justify-self: start
+                    - --text-color-sensor: '[[[ if (states["input_number.count_usage_catlitter_guestroom"].state > 0) return "red"; ]]]'
+              custom_fields:
+                office: >
+                  [[[ return `<span>Büro: <span style="color: var(--text-color-sensor);">${states['sensor.usage_catlitter_office'].state}</span></span>` ]]]
+                hallway: >
+                  [[[ return `<span>Flur: <span style="color: var(--text-color-sensor);">${states['sensor.usage_catlitter_hallway'].state}</span></span>` ]]]
+                guestroom: >
+                  [[[ return `<span>Gästezimmer: <span style="color: var(--text-color-sensor);">${states['sensor.usage_catlitter_guestroom'].state}</span></span>` ]]]
 
           - type: conditional
             conditions:
