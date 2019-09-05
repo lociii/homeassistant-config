@@ -209,7 +209,7 @@ views:
               - entity: light.garten_laterne
                 name: Laterne
               - entity: light.garden_one
-                name: Große Ball
+                name: Großer Ball
               - entity: light.garden_two
                 name: Kleiner Ball (vorne)
               - entity: light.garden_three
