@@ -3,7 +3,7 @@ actionresponder_livingroom_light_reading:
   class: ActionResponder
   trigger_entity: light.wohnzimmer_leselampe
   action_entities:
-    - switch.osram_plug_readinglight
+    - switch.plug_livingroom_standinglight_switch
   dependencies: util_delayer
 
 actionresponder_shower_fan:

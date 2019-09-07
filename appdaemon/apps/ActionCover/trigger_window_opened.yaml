@@ -1,7 +1,7 @@
 kitchen_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_kitchen
+  trigger_entity: binary_sensor.magnet_window_kitchen_contact
   trigger_status: on
   constraint_list:
     - switch.apartment_present,on
@@ -14,7 +14,7 @@ kitchen_window_opened_present_dark:
 guestroom_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_guestroom
+  trigger_entity: binary_sensor.magnet_window_guestroom_contact
   trigger_status: on
   constraint_list:
     - switch.apartment_present,on
@@ -27,7 +27,7 @@ guestroom_window_opened_present_dark:
 bedroom_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_bedroom
+  trigger_entity: binary_sensor.magnet_window_bedroom_contact
   trigger_status: on
   constraint_list:
     - switch.apartment_present,on
@@ -40,7 +40,7 @@ bedroom_window_opened_present_dark:
 office_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
-  trigger_entity: binary_sensor.door_sensor_office
+  trigger_entity: binary_sensor.magnet_window_office_contact
   trigger_status: on
   constraint_list:
     - switch.apartment_present,on

@@ -5,7 +5,7 @@ kitchen_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment_present,off
-    - binary_sensor.door_sensor_kitchen,off
+    - binary_sensor.magnet_window_kitchen_contact,off
     - input_boolean.automation_setting_mode_freezing,off
   action_entities:
     - cover.wohnzimmer_rolladen_kuche
@@ -33,7 +33,7 @@ patio_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment_present,off
-    - binary_sensor.door_sensor_patio,off
+    - binary_sensor.magnet_door_patio_contact,off
   action_entities:
     - cover.wohnzimmer_rolladen_terrasse
   action_status: on
@@ -59,7 +59,7 @@ guestroom_sunrise_absent_window_closed:
   trigger_entity: input_boolean.automation_darkness_cover
   trigger_status: off
   constraint_list:
-    - binary_sensor.door_sensor_guestroom,off
+    - binary_sensor.magnet_window_guestroom_contact,off
     - switch.apartment_present,off
   action_entities:
     - cover.gastezimmer_rolladen_gastezimmer
@@ -74,7 +74,7 @@ bedroom_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment_present,off
-    - binary_sensor.door_sensor_bedroom,off
+    - binary_sensor.magnet_window_bedroom_contact,off
   action_entities:
     - cover.schlafzimmer_rolladen_schlafzimmer
   action_status: on
@@ -88,7 +88,7 @@ office_sunrise_absent_window_closed:
   trigger_status: off
   constraint_list:
     - switch.apartment_present,off
-    - binary_sensor.door_sensor_office,off
+    - binary_sensor.magnet_window_office_contact,off
   action_entities:
     - cover.arbeitszimmer_rolladen_arbeitszimmer
   action_status: on
@@ -103,7 +103,7 @@ office_sunrise_present_awake_window_closed:
   constraint_list:
     - switch.apartment_present,on
     - switch.apartment_sleeping,off
-    - binary_sensor.door_sensor_office,off
+    - binary_sensor.magnet_window_office_contact,off
   action_entities:
     - cover.arbeitszimmer_rolladen_arbeitszimmer
   action_status: on

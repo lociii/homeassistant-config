@@ -5,6 +5,6 @@ leaving_turn_switches_off:
   trigger_entity: switch.apartment_present
   trigger_status: off
   action_entities:
-    - switch.osram_plug_kitchen
+    - switch.plug_kitchen_coffeemachine_switch
   action_status: off
   dependencies: util_delayer

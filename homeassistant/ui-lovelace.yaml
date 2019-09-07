@@ -106,7 +106,7 @@ views:
                     name: Küche
                   - entity: scene.wohnzimmer_rolladen_kuche_schlitz
                     name: Küche auf Spalt
-              - entity: switch.osram_plug_kitchen
+              - entity: switch.plug_kitchen_coffeemachine_switch
                 icon: mdi:coffee
                 name: Kaffeemaschine
               - type: divider
@@ -152,13 +152,13 @@ views:
                     name: Gästezimmer
                   - entity: scene.gastezimmer_rolladen_gastezimmer_schlitz
                     name: Gästezimmer auf Spalt
-              - entity: switch.osram_plug_computer
-                icon: mdi:coffee
+              - entity: switch.plug_guestroom_computer_switch
+                icon: mdi:controller-classic
                 name: Gameboy
               - type: divider
               - entity: light.gastezimmer_deckenlicht
                 name: Deckenlicht
-              - entity: switch.osram_plug_guestroom
+              - entity: switch.plug_guestroom_standinglight_switch
                 icon: mdi:lightbulb
                 name: Stehlampe
 
@@ -208,11 +208,11 @@ views:
             entities:
               - entity: light.garten_laterne
                 name: Laterne
-              - entity: light.garden_one
+              - entity: light.light_garden_ball_large_light
                 name: Großer Ball
-              - entity: light.garden_two
+              - entity: light.light_garden_ball_front_light
                 name: Kleiner Ball (vorne)
-              - entity: light.garden_three
+              - entity: light.light_garden_ball_back_light
                 name: Kleiner Ball (hinten)
 
           - break
@@ -249,13 +249,13 @@ views:
               - type: glance
                 title:  Klima innen
                 entities:
-                  - entity: sensor.weather_indoor_temperature
+                  - entity: sensor.environment_inside_temperature
                     icon: mdi:temperature-celsius
                     name: Temperatur
-                  - entity: sensor.weather_indoor_humidity
+                  - entity: sensor.environment_inside_humidity
                     icon: mdi:water-percent
                     name: Luftfeuchtigkeit
-                  - entity: sensor.weather_indoor_pressure
+                  - entity: sensor.environment_inside_pressure
                     icon: mdi:speedometer
                     name: Luftdruck
 
@@ -264,13 +264,13 @@ views:
               - type: glance
                 title:  Klima außen
                 entities:
-                  - entity: sensor.weather_outdoor_temperature
+                  - entity: sensor.environment_outside_temperature
                     icon: mdi:temperature-celsius
                     name: Temperatur
-                  - entity: sensor.weather_outdoor_humidity
+                  - entity: sensor.environment_outside_humidity
                     icon: mdi:water-percent
                     name: Luftfeuchtigkeit
-                  - entity: sensor.weather_outdoor_pressure
+                  - entity: sensor.environment_outside_pressure
                     icon: mdi:speedometer
                     name: Luftdruck
 
@@ -288,7 +288,7 @@ views:
                 open: true
               filter:
                 include:
-                  - entity_id: "binary_sensor.door_sensor*"
+                  - entity_id: "binary_sensor.magnet_*"
                     state: "on"
             - type: custom:auto-entities
               show_empty: false
@@ -299,7 +299,7 @@ views:
                   label: Geschlossen
               filter:
                 include:
-                  - entity_id: "binary_sensor.door_sensor*"
+                  - entity_id: "binary_sensor.magnet_*"
                     state: "off"
 
   #########################################
@@ -392,7 +392,7 @@ views:
       - type: entities
         show_header_toggle: false
         entities:
-          - entity: switch.osram_plug_entertainment
+          - entity: switch.plug_livingroom_entertainment_switch
             name: Entertainment
       - type: media-control
         entity: media_player.firetv_living_room
@@ -1155,10 +1155,10 @@ views:
               - type: glance
                 title: Temperatur
                 entities:
-                  - entity: sensor.weather_indoor_temperature
+                  - entity: sensor.environment_inside_temperature
                     icon: mdi:temperature-celsius
                     name: Innen
-                  - entity: sensor.weather_outdoor_temperature
+                  - entity: sensor.environment_outside_temperature
                     icon: mdi:temperature-celsius
                     name: Aussen
 

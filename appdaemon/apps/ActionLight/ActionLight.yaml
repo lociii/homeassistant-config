@@ -13,11 +13,11 @@ leaving_day_turn_lights_off:
     - light.esszimmer_alle_lichter
     - light.flur_alle_lichter
     - light.garten_alle_lichter
-    - light.garden_one
-    - light.garden_two
-    - light.garden_three
+    - light.light_garden_ball_large_light
+    - light.light_garden_ball_front_light
+    - light.light_garden_ball_back_light
     - light.gastezimmer_alle_lichter
-    - switch.osram_plug_guestroom
+    - switch.plug_guestroom_standinglight_switch
     - light.kuche_alle_lichter
     - light.schlafzimmer_alle_lichter
     - light.wohnzimmer_alle_lichter
@@ -40,7 +40,7 @@ leaving_night_turn_lights_off:
     - light.esszimmer_alle_lichter
     - light.flur_alle_lichter
     - light.gastezimmer_alle_lichter
-    - switch.osram_plug_guestroom
+    - switch.plug_guestroom_standinglight_switch
     - light.kuche_alle_lichter
     - light.schlafzimmer_alle_lichter
     - light.wohnzimmer_deckenlampe
@@ -61,9 +61,9 @@ leaving_night_turn_lights_on:
   action_entities:
     - light.wohnzimmer_wandlampen
     - light.garten_laterne
-    - light.garden_one
-    - light.garden_two
-    - light.garden_three
+    - light.light_garden_ball_large_light
+    - light.light_garden_ball_front_light
+    - light.light_garden_ball_back_light
   action_status: on
   dependencies: util_delayer
 
@@ -95,11 +95,11 @@ sleeping_turn_lights_off:
     - light.esszimmer_alle_lichter
     - light.flur_alle_lichter
     - light.garten_alle_lichter
-    - light.garden_one
-    - light.garden_two
-    - light.garden_three
+    - light.light_garden_ball_large_light
+    - light.light_garden_ball_front_light
+    - light.light_garden_ball_back_light
     - light.gastezimmer_alle_lichter
-    - switch.osram_plug_guestroom
+    - switch.plug_guestroom_standinglight_switch
     - light.kuche_alle_lichter
     - light.schlafzimmer_alle_lichter
     - light.wohnzimmer_alle_lichter
@@ -115,9 +115,9 @@ sunset_turn_lights_on:
   action_entities:
     - light.wohnzimmer_wandlampen
     - light.garten_laterne
-    - light.garden_one
-    - light.garden_two
-    - light.garden_three
+    - light.light_garden_ball_large_light
+    - light.light_garden_ball_front_light
+    - light.light_garden_ball_back_light
   action_status: on
   dependencies: util_delayer
 
@@ -132,32 +132,4 @@ sunset_present_turn_lights_on:
   action_entities:
     - light.wohnzimmer_stehlampe
   action_status: on
-  dependencies: util_delayer
-
-# turn the shower ceiling light on when movement detected
-movement_shower_turn_light_on:
-  module: ActionLight
-  class: ActionLight
-  trigger_entity: binary_sensor.occupancy_shower
-  trigger_status: on
-  constraint_list:
-    - switch.apartment_present,on
-    - switch.apartment_sleeping,off
-  action_entities:
-    - light.dusche_deckenlicht
-  action_status: on
-  dependencies: util_delayer
-
-  # turn the shower ceiling light off when movement gone
-movement_shower_turn_light_off:
-  module: ActionLight
-  class: ActionLight
-  trigger_entity: binary_sensor.occupancy_shower
-  trigger_status: off
-  constraint_list:
-    - switch.apartment_present,on
-    - switch.apartment_sleeping,off
-  action_entities:
-    - light.dusche_deckenlicht
-  action_status: off
   dependencies: util_delayer

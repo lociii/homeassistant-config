@@ -1,20 +1,46 @@
-switch.osram_plug_computer:
-  friendly_name: Gameboy
 zone.work_eva:
   friendly_name: Arbeit Eva
 zone.work_jens:
   friendly_name: Arbeit Jens
-switch.osram_plug_guestroom:
+switch.plug_guestroom_computer_switch:
+  friendly_name: Gameboy
+switch.plug_guestroom_standinglight_switch:
   friendly_name: Stehlampe Gästezimmer
-binary_sensor.door_sensor_bedroom:
-  friendly_name: Fenster Schlafzimmer
-binary_sensor.door_sensor_entrance:
+switch.plug_kitchen_coffeemachine_switch:
+  friendly_name: Kaffeemaschine
+switch.plug_livingroom_entertainment_switch:
+  friendly_name: Entertainment Wohnzimmer
+switch.plug_livingroom_standinglight_switch:
+  friendly_name: Leselampe
+binary_sensor.magnet_door_entrance_contact:
   friendly_name: Wohnungstür
-binary_sensor.door_sensor_guestroom:
-  friendly_name: Fenster Gästezimmer
-binary_sensor.door_sensor_kitchen:
-  friendly_name: Fenster Küche
-binary_sensor.door_sensor_office:
-  friendly_name: Fenster Arbeitszimmer
-binary_sensor.door_sensor_patio:
+binary_sensor.magnet_door_patio_contact:
   friendly_name: Terrassentür
+binary_sensor.magnet_window_bedroom_contact:
+  friendly_name: Schlafzimmerfenster
+binary_sensor.magnet_window_guestroom_contact:
+  friendly_name: Gästezimmerfenster
+binary_sensor.magnet_window_kitchen_contact:
+  friendly_name: Küchenfenster
+binary_sensor.magnet_window_office_contact:
+  friendly_name: Bürofenster
+plant.plant_four:
+  friendly_name: Aloe Vera auf Bar
+plant.plant_two:
+  friendly_name: Einblatt auf Bar
+plant.plant_five:
+  friendly_name: Flamingoblume auf Esstisch
+plant.plant_three:
+  friendly_name: Benjamini neben TV
+plant.plant_six:
+  friendly_name: Grünlilie neben TV
+plant.plant_one:
+  friendly_name: Grünlilie neben Orchideen
+plant.plant_seven:
+  friendly_name: Palme Wohnzimmer
+plant.plant_eight:
+  friendly_name: Efeutute Gästezimmer
+plant.plant_nine:
+  friendly_name: Yucca Gästezimmer
+plant.plant_ten:
+  friendly_name: Drachenbaum Gästezimmer
