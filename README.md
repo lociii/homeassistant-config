@@ -64,25 +64,24 @@ TODO: install "notifications app" on firetv
 
 Automations are preferrably implemented using [AppDameon](appdaemon).
 
-## Custom components
+## Custom components - HACS
 
-### Docker Monitor
+The [Home Assistant Community Store](https://hacs.netlify.com/), a project started by [@ludeeus](https://twitter.com/ludeeus) to make installing and managing non-core components much easier. Thanks from here for the great work!
 
-Add statistics of Docker containers as sensors and make the containers themselves available as switches.
-HACS compatible fork: https://github.com/lociii/home-assistant-custom-components
-Original repo: https://github.com/Sanderhuisman/home-assistant-custom-components
+HACS is used to install several other components. Some of them are listed below.
 
 ### digitalSTROM
 
 Homegrown component to control my lights and shutters which are based on [digitalSTROM](https://www.digitalstrom.com/).
 
+Now available as a HACS component: https://github.com/lociii/homeassistant-digitalstrom
+
 Check the underlying library for more details: [pydigitalstrom](https://github.com/lociii/pydigitalstrom)
 
-### HACS
+### Docker Monitor
 
-The [Home Assistant Community Store](https://hacs.netlify.com/), a project started by [@ludeeus](https://twitter.com/ludeeus) to make installing and managing non-core components much easier. Thanks from here for the great work!
-
-HACS is used to install several other components.
+Add statistics of Docker containers as sensors and make the containers themselves available as switches.
+https://github.com/Sanderhuisman/docker_monitor
 
 ## Infrastructure
 
@@ -113,14 +112,14 @@ Light and shutter control system, see https://www.digitalstrom.com/
 
 ### Zigbee
 
-Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3 Model B using a [GBAN CC2530](http://www.gban.cn/en/product_show.asp?id=43) zigbee sniffer.
+Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3 Model B using a [CC2531](https://www.amazon.de/dp/B07JBWF1DG) zigbee sniffer.
 
 ## Ecosystem
 
 ### Lights
 
 * digitalSTROM
-* Trådfri via zigbee2mqtt
+* Trådfri light bulbs
 
 ### Shutters
 
@@ -147,13 +146,13 @@ Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3
 * Xiaomi Aqara window/door sensors
 * Xiaomi Aqara climate sensors
 * Xiaomi Aqara water leakage sensors
-* Xiaomi Aqara occopancy sensors
+* Xiaomi Aqara occupancy sensors
 * Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway running ESPHome](https://esphome.io/components/sensor/xiaomi_miflora.html))
 
 ### Power plugs
 
 * TP Link HS110
-* OSRAM smart+ plugs (built in zigbee router)
+* OSRAM smart+ plugs (they double as zigbee router)
 
 ### Utility
 
