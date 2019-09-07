@@ -9,6 +9,9 @@
 
 [entrypoints]
 
+  [entrypoints.http]
+    address = ":80"
+
   [entrypoints.https]
     address = ":443"
 
@@ -53,6 +56,5 @@
       email = "letsencrypt@jensnistler.de"
       storage = "/etc/traefik/acme.json"
 
-      [certificatesResolvers.letsencrypt.acme.dnsChallenge]
-        provider = "inwx"
-        delayBeforeCheck = 60
+      [certificatesResolvers.letsencrypt.acme.httpChallenge]
+        entryPoint = "http"

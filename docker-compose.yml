@@ -18,9 +18,6 @@ services:
      - "80:80"
      - "443:443"
      - "8080:8080"
-    environment:
-      - INWX_USERNAME=$INWX_USERNAME
-      - INWX_PASSWORD=$INWX_PASSWORD
 
   # https://hub.docker.com/r/library/eclipse-mosquitto
   mosquitto:
