@@ -2,7 +2,8 @@ kitchen_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
     - input_boolean.automation_setting_mode_freezing,off
@@ -16,7 +17,8 @@ kitchen_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
     - input_boolean.automation_setting_mode_freezing,off
@@ -29,7 +31,8 @@ dining_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,off
   action_entities:
@@ -42,7 +45,8 @@ dining_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_south,on
   action_scenes:
@@ -54,7 +58,8 @@ patio_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   action_entities:
     - cover.wohnzimmer_rolladen_terrasse
   action_status: on
@@ -65,7 +70,8 @@ couch_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,off
   action_entities:
@@ -78,7 +84,8 @@ couch_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,on
   action_scenes:
@@ -90,7 +97,8 @@ guestroom_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,off
     - input_boolean.automation_setting_mode_guest,off
@@ -104,7 +112,8 @@ guestroom_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,on
   action_scenes:
@@ -116,7 +125,8 @@ bedroom_wakeup:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,off
   action_entities:
@@ -129,7 +139,8 @@ bedroom_wakeup_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_trigger_sunprotection_west,on
   action_scenes:
@@ -141,7 +152,8 @@ office_wakeup_day:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_entities:

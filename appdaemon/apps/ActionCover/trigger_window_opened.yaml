@@ -2,7 +2,8 @@ kitchen_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_kitchen_contact
-  trigger_status: on
+  trigger_status_from: off
+  trigger_status_to: on
   constraint_list:
     - switch.apartment_present,on
     - input_boolean.automation_darkness_cover,on
@@ -15,7 +16,8 @@ guestroom_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_guestroom_contact
-  trigger_status: on
+  trigger_status_from: off
+  trigger_status_to: on
   constraint_list:
     - switch.apartment_present,on
     - input_boolean.automation_darkness_cover,on
@@ -28,7 +30,8 @@ bedroom_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_bedroom_contact
-  trigger_status: on
+  trigger_status_from: off
+  trigger_status_to: on
   constraint_list:
     - switch.apartment_present,on
     - input_boolean.automation_darkness_cover,on
@@ -41,7 +44,8 @@ office_window_opened_present_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_office_contact
-  trigger_status: on
+  trigger_status_from: off
+  trigger_status_to: on
   constraint_list:
     - switch.apartment_present,on
     - input_boolean.automation_darkness_cover,on

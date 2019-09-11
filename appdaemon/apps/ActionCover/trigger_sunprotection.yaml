@@ -2,7 +2,7 @@ kitchen_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_south
-  trigger_status: on
+  trigger_status_to: on
   action_scenes:
     - scene.wohnzimmer_rolladen_kuche_schlitz
   dependencies: util_delayer
@@ -12,7 +12,7 @@ dining_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_south
-  trigger_status: on
+  trigger_status_to: on
   action_scenes:
     - scene.wohnzimmer_rolladen_esstisch_katzenmodus
   dependencies: util_delayer
@@ -22,7 +22,7 @@ patio_sunprotection_absent:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_west
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - switch.apartment_present,off
   action_scenes:
@@ -34,7 +34,7 @@ couch_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_orchids
-  trigger_status: on
+  trigger_status_to: on
   action_scenes:
     - scene.wohnzimmer_rolladen_couch_katzenmodus
   dependencies: util_delayer
@@ -44,7 +44,7 @@ guestroom_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_west
-  trigger_status: on
+  trigger_status_to: on
   action_scenes:
     - scene.gastezimmer_rolladen_gastezimmer_schlitz
   dependencies: util_delayer
@@ -54,7 +54,7 @@ bedroom_sunprotection:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_west
-  trigger_status: on
+  trigger_status_to: on
   action_scenes:
     - scene.schlafzimmer_rolladen_schlafzimmer_schlitz
   dependencies: util_delayer
@@ -64,7 +64,7 @@ kitchen_sunprotection_off:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_south
-  trigger_status: off
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_entities:
@@ -77,7 +77,7 @@ dining_sunprotection_off:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_south
-  trigger_status: off
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_entities:
@@ -90,7 +90,7 @@ patio_sunprotection_absent_off:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_west
-  trigger_status: off
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_entities:
@@ -103,7 +103,8 @@ couch_sunprotection_off:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_orchids
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_entities:
@@ -116,7 +117,8 @@ guestroom_sunprotection_off:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_west
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_entities:
@@ -129,7 +131,8 @@ bedroom_sunprotection_off:
   module: ActionCover
   class: ActionCover
   trigger_entity: input_boolean.automation_trigger_sunprotection_west
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,off
   action_entities:

@@ -2,7 +2,7 @@ kitchen_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_kitchen_contact,off
   action_entities:
@@ -15,7 +15,7 @@ kitchen_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_kitchen_contact,on
   action_scenes:
@@ -27,7 +27,7 @@ dining_sleeping:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   action_entities:
     - cover.wohnzimmer_rolladen_esstisch
   action_status: off
@@ -38,7 +38,7 @@ patio_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_door_patio_contact,off
   action_entities:
@@ -51,7 +51,7 @@ patio_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_door_patio_contact,on
   action_scenes:
@@ -63,7 +63,7 @@ couch_sleeping:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   action_entities:
     - cover.wohnzimmer_rolladen_couch
   action_status: off
@@ -74,7 +74,7 @@ guestroom_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_guestroom_contact,off
   action_entities:
@@ -87,7 +87,7 @@ guestroom_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_guestroom_contact,on
   action_scenes:
@@ -99,7 +99,7 @@ bedroom_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_bedroom_contact,off
   action_entities:
@@ -112,7 +112,7 @@ bedroom_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_bedroom_contact,on
   action_scenes:
@@ -124,7 +124,8 @@ office_sleeping_window_closed:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_from: off
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_office_contact,off
   action_entities:
@@ -137,7 +138,8 @@ office_sleeping_window_open:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_sleeping
-  trigger_status: on
+  trigger_status_from: off
+  trigger_status_to: on
   constraint_list:
     - binary_sensor.magnet_window_office_contact,on
   action_scenes:

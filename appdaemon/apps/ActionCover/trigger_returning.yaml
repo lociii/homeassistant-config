@@ -2,7 +2,8 @@ patio_returning_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: switch.apartment_present
-  trigger_status: on
+  trigger_status_from: off
+  trigger_status_to: on
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_entities:

@@ -2,7 +2,8 @@ kitchen_window_closed_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_kitchen_contact
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_entities:
@@ -15,7 +16,8 @@ guestroom_window_closed_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_guestroom_contact
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_entities:
@@ -28,7 +30,8 @@ bedroom_window_closed_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_bedroom_contact
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_entities:
@@ -41,7 +44,8 @@ office_window_closed_dark:
   module: ActionCover
   class: ActionCover
   trigger_entity: binary_sensor.magnet_window_office_contact
-  trigger_status: off
+  trigger_status_from: on
+  trigger_status_to: off
   constraint_list:
     - input_boolean.automation_darkness_cover,on
   action_entities:
