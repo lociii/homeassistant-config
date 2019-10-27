@@ -27,7 +27,7 @@ class ActionResponder(hass.Hass):
             self.trigger_on_delayed()
         else:
             self.log('{} turned on, delayed responder in {} seconds'.format(self.trigger_entity, int(self.on_delay)))
-            self.timer_on = self.run_in(callback=self.trigger_on_delayed, seconds=int(self.on_delay))
+            self.timer_on = self.run_in(callback=self.trigger_on_delayed, delay=int(self.on_delay))
 
     def trigger_on_delayed(self, *args, **kwargs):
         for entity in self.action_entities:
@@ -49,7 +49,7 @@ class ActionResponder(hass.Hass):
             self.trigger_off_delayed()
         else:
             self.log('{} turned off, delayed responder in {} seconds'.format(self.trigger_entity, int(self.off_delay)))
-            self.timer_off = self.run_in(callback=self.trigger_off_delayed, seconds=int(self.off_delay))
+            self.timer_off = self.run_in(callback=self.trigger_off_delayed, delay=int(self.off_delay))
 
     def trigger_off_delayed(self, *args, **kwargs):
         for entity in self.action_entities:

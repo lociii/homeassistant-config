@@ -32,7 +32,7 @@ leaving_night_turn_lights_off:
   trigger_entity: switch.apartment_present
   trigger_status: off
   constraint_list: 
-    -input_boolean.automation_darkness_lighting,on
+    - input_boolean.automation_darkness_lighting,on
   action_entities:
     - light.arbeitszimmer_alle_lichter
     - light.bad_alle_lichter

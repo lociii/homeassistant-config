@@ -21,14 +21,14 @@ class ActionWatering(hass.Hass):
         delay = 0
         for area in self.areas:
             self.area_timers.append(self.run_in(
-                callback=self.start_area, seconds=delay, start_action='turn_on', start_entity=area['entity']))
+                callback=self.start_area, delay=delay, start_action='turn_on', start_entity=area['entity']))
             delay += int(float(self.get_state(area['duration']))) * 60
             self.area_timers.append(self.run_in(
-                callback=self.start_area, seconds=delay, start_action='turn_off', start_entity=area['entity']))
+                callback=self.start_area, delay=delay, start_action='turn_off', start_entity=area['entity']))
             delay += 15
 
         # turn the trigger off
-        self.area_timers.append(self.run_in(callback=self.finalize, seconds=delay))
+        self.area_timers.append(self.run_in(callback=self.finalize, delay=delay))
 
         # announce start
         self.announcer.speak(self.message_on)

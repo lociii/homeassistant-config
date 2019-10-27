@@ -14,6 +14,8 @@ class StateLaundry(hass.Hass):
         self.listen_state(callback=self.callback, entity=self.trigger, attribute=self.trigger_attribute)
 
     def callback(self, entity, attribute, old, new, *args, **kwargs):
+        if new == 'unknown':
+            return
         usage = int(float(new))
 
         if usage < self.usage_off:
