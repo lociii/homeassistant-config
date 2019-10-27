@@ -123,6 +123,24 @@ services:
     depends_on:
       - homeassistant
 
+  # https://hub.docker.com/r/raymondmm/tasmoadmin
+  tasmoadmin:
+    container_name: tasmoadmin
+    restart: unless-stopped
+    image: raymondmm/tasmoadmin
+    volumes:
+      - tasmoadmin:/data
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.services.tasmoadmin.loadbalancer.server.port=80"
+
+      - "traefik.http.routers.tasmoadmin_https.rule=Host(`tasmoadmin.$DOMAIN`)"
+      - "traefik.http.routers.tasmoadmin_https.entrypoints=https"
+      - "traefik.http.routers.tasmoadmin_https.service=tasmoadmin"
+      - "traefik.http.routers.tasmoadmin_https.tls.certresolver=letsencrypt"
+
   ################################
   # TRACCAR
   ################################
@@ -310,3 +328,5 @@ volumes:
 
   volumerize_cache: {}
   volumerize_ssh: {}
+
+  tasmoadmin: {}
