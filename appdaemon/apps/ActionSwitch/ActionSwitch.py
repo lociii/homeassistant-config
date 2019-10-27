@@ -11,7 +11,7 @@ class ActionSwitch(hass.Hass):
         self.action_status = self.args['action_status']
 
         status_text = 'on' if self.trigger_status else 'off'
-        self.listen_state(cb=self.update_status, entity=self.trigger_entity, new=status_text)
+        self.listen_state(callback=self.update_status, entity=self.trigger_entity, new=status_text)
 
     def update_status(self, *args, **kwargs):
         self.log('{} turned {}'.format(self.trigger_entity, self.trigger_status))

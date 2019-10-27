@@ -717,12 +717,12 @@ views:
               - entity: sensor.dryer_watts
                 name: Verbrauch (aktuell)
                 icon: mdi:gauge
-              - entity: sensor.dryer_consumption_last_5_mins_mean
+              - entity: sensor.dryer_consumption_last_5_mins
                 name: Verbrauch (letzte 5 Minuten)
                 icon: mdi:power-socket-eu
           - type: custom:mini-graph-card
             entities:
-            - entity: sensor.dryer_consumption_last_5_mins_mean
+            - entity: sensor.dryer_consumption_last_5_mins
               name: Trockner
             icon: mdi:tumble-dryer
             unit: Watt
@@ -751,12 +751,12 @@ views:
               - entity: sensor.washer_human_watts
                 name: Verbrauch (aktuell)
                 icon: mdi:gauge
-              - entity: sensor.washer_human_consumption_last_5_mins_mean
+              - entity: sensor.washer_human_consumption_last_5_mins
                 name: Verbrauch (letzte 5 Minuten)
                 icon: mdi:power-socket-eu
           - type: custom:mini-graph-card
             entities:
-            - entity: sensor.washer_human_consumption_last_5_mins_mean
+            - entity: sensor.washer_human_consumption_last_5_mins
               name: Waschmaschine
             icon: mdi:washing-machine
             unit: Watt
@@ -785,12 +785,12 @@ views:
               - entity: sensor.washer_animal_watts
                 name: Verbrauch (aktuell)
                 icon: mdi:gauge
-              - entity: sensor.washer_animal_consumption_last_5_mins_mean
+              - entity: sensor.washer_animal_consumption_last_5_mins
                 name: Verbrauch (letzte 5 Minuten)
                 icon: mdi:power-socket-eu
           - type: custom:mini-graph-card
             entities:
-            - entity: sensor.washer_animal_consumption_last_5_mins_mean
+            - entity: sensor.washer_animal_consumption_last_5_mins
               name: Tier-Waschmaschine
             icon: mdi:washing-machine
             unit: Watt

@@ -10,12 +10,12 @@ class ActionVacuum(hass.Hass):
         self.trigger = self.args['trigger']
         self.target = self.args['target']
 
-        self.listen_state(cb=self.activate, entity=self.trigger, new='on', old='off')
-        self.listen_state(cb=self.deactivate, entity=self.trigger, new='off', old='on')
+        self.listen_state(callback=self.activate, entity=self.trigger, new='on', old='off')
+        self.listen_state(callback=self.deactivate, entity=self.trigger, new='off', old='on')
 
     def activate(self, *args, **kwargs):
         # check for cleaning finished
-        self.listener_done = self.listen_state(cb=self.cleaning_done, entity=self.entity, new='docked')
+        self.listener_done = self.listen_state(callback=self.cleaning_done, entity=self.entity, new='docked')
 
         # start cleaning
         self.call_service('vacuum/start', entity_id=self.entity)

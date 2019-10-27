@@ -12,7 +12,7 @@ class StateDarkness(hass.Hass):
         self.set_timers()
 
         # listen to state changes on the offset inputs and reset the timers
-        self.listen_state(cb=self.set_timers, entity=self.offset)
+        self.listen_state(callback=self.set_timers, entity=self.offset)
 
     def set_timers(self, *args, **kwargs):
         self.log('(re)setting sunset/sunrise timers for {}'.format(self.indicator))

@@ -44,3 +44,5 @@ plant.plant_nine:
   friendly_name: Yucca Gästezimmer
 plant.plant_ten:
   friendly_name: Drachenbaum Gästezimmer
+binary_sensor.magnet_door_cats_contact:
+  friendly_name: Katzentür

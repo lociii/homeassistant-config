@@ -1,7 +1,8 @@
 laundry_dryer_state:
   module: StateLaundry
   class: StateLaundry
-  trigger: sensor.dryer_consumption_last_5_mins_mean
+  trigger: sensor.dryer_consumption_last_5_mins
+  trigger_attribute: mean
   target: input_select.dryer_status
   usage_off: 1
   usage_active: 40
@@ -9,7 +10,8 @@ laundry_dryer_state:
 laundry_animal_state:
   module: StateLaundry
   class: StateLaundry
-  trigger: sensor.washer_animal_consumption_last_5_mins_mean
+  trigger: sensor.washer_animal_consumption_last_5_mins
+  trigger_attribute: mean
   target: input_select.washer_animal_status
   usage_off: 1
   usage_active: 5
@@ -17,7 +19,8 @@ laundry_animal_state:
 laundry_human_state:
   module: StateLaundry
   class: StateLaundry
-  trigger: sensor.washer_human_consumption_last_5_mins_mean
+  trigger: sensor.washer_human_consumption_last_5_mins
+  trigger_attribute: mean
   target: input_select.washer_human_status
   usage_off: 1
   usage_active: 5

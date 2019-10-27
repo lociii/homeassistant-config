@@ -13,7 +13,7 @@ class ActionLight(AppDaemon):
         self.action_flash = self.args['action_flash'] if 'action_flash' in self.args else False
 
         status_text = 'on' if self.trigger_status else 'off'
-        self.listen_state(cb=self.update_status, entity=self.trigger_entity, new=status_text,
+        self.listen_state(callback=self.update_status, entity=self.trigger_entity, new=status_text,
                           check_constraint_list=True)
 
     def update_status(self, *args, **kwargs):

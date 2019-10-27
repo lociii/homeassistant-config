@@ -14,7 +14,7 @@ class ActionCover(AppDaemon):
 
         status_text_to = 'on' if self.trigger_status_to else 'off'
         status_text_from = 'on' if self.trigger_status_from else 'off'
-        self.listen_state(cb=self.update_status, entity=self.trigger_entity, new=status_text_to,
+        self.listen_state(callback=self.update_status, entity=self.trigger_entity, new=status_text_to,
                           old=status_text_from, check_constraint_list=True)
 
     def update_status(self, *args, **kwargs):

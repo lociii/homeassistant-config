@@ -4,7 +4,7 @@ services:
   # https://hub.docker.com/_/traefik
   traefik:
     hostname: traefik
-    image: traefik:2.0
+    image: traefik:2.0.2
     container_name: traefik
     restart: always
     volumes:
@@ -23,7 +23,7 @@ services:
   mosquitto:
     container_name: mosquitto
     restart: unless-stopped
-    image: eclipse-mosquitto:1.6.4
+    image: eclipse-mosquitto:1.6.7
     volumes:
       - ${PWD}/mosquitto/passwd:/mosquitto/passwd
       - ${PWD}/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
@@ -51,7 +51,7 @@ services:
   influxdb:
     container_name: influxdb
     restart: unless-stopped
-    image: influxdb:1.7.7-alpine
+    image: influxdb:1.7.8-alpine
     volumes:
       - ${PWD}/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       - influxdb:/var/lib/influxdb
@@ -64,7 +64,7 @@ services:
   grafana:
     container_name: grafana
     restart: unless-stopped
-    image: grafana/grafana:6.3.3
+    image: grafana/grafana:6.4.3
     depends_on:
       - influxdb
     volumes:
@@ -76,7 +76,7 @@ services:
   chronograf:
     container_name: chronograf
     restart: unless-stopped
-    image: chronograf:1.7.12
+    image: chronograf:1.7.14
     depends_on:
       - influxdb
     volumes:
@@ -88,12 +88,13 @@ services:
   homeassistant:
     container_name: homeassistant
     restart: unless-stopped
-    image: homeassistant/home-assistant:0.97.2
+    image: homeassistant/home-assistant:0.100.3
     depends_on:
       - influxdb
       - postgresql
     volumes:
       - ${PWD}/homeassistant:/config
+      - ${VIDEO_DIR}:/videos
       - /etc/localtime:/etc/localtime:ro
       - homeassistant_media:/media
       - /var/run/docker.sock:/var/run/docker.sock
@@ -113,7 +114,7 @@ services:
   appdaemon:
     container_name: appdaemon
     restart: unless-stopped
-    image: acockburn/appdaemon:3.0.5
+    image: acockburn/appdaemon:4.0.0b2
     depends_on:
       - homeassistant
     volumes:
@@ -129,7 +130,7 @@ services:
   # https://hub.docker.com/_/mariadb
   traccar_db:
     container_name: traccar_db
-    image: mariadb:10.4.7
+    image: mariadb:10.4.8
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=$TRACCAR_DB_ROOT_PASSWORD
@@ -142,7 +143,7 @@ services:
   # https://hub.docker.com/r/traccar/traccar
   traccar:
     container_name: traccar
-    image: traccar/traccar:4.5-alpine
+    image: traccar/traccar:4.6-alpine
     restart: unless-stopped
     depends_on:
       - traccar_db
@@ -272,12 +273,12 @@ services:
         - TZ=Europe/Berlin
         - VOLUMERIZE_SOURCE=/source
         - VOLUMERIZE_TARGET=$VOLUMERIZE_TARGET
-        - VOLUMERIZE_JOBBER_TIME=0 15 0 * * *
+        - VOLUMERIZE_JOBBER_TIME=3 15 0 * * *
         - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
         - VOLUMERIZE_CONTAINERS=traefik chronograf grafana homeassistant influxdb mosquitto paperless_webserver paperless_consumer postgresql traccar traccar_db
         - JOB_NAME2=RemoveOldBackups
         - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
-        - JOB_TIME2=0 0 0 * * *
+        - JOB_TIME2=4 0 0 * * *
     volumes:
         - chronograf:/source/chronograf:ro
         - grafana:/source/grafana:ro

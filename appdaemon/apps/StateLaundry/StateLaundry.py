@@ -6,11 +6,12 @@ class StateLaundry(hass.Hass):
         self.announcer = self.get_app('util_announcer')
 
         self.trigger = self.args['trigger']
+        self.trigger_attribute = self.args['trigger_attribute']
         self.target = self.args['target']
         self.usage_off = self.args['usage_off']
         self.usage_active = self.args['usage_active']
 
-        self.listen_state(cb=self.callback, entity=self.trigger)
+        self.listen_state(callback=self.callback, entity=self.trigger, attribute=self.trigger_attribute)
 
     def callback(self, entity, attribute, old, new, *args, **kwargs):
         usage = int(float(new))

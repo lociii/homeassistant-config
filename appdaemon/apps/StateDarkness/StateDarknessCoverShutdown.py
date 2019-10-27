@@ -12,7 +12,7 @@ class StateDarknessCoverShutdown(hass.Hass):
         self.set_timer()
 
         # listen to state changes on the time input and reset the timer
-        self.listen_state(cb=self.set_timer, entity=self.time)
+        self.listen_state(callback=self.set_timer, entity=self.time)
 
         # deactivate shutdown on sunrise
         self.run_at_sunrise(self.deactivate)

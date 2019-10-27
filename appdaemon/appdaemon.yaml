@@ -1,10 +1,10 @@
-log:
-  logfile: STDOUT
-  errorfile: STDERR
+logs:
+  main_log:
+    filename: STDOUT
+  error_log:
+    filename: STDERR
 appdaemon:
-  threads: 10
   app_dir: !secret appdaemon_app_dir
-  disable_apps: 1
   elevation: !secret appdaemon_elevation
   latitude: !secret appdaemon_latitude
   longitude: !secret appdaemon_longitude
@@ -14,7 +14,8 @@ appdaemon:
       type: hass
       ha_url: !secret appdaemon_hass_url
       token: !secret appdaemon_hass_token
+http:
+  url: !secret appdaemon_url
+  password: !secret appdaemon_password
 hadashboard:
-  dash_url: !secret hadashboard_dash_url
   dash_dir: !secret hadashboard_dash_dir
-  dash_compile_on_start: 1

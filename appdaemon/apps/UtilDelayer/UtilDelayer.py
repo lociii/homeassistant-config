@@ -41,7 +41,7 @@ class UtilDelayer(hass.Hass):
         UtilDelayer.stack.append(DelayedItem(hass_func=hass_func, *args, **kwargs))
 
     def loop(self, *args, **kwargs):
-        self.run_in(callback=self.loop, seconds=1)
+        self.run_in(callback=self.loop, delay=1)
         self.execute()
 
     def execute(self):

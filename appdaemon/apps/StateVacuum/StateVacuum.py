@@ -9,8 +9,8 @@ class StateVacuum(hass.Hass):
         self.delay = self.args['delay']
         self.target = self.args['target']
 
-        self.listen_state(cb=self.set_timer, entity=self.presence, new='off', old='on')
-        self.listen_state(cb=self.deactivate, entity=self.presence, new='on', old='off')
+        self.listen_state(callback=self.set_timer, entity=self.presence, new='off', old='on')
+        self.listen_state(callback=self.deactivate, entity=self.presence, new='on', old='off')
 
     def set_timer(self, *args, **kwargs):
         # cancel existing timer

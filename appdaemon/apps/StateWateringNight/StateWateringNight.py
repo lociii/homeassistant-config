@@ -13,8 +13,8 @@ class StateWateringNight(hass.Hass):
         self.message_on = self.args['message_on']
         self.message_off = self.args['message_off']
 
-        self.listen_state(cb=self.set_timer, entity=self.trigger, new='on', old='off')
-        self.listen_state(cb=self.deactivate, entity=self.trigger, new='off', old='on')
+        self.listen_state(callback=self.set_timer, entity=self.trigger, new='on', old='off')
+        self.listen_state(callback=self.deactivate, entity=self.trigger, new='off', old='on')
 
     def set_timer(self, *args, **kwargs):
         self.log('setting timer for {}'.format(self.trigger))

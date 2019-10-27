@@ -7,7 +7,7 @@ class NotifyLaundry(hass.Hass):
         self.trigger = self.args['trigger']
         self.message = self.args['message']
 
-        self.listen_state(cb=self.callback, entity=self.trigger, new='Fertig', old='Aktiv')
+        self.listen_state(callback=self.callback, entity=self.trigger, new='Fertig', old='Aktiv')
 
     def callback(self, *args, **kwargs):
         self.log('laundry is done')

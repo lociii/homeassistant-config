@@ -12,10 +12,10 @@ class StateSunprotection(hass.Hass):
         self.indicator = self.args['indicator']
 
         # global setting turned off
-        self.listen_state(cb=self.deactivate, entity=self.switch, new='off')
+        self.listen_state(callback=self.deactivate, entity=self.switch, new='off')
 
         # update begin timer when start time changes
-        self.listen_state(cb=self.set_timer_begin, entity=self.start_time)
+        self.listen_state(callback=self.set_timer_begin, entity=self.start_time)
 
         # add begin and end timers
         self.set_timer_begin()

@@ -12,7 +12,7 @@ class StateDarknessCoverProtection(hass.Hass):
         self.set_timer()
 
         # listen to state changes on the offset inputs and reset the timers
-        self.listen_state(cb=self.set_timer, entity=self.offset)
+        self.listen_state(callback=self.set_timer, entity=self.offset)
 
         # deactivate protection on sunrise
         self.run_at_sunrise(self.deactivate)
