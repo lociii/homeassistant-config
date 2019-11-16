@@ -15,7 +15,10 @@ homeassistant:
   packages: !include_dir_named packages/
 
   auth_providers:
-  - type: homeassistant
+    - type: homeassistant
+
+  whitelist_external_dirs:
+    - /videos
 
 # enable default components
 default_config:
@@ -116,6 +119,10 @@ panel_iframe:
     title: Traccar
     url: https://traccar.home.schoenbuchallee.de
     icon: mdi:satellite-variant
+  tasmoadmin:
+    title: TasmoAdmin
+    url: https://tasmoadmin.home.schoenbuchallee.de
+    icon: mdi:shield-home-outline
   networkmap:
     title: 'Zigbee Map'
     url: '/local/community/zigbee2mqtt_networkmap/map.html'

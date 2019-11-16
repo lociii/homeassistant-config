@@ -1,0 +1,298 @@
+switch:
+  - platform: mqtt
+    name: "sonos_surround_rear_left"
+    state_topic: "stat/tasmota-sp111-01/POWER"
+    command_topic: "cmnd/tasmota-sp111-01/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "sonos_surround_rear_right"
+    state_topic: "stat/tasmota-sp111-02/POWER"
+    command_topic: "cmnd/tasmota-sp111-02/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "sonos_surround_sub"
+    state_topic: "stat/tasmota-sp111-03/POWER"
+    command_topic: "cmnd/tasmota-sp111-03/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "sonos_shower"
+    state_topic: "stat/tasmota-sp111-04/POWER"
+    command_topic: "cmnd/tasmota-sp111-04/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "guest_room_printer"
+    state_topic: "stat/tasmota-sp111-05/POWER"
+    command_topic: "cmnd/tasmota-sp111-05/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "office_google_home"
+    state_topic: "stat/tasmota-sp111-06/POWER"
+    command_topic: "cmnd/tasmota-sp111-06/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "guest_room_desk"
+    state_topic: "stat/tasmota-sp111-07/POWER"
+    command_topic: "cmnd/tasmota-sp111-07/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "bedroom_tv"
+    state_topic: "stat/tasmota-sp111-08/POWER"
+    command_topic: "cmnd/tasmota-sp111-08/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  
+sensor:
+  - platform: mqtt
+    name: "sonos_surround_rear_left_energy_today"
+    state_topic: "tele/tasmota-sp111-01/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_rear_left_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-01/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_rear_left_energy_total"
+    state_topic: "tele/tasmota-sp111-01/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_rear_left_power"
+    state_topic: "tele/tasmota-sp111-01/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "sonos_surround_rear_left_voltage"
+    state_topic: "tele/tasmota-sp111-01/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "sonos_surround_rear_left_power_factor"
+    state_topic: "tele/tasmota-sp111-01/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
+
+  - platform: mqtt
+    name: "sonos_surround_rear_right_energy_today"
+    state_topic: "tele/tasmota-sp111-02/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_rear_right_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-02/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_rear_right_energy_total"
+    state_topic: "tele/tasmota-sp111-02/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_rear_right_power"
+    state_topic: "tele/tasmota-sp111-02/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "sonos_surround_rear_right_voltage"
+    state_topic: "tele/tasmota-sp111-02/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "sonos_surround_rear_rightt_power_factor"
+    state_topic: "tele/tasmota-sp111-02/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
+
+  - platform: mqtt
+    name: "sonos_surround_sub_energy_today"
+    state_topic: "tele/tasmota-sp111-03/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_sub_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-03/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_sub_energy_total"
+    state_topic: "tele/tasmota-sp111-03/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_sub_power"
+    state_topic: "tele/tasmota-sp111-03/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "sonos_surround_sub_voltage"
+    state_topic: "tele/tasmota-sp111-03/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "sonos_surround_sub_power_factor"
+    state_topic: "tele/tasmota-sp111-03/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
+
+  - platform: mqtt
+    name: "sonos_surround_shower_energy_today"
+    state_topic: "tele/tasmota-sp111-04/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_shower_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-04/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_shower_energy_total"
+    state_topic: "tele/tasmota-sp111-04/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "sonos_surround_shower_power"
+    state_topic: "tele/tasmota-sp111-04/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "sonos_surround_shower_voltage"
+    state_topic: "tele/tasmota-sp111-04/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "sonos_surround_shower_power_factor"
+    state_topic: "tele/tasmota-sp111-04/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
+
+  - platform: mqtt
+    name: "guest_room_printer_energy_today"
+    state_topic: "tele/tasmota-sp111-05/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "guest_room_printer_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-05/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "guest_room_printer_energy_total"
+    state_topic: "tele/tasmota-sp111-05/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "guest_room_printer_power"
+    state_topic: "tele/tasmota-sp111-05/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "guest_room_printer_voltage"
+    state_topic: "tele/tasmota-sp111-05/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "guest_room_printer_power_factor"
+    state_topic: "tele/tasmota-sp111-05/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
+
+  - platform: mqtt
+    name: "office_google_home_energy_today"
+    state_topic: "tele/tasmota-sp111-06/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "office_google_home_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-06/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "office_google_home_energy_total"
+    state_topic: "tele/tasmota-sp111-06/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "office_google_home_power"
+    state_topic: "tele/tasmota-sp111-06/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "office_google_home_voltage"
+    state_topic: "tele/tasmota-sp111-06/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "office_google_home_power_factor"
+    state_topic: "tele/tasmota-sp111-06/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
+
+  - platform: mqtt
+    name: "guest_room_desk_energy_today"
+    state_topic: "tele/tasmota-sp111-07/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "guest_room_desk_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-07/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "guest_room_desk_energy_total"
+    state_topic: "tele/tasmota-sp111-07/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "guest_room_desk_power"
+    state_topic: "tele/tasmota-sp111-07/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "guest_room_desk_voltage"
+    state_topic: "tele/tasmota-sp111-07/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "guest_room_desk_power_factor"
+    state_topic: "tele/tasmota-sp111-07/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
+
+  - platform: mqtt
+    name: "bedroom_tv_energy_today"
+    state_topic: "tele/tasmota-sp111-08/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "bedroom_tv_energy_yesterday"
+    state_topic: "tele/tasmota-sp111-08/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "bedroom_tv_energy_total"
+    state_topic: "tele/tasmota-sp111-08/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "bedroom_tv_power"
+    state_topic: "tele/tasmota-sp111-08/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "bedroom_tv_voltage"
+    state_topic: "tele/tasmota-sp111-08/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "bedroom_tv_power_factor"
+    state_topic: "tele/tasmota-sp111-08/SENSOR"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'

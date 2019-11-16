@@ -131,6 +131,8 @@ services:
     volumes:
       - tasmoadmin:/data
       - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "8124:80"
     labels:
       - "traefik.enable=true"
 
