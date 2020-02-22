@@ -1,5 +1,0 @@
-state_darkness_cover_protection:
-  module: StateDarknessCoverProtection
-  class: StateDarknessCoverProtection
-  indicator: input_boolean.automation_darkness_cover_protection
-  offset: input_number.automation_darkness_cover_protection

@@ -1,4 +1,0 @@
-cast:
-  media_player:
-  - host: !secret google_home_living_room_ip
-  - host: !secret google_home_office_ip

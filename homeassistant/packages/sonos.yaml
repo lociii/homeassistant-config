@@ -1,3 +1,0 @@
-sonos:
-  media_player:
-    hosts: !secret sonos_ips

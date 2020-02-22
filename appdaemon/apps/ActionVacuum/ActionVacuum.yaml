@@ -1,7 +1,0 @@
-vacuum_clean:
-  module: ActionVacuum
-  class: ActionVacuum
-  entity: vacuum.xiaomi_vacuum_cleaner
-  trigger: input_boolean.automation_vacuum_cleaning
-  target: input_boolean.automation_vacuum_cleaning_done
-  constrain_input_boolean: input_boolean.automation_vacuum_cleaning_done,off

@@ -1,5 +1,0 @@
-state_darkness_cover_shutdown:
-  module: StateDarknessCoverShutdown
-  class: StateDarknessCoverShutdown
-  indicator: input_boolean.automation_darkness_cover_shutdown
-  time: input_datetime.automation_darkness_shutdown

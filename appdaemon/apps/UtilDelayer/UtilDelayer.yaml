@@ -1,4 +1,0 @@
-util_delayer:
-  module: UtilDelayer
-  class: UtilDelayer
-  simulate: input_boolean.automation_simulate_only
