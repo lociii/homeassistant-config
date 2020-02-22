@@ -1,0 +1,8 @@
+- platform: amazon_polly
+  cache: true
+  cache_dir: /tmp/tts
+  time_memory: 28800  # 8 hours
+  aws_access_key_id: !secret aws_access_key_id
+  aws_secret_access_key: !secret aws_secret_access_key
+  region_name: eu-central-1
+  voice: Marlene

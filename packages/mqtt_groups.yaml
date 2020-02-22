@@ -1,0 +1,27 @@
+light:
+  - platform: mqtt
+    schema: json
+    name: Stehlampe Wohnzimmer
+    command_topic: "zigbee2mqtt/light_livingroom_standing/set"
+    state_topic: "zigbee2mqtt/light_livingroom_standing"
+    retain: true
+    brightness: true
+    rgb: true
+
+  - platform: mqtt
+    schema: json
+    name: Stehlampe Gästezimmer
+    command_topic: "zigbee2mqtt/light_guestroom_standing/set"
+    state_topic: "zigbee2mqtt/light_guestroom_standing"
+    retain: true
+    brightness: true
+    rgb: true
+
+  - platform: mqtt
+    schema: json
+    name: Garten Balllampen
+    command_topic: "zigbee2mqtt/light_garden_balls/set"
+    state_topic: "zigbee2mqtt/light_garden_balls"
+    retain: true
+    brightness: true
+    rgb: true

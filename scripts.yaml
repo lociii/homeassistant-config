@@ -1,0 +1,334 @@
+katzenklo_reset:
+  alias: Katzenklo - Zuruecksetzen
+  sequence:
+  - data:
+      value: 0
+    entity_id: input_number.count_usage_catlitter
+    service: input_number.set_value
+  - data:
+      value: 0
+    entity_id: input_number.count_usage_catlitter_office
+    service: input_number.set_value
+  - data:
+      datetime: '1970-01-01 00:00:00'
+    entity_id: input_datetime.last_usage_catlitter_office
+    service: input_datetime.set_datetime
+  - data:
+      value: 0
+    entity_id: input_number.count_usage_catlitter_hallway
+    service: input_number.set_value
+  - data:
+      datetime: '1970-01-01 00:00:00'
+    entity_id: input_datetime.last_usage_catlitter_hallway
+    service: input_datetime.set_datetime
+  - data:
+      value: 0
+    entity_id: input_number.count_usage_catlitter_guestroom
+    service: input_number.set_value
+  - data:
+      datetime: '1970-01-01 00:00:00'
+    entity_id: input_datetime.last_usage_catlitter_guestroom
+    service: input_datetime.set_datetime
+wakeup_light:
+  alias: Wakeup light
+  sequence:
+  - data:
+      brightness: 10
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: 00:00:05
+  - data:
+      brightness: 25
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 50
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 75
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 100
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 125
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 150
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 175
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 200
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 225
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - data:
+      brightness: 250
+      rgb_color:
+      - 255
+      - 127
+      - 0
+    entity_id: light.schlafzimmer_led_bett
+    service: light.turn_on
+gaestezimmer_stehlampe_warmweiss:
+  alias: Gaestezimmer - Stehlampe - Warmweiss
+  sequence:
+  - data:
+      xy_color:
+      - 0.45989990234
+      - 0.41059875488
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+gaestezimmer_stehlampe_alarm_rot:
+  alias: Gaestezimmer - Stehlampe - Alarm Rot
+  sequence:
+  - data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      transition: 1
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+  - delay: '1'
+  - data:
+      flash: short
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+  - delay: '3'
+  - data:
+      transition: 2
+      xy_color:
+      - 0.45989990234
+      - 0.41059875488
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+gaestezimmer_stehlampe_alarm_blau:
+  alias: Gaestezimmer - Stehlampe - Alarm Blau
+  sequence:
+  - data:
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      transition: 1
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+  - delay: '1'
+  - data:
+      flash: short
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+  - delay: '3'
+  - data:
+      transition: 2
+      xy_color:
+      - 0.45989990234
+      - 0.41059875488
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+wohnzimmer_stehlampe_warmweiss:
+  alias: Wohnzimmer - Stehlampe - Warmweiss
+  sequence:
+  - data:
+      xy_color:
+      - 0.45989990234
+      - 0.41059875488
+    entity_id: light.stehlampe_wohnzimmer
+    service: light.turn_on
+wohnzimmer_stehlampe_alarm_blau:
+  alias: Wohnzimmer - Stehlampe - Alarm Blau
+  sequence:
+  - data:
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      transition: 1
+    entity_id: light.stehlampe_wohnzimmer
+    service: light.turn_on
+  - delay: '1'
+  - data:
+      flash: short
+    entity_id: light.stehlampe_wohnzimmer
+    service: light.turn_on
+  - delay: '3'
+  - data:
+      transition: 2
+      xy_color:
+      - 0.45989990234
+      - 0.41059875488
+    entity_id: light.stehlampe_wohnzimmer
+    service: light.turn_on
+wohnzimmer_stehlampe_alarm_rot:
+  alias: Wohnzimmer - Stehlampe - Alarm Rot
+  sequence:
+  - data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      transition: 1
+    entity_id: light.stehlampe_wohnzimmer
+    service: light.turn_on
+  - delay: '1'
+  - data:
+      flash: short
+    entity_id: light.stehlampe_wohnzimmer
+    service: light.turn_on
+  - delay: '3'
+  - data:
+      transition: 2
+      xy_color:
+      - 0.45989990234
+      - 0.41059875488
+    entity_id: light.stehlampe_wohnzimmer
+    service: light.turn_on
+staubsauger_zone_kueche:
+  alias: Staubsauger - Kueche
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - kueche
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command
+staubsauger_zone_bad:
+  alias: Staubsauger - Bad
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - bad
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command
+staubsauger_zone_buero:
+  alias: Staubsauger - Buero
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - buero
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command
+staubsauger_zone_dusche:
+  alias: Staubsauger - Dusche
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - dusche
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command
+staubsauger_zone_flur:
+  alias: Staubsauger - Flur
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - flur
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command
+staubsauger_zone_gaestezimmer:
+  alias: Staubsauger - Gaestezimmer
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - gaestezimmer
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command
+staubsauger_zone_schlafzimmer:
+  alias: Staubsauger - Schlafzimmer
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - schlafzimmer
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command
+staubsauger_zone_wohnzimmer:
+  alias: Staubsauger - Wohnzimmer
+  sequence:
+  - data:
+      command: zoned_cleanup
+      entity_id: vacuum.rockrobo
+      params:
+        zone_ids:
+        - wohnzimmer
+    entity_id: vacuum.rockrobo
+    service: vacuum.send_command

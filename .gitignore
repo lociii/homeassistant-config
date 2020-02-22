@@ -1,0 +1,32 @@
+# security
+.cloud/
+.storage/
+.uuid
+.google.token
+*.pickle
+firetv/adbkey*
+*.conf
+secrets.yaml
+google_calendars.yaml
+
+# useless / large
+*.log
+*.db
+
+# temp
+tts/
+deps/
+
+# managed by HACS
+custom_components/
+themes/
+www/
+
+# stats
+.HA_VERSION
+
+# runtime
+*.pyc
+
+# outdated
+appdaemon/

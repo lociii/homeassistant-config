@@ -1,0 +1,56 @@
+
+# load all default setup
+default_config:
+
+# set base for generating urls
+http:
+  base_url: !secret http_base_url
+
+homeassistant:
+  packages: !include_dir_named packages
+  customize: !include customize.yaml
+
+  whitelist_external_dirs:
+    - /tmp
+    - /share
+
+# text to speech
+tts: !include tts.yaml
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# support video streams
+stream:
+
+# check for updates and send anonymous component usage stats
+updater:
+  include_used_components: true
+
+# record to mariadb
+recorder:
+  purge_keep_days: 30
+  purge_interval: 1
+  db_url: !secret recorder_db_url
+  exclude:
+    entities:
+      - sensor.date
+
+# include hacs themes
+frontend:
+  themes: !include_dir_merge_named themes
+
+# sidebar
+panel_iframe:
+  networkmap:
+    title: Zigbee Map
+    url: /local/community/zigbee2mqtt_networkmap/map.html
+    icon: mdi:network-outline
+
+# activate webhooks
+webhook:
+
+# variables integration https://github.com/snarky-snark/home-assistant-variables
+var: !include variables.yaml

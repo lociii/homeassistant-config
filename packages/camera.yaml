@@ -1,0 +1,7 @@
+camera:
+  - platform: generic
+    name: catdoor
+    still_image_url: !secret camera_catdoor_still_image
+    stream_source: !secret camera_catdoor_stream_source
+    verify_ssl: false
+    framerate: 15

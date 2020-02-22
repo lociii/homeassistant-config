@@ -1,0 +1,9 @@
+# vacuum
+automation_vacuum_cleaning:
+  friendly_name: Staubsauger aktiv
+  initial_value: 'off'
+  icon: mdi:play
+automation_vacuum_cleaning_done:
+  friendly_name: Staubsauger fertig
+  initial_value: 'off'
+  icon: mdi:check
