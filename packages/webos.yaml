@@ -1,11 +1,11 @@
 webostv:
   host: !secret webostv_livingroom_host
   name: Fernseher Wohnzimmer
-  # customize:
-  #   sources:
-  #     - livetv
-  #     - FireTV
-  #     - Amazon Prime Video
-  #     - Netflix
-  #     - YouTube
-  #     - Foto und Video
+  customize:
+    sources:
+      - Live TV
+      - FireTV
+      - Amazon Prime Video
+      - Netflix
+      - YouTube
+      - Foto und Video
