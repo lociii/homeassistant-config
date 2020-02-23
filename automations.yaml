@@ -1309,7 +1309,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: script.1577023902327
+    entity_id: script.wakeup_light
     service: script.turn_off
   - data:
       brightness: 194
@@ -1329,7 +1329,7 @@
     to: 'off'
   condition: []
   action:
-  - entity_id: script.1577023902327
+  - entity_id: script.wakeup_light
     service: script.turn_off
   - data:
       brightness: 10
