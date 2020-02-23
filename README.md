@@ -30,7 +30,7 @@ Custom repos in use:
 
 ## Automations
 
-99% of my automations have been migrated to the [automations editor](automations.yaml).
+100% of my automations have been migrated to the [automations editor](automations.yaml).
 
 ## Custom components - HACS
 
