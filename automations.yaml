@@ -1369,13 +1369,10 @@
     value_template: '{{ now().hour == (states.input_number.alarm_hour.state  | round(0))  and  now().minute
       == (states.input_number.alarm_minute.state  | round(0) )  }}'
   - condition: state
-    entity_id: input_boolean.alarm_enabled
-    state: 'on'
-  - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   action:
-  - entity_id: script.1577023902327
+  - entity_id: script.wakeup_light
     service: script.turn_on
 - id: '1578663748318'
   alias: HACS - Add notification when update available

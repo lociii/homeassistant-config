@@ -23,11 +23,6 @@ binary_sensor:
     country: !secret country
     province: !secret province
 
-input_boolean:
-  alarm_enabled:
-    name: Wecker
-    icon: mdi:alarm
-
 sensor:
   - platform: template
     sensors:
