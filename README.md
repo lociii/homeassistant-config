@@ -127,6 +127,7 @@ Using IKEA Trådfri bulbs and OSRAM smart+ plugs as routers.
 ### Sensors
 
 * Met.no weather
+* DarkSky weather
 * Waze travel time
 * Home Assistant mobile app on Android/iOS devices
 * Xiaomi Aqara window/door sensors (zigbee)
