@@ -1642,3 +1642,29 @@
   - data:
       notification_id: http_login
     service: persistent_notification.dismiss
+- id: '1582446520981'
+  alias: Standheizung anschalten
+  description: ''
+  trigger:
+  - entity_id: switch.heating_on
+    for: 00:00:05
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - entity_id: switch.heating_on
+    service: switch.turn_off
+- id: '1582446585509'
+  alias: Standheizung ausschalten
+  description: ''
+  trigger:
+  - entity_id: switch.heating_off
+    for: 00:00:05
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - entity_id: switch.heating_off
+    service: switch.turn_off

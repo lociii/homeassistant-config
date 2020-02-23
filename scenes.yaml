@@ -34,3 +34,17 @@
     light.stehlampe_gastezimmer:
       friendly_name: Stehlampe
       state: 'off'
+- id: '1582446405577'
+  name: Standheizung anschalten
+  entities:
+    switch.heating_on:
+      assumed_state: true
+      friendly_name: Standheizung an
+      state: 'on'
+- id: '1582446425103'
+  name: Standheizung ausschalten
+  entities:
+    switch.heating_off:
+      assumed_state: true
+      friendly_name: Standheizung aus
+      state: 'on'
