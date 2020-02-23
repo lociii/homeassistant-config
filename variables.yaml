@@ -7,3 +7,9 @@ automation_vacuum_cleaning_done:
   friendly_name: Staubsauger fertig
   initial_value: 'off'
   icon: mdi:check
+
+# car pre-heating
+automation_car_preheating_reminder_sent:
+  friendly_name: Erinnerung verschickt
+  initial_value: 'off'
+  icon: mdi:check

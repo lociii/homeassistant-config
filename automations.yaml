@@ -1464,11 +1464,8 @@
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   - condition: state
-    entity_id: input_boolean.automation_carheating_reminder
-    state: 'off'
-  - condition: state
-    entity_id: input_boolean.automation_carheating_winter
-    state: 'on'
+    entity_id: var.automation_car_preheating_reminder_sent
+    state: '''off'''
   - after: 06:00:00
     before: '10:00:00'
     condition: time
@@ -1481,8 +1478,10 @@
       message: Moechtest du die Standheizung anschalten?
     entity_id: automation.turn_car_heating_on
     service: notify.mobile_app_pixel_2
-  - entity_id: input_boolean.automation_carheating_reminder
-    service: input_boolean.turn_on
+  - data:
+      value: 'on'
+    entity_id: var.automation_car_preheating_reminder_sent
+    service: var.set
 - id: '1581785801730'
   alias: Standheizung Jens - Aktion ausfuehren
   description: ''
@@ -1503,8 +1502,10 @@
     platform: time
   condition: []
   action:
-  - entity_id: input_boolean.automation_carheating_reminder
-    service: input_boolean.turn_off
+  - data:
+      value: 'off'
+    entity_id: var.automation_car_preheating_reminder_sent
+    service: var.set
 - id: '1582367078202'
   alias: Sonnenschutz Sued
   description: ''
@@ -1626,3 +1627,21 @@
   action:
   - entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
     service: scene.turn_on
+- id: '1582445168318'
+  alias: Security - Send notification on failed login attempt
+  description: ''
+  trigger:
+  - entity_id: persistent_notification.http_login
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state != ''None'' }}'
+  action:
+  - data:
+      message: 'url: https://whatismyipaddress.com/ip/{{ states.persistent_notification.http_login.attributes.message.split
+        ("from ") [1]}}'
+      title: '{{ states.persistent_notification.http_login.attributes.message }}'
+    service: persistent_notification.create
+  - data:
+      notification_id: http_login
+    service: persistent_notification.dismiss

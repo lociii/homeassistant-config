@@ -10,10 +10,6 @@ switch:
         command_off: !secret carheating_off_off
         friendly_name: Standheizung aus
 
-input_boolean:
-  automation_carheating_winter:
-  automation_carheating_reminder:
-
 scene:
   - name: car_heating_on
     entities:
