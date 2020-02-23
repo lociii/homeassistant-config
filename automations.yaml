@@ -1624,24 +1624,6 @@
   action:
   - entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
     service: scene.turn_on
-- id: '1582445168318'
-  alias: Security - Send notification on failed login attempt
-  description: ''
-  trigger:
-  - entity_id: persistent_notification.http_login
-    platform: state
-  condition:
-  - condition: template
-    value_template: '{{ trigger.to_state.state != ''None'' }}'
-  action:
-  - data:
-      message: 'url: https://whatismyipaddress.com/ip/{{ states.persistent_notification.http_login.attributes.message.split
-        ("from ") [1]}}'
-      title: '{{ states.persistent_notification.http_login.attributes.message }}'
-    service: persistent_notification.create
-  - data:
-      notification_id: http_login
-    service: persistent_notification.dismiss
 - id: '1582446520981'
   alias: Standheizung anschalten
   description: ''
