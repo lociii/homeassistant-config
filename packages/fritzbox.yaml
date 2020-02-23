@@ -5,6 +5,6 @@ sensor:
     username: !secret fritzbox_username
     password: !secret fritzbox_password
     prefixes:
-    - !secret fritzbox_country_code
-    - !secret fritzbox_area_code_international
-    - !secret fritzbox_area_code_national
+      - !secret fritzbox_country_code
+      - !secret fritzbox_area_code_international
+      - !secret fritzbox_area_code_national
