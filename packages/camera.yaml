@@ -5,3 +5,12 @@ camera:
     stream_source: !secret camera_catdoor_stream_source
     verify_ssl: false
     framerate: 15
+
+folder_watcher:
+  - folder: /share
+    patterns:
+      - '*.mp4'
+
+shell_command:
+  catdoor_copy_video: cp {{ filename }} /share/catdoor.mp4
+  catdoor_remove_video: rm {{ filename }}

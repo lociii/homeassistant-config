@@ -1106,19 +1106,22 @@
   - entity_id: scene.gameboy_an_hell
     service: scene.turn_on
 - id: '1575655282938'
-  alias: Katzentuer - Video aufnehmen
+  alias: Katzentür - Video aufnehmen
   description: ''
   trigger:
   - entity_id: binary_sensor.magnet_door_cats_contact
     from: 'off'
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: binary_sensor.people_home
+    state: 'off'
   action:
   - data:
       duration: 15
       entity_id: camera.catdoor
-      filename: /share/catdoor.mp4
+      filename: /share/catdoor_{{ as_timestamp(now()) | int}}.mp4
       lookback: 5
     service: camera.record
 - id: '1575655704902'
@@ -1137,52 +1140,6 @@
   - data:
       message: Eva kommt nach Hause
     service: notify.jens_telegram
-- id: '1575824369990'
-  alias: Katzentuer - Video an Jens
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.magnet_door_cats_contact
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.people_home
-    state: 'off'
-  action:
-  - timeout: 00:00:20
-    wait_template: ''
-  - data:
-      data:
-        video:
-        - caption: Katzentuer
-          file: /share/catdoor.mp4
-      message: Hier ist das neueste Video der Katzentuer.
-      title: Katzentuer
-    service: notify.jens_telegram
-- id: '1575962609788'
-  alias: Katzentuer - Video an Eva
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.magnet_door_cats_contact
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.people_home
-    state: 'off'
-  action:
-  - timeout: 00:00:20
-    wait_template: ''
-  - data:
-      data:
-        video:
-        - caption: Katzentuer
-          file: /share/catdoor.mp4
-      message: Hier ist das neueste Video der Katzentuer.
-      title: Katzentuer
-    service: notify.eva_telegram
 - id: '1576323197485'
   alias: Gameboy - Aus
   description: ''
@@ -1692,3 +1649,43 @@
     service: timer.cancel
   - entity_id: switch.zigbee2mqtt_allow_join
     service: switch.turn_off
+- id: '1582480132470'
+  alias: Katzentür - Video versenden
+  description: ''
+  trigger:
+  - event_data:
+      event_type: created
+    event_type: folder_watcher
+    platform: event
+  condition:
+  - condition: template
+    value_template: '{{ ''catdoor_'' in trigger.event.data.file and ''/share'' in
+      trigger.event.data.folder }}'
+  action:
+  - data_template:
+      filename: '{{ trigger.event.data.path }}'
+    service: shell_command.catdoor_copy_video
+  - delay: 00:00:02
+  - data:
+      data:
+        video:
+        - caption: Katzentür
+          file: /share/catdoor.mp4
+      message: Hier ist das neueste Video der Katzentür.
+      title: Katzentür
+    service: notify.jens_telegram
+  - data:
+      data:
+        video:
+        - caption: Katzentür
+          file: /share/catdoor.mp4
+      message: Hier ist das neueste Video der Katzentür.
+      title: Katzentür
+    service: notify.eva_telegram
+  - delay: 00:00:15
+  - data_template:
+      filename: '{{ trigger.event.data.path }}'
+    service: shell_command.catdoor_remove_video
+  - data_template:
+      filename: /share/catdoor.mp4
+    service: shell_command.catdoor_remove_video
