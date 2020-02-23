@@ -5,8 +5,8 @@ sensor:
     password: !secret synology_password
     scan_interval: 1800
     monitored_conditions:
-    - volume_size_total
-    - volume_percentage_used
-    - disk_name
-    - disk_smart_status
-    - memory_real_usage
+      - volume_size_total
+      - volume_percentage_used
+      - disk_name
+      - disk_smart_status
+      - memory_real_usage
