@@ -332,3 +332,98 @@ staubsauger_zone_wohnzimmer:
         - wohnzimmer
     entity_id: vacuum.rockrobo
     service: vacuum.send_command
+csgo_freezetime_stehlampe:
+  alias: CSGO - Freezetime - Stehlampe
+  sequence:
+  - data:
+      entity_id:
+      - script.csgo_flashloop1_stehlampe
+      - script.csgo_flashloop2_stehlampe
+    service: script.turn_off
+  - data:
+      rgb_color:
+      - 83
+      - 52
+      - 235
+      transition: 0.5
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+csgo_startende_stehlampe:
+  alias: CSGO - Rundenstart/Rundenende - Stehlampe
+  sequence:
+  - data:
+      entity_id:
+      - script.csgo_flashloop1_stehlampe
+      - script.csgo_flashloop2_stehlampe
+    service: script.turn_off
+  - data:
+      transition: 1
+      xy_color:
+      - 0.45989990234
+      - 0.41059875488
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+csgo_bombegelegt_stehlampe:
+  alias: CSGO - Bombe gelegt - Stehlampe
+  sequence:
+  - data:
+      rgb_color:
+      - 255
+      - 190
+      - 0
+      transition: 0.5
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+  - delay: '1'
+  - service: script.csgo_flashloop1_stehlampe
+csgo_bombeentschaeft_stehlampe:
+  alias: CSGO - Bombe entschaerft - Stehlampe
+  sequence:
+  - data:
+      entity_id:
+      - script.csgo_flashloop1_stehlampe
+      - script.csgo_flashloop2_stehlampe
+    service: script.turn_off
+  - data:
+      rgb_color:
+      - 0
+      - 255
+      - 0
+      transition: 0.5
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+csgo_bombeexplodiert_stehlampe:
+  alias: CSGO - Bombe explodiert - Stehlampe
+  sequence:
+  - data:
+      entity_id:
+      - script.csgo_flashloop1_stehlampe
+      - script.csgo_flashloop2_stehlampe
+    service: script.turn_off
+  - data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      transition: 0.5
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+csgo_flashloop1_stehlampe:
+  alias: CSGO - Flashloop 1 - Stehlampe
+  sequence:
+  - data: {}
+    entity_id: script.csgo_flashloop2_stehlampe
+    service: script.turn_off
+  - service: script.csgo_flashloop2_stehlampe
+  - data:
+      flash: long
+    entity_id: light.stehlampe_gastezimmer
+    service: light.turn_on
+  - delay: '10'
+csgo_flashloop2_stehlampe:
+  alias: CSGO - Flashloop 2 - Stehlampe
+  sequence:
+  - delay: '1'
+  - timeout: 00:00:15
+    wait_template: '{{ states.script.csgo_flashloop1_stehlampe.state == "off" }}'
+  - service: script.csgo_flashloop1_stehlampe

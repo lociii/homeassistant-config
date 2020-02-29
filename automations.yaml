@@ -1688,3 +1688,91 @@
   action:
   - entity_id: switch.heating_on
     service: switch.turn_on
+- id: '1582969948699'
+  alias: CSGO - Freezetime beginnt - Stehlampe
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: csgo_round_freeze
+    platform: event
+  condition:
+  - condition: device
+    device_id: ea309d4047374268b98889c9647d8015
+    domain: switch
+    entity_id: switch.plug_guestroom_standinglight_switch
+    type: is_on
+  action:
+  - data: {}
+    entity_id: script.csgo_freezetime_stehlampe
+    service: script.turn_on
+- id: '1582971262781'
+  alias: CSGO - Runde beginnt oder endet - Stehlampe
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: csgo_round_started
+    platform: event
+  - event_data: {}
+    event_type: csgo_game_stopped
+    platform: event
+  condition:
+  - condition: device
+    device_id: ea309d4047374268b98889c9647d8015
+    domain: switch
+    entity_id: switch.plug_guestroom_standinglight_switch
+    type: is_on
+  action:
+  - data: {}
+    entity_id: script.csgo_startende_stehlampe
+    service: script.turn_on
+- id: '1582971443403'
+  alias: CSGO - Bombe gelegt - Stehlampe
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: csgo_bomb_planted
+    platform: event
+  condition:
+  - condition: device
+    device_id: ea309d4047374268b98889c9647d8015
+    domain: switch
+    entity_id: switch.plug_guestroom_standinglight_switch
+    type: is_on
+  action:
+  - data: {}
+    entity_id: script.csgo_bombegelegt_stehlampe
+    service: script.turn_on
+- id: '1582971518136'
+  alias: CSGO - Bombe explodiert - Stehlampe
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: csgo_bomb_exploded
+    platform: event
+  condition:
+  - condition: device
+    device_id: ea309d4047374268b98889c9647d8015
+    domain: switch
+    entity_id: switch.plug_guestroom_standinglight_switch
+    type: is_on
+  action:
+  - data: {}
+    entity_id: script.csgo_bombeexplodiert_stehlampe
+    service: script.turn_on
+- id: '1582971569875'
+  alias: CSGO - Bombe entschaeft - Stehlampe
+  description: ''
+  trigger:
+  - event_data: {}
+    event_type: csgo_bomb_defused
+    platform: event
+  condition:
+  - condition: device
+    device_id: ea309d4047374268b98889c9647d8015
+    domain: switch
+    entity_id: switch.plug_guestroom_standinglight_switch
+    type: is_on
+  action:
+  - data: {}
+    entity_id: script.csgo_bombeentschaeft_stehlampe
+    service: script.turn_on
