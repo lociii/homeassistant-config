@@ -1405,49 +1405,6 @@
   - data:
       message: request_location_update
     service: notify.mobile_app_mi_9
-- id: '1581784912881'
-  alias: Standheizung Jens - Erinnerung senden
-  description: ''
-  trigger:
-  - entity_id: light.dusche_deckenlicht
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'on'
-  - condition: state
-    entity_id: var.automation_car_preheating_reminder_sent
-    state: '''off'''
-  - after: 06:00:00
-    before: '10:00:00'
-    condition: time
-  action:
-  - data:
-      data:
-        actions:
-        - action: activate_carheating
-          title: Jetzt anschalten
-      message: Moechtest du die Standheizung anschalten?
-    entity_id: automation.turn_car_heating_on
-    service: notify.mobile_app_pixel_2
-  - data:
-      value: 'on'
-    entity_id: var.automation_car_preheating_reminder_sent
-    service: var.set
-- id: '1581785801730'
-  alias: Standheizung Jens - Aktion ausfuehren
-  description: ''
-  trigger:
-  - event_data:
-      action: activate_carheating
-    event_type: mobile_app_notification_action
-    platform: event
-  condition: []
-  action:
-  - entity_id: automation.turn_car_heating_on
-    service: automation.trigger
 - id: '1581850309181'
   alias: Standheizung Jens - Erinnerung zuruecksetzen
   description: ''
@@ -1582,7 +1539,7 @@
   - entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
     service: scene.turn_on
 - id: '1582446520981'
-  alias: Standheizung anschalten
+  alias: Standheizung Jens - Anschalten
   description: ''
   trigger:
   - entity_id: switch.heating_on
@@ -1595,7 +1552,7 @@
   - entity_id: switch.heating_on
     service: switch.turn_off
 - id: '1582446585509'
-  alias: Standheizung ausschalten
+  alias: Standheizung Jens - Ausschalten
   description: ''
   trigger:
   - entity_id: switch.heating_off
@@ -1689,3 +1646,45 @@
   - data_template:
       filename: /share/catdoor.mp4
     service: shell_command.catdoor_remove_video
+- id: '1582614358649'
+  alias: Standheizung Jens - Erinnerung senden
+  description: ''
+  trigger:
+  - entity_id: light.dusche_deckenlicht
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: state
+    entity_id: var.automation_car_preheating_reminder_sent
+    state: 'off'
+  - after: 06:00:00
+    before: '10:00:00'
+    condition: time
+  action:
+  - data:
+      value: 'on'
+    entity_id: var.automation_car_preheating_reminder_sent
+    service: var.set
+  - data:
+      data:
+        actions:
+        - action: activate_carheating
+          title: Jetzt anschalten
+      message: Moechtest du die Standheizung anschalten?
+    service: notify.mobile_app_pixel_2
+- id: '1582614919426'
+  alias: Standheizung Jens - Aktion ausfuehren
+  description: ''
+  trigger:
+  - event_data:
+      action: activate_carheating
+    event_type: mobile_app_notification_action
+    platform: event
+  condition: []
+  action:
+  - entity_id: switch.heating_on
+    service: switch.turn_on
