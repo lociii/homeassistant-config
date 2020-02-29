@@ -347,7 +347,7 @@
   condition:
   - condition: state
     entity_id: var.automation_vacuum_cleaning
-    state: '''on'''
+    state: 'on'
   action:
   - data:
       value: 'on'
@@ -369,7 +369,7 @@
   condition:
   - condition: state
     entity_id: var.automation_vacuum_cleaning_done
-    state: '''off'''
+    state: 'off'
   action:
   - data:
       value: 'on'
