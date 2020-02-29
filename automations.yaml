@@ -1696,17 +1696,15 @@
     event_type: csgo_round_freeze
     platform: event
   condition:
-  - condition: device
-    device_id: ea309d4047374268b98889c9647d8015
-    domain: switch
-    entity_id: switch.plug_guestroom_standinglight_switch
-    type: is_on
+  - condition: state
+    entity_id: light.stehlampe_gastezimmer
+    state: 'on'
   action:
   - data: {}
     entity_id: script.csgo_freezetime_stehlampe
     service: script.turn_on
 - id: '1582971262781'
-  alias: CSGO - Runde beginnt oder endet - Stehlampe
+  alias: CSGO - Runde beginnt oder Spiel endet - Stehlampe
   description: ''
   trigger:
   - event_data: {}
@@ -1716,14 +1714,12 @@
     event_type: csgo_game_stopped
     platform: event
   condition:
-  - condition: device
-    device_id: ea309d4047374268b98889c9647d8015
-    domain: switch
-    entity_id: switch.plug_guestroom_standinglight_switch
-    type: is_on
+  - condition: state
+    entity_id: light.stehlampe_gastezimmer
+    state: 'on'
   action:
   - data: {}
-    entity_id: script.csgo_startende_stehlampe
+    entity_id: script.csgo_rundenstart_spielende_stehlampe
     service: script.turn_on
 - id: '1582971443403'
   alias: CSGO - Bombe gelegt - Stehlampe
@@ -1733,11 +1729,9 @@
     event_type: csgo_bomb_planted
     platform: event
   condition:
-  - condition: device
-    device_id: ea309d4047374268b98889c9647d8015
-    domain: switch
-    entity_id: switch.plug_guestroom_standinglight_switch
-    type: is_on
+  - condition: state
+    entity_id: light.stehlampe_gastezimmer
+    state: 'on'
   action:
   - data: {}
     entity_id: script.csgo_bombegelegt_stehlampe
@@ -1750,11 +1744,9 @@
     event_type: csgo_bomb_exploded
     platform: event
   condition:
-  - condition: device
-    device_id: ea309d4047374268b98889c9647d8015
-    domain: switch
-    entity_id: switch.plug_guestroom_standinglight_switch
-    type: is_on
+  - condition: state
+    entity_id: light.stehlampe_gastezimmer
+    state: 'on'
   action:
   - data: {}
     entity_id: script.csgo_bombeexplodiert_stehlampe
@@ -1767,12 +1759,23 @@
     event_type: csgo_bomb_defused
     platform: event
   condition:
-  - condition: device
-    device_id: ea309d4047374268b98889c9647d8015
-    domain: switch
-    entity_id: switch.plug_guestroom_standinglight_switch
-    type: is_on
+  - condition: state
+    entity_id: light.stehlampe_gastezimmer
+    state: 'on'
   action:
   - data: {}
     entity_id: script.csgo_bombeentschaeft_stehlampe
     service: script.turn_on
+- id: '1583018895328'
+  alias: CSGO - Rundenende - Stehlampe
+  description: ''
+  trigger:
+  - event_type: csgo_round_ended
+    platform: event
+  condition:
+  - condition: state
+    entity_id: light.stehlampe_gastezimmer
+    state: 'on'
+  action:
+  - data: {}
+    service: script.csgo_rundenende_stehlampe

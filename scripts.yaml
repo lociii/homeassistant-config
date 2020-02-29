@@ -348,8 +348,8 @@ csgo_freezetime_stehlampe:
       transition: 0.5
     entity_id: light.stehlampe_gastezimmer
     service: light.turn_on
-csgo_startende_stehlampe:
-  alias: CSGO - Rundenstart/Rundenende - Stehlampe
+csgo_rundenstart_spielende_stehlampe:
+  alias: CSGO - Rundenstart/Spielende - Stehlampe
   sequence:
   - data:
       entity_id:
@@ -427,3 +427,11 @@ csgo_flashloop2_stehlampe:
   - timeout: 00:00:15
     wait_template: '{{ states.script.csgo_flashloop1_stehlampe.state == "off" }}'
   - service: script.csgo_flashloop1_stehlampe
+csgo_rundenende_stehlampe:
+  alias: CSGO - Rundenende - Stehlampe
+  sequence:
+  - data:
+      entity_id:
+      - script.csgo_flashloop1_stehlampe
+      - script.csgo_flashloop2_stehlampe
+    service: script.turn_off
