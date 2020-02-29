@@ -21,12 +21,12 @@ All additional containers are installed and managed by the Home Assistant Superv
 Custom repos in use:
 * Stephen Beechen (Google Drive backup)
   https://github.com/sabeechen/hassio-google-drive-backup
-* Kory Prince (APC UPS daemon)
-  https://github.com/korylprince/hassio-apcupsd
-* Nicholas Alipaz (dynamic DNS updater)
+* Nicholas Alipaz (Dynamic DNS updater)
   https://github.com/nalipaz/hassio-addons
 * Markus Pöschl (i.a. Valetudo mapper)
   https://github.com/Poeschl/Hassio-Addons
+* Home Assistant Community Edge Addons (Network UPS Tools)
+  https://addons.community/edge
 
 ## Automations
 
@@ -44,6 +44,10 @@ The following components are essential to my setup:
 My [homegrown component](https://github.com/lociii/homeassistant-digitalstrom) to control my lights and shutters which are based on [digitalSTROM](https://www.digitalstrom.com/).
 
 Check out the underlying library for more details: [pydigitalstrom](https://github.com/lociii/pydigitalstrom)
+
+### CS:GO game state
+
+My [homegrown component](https://github.com/lociii/homeassistant-csgo) to automate my home according to the state of the CS:GO game I'm playing.
 
 ### UniFi Gateway
 
@@ -144,7 +148,11 @@ Using IKEA Trådfri bulbs and OSRAM smart+ plugs as routers.
   [Gosund SP111 single switches](https://templates.blakadder.com/gosund_SP111.html)
   [Klas Remo single switches](https://templates.blakadder.com/SWA11.html)
   [AOFO 4AC + 4USB](https://templates.blakadder.com/aofo_4AC4USB.html)
-  
+
+### UPS
+
+* Eaton Ellipse Pro 650 UPS
+  Monitored via Network UPS Tools (Home Assistant Supervisor addon)
 
 ### Utility
 
