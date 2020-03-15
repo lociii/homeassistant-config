@@ -1377,18 +1377,6 @@
   action:
   - entity_id: script.gaestezimmer_stehlampe_alarm_rot
     service: script.turn_on
-- id: '1581784517842'
-  alias: Eva - Update location when not home
-  description: ''
-  trigger:
-  - hours: '*'
-    minutes: /15
-    platform: time_pattern
-  condition: []
-  action:
-  - data:
-      message: request_location_update
-    service: notify.mobile_app_mi_9
 - id: '1581850309181'
   alias: Standheizung Jens - Erinnerung zuruecksetzen
   description: ''
