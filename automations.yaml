@@ -109,14 +109,6 @@
       - switch.plug_livingroom_standinglight_switch
       - switch.plug_guestroom_standinglight_switch
     service: switch.turn_off
-  - data:
-      brightness: 10
-      transition: 60
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: 00:01:05
-  - entity_id: light.schlafzimmer_led_bett
-    service: light.turn_off
 - id: '1574018705350'
   alias: Schlafen - Aufstehen - Rolladen
   description: ''
@@ -1260,44 +1252,36 @@
   description: ''
   trigger:
   - entity_id: light.schlafzimmer_bettlicht
-    from: 'off'
     platform: state
-    to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.philips_lightstrip_bett
+    state: 'off'
   action:
   - data: {}
     entity_id: script.wakeup_light
     service: script.turn_off
   - data:
-      brightness: 194
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
+      brightness: 164
+      color_temp: 440
+      transition: 1
+    entity_id: light.philips_lightstrip_bett
     service: light.turn_on
 - id: '1577027772471'
   alias: Forward status - Bettlicht - Aus
   description: ''
   trigger:
   - entity_id: light.schlafzimmer_bettlicht
-    from: 'on'
     platform: state
-    to: 'off'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.philips_lightstrip_bett
+    state: 'on'
   action:
   - entity_id: script.wakeup_light
     service: script.turn_off
-  - data:
-      brightness: 10
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: 00:00:01
-  - entity_id: light.schlafzimmer_led_bett
+  - data: {}
+    entity_id: light.philips_lightstrip_bett
     service: light.turn_off
 - id: '1577033218991'
   alias: Gameboy - An - Dunkel
@@ -1779,3 +1763,24 @@
   action:
   - data: {}
     service: script.csgo_rundenende_stehlampe
+- id: '1584273948325'
+  alias: Schlafen - Einschlafen - Bettlicht
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.philips_lightstrip_bett
+    state: 'on'
+  action:
+  - data:
+      brightness: 10
+      transition: 60
+    entity_id: light.philips_lightstrip_bett
+    service: light.turn_on
+  - delay: 00:01:05
+  - entity_id: light.philips_lightstrip_bett
+    service: light.turn_off

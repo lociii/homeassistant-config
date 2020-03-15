@@ -34,101 +34,23 @@ wakeup_light:
   sequence:
   - data:
       brightness: 10
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
+      color_temp: 440
+      transition: 1
+    entity_id: light.philips_lightstrip_bett
     service: light.turn_on
   - delay: 00:00:05
   - data:
-      brightness: 25
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
+      brightness: 80
+      color_temp: 440
+      transition: 600
+    entity_id: light.philips_lightstrip_bett
     service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
+  - delay: 00:10:05
   - data:
-      brightness: 50
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 75
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 100
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 125
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 150
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 175
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 200
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 225
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
-    service: light.turn_on
-  - delay: '{{ states.sensor.wakeup_segment_wait.state }}'
-  - data:
-      brightness: 250
-      rgb_color:
-      - 255
-      - 127
-      - 0
-    entity_id: light.schlafzimmer_led_bett
+      brightness: 164
+      color_temp: 440
+      transition: 300
+    entity_id: light.philips_lightstrip_bett
     service: light.turn_on
 gaestezimmer_stehlampe_warmweiss:
   alias: Gaestezimmer - Stehlampe - Warmweiss
