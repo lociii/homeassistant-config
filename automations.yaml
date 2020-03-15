@@ -672,6 +672,7 @@
       - light.arbeitszimmer_alle_lichter
       - light.bad_alle_lichter
       - light.schlafzimmer_alle_lichter
+      - light.philips_lightstrip_bett
     service: light.turn_off
   - data:
       entity_id:
