@@ -1113,7 +1113,7 @@
     state: 'off'
   action:
   - data:
-      duration: 15
+      duration: 20
       entity_id: camera.catdoor
       filename: /share/catdoor_{{ as_timestamp(now()) | int}}.mp4
       lookback: 5
