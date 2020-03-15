@@ -675,7 +675,7 @@
     service: light.turn_off
   - data:
       entity_id:
-    - switch.tasmota_sp111_11
+      - switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574417564491'
   alias: Praesenz - Verlassen - Immer - Announcement
