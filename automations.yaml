@@ -106,8 +106,7 @@
     service: light.turn_off
   - data:
       entity_id:
-      - switch.plug_livingroom_standinglight_switch
-      - switch.plug_guestroom_standinglight_switch
+      - switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574018705350'
   alias: Schlafen - Aufstehen - Rolladen
@@ -182,7 +181,6 @@
       - switch.guest_room_printer
       - switch.office_google_home
       - switch.bedroom_tv
-      - switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574021126103'
   alias: Praesenz - Verlassen - Dunkel - Licht
@@ -645,25 +643,31 @@
       entity_id:
       - light.flur_flur
     service: light.turn_off
+  - delay: 00:00:02
   - data:
       entity_id:
       - light.flur_flur
     service: light.turn_on
+  - delay: 00:00:02
   - data:
       entity_id:
       - light.flur_flur
     service: light.turn_off
+  - delay: 00:00:02
   - data:
       entity_id:
       - light.flur_flur
     service: light.turn_on
+  - delay: 00:00:02
   - data:
       entity_id:
       - light.flur_alle_lichter
       - light.kuche_alle_lichter
       - light.esszimmer_alle_lichter
       - light.wohnzimmer_alle_lichter
+      - light.stehlampe_wohnzimmer
       - light.gastezimmer_alle_lichter
+      - light.stehlampe_gastezimmer
       - light.dusche_alle_lichter
       - light.arbeitszimmer_alle_lichter
       - light.bad_alle_lichter
@@ -671,8 +675,7 @@
     service: light.turn_off
   - data:
       entity_id:
-      - switch.plug_livingroom_standinglight_switch
-      - switch.plug_guestroom_standinglight_switch
+    - switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574417564491'
   alias: Praesenz - Verlassen - Immer - Announcement
@@ -919,26 +922,27 @@
   description: ''
   trigger:
   - entity_id: light.wohnzimmer_leselampe
-    from: 'off'
     platform: state
-    to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: switch.tasmota_sp111_11
+    state: 'off'
   action:
-  - data:
-      entity_id: switch.plug_livingroom_standinglight_switch
+  - data: {}
+    entity_id: switch.tasmota_sp111_11
     service: switch.turn_on
 - id: '1574517593262'
   alias: Forward status - Leselampe - Aus
   description: ''
   trigger:
   - entity_id: light.wohnzimmer_leselampe
-    from: 'on'
     platform: state
-    to: 'off'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: switch.tasmota_sp111_11
+    state: 'on'
   action:
-  - data:
-      entity_id: switch.plug_livingroom_standinglight_switch
+  - entity_id: switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574518397208'
   alias: Praesenz - Verlassen - Dunkel (Nacht) - Rollaeden
@@ -980,7 +984,6 @@
       - switch.sonos_shower
       - switch.tasmota_aofo_01
       - switch.office_google_home
-      - switch.tasmota_sp111_11
     service: switch.turn_on
 - id: '1574518959857'
   alias: Schlafen - Einschlafen - Geraete
@@ -1036,7 +1039,6 @@
       - switch.sonos_shower
       - switch.tasmota_aofo_01
       - switch.office_google_home
-      - switch.tasmota_sp111_11
     service: switch.turn_on
 - id: '1574522012420'
   alias: Sonos - Sub an - Surround an
