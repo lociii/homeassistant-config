@@ -181,6 +181,7 @@
       - switch.guest_room_printer
       - switch.office_google_home
       - switch.bedroom_tv
+      - switch.livingroom_telephone
     service: switch.turn_off
 - id: '1574021126103'
   alias: Praesenz - Verlassen - Dunkel - Licht
@@ -968,14 +969,21 @@
       - cover.schlafzimmer_alle_rolladen
     service: cover.close_cover
 - id: '1574518617472'
-  alias: Praesenz - Ankommen - Immer - Geraete (1)
+  alias: Praesenz - Ankommen - Immer - Geraete
   description: ''
   trigger:
   - entity_id: switch.apartment_present
     from: 'off'
     platform: state
     to: 'on'
+  - entity_id: binary_sensor.people_home
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
+  - condition: state
+    entity_id: switch.apartment_present
+    state: 'on'
   - condition: state
     entity_id: binary_sensor.people_home
     state: 'on'
@@ -985,6 +993,7 @@
       - switch.sonos_shower
       - switch.tasmota_aofo_01
       - switch.office_google_home
+      - switch.livingroom_telephone
     service: switch.turn_on
 - id: '1574518959857'
   alias: Schlafen - Einschlafen - Geraete
@@ -1004,6 +1013,7 @@
       - switch.guest_room_desk
       - switch.guest_room_printer
       - switch.office_google_home
+      - switch.livingroom_telephone
     service: switch.turn_off
 - id: '1574519033782'
   alias: Schlafen - Aufstehen - Geraete
@@ -1021,25 +1031,7 @@
       - switch.sonos_shower
       - switch.tasmota_aofo_01
       - switch.office_google_home
-    service: switch.turn_on
-- id: '1574519136487'
-  alias: Praesenz - Ankommen - Immer - Geraete (2)
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.people_home
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: switch.apartment_present
-    state: 'on'
-  action:
-  - data:
-      entity_id:
-      - switch.sonos_shower
-      - switch.tasmota_aofo_01
-      - switch.office_google_home
+      - switch.livingroom_telephone
     service: switch.turn_on
 - id: '1574522012420'
   alias: Sonos - Sub an - Surround an
@@ -1120,7 +1112,7 @@
       lookback: 5
     service: camera.record
 - id: '1575655704902'
-  alias: Praesenz - Eva kommt nach Hause
+  alias: Praesenz - Ankommen - Eva
   description: ''
   trigger:
   - entity_id: person.eva
