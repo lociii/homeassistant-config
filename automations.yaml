@@ -1293,17 +1293,13 @@
   - entity_id: scene.gameboy_an_dunkel
     service: scene.turn_on
 - id: '1577789351489'
-  alias: Wake up
+  alias: Wecker - Wake up light
   description: ''
   trigger:
-  - hours: '*'
-    minutes: '*'
-    platform: time_pattern
-    seconds: '30'
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.alarm_wake_up_light'')[0:5]
+      }}'
   condition:
-  - condition: template
-    value_template: '{{ now().hour == (states.input_number.alarm_hour.state  | round(0))  and  now().minute
-      == (states.input_number.alarm_minute.state  | round(0) )  }}'
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
@@ -1767,3 +1763,18 @@
   - delay: 00:01:05
   - entity_id: light.philips_lightstrip_bett
     service: light.turn_off
+- id: '1588948500578'
+  alias: Wecker - Rolladen auf Spalt
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.alarm_open_shutters'')[0:5]
+      }}'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
+    service: scene.turn_on
