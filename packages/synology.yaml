@@ -1,12 +1,12 @@
-sensor:
-  - platform: synologydsm
-    host: !secret synology_host
-    username: !secret synology_username
-    password: !secret synology_password
-    scan_interval: 1800
-    monitored_conditions:
-      - volume_size_total
-      - volume_percentage_used
-      - disk_name
-      - disk_smart_status
-      - memory_real_usage
+# sensor:
+#   - platform: synologydsm
+#     host: !secret synology_host
+#     username: !secret synology_username
+#     password: !secret synology_password
+#     scan_interval: 1800
+#     monitored_conditions:
+#       - volume_size_total
+#       - volume_percentage_used
+#       - disk_name
+#       - disk_smart_status
+#       - memory_real_usage
