@@ -32,7 +32,6 @@ updater:
 # record to mariadb
 recorder:
   purge_keep_days: 30
-  purge_interval: 1
   db_url: !secret recorder_db_url
   exclude:
     entities:
