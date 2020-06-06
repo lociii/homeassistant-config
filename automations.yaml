@@ -14,7 +14,7 @@
       - light.garten_balllampen
     service: light.turn_on
 - id: '1574017577024'
-  alias: Sonne - Untergang - Rollaeden
+  alias: Sonne - Untergang - Rolläden
   description: ''
   trigger:
   - event: sunset
@@ -22,7 +22,7 @@
     platform: sun
   condition: []
   action:
-    data:
+  - data:
       entity_id:
       - scene.wohnzimmer_rolladen_kuche_schlitz
       - scene.wohnzimmer_rolladen_esstisch_katzenmodus
@@ -32,7 +32,7 @@
       - scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
     service: scene.turn_on
 - id: '1574017668755'
-  alias: Sonne - Untergang - Rollaeden - abwesend
+  alias: Sonne - Untergang - Rolläden - abwesend
   description: ''
   trigger:
   - event: sunset
@@ -64,19 +64,20 @@
       - light.stehlampe_wohnzimmer
     service: light.turn_on
 - id: '1574018039900'
-  alias: Shutdown - Rolladen Kueche
+  alias: Shutdown - Rolladen Küche
   description: ''
   trigger:
-  - at: '23:00'
-    platform: time
+  - entity_id: input_boolean.rolladen_shutdown
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: binary_sensor.magnet_window_kitchen_contact
     state: 'off'
   action:
-  - data:
-      entity_id:
-      - cover.wohnzimmer_rolladen_kuche
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_kuche
     service: cover.close_cover
 - id: '1574018283325'
   alias: Schlafen - Einschlafen - Licht
@@ -109,7 +110,7 @@
       - switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574018705350'
-  alias: Schlafen - Aufstehen - Rolladen
+  alias: Schlafen - Aufstehen - Rolläden
   description: ''
   trigger:
   - entity_id: switch.apartment_sleeping
@@ -127,7 +128,7 @@
       - cover.schlafzimmer_alle_rolladen
     service: cover.open_cover
 - id: '1574018758288'
-  alias: Schlafen - Aufstehen - Rolladen - Hell
+  alias: Schlafen - Aufstehen - Rolläden - Hell
   description: ''
   trigger:
   - entity_id: switch.apartment_sleeping
@@ -144,7 +145,7 @@
       - cover.arbeitszimmer_alle_rolladen
     service: cover.open_cover
 - id: '1574019599778'
-  alias: Praesenz - Ankommen - Dunkel - Licht
+  alias: Präsenz - Ankommen - Dunkel - Licht
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -163,7 +164,7 @@
       - light.stehlampe_wohnzimmer
     service: light.turn_on
 - id: '1574020163614'
-  alias: Praesenz - Verlassen - Immer - Geraete
+  alias: Präsenz - Verlassen - Immer - Geräte
   description: Alle Lichter aus
   trigger:
   - entity_id: switch.apartment_present
@@ -184,7 +185,7 @@
       - switch.livingroom_telephone
     service: switch.turn_off
 - id: '1574021126103'
-  alias: Praesenz - Verlassen - Dunkel - Licht
+  alias: Präsenz - Verlassen - Dunkel - Licht
   description: Wandlampen und Garten an nach 30 Sekunden
   trigger:
   - entity_id: switch.apartment_present
@@ -207,73 +208,78 @@
   alias: Shutdown - Rolladen Esstisch
   description: ''
   trigger:
-  - at: '23:00'
-    platform: time
+  - entity_id: input_boolean.rolladen_shutdown
+    from: 'off'
+    platform: state
+    to: 'on'
   condition: []
   action:
-  - data:
-      entity_id:
-      - cover.wohnzimmer_rolladen_esstisch
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_esstisch
     service: cover.close_cover
 - id: '1574022722581'
   alias: Shutdown - Rolladen Couch
   description: ''
   trigger:
-  - at: '23:00'
-    platform: time
+  - entity_id: input_boolean.rolladen_shutdown
+    from: 'off'
+    platform: state
+    to: 'on'
   condition: []
   action:
-  - data:
-      entity_id:
-      - cover.wohnzimmer_rolladen_couch
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_couch
     service: cover.close_cover
 - id: '1574022799195'
-  alias: Shutdown - Rolladen Gaestezimmer
+  alias: Shutdown - Rolladen Gästezimmer
   description: ''
   trigger:
-  - at: '23:00'
-    platform: time
+  - entity_id: input_boolean.rolladen_shutdown
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: binary_sensor.magnet_window_guestroom_contact
     state: 'off'
   action:
-  - data:
-      entity_id:
-      - cover.gastezimmer_rolladen_gastezimmer
+  - data: {}
+    entity_id: cover.gastezimmer_rolladen_gastezimmer
     service: cover.close_cover
 - id: '1574022855896'
   alias: Shutdown - Rolladen Schlafzimmer
   description: ''
   trigger:
-  - at: '23:00'
-    platform: time
+  - entity_id: input_boolean.rolladen_shutdown
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: binary_sensor.magnet_window_bedroom_contact
     state: 'off'
   action:
-  - data:
-      entity_id:
-      - cover.schlafzimmer_rolladen_schlafzimmer
+  - data: {}
+    entity_id: cover.schlafzimmer_rolladen_schlafzimmer
     service: cover.close_cover
 - id: '1574022922656'
   alias: Shutdown - Rolladen Arbeitszimmer
   description: ''
   trigger:
-  - at: '23:00'
-    platform: time
+  - entity_id: input_boolean.rolladen_shutdown
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: binary_sensor.magnet_window_office_contact
     state: 'off'
   action:
-  - data:
-      entity_id:
-      - cover.arbeitszimmer_rolladen_arbeitszimmer
+  - data: {}
+    entity_id: cover.arbeitszimmer_rolladen_arbeitszimmer
     service: cover.close_cover
 - id: '1574281438489'
-  alias: Praesenz - Verlassen - Dunkel - Rollaeden
+  alias: Präsenz - Verlassen - Dunkel - Rolläden
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -298,11 +304,13 @@
       - scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
     service: scene.turn_on
 - id: '1574282446207'
-  alias: Shutdown - Rolladen Terrasse
-  description: nur wenn abwesend
+  alias: Shutdown - Rolladen Terrasse (abwesend)
+  description: ''
   trigger:
-  - at: '23:00'
-    platform: time
+  - entity_id: input_boolean.rolladen_shutdown
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: binary_sensor.magnet_door_patio_contact
@@ -311,9 +319,8 @@
     entity_id: switch.apartment_present
     state: 'off'
   action:
-  - data:
-      entity_id:
-      - cover.wohnzimmer_rolladen_terrasse
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_terrasse
     service: cover.close_cover
 - id: '1574282534738'
   alias: Staubsauger - Reset um Mitternacht
@@ -323,10 +330,8 @@
     platform: time
   condition: []
   action:
-  - data:
-      value: 'off'
-    entity_id: var.automation_vacuum_cleaning_done
-    service: var.set
+  - entity_id: input_boolean.staubsauger_fertig
+    service: input_boolean.turn_off
 - id: '1574283181716'
   alias: Staubsauger - Fertig
   description: ''
@@ -337,17 +342,13 @@
     to: returning
   condition:
   - condition: state
-    entity_id: var.automation_vacuum_cleaning
+    entity_id: input_boolean.staubsauger_aktiv
     state: 'on'
   action:
-  - data:
-      value: 'on'
-    entity_id: var.automation_vacuum_cleaning_done
-    service: var.set
-  - data:
-      value: 'off'
-    entity_id: var.automation_vacuum_cleaning
-    service: var.set
+  - entity_id: input_boolean.staubsauger_fertig
+    service: input_boolean.turn_on
+  - entity_id: input_boolean.staubsauger_aktiv
+    service: input_boolean.turn_off
 - id: '1574283289175'
   alias: Staubsauger - Starten wenn abwesend
   description: ''
@@ -359,18 +360,16 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: var.automation_vacuum_cleaning_done
+    entity_id: input_boolean.staubsauger_fertig
     state: 'off'
   action:
-  - data:
-      value: 'on'
-    entity_id: var.automation_vacuum_cleaning
-    service: var.set
+  - entity_id: input_boolean.staubsauger_aktiv
+    service: input_boolean.turn_on
   - data: {}
     entity_id: vacuum.rockrobo
     service: vacuum.start
 - id: '1574283389219'
-  alias: Staubsauger - Pausieren bei Rueckkehr
+  alias: Staubsauger - Pausieren bei Rückkehr
   description: Wenn noch nicht fertig, aber Praesenz wieder ausgeloest
   trigger:
   - entity_id: switch.apartment_present
@@ -382,15 +381,13 @@
     entity_id: vacuum.rockrobo
     state: cleaning
   action:
-  - data:
-      value: 'off'
-    entity_id: var.automation_vacuum_cleaning
-    service: var.set
+  - entity_id: input_boolean.staubsauger_aktiv
+    service: input_boolean.turn_off
   - data: {}
     entity_id: vacuum.rockrobo
     service: vacuum.return_to_base
 - id: '1574283695055'
-  alias: Praesenz - Abwesend - Luefter Zyklus - Start
+  alias: Präsenz - Abwesend - Lüfter Zyklus - Start
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -406,7 +403,7 @@
       - light.bad_lufter
     service: light.turn_on
 - id: '1574283801703'
-  alias: Praesenz - Abwesend - Luefter Zyklus - Bad Pause
+  alias: Präsenz - Abwesend - Lüfter Zyklus - Bad Pause
   description: ''
   trigger:
   - entity_id: light.bad_lufter
@@ -424,7 +421,7 @@
       - light.bad_lufter
     service: light.turn_off
 - id: '1574283865647'
-  alias: Praesenz - Abwesend - Luefter Zyklus - Dusche Pause
+  alias: Präsenz - Abwesend - Lüfter Zyklus - Dusche Pause
   description: ''
   trigger:
   - entity_id: light.dusche_lufter
@@ -442,7 +439,7 @@
       - light.dusche_lufter
     service: light.turn_off
 - id: '1574283955482'
-  alias: Praesenz - Abwesend - Luefter Zyklus - Dusche Start
+  alias: Präsenz - Abwesend - Lüfter Zyklus - Dusche Start
   description: ''
   trigger:
   - entity_id: light.dusche_lufter
@@ -460,7 +457,7 @@
       - light.dusche_lufter
     service: light.turn_on
 - id: '1574284021985'
-  alias: Praesenz - Abwesend - Luefter Zyklus - Bad Start
+  alias: Präsenz - Abwesend - Lüfter Zyklus - Bad Start
   description: ''
   trigger:
   - entity_id: light.bad_lufter
@@ -478,7 +475,7 @@
       - light.bad_lufter
     service: light.turn_on
 - id: '1574284345166'
-  alias: Praesenz - Abwesend - Luefter Zyklus - Stop
+  alias: Präsenz - Abwesend - Lüfter Zyklus - Stop
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -493,7 +490,7 @@
       - light.dusche_lufter
     service: light.turn_off
 - id: '1574284422124'
-  alias: Luefter - Bad - Licht an, Luefter an
+  alias: Lüfter - Bad - Licht an, Lüfter an
   description: ''
   trigger:
   - entity_id: light.bad_deckenlicht
@@ -508,7 +505,7 @@
       - light.bad_lufter
     service: light.turn_on
 - id: '1574284467743'
-  alias: Luefter - Bad - Licht aus, Luefter aus
+  alias: Lüfter - Bad - Licht aus, Lüfter aus
   description: ''
   trigger:
   - entity_id: light.bad_deckenlicht
@@ -523,7 +520,7 @@
       - light.bad_lufter
     service: light.turn_off
 - id: '1574284814277'
-  alias: Luefter - Dusche - Licht an, Luefter an
+  alias: Lüfter - Dusche - Licht an, Lüfter an
   description: ''
   trigger:
   - entity_id: light.dusche_deckenlicht
@@ -538,7 +535,7 @@
       - light.dusche_lufter
     service: light.turn_on
 - id: '1574284858035'
-  alias: Luefter - Dusche - Licht aus, Luefter aus
+  alias: Lüfter - Dusche - Licht aus, Lüfter aus
   description: ''
   trigger:
   - entity_id: light.dusche_deckenlicht
@@ -553,7 +550,7 @@
       - light.dusche_lufter
     service: light.turn_off
 - id: '1574285363572'
-  alias: Praesenz - Ankommen - Immer - Announcement
+  alias: Präsenz - Ankommen - Immer - Announcement
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -614,7 +611,7 @@
       - light.garten_balllampen
     service: light.turn_off
 - id: '1574417268114'
-  alias: Praesenz - Ankommen - Dunkel - Rolladen
+  alias: Präsenz - Ankommen - Dunkel - Rolläden
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -631,7 +628,7 @@
       - cover.wohnzimmer_rolladen_terrasse
     service: cover.open_cover
 - id: '1574417403641'
-  alias: Praesenz - Verlassen - Immer - Licht
+  alias: Präsenz - Verlassen - Immer - Licht
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -680,7 +677,7 @@
       - switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574417564491'
-  alias: Praesenz - Verlassen - Immer - Announcement
+  alias: Präsenz - Verlassen - Immer - Announcement
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -705,7 +702,7 @@
   - entity_id: media_player.wallpanel
     service: media_player.volume_mute
 - id: '1574509644201'
-  alias: Schlafen - Einschlafen - Rolladen
+  alias: Schlafen - Einschlafen - Rolläden
   description: ''
   trigger:
   - entity_id: switch.apartment_sleeping
@@ -733,7 +730,7 @@
   action:
   - service: zigbee2mqtt_networkmap.update
 - id: '1574516069986'
-  alias: Waesche - Trockner - Status - Aus
+  alias: Wäsche - Trockner - Status - Aus
   description: ''
   trigger:
   - below: '1'
@@ -747,7 +744,7 @@
       option: Aus
     service: input_select.select_option
 - id: '1574516162836'
-  alias: Waesche - Trockner - Status - Aktiv
+  alias: Wäsche - Trockner - Status - Aktiv
   description: ''
   trigger:
   - above: '40'
@@ -761,7 +758,7 @@
       option: Aktiv
     service: input_select.select_option
 - id: '1574516245695'
-  alias: Waesche - Trockner - Status - Fertig
+  alias: Wäsche - Trockner - Status - Fertig
   description: ''
   trigger:
   - above: '1'
@@ -776,7 +773,7 @@
       option: Fertig
     service: input_select.select_option
 - id: '1574516404593'
-  alias: Waesche - Waschmaschine - Status - Aktiv
+  alias: Wäsche - Waschmaschine - Status - Aktiv
   description: ''
   trigger:
   - above: '5'
@@ -790,7 +787,7 @@
       option: Aktiv
     service: input_select.select_option
 - id: '1574516479535'
-  alias: Waesche - Waschmaschine - Status - Aus
+  alias: Wäsche - Waschmaschine - Status - Aus
   description: ''
   trigger:
   - below: '1'
@@ -804,7 +801,7 @@
       option: Aus
     service: input_select.select_option
 - id: '1574516542749'
-  alias: Waesche - Waschmaschine - Status - Fertig
+  alias: Wäsche - Waschmaschine - Status - Fertig
   description: ''
   trigger:
   - above: '1'
@@ -819,7 +816,7 @@
       option: Fertig
     service: input_select.select_option
 - id: '1574516601948'
-  alias: Waesche - Waschmaschine Tier - Status - Aktiv
+  alias: Wäsche - Waschmaschine Tier - Status - Aktiv
   description: ''
   trigger:
   - above: '5'
@@ -833,7 +830,7 @@
       option: Aktiv
     service: input_select.select_option
 - id: '1574516653697'
-  alias: Waesche - Waschmaschine Tier - Status - Aus
+  alias: Wäsche - Waschmaschine Tier - Status - Aus
   description: ''
   trigger:
   - below: '1'
@@ -847,7 +844,7 @@
       option: Aus
     service: input_select.select_option
 - id: '1574516701027'
-  alias: Waesche - Waschmaschine Tier - Status - Fertig
+  alias: Wäsche - Waschmaschine Tier - Status - Fertig
   description: ''
   trigger:
   - above: '1'
@@ -862,7 +859,7 @@
       option: Fertig
     service: input_select.select_option
 - id: '1574517014436'
-  alias: Waesche - Trockner - Announcement
+  alias: Wäsche - Trockner - Announcement
   description: ''
   trigger:
   - entity_id: input_select.dryer_status
@@ -874,14 +871,20 @@
   action:
   - data:
       entity_id: media_player.wohnzimmer
-      volume_level: 0.3
+      volume_level: 0.5
     service: media_player.volume_set
+  - delay: 00:00:03
   - data:
       entity_id: media_player.wohnzimmer
       message: Der Trockner ist fertig.
     service: tts.amazon_polly_say
+  - delay: 00:00:15
+  - data:
+      entity_id: media_player.wohnzimmer
+      volume_level: 0.3
+    service: media_player.volume_set
 - id: '1574517171337'
-  alias: Waesche - Waschmaschine - Announcement
+  alias: Wäsche - Waschmaschine - Announcement
   description: ''
   trigger:
   - entity_id: input_select.washer_human_status
@@ -893,14 +896,20 @@
   action:
   - data:
       entity_id: media_player.wohnzimmer
-      volume_level: 0.3
+      volume_level: 0.5
     service: media_player.volume_set
+  - delay: 00:00:03
   - data:
       entity_id: media_player.wohnzimmer
       message: Die Waschmaschine ist fertig.
     service: tts.amazon_polly_say
+  - delay: 00:00:15
+  - data:
+      entity_id: media_player.wohnzimmer
+      volume_level: 0.3
+    service: media_player.volume_set
 - id: '1574517388376'
-  alias: Waesche - Waschmaschine Tier - Announcement
+  alias: Wäsche - Waschmaschine Tier - Announcement
   description: ''
   trigger:
   - entity_id: input_select.washer_animal_status
@@ -912,19 +921,26 @@
   action:
   - data:
       entity_id: media_player.wohnzimmer
-      volume_level: 0.4
+      volume_level: 0.5
     service: media_player.volume_set
-  - delay: 00:00:05
+  - delay: 00:00:03
   - data:
       entity_id: media_player.wohnzimmer
       message: Die Tier-Waschmaschine ist fertig.
     service: tts.amazon_polly_say
+  - delay: 00:00:15
+  - data:
+      entity_id: media_player.wohnzimmer
+      volume_level: 0.3
+    service: media_player.volume_set
 - id: '1574517562605'
   alias: Forward status - Leselampe - An
   description: ''
   trigger:
   - entity_id: light.wohnzimmer_leselampe
+    from: 'off'
     platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: switch.tasmota_sp111_11
@@ -938,7 +954,9 @@
   description: ''
   trigger:
   - entity_id: light.wohnzimmer_leselampe
+    from: 'on'
     platform: state
+    to: 'off'
   condition:
   - condition: state
     entity_id: switch.tasmota_sp111_11
@@ -947,7 +965,7 @@
   - entity_id: switch.tasmota_sp111_11
     service: switch.turn_off
 - id: '1574518397208'
-  alias: Praesenz - Verlassen - Dunkel (Nacht) - Rollaeden
+  alias: Präsenz - Verlassen - Dunkel (Nacht) - Rolläden
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -969,7 +987,7 @@
       - cover.schlafzimmer_alle_rolladen
     service: cover.close_cover
 - id: '1574518617472'
-  alias: Praesenz - Ankommen - Immer - Geraete
+  alias: Präsenz - Ankommen - Immer - Geräte
   description: ''
   trigger:
   - entity_id: switch.apartment_present
@@ -996,7 +1014,7 @@
       - switch.livingroom_telephone
     service: switch.turn_on
 - id: '1574518959857'
-  alias: Schlafen - Einschlafen - Geraete
+  alias: Schlafen - Einschlafen - Geräte
   description: ''
   trigger:
   - entity_id: switch.apartment_sleeping
@@ -1016,7 +1034,7 @@
       - switch.livingroom_telephone
     service: switch.turn_off
 - id: '1574519033782'
-  alias: Schlafen - Aufstehen - Geraete
+  alias: Schlafen - Aufstehen - Geräte
   description: ''
   trigger:
   - entity_id: switch.apartment_sleeping
@@ -1112,7 +1130,7 @@
       lookback: 5
     service: camera.record
 - id: '1575655704902'
-  alias: Praesenz - Ankommen - Eva
+  alias: Präsenz - Ankommen - Eva
   description: ''
   trigger:
   - entity_id: person.eva
@@ -1140,7 +1158,7 @@
     entity_id: scene.gameboy_aus
     service: scene.turn_on
 - id: '1576323625586'
-  alias: hass.io - Zertifikat erneuern
+  alias: Supervisor - Zertifikat erneuern
   description: ''
   trigger:
   - at: 03:30:00
@@ -1148,14 +1166,46 @@
   condition: []
   action:
   - data:
+      addon: core_nginx_proxy
+    service: hassio.addon_stop
+  - data:
+      addon: core_mosquitto
+    service: hassio.addon_stop
+  - data:
+      addon: a0d7b954_bitwarden
+    service: hassio.addon_stop
+  - data:
+      addon: a0d7b954_glances
+    service: hassio.addon_stop
+  - data:
+      addon: a0d7b954_sonweb
+    service: hassio.addon_stop
+  - delay: 00:00:30
+  - data:
       addon: core_letsencrypt
-    service: hassio.addon_restart
+    service: hassio.addon_start
   - delay: 00:02:00
+  - data:
+      addon: core_letsencrypt
+    service: hassio.addon_stop
+  - delay: 00:00:30
   - data:
       addon: core_nginx_proxy
     service: hassio.addon_restart
+  - data:
+      addon: core_mosquitto
+    service: hassio.addon_restart
+  - data:
+      addon: a0d7b954_bitwarden
+    service: hassio.addon_restart
+  - data:
+      addon: a0d7b954_glances
+    service: hassio.addon_restart
+  - data:
+      addon: a0d7b954_sonweb
+    service: hassio.addon_restart
 - id: '1576324741125'
-  alias: Katzenklo - Buero
+  alias: Katzenklo - Büro
   description: ''
   trigger:
   - entity_id: binary_sensor.motion_catlitter_office_occupancy
@@ -1164,7 +1214,7 @@
     to: 'on'
   condition:
   - condition: template
-    value_template: '{{ as_timestamp(now()) | int - as_timestamp(states("input_datetime.last_usage_catlitter_office"))
+    value_template: '{{ now().timestamp() | int - states.input_datetime.last_usage_catlitter_office.attributes.timestamp
       | int > 300 }}'
   action:
   - entity_id: input_number.count_usage_catlitter
@@ -1188,7 +1238,7 @@
     to: 'on'
   condition:
   - condition: template
-    value_template: '{{ as_timestamp(now()) | int - as_timestamp(states("input_datetime.last_usage_catlitter_hallway"))
+    value_template: '{{ now().timestamp() | int - states.input_datetime.last_usage_catlitter_hallway.attributes.timestamp
       | int > 300 }}'
   action:
   - entity_id: input_number.count_usage_catlitter
@@ -1203,7 +1253,7 @@
     entity_id: input_datetime.last_usage_catlitter_hallway
     service: input_datetime.set_datetime
 - id: '1576325083638'
-  alias: Katzenklo - Gaestezimmer
+  alias: Katzenklo - Gästezimmer
   description: ''
   trigger:
   - entity_id: binary_sensor.motion_catlitter_guestroom_occupancy
@@ -1212,7 +1262,7 @@
     to: 'on'
   condition:
   - condition: template
-    value_template: '{{ as_timestamp(now()) | int - as_timestamp(states("input_datetime.last_usage_catlitter_guestroom"))
+    value_template: '{{ now().timestamp() | int - states.input_datetime.last_usage_catlitter_guestroom.attributes.timestamp
       | int > 300 }}'
   action:
   - entity_id: input_number.count_usage_catlitter
@@ -1227,7 +1277,7 @@
     entity_id: input_datetime.last_usage_catlitter_guestroom
     service: input_datetime.set_datetime
 - id: '1576325754838'
-  alias: Schlafen - Aufstehen - Rolladen  - Kein Frost
+  alias: Schlafen - Aufstehen - Rolläden  - Kein Frost
   description: ''
   trigger:
   - entity_id: switch.apartment_sleeping
@@ -1247,7 +1297,9 @@
   description: ''
   trigger:
   - entity_id: light.schlafzimmer_bettlicht
+    from: 'off'
     platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: light.philips_lightstrip_bett
@@ -1267,7 +1319,9 @@
   description: ''
   trigger:
   - entity_id: light.schlafzimmer_bettlicht
+    from: 'on'
     platform: state
+    to: 'off'
   condition:
   - condition: state
     entity_id: light.philips_lightstrip_bett
@@ -1302,6 +1356,12 @@
   condition:
   - condition: state
     entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  - condition: state
+    entity_id: switch.apartment_sleeping
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.alarm_enabled
     state: 'on'
   action:
   - entity_id: script.wakeup_light
@@ -1376,17 +1436,15 @@
     platform: time
   condition: []
   action:
-  - data:
-      value: 'off'
-    entity_id: var.automation_car_preheating_reminder_sent
-    service: var.set
+  - entity_id: input_boolean.automation_car_preheating_reminder_sent
+    service: input_boolean.turn_off
 - id: '1582367078202'
-  alias: Sonnenschutz Sued
+  alias: Sonnenschutz Süd
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.time'') == (state_attr(''input_datetime.automation_setting_sunprotection_south_starts'',
-      ''timestamp'') | int | timestamp_custom(''%H:%M'', True)) }}'
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.automation_setting_sunprotection_south_starts'')[0:5]
+      }}'
   condition: []
   action:
   - entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
@@ -1394,12 +1452,12 @@
   - entity_id: scene.wohnzimmer_rolladen_esstisch_katzenmodus
     service: scene.turn_on
 - id: '1582375337181'
-  alias: Sonnenschutz Sued - Ende
+  alias: Sonnenschutz Süd - Ende
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.time'') == (state_attr(''input_datetime.automation_setting_sunprotection_south_ends'',
-      ''timestamp'') | int | timestamp_custom(''%H:%M'', True)) }}'
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.automation_setting_sunprotection_south_ends'')[0:5]
+      }}'
   condition:
   - condition: state
     entity_id: automation.sonnenschutz_sued
@@ -1417,8 +1475,8 @@
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.time'') == (state_attr(''input_datetime.automation_setting_sunprotection_west_starts'',
-      ''timestamp'') | int | timestamp_custom(''%H:%M'', True)) }}'
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.automation_setting_sunprotection_west_starts'')[0:5]
+      }}'
   condition: []
   action:
   - entity_id: scene.wohnzimmer_rolladen_couch_schlitz
@@ -1432,8 +1490,8 @@
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.time'') == (state_attr(''input_datetime.automation_setting_sunprotection_west_ends'',
-      ''timestamp'') | int | timestamp_custom(''%H:%M'', True)) }}'
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.automation_setting_sunprotection_west_ends'')[0:5]
+      }}'
   condition:
   - condition: state
     entity_id: automation.sonnenschutz_west
@@ -1455,8 +1513,8 @@
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.time'') == (state_attr(''input_datetime.automation_setting_sunprotection_orchids_starts'',
-      ''timestamp'') | int | timestamp_custom(''%H:%M'', True)) }}'
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.automation_setting_sunprotection_orchids_starts'')[0:5]
+      }}'
   condition:
   - condition: state
     entity_id: automation.sonnenschutz_west
@@ -1469,8 +1527,8 @@
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.time'') == (state_attr(''input_datetime.automation_setting_sunprotection_orchids_ends'',
-      ''timestamp'') | int | timestamp_custom(''%H:%M'', True)) }}'
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.automation_setting_sunprotection_orchids_ends'')[0:5]
+      }}'
   condition:
   - condition: state
     entity_id: automation.sonnenschutz_orchideen
@@ -1489,8 +1547,8 @@
   description: ''
   trigger:
   - platform: template
-    value_template: '{{ states(''sensor.time'') == (state_attr(''input_datetime.automation_setting_sunprotection_west_starts'',
-      ''timestamp'') | int | timestamp_custom(''%H:%M'', True)) }}'
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.automation_setting_sunprotection_west_starts'')[0:5]
+      }}'
   condition:
   - condition: state
     entity_id: switch.apartment_present
@@ -1622,16 +1680,14 @@
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   - condition: state
-    entity_id: var.automation_car_preheating_reminder_sent
+    entity_id: input_boolean.automation_car_preheating_reminder_sent
     state: 'off'
   - after: 06:00:00
     before: '10:00:00'
     condition: time
   action:
-  - data:
-      value: 'on'
-    entity_id: var.automation_car_preheating_reminder_sent
-    service: var.set
+  - entity_id: input_boolean.automation_car_preheating_reminder_sent
+    service: input_boolean.turn_on
   - data:
       data:
         actions:
@@ -1640,7 +1696,7 @@
       message: Moechtest du die Standheizung anschalten?
     service: notify.mobile_app_pixel_2
 - id: '1582614919426'
-  alias: Standheizung Jens - Aktion ausfuehren
+  alias: Standheizung Jens - Aktion ausführen
   description: ''
   trigger:
   - event_data:
@@ -1715,7 +1771,7 @@
     entity_id: script.csgo_bombeexplodiert_stehlampe
     service: script.turn_on
 - id: '1582971569875'
-  alias: CSGO - Bombe entschaeft - Stehlampe
+  alias: CSGO - Bombe entschärft - Stehlampe
   description: ''
   trigger:
   - event_data: {}
@@ -1774,7 +1830,423 @@
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
+  - condition: state
+    entity_id: switch.apartment_sleeping
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.alarm_enabled
+    state: 'on'
   action:
   - data: {}
     entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
     service: scene.turn_on
+- id: '1589630612594'
+  alias: Präsenz - Verlassen - Fenster Küche offen
+  description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
+    offen ist
+  trigger:
+  - entity_id: switch.apartment_present
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_kitchen_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
+    service: scene.turn_on
+- id: '1589631843369'
+  alias: Präsenz - Verlassen - Terrassentür offen
+  description: Macht den Rolladen auf Schlitz, wenn die Tür beim Verlassen noch offen
+    ist
+  trigger:
+  - entity_id: switch.apartment_present
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_door_patio_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
+    service: scene.turn_on
+- id: '1589632037291'
+  alias: Präsenz - Verlassen - Fenster Gästezimmer offen
+  description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
+    offen ist
+  trigger:
+  - entity_id: switch.apartment_present
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_guestroom_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
+    service: scene.turn_on
+- id: '1589632144329'
+  alias: Präsenz - Verlassen - Fenster Schlafzimmer offen
+  description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
+    offen ist
+  trigger:
+  - entity_id: switch.apartment_present
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_bedroom_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
+    service: scene.turn_on
+- id: '1589632559754'
+  alias: Präsenz - Verlassen - Fenster Büro offen
+  description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
+    offen ist
+  trigger:
+  - entity_id: switch.apartment_present
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_office_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
+    service: scene.turn_on
+- id: '1589638062144'
+  alias: Fenster - Öffnen - Dunkel - Küche
+  description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
+  trigger:
+  - entity_id: binary_sensor.magnet_window_kitchen_contact
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - data: {}
+    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
+    service: scene.turn_on
+- id: '1589638188040'
+  alias: Fenster - Öffnen - Dunkel - Gästezimmer
+  description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
+  trigger:
+  - entity_id: binary_sensor.magnet_window_guestroom_contact
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - data: {}
+    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
+    service: scene.turn_on
+- id: '1589638288081'
+  alias: Fenster - Öffnen - Dunkel - Schlafzimmer
+  description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
+  trigger:
+  - entity_id: binary_sensor.magnet_window_bedroom_contact
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - data: {}
+    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
+    service: scene.turn_on
+- id: '1589638371871'
+  alias: Fenster - Öffnen - Dunkel - Büro
+  description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
+  trigger:
+  - entity_id: binary_sensor.magnet_window_office_contact
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - data: {}
+    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
+    service: scene.turn_on
+- id: '1589640780829'
+  alias: Rolladen - Shutdown - Start
+  description: ''
+  trigger:
+  - platform: template
+    value_template: '{{ states(''sensor.time'') == states(''input_datetime.rolladen_shutdown'')[0:5]
+      }}'
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.rolladen_shutdown
+    service: input_boolean.turn_on
+- id: '1589640969259'
+  alias: Rolladen - Shutdown - Ende
+  description: ''
+  trigger:
+  - entity_id: sun.sun
+    from: below_horizon
+    platform: state
+    to: above_horizon
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.rolladen_shutdown
+    service: input_boolean.turn_off
+- id: '1589641238789'
+  alias: Fenster - Schließen - Dunkel - Küche
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_kitchen_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
+    service: scene.turn_on
+- id: '1589641338130'
+  alias: Fenster - Schließen - Dunkel - Gästezimmer
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_guestroom_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
+    service: scene.turn_on
+- id: '1589641478910'
+  alias: Fenster - Schließen - Dunkel - Schlafzimmer
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_bedroom_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
+    service: scene.turn_on
+- id: '1589641576722'
+  alias: Fenster - Schließen - Dunkel - Büro
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_office_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
+    service: scene.turn_on
+- id: '1589642144661'
+  alias: Fenster - Schließen - Shutdown - Küche
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_kitchen_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_kuche
+    service: cover.close_cover
+- id: '1589642171934'
+  alias: Fenster - Schließen - Shutdown - Gästezimmer
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_guestroom_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: cover.gastezimmer_alle_rolladen
+    service: cover.close_cover
+- id: '1589642485613'
+  alias: Fenster - Schließen - Shutdown - Schlafzimmer
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_bedroom_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: cover.schlafzimmer_alle_rolladen
+    service: cover.close_cover
+- id: '1589642576057'
+  alias: Fenster - Schließen - Shutdown - Büro
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.magnet_window_office_contact
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: cover.arbeitszimmer_alle_rolladen
+    service: cover.close_cover
+- id: '1589642700574'
+  alias: Schlafen - Lichtschutz - Schlafzimmer
+  description: Rolladen im Schlafzimmer 30 Minuten vor Sonnenaufgang schließen, wenn
+    Fenster offen
+  trigger:
+  - event: sunrise
+    offset: -00:45:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_bedroom_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: cover.schlafzimmer_alle_rolladen
+    service: cover.close_cover
+- id: '1589820839263'
+  alias: Wiegen Jens - Erinnerung senden
+  description: ''
+  trigger:
+  - entity_id: light.dusche_deckenlicht
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.jens_wiegen_erinnerung_gesendet
+    state: 'off'
+  - after: 05:00:00
+    before: '12:00:00'
+    condition: time
+  action:
+  - data: {}
+    entity_id: input_boolean.jens_wiegen_erinnerung_gesendet
+    service: input_boolean.turn_on
+  - data:
+      message: Guten Morgen, es ist Zeit Dich zu wiegen!
+    service: notify.mobile_app_pixel_2
+- id: '1589820924653'
+  alias: Wiegen Jens - Erinnerung zuruecksetzen
+  description: ''
+  trigger:
+  - at: 00:00:00
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.jens_wiegen_erinnerung_gesendet
+    service: input_boolean.turn_off
+- id: '1591013208970'
+  alias: Drucker an
+  description: ''
+  trigger:
+  - entity_id: sensor.xiaomi_button_guestroom_printer
+    platform: state
+    to: single
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.guest_room_printer
+    service: switch.turn_on
+- id: '1591013271712'
+  alias: Drucker aus
+  description: ''
+  trigger:
+  - entity_id: sensor.xiaomi_button_guestroom_printer
+    platform: state
+    to: double
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.guest_room_printer
+    service: switch.turn_off
+- id: '1591445263935'
+  alias: Bewässerung abgebrochen
+  description: ''
+  trigger:
+  - entity_id: script.bewaesserung_kurz
+    from: 'on'
+    platform: state
+    to: 'off'
+  - entity_id: script.bewaesserung_lang
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.bewasserung_sprenkler
+    service: light.turn_off
+  - data: {}
+    entity_id: light.bewasserung_raketen
+    service: light.turn_off
+  - data: {}
+    entity_id: light.bewasserung_busche
+    service: light.turn_off
