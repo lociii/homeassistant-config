@@ -1,14 +1,3 @@
-input_select:
-  zigbee2mqtt_log_level:
-    name: zigbee2MQTT log level
-    options:
-      - debug
-      - info
-      - warn
-      - error
-    initial: info
-    icon: mdi:format-list-bulleted
-
 timer:
   zigbee_permit_join:
     name: zigbee2MQTT join time remaining
