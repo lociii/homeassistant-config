@@ -701,23 +701,6 @@
   - delay: 00:01:00
   - entity_id: media_player.wallpanel
     service: media_player.volume_mute
-- id: '1574509644201'
-  alias: Schlafen - Einschlafen - Rolläden
-  description: ''
-  trigger:
-  - entity_id: switch.apartment_sleeping
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      entity_id:
-      - cover.wohnzimmer_alle_rolladen
-      - cover.gastezimmer_alle_rolladen
-      - cover.arbeitszimmer_alle_rolladen
-      - cover.schlafzimmer_alle_rolladen
-    service: cover.close_cover
 - id: '1574515432482'
   alias: Zigbee Map Update
   description: ''
@@ -2250,3 +2233,178 @@
   - data: {}
     entity_id: light.bewasserung_busche
     service: light.turn_off
+- id: '1591447931947'
+  alias: Schlafen - Einschlafen - Rolladen Küche - Fenster auf
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_kitchen_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
+    service: scene.turn_on
+- id: '1591447931948'
+  alias: Schlafen - Einschlafen - Rolladen Küche - Fenster zu
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_kitchen_contact
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_kuche
+    service: cover.close_cover
+- id: '1591447931957'
+  alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster auf
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_guestroom_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
+    service: scene.turn_on
+- id: '1591447931958'
+  alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster zu
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_guestroom_contact
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: cover.gastezimmer_rolladen_gastezimmer
+    service: cover.close_cover
+- id: '1591447931967'
+  alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster auf
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_bedroom_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
+    service: scene.turn_on
+- id: '1591447931968'
+  alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster zu
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_bedroom_contact
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: cover.schlafzimmer_rolladen_schlafzimmer
+    service: cover.close_cover
+- id: '1591447931977'
+  alias: Schlafen - Einschlafen - Rolladen Büro - Fenster auf
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_office_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
+    service: scene.turn_on
+- id: '1591447931978'
+  alias: Schlafen - Einschlafen - Rolladen Büro - Fenster zu
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_window_office_contact
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: cover.arbeitszimmer_rolladen_arbeitszimmer
+    service: cover.close_cover
+- id: '1591447931987'
+  alias: Schlafen - Einschlafen - Rolladen Terrasse - Fenster auf
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_door_patio_contact
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
+    service: scene.turn_on
+- id: '1591447931988'
+  alias: Schlafen - Einschlafen - Rolladen Terrasse - Fenster zu
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.magnet_door_patio_contact
+    state: 'off'
+  action:
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_terrasse
+    service: cover.close_cover
+- id: '1591447931988'
+  alias: Schlafen - Einschlafen - Rolläden Wohnzimmer (ohne Sensor)
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'off'
+    platform: state
+    to: 'on'
+  action:
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_esstisch
+    service: cover.close_cover
+  - data: {}
+    entity_id: cover.wohnzimmer_rolladen_couch
+    service: cover.close_cover
