@@ -30,7 +30,7 @@ Custom repos in use:
 
 ## Automations
 
-100% of my automations have been migrated to the [automations editor](automations.yaml).
+100% of my automations are using the [automations editor](automations.yaml) and the frontend defined helpers.
 
 ## Custom components - HACS
 
@@ -52,11 +52,6 @@ My [homegrown component](https://github.com/lociii/homeassistant-csgo) to automa
 ### UniFi Gateway
 
 High level health status of UniFi Security Gateway devices via UniFi Controller
-
-### Variable
-
-A custom Home Assistant component for declaring and setting generic variable entities dynamically.
-See [my variable definitions](variables.yaml) for use cases.
 
 ### Alexa Media Player
 
@@ -94,8 +89,8 @@ Light and shutter control system, see https://www.digitalstrom.com/
 
 ### Zigbee
 
-Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 3 Model B using a [CC2531](https://www.amazon.de/dp/B07JBWF1DG) zigbee sniffer with [source routing firmware](https://github.com/Koenkk/Z-Stack-firmware/tree/master/coordinator/Z-Stack_Home_1.2/bin/source_routing).
-Using IKEA Trådfri bulbs and OSRAM smart+ plugs as routers.
+Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 4 (4GB) using a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAUNCHXL-CC26X2R1) zigbee sniffer with ZStack 3.0 firmware](https://github.com/Koenkk/Z-Stack-firmware/blob/master/coordinator/Z-Stack_3.x.0/bin/CC26X2R1_20200417.zip).
+Using IKEA Trådfri bulbs, some Hue bulbs/strips and OSRAM smart+ plugs as routers.
 
 ## Ecosystem
 
@@ -107,7 +102,8 @@ Using IKEA Trådfri bulbs and OSRAM smart+ plugs as routers.
 
 * [digitalSTROM](https://productinfo.digitalstrom.com/4290046000010/)
 * Trådfri light bulbs (zigbee)
-* [DD001-MINI LED strip controllers](https://templates.blakadder.com/DD001-MINIG-IR-V08.html) (zigbee)
+* Philips Hue light strip plus (zigbee)
+* Philips Hue bulbs (zigbee) 
 
 ### Shutters
 
@@ -128,10 +124,13 @@ Using IKEA Trådfri bulbs and OSRAM smart+ plugs as routers.
 * UniFi device tracker
 * Home Assistant mobile app
 
+### Other actors
+
+* Xiaomi MiJia wireless switch (zigbee)
+
 ### Sensors
 
 * Met.no weather
-* DarkSky weather
 * Waze travel time
 * Home Assistant mobile app on Android/iOS devices
 * Xiaomi Aqara window/door sensors (zigbee)
@@ -156,7 +155,7 @@ Using IKEA Trådfri bulbs and OSRAM smart+ plugs as routers.
 
 ### Utility
 
-* Xiaomi Roborock vacuum gen2 running Valetudo
+* Xiaomi Roborock S50 vacuum running Valetudo
 
 ### Spare ecosystem
 
