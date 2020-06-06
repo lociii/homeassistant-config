@@ -50,6 +50,3 @@ panel_iframe:
 
 # activate webhooks
 webhook:
-
-# variables integration https://github.com/snarky-snark/home-assistant-variables
-var: !include variables.yaml
