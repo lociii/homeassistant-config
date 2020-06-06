@@ -6,29 +6,6 @@ tplink:
     - host: !secret tplink_power_plug_washer_animal
     - host: !secret tplink_power_plug_dryer
 
-input_select:
-  # status selector
-  washer_human_status:
-    icon: mdi:power
-    options:
-    - "Aus"
-    - "Aktiv"
-    - "Fertig"
-
-  washer_animal_status:
-    icon: mdi:power
-    options:
-    - "Aus"
-    - "Aktiv"
-    - "Fertig"
-
-  dryer_status:
-    icon: mdi:power
-    options:
-    - "Aus"
-    - "Aktiv"
-    - "Fertig"
-
 sensor:
   # --------------------------------------------------------------
   # WASHER HUMAN
