@@ -2393,7 +2393,7 @@
   - data: {}
     entity_id: cover.wohnzimmer_rolladen_terrasse
     service: cover.close_cover
-- id: '1591447931988'
+- id: '159144793198'
   alias: Schlafen - Einschlafen - Rolläden Wohnzimmer (ohne Sensor)
   description: ''
   trigger:
