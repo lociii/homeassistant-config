@@ -1363,8 +1363,8 @@
   action:
   - data_template:
       message: "{% for repo in state_attr(trigger.entity_id, 'repositories') %}\n\
-        \  **{{ repo.display_name }}** _{{ repo[\"installed version\"] }}_ -> _{{\
-        \ repo[\"available version\"] }}_\n{% endfor %}"
+        \  **{{ repo.display_name }}** _{{ repo[\"installed_version\"] }}_ -> _{{\
+        \ repo[\"available_version\"] }}_\n{% endfor %}"
       notification_id: hacs_update_notification
       title: Updates pending in HACS
     service: persistent_notification.create
