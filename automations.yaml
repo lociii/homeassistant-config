@@ -1411,16 +1411,6 @@
   action:
   - entity_id: script.gaestezimmer_stehlampe_alarm_rot
     service: script.turn_on
-- id: '1581850309181'
-  alias: Standheizung Jens - Erinnerung zuruecksetzen
-  description: ''
-  trigger:
-  - at: 00:00:00
-    platform: time
-  condition: []
-  action:
-  - entity_id: input_boolean.automation_car_preheating_reminder_sent
-    service: input_boolean.turn_off
 - id: '1582367078202'
   alias: Sonnenschutz Süd
   description: ''
@@ -1542,32 +1532,6 @@
   action:
   - entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
     service: scene.turn_on
-- id: '1582446520981'
-  alias: Standheizung Jens - Anschalten
-  description: ''
-  trigger:
-  - entity_id: switch.heating_on
-    for: 00:00:05
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - entity_id: switch.heating_on
-    service: switch.turn_off
-- id: '1582446585509'
-  alias: Standheizung Jens - Ausschalten
-  description: ''
-  trigger:
-  - entity_id: switch.heating_off
-    for: 00:00:05
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - entity_id: switch.heating_off
-    service: switch.turn_off
 - id: '1582466939183'
   alias: zigbee2MQTT log level
   description: ''
@@ -1650,46 +1614,6 @@
   - data_template:
       filename: /share/catdoor.mp4
     service: shell_command.catdoor_remove_video
-- id: '1582614358649'
-  alias: Standheizung Jens - Erinnerung senden
-  description: ''
-  trigger:
-  - entity_id: light.dusche_deckenlicht
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: binary_sensor.workday_sensor
-    state: 'on'
-  - condition: state
-    entity_id: input_boolean.automation_car_preheating_reminder_sent
-    state: 'off'
-  - after: 06:00:00
-    before: '10:00:00'
-    condition: time
-  action:
-  - entity_id: input_boolean.automation_car_preheating_reminder_sent
-    service: input_boolean.turn_on
-  - data:
-      data:
-        actions:
-        - action: activate_carheating
-          title: Jetzt anschalten
-      message: Moechtest du die Standheizung anschalten?
-    service: notify.mobile_app_pixel_2
-- id: '1582614919426'
-  alias: Standheizung Jens - Aktion ausführen
-  description: ''
-  trigger:
-  - event_data:
-      action: activate_carheating
-    event_type: mobile_app_notification_action
-    platform: event
-  condition: []
-  action:
-  - entity_id: switch.heating_on
-    service: switch.turn_on
 - id: '1582969948699'
   alias: CSGO - Freezetime beginnt - Stehlampe
   description: ''

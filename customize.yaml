@@ -2,10 +2,6 @@ switch.guest_room_printer:
   friendly_name: Drucker
 light.garten_balllampen:
   friendly_name: Balllampen
-scene.car_heating_on:
-  friendly_name: Standheizung anschalten
-scene.car_heating_off:
-  friendly_name: Standheizung ausschalten
 sensor.travel_time_jens:
   friendly_name: Fahrzeit Jens
 sensor.travel_time_eva:
