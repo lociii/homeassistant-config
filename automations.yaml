@@ -2332,3 +2332,43 @@
   - data: {}
     entity_id: cover.wohnzimmer_rolladen_couch
     service: cover.close_cover
+- alias: Theme - Helles Theme bei Sonnenaufgang
+  trigger:
+    platform: sun
+    event: sunrise
+  action:
+  - service: frontend.set_theme
+    data:
+      name: clear
+- alias: Theme - Helles Theme bei Sonnenaufgang
+  trigger:
+    platform: sun
+    event: sunset
+  action:
+  - service: frontend.set_theme
+    data:
+      name: clear-dark
+- alias: Theme - Helles Theme nach Reboot am Tag
+  trigger:
+    platform: homeassistant
+    event: start
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: above_horizon
+  action:
+    service: frontend.set_theme
+    data:
+      name: clear
+- alias: Theme - Dunkles Theme nach Reboot bei Nacht
+  trigger:
+    platform: homeassistant
+    event: start
+  condition:
+    condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+    service: frontend.set_theme
+    data:
+      name: clear-dark
