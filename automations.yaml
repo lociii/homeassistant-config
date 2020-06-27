@@ -2405,3 +2405,17 @@
   - data: {}
     entity_id: switch.plug_bathroom_toothbrush
     service: switch.turn_off
+- id: '1593276140579'
+  alias: Garten - Entnahme nach 30 Minuten wieder aus
+  description: ''
+  trigger:
+  - entity_id: light.bewasserung_entnahme
+    for: 00:30:00
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.bewasserung_entnahme
+    service: light.turn_off
