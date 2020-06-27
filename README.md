@@ -49,10 +49,6 @@ Check out the underlying library for more details: [pydigitalstrom](https://gith
 
 My [homegrown component](https://github.com/lociii/homeassistant-csgo) to automate my home according to the state of the CS:GO game I'm playing.
 
-### UniFi Gateway
-
-High level health status of UniFi Security Gateway devices via UniFi Controller
-
 ### Alexa Media Player
 
 This is a custom component to allow control of Amazon Alexa devices in Home Assistant using the unofficial Alexa API.
