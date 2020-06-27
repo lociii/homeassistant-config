@@ -2,10 +2,6 @@
 # load all default setup
 default_config:
 
-# set base for generating urls
-http:
-  base_url: !secret http_base_url
-
 homeassistant:
   packages: !include_dir_named packages
   customize: !include customize.yaml
