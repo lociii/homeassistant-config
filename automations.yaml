@@ -175,7 +175,7 @@
   action:
   - data:
       entity_id:
-      - switch.plug_kitchen_coffeemachine_switch
+      - switch.kitchen_coffeemachine
       - switch.sonos_shower
       - switch.tasmota_aofo_01
       - switch.guest_room_desk
@@ -1008,7 +1008,7 @@
   action:
   - data:
       entity_id:
-      - switch.plug_kitchen_coffeemachine_switch
+      - switch.kitchen_coffeemachine
       - switch.sonos_shower
       - switch.tasmota_aofo_01
       - switch.guest_room_desk
@@ -1028,7 +1028,7 @@
   action:
   - data:
       entity_id:
-      - switch.plug_kitchen_coffeemachine_switch
+      - switch.kitchen_coffeemachine
       - switch.sonos_shower
       - switch.tasmota_aofo_01
       - switch.office_google_home
@@ -1073,7 +1073,7 @@
     platform: sun
   condition:
   - condition: state
-    entity_id: switch.plug_guestroom_computer_switch
+    entity_id: switch.gameboy
     state: 'on'
   action:
   - data: {}

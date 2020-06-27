@@ -4,7 +4,7 @@
     switch.guest_room_desk:
       friendly_name: tasmota-sp111-07
       state: 'on'
-    switch.plug_guestroom_computer_switch:
+    switch.gameboy:
       friendly_name: Gameboy
       state: 'on'
     light.stehlampe_gastezimmer:
@@ -16,7 +16,7 @@
     switch.guest_room_desk:
       friendly_name: tasmota-sp111-07
       state: 'on'
-    switch.plug_guestroom_computer_switch:
+    switch.gameboy:
       friendly_name: Gameboy
       state: 'on'
     light.stehlampe_gastezimmer:
@@ -28,7 +28,7 @@
     switch.guest_room_desk:
       friendly_name: tasmota-sp111-07
       state: 'off'
-    switch.plug_guestroom_computer_switch:
+    switch.gameboy:
       friendly_name: Gameboy
       state: 'off'
     light.stehlampe_gastezimmer:
