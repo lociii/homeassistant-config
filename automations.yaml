@@ -2115,7 +2115,7 @@
     entity_id: input_boolean.jens_wiegen_erinnerung_gesendet
     service: input_boolean.turn_off
 - id: '1591013208970'
-  alias: Drucker an
+  alias: Büro - Drucker an
   description: ''
   trigger:
   - entity_id: sensor.xiaomi_button_guestroom_printer
@@ -2127,7 +2127,7 @@
     entity_id: switch.guest_room_printer
     service: switch.turn_on
 - id: '1591013271712'
-  alias: Drucker aus
+  alias: Büro - Drucker aus
   description: ''
   trigger:
   - entity_id: sensor.xiaomi_button_guestroom_printer
