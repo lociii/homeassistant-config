@@ -2066,20 +2066,23 @@
     entity_id: cover.arbeitszimmer_alle_rolladen
     service: cover.close_cover
 - id: '1589642700574'
-  alias: Schlafen - Lichtschutz - Schlafzimmer
-  description: Rolladen im Schlafzimmer 30 Minuten vor Sonnenaufgang schließen, wenn
-    Fenster offen
+  alias: Schlafen - Lichtschutz
+  description: Rolläden 30 Minuten vor Sonnenaufgang schließen
   trigger:
   - event: sunrise
     offset: -00:45:00
     platform: sun
-  condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_bedroom_contact
-    state: 'on'
+  condition: []
   action:
   - data: {}
-    entity_id: cover.schlafzimmer_alle_rolladen
+    entity_id:
+    - cover.schlafzimmer_rolladen_schlafzimmer
+    - cover.gastezimmer_rolladen_gastezimmer
+    - cover.arbeitszimmer_rolladen_arbeitszimmer
+    - cover.wohnzimmer_rolladen_couch
+    - cover.wohnzimmer_rolladen_terrasse
+    - cover.wohnzimmer_rolladen_esstisch
+    - cover.wohnzimmer_rolladen_kuche
     service: cover.close_cover
 - id: '1589820839263'
   alias: Wiegen Jens - Erinnerung senden
