@@ -1,10 +1,10 @@
 - id: '1577032817472'
   name: Gameboy an - Hell
   entities:
-    switch.guest_room_desk:
-      friendly_name: tasmota-sp111-07
+    switch.plug_guestroom_desk_switch:
+      friendly_name: Schreibtisch
       state: 'on'
-    switch.gameboy:
+    switch.plug_guestroom_gameboy:
       friendly_name: Gameboy
       state: 'on'
     light.stehlampe_gastezimmer:
@@ -13,10 +13,10 @@
 - id: '1577032840793'
   name: Gameboy an - Dunkel
   entities:
-    switch.guest_room_desk:
-      friendly_name: tasmota-sp111-07
+    switch.plug_guestroom_desk_switch:
+      friendly_name: Schreibtisch
       state: 'on'
-    switch.gameboy:
+    switch.plug_guestroom_gameboy:
       friendly_name: Gameboy
       state: 'on'
     light.stehlampe_gastezimmer:
@@ -25,10 +25,10 @@
 - id: '1577033397830'
   name: Gameboy - Aus
   entities:
-    switch.guest_room_desk:
-      friendly_name: tasmota-sp111-07
+    switch.plug_guestroom_desk_switch:
+      friendly_name: Schreibtisch
       state: 'off'
-    switch.gameboy:
+    switch.plug_guestroom_gameboy:
       friendly_name: Gameboy
       state: 'off'
     light.stehlampe_gastezimmer:

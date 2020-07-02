@@ -1,5 +1,3 @@
-switch.guest_room_printer:
-  friendly_name: Drucker
 light.garten_balllampen:
   friendly_name: Balllampen
 sensor.travel_time_jens:

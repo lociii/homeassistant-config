@@ -107,7 +107,7 @@
     service: light.turn_off
   - data:
       entity_id:
-      - switch.tasmota_sp111_11
+      - switch.plug_livingroom_readlinglight
     service: switch.turn_off
 - id: '1574018705350'
   alias: Schlafen - Aufstehen - Rolläden
@@ -175,15 +175,17 @@
   action:
   - data:
       entity_id:
-      - switch.kitchen_coffeemachine
-      - switch.sonos_shower
-      - switch.plug_bathroom_sonos
-      - switch.tasmota_aofo_01
-      - switch.guest_room_desk
-      - switch.guest_room_printer
-      - switch.office_google_home
-      - switch.bedroom_tv
-      - switch.livingroom_telephone
+      - switch.plug_kitchen_coffeemachine
+      - switch.plug_shower_voice_assistant
+      - switch.plug_bathroom_voice_assistant
+      - switch.plug_livingroom_sonos_sub
+      - switch.plug_livingroom_multimedia
+      - switch.plug_livingroom_multimedia_usb
+      - switch.plug_guestroom_desk_switch
+      - switch.plug_guestroom_printer
+      - switch.plug_office_voice_assistant
+      - switch.plug_bedroom_tv
+      - switch.plug_livingroom_telephone
     service: switch.turn_off
 - id: '1574021126103'
   alias: Präsenz - Verlassen - Dunkel - Licht
@@ -675,7 +677,7 @@
     service: light.turn_off
   - data:
       entity_id:
-      - switch.tasmota_sp111_11
+      - switch.plug_livingroom_readlinglight
     service: switch.turn_off
 - id: '1574417564491'
   alias: Präsenz - Verlassen - Immer - Announcement
@@ -927,11 +929,11 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.tasmota_sp111_11
+    entity_id: switch.plug_livingroom_readlinglight
     state: 'off'
   action:
   - data: {}
-    entity_id: switch.tasmota_sp111_11
+    entity_id: switch.plug_livingroom_readlinglight
     service: switch.turn_on
 - id: '1574517593262'
   alias: Forward status - Leselampe - Aus
@@ -943,10 +945,10 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: switch.tasmota_sp111_11
+    entity_id: switch.plug_livingroom_readlinglight
     state: 'on'
   action:
-  - entity_id: switch.tasmota_sp111_11
+  - entity_id: switch.plug_livingroom_readlinglight
     service: switch.turn_off
 - id: '1574518397208'
   alias: Präsenz - Verlassen - Dunkel (Nacht) - Rolläden
@@ -992,11 +994,13 @@
   action:
   - data:
       entity_id:
-      - switch.sonos_shower
-      - switch.plug_bathroom_sonos
-      - switch.tasmota_aofo_01
-      - switch.office_google_home
-      - switch.livingroom_telephone
+      - switch.plug_shower_voice_assistant
+      - switch.plug_bathroom_voice_assistant
+      - switch.plug_livingroom_sonos_sub
+      - switch.plug_livingroom_multimedia
+      - switch.plug_livingroom_multimedia_usb
+      - switch.plug_office_voice_assistant
+      - switch.plug_livingroom_telephone
     service: switch.turn_on
 - id: '1574518959857'
   alias: Schlafen - Einschlafen - Geräte
@@ -1010,14 +1014,16 @@
   action:
   - data:
       entity_id:
-      - switch.kitchen_coffeemachine
-      - switch.sonos_shower
-      - switch.plug_bathroom_sonos
-      - switch.tasmota_aofo_01
-      - switch.guest_room_desk
-      - switch.guest_room_printer
-      - switch.office_google_home
-      - switch.livingroom_telephone
+      - switch.plug_kitchen_coffeemachine
+      - switch.plug_shower_voice_assistant
+      - switch.plug_bathroom_voice_assistant
+      - switch.plug_livingroom_sonos_sub
+      - switch.plug_livingroom_multimedia
+      - switch.plug_livingroom_multimedia_usb
+      - switch.plug_guestroom_desk_switch
+      - switch.plug_guestroom_printer
+      - switch.plug_office_voice_assistant
+      - switch.plug_livingroom_telephone
     service: switch.turn_off
 - id: '1574519033782'
   alias: Schlafen - Aufstehen - Geräte
@@ -1031,18 +1037,20 @@
   action:
   - data:
       entity_id:
-      - switch.kitchen_coffeemachine
-      - switch.sonos_shower
-      - switch.plug_bathroom_sonos
-      - switch.tasmota_aofo_01
-      - switch.office_google_home
-      - switch.livingroom_telephone
+      - switch.plug_kitchen_coffeemachine
+      - switch.plug_shower_voice_assistant
+      - switch.plug_bathroom_voice_assistant
+      - switch.plug_livingroom_sonos_sub
+      - switch.plug_livingroom_multimedia
+      - switch.plug_livingroom_multimedia_usb
+      - switch.plug_office_voice_assistant
+      - switch.plug_livingroom_telephone
     service: switch.turn_on
 - id: '1574522012420'
   alias: Sonos - Sub an - Surround an
   description: ''
   trigger:
-  - entity_id: switch.tasmota_aofo_01_plug1
+  - entity_id: switch.plug_livingroom_sonos_sub
     from: 'off'
     platform: state
     to: 'on'
@@ -1050,14 +1058,14 @@
   action:
   - data:
       entity_id:
-      - switch.sonos_surround_rear_left
-      - switch.sonos_surround_rear_right
+      - switch.plug_livingroom_sonos_rear_left
+      - switch.plug_livingroom_sonos_rear_right
     service: switch.turn_on
 - id: '1574522061830'
   alias: Sonos - Sub aus - Surround aus
   description: ''
   trigger:
-  - entity_id: switch.tasmota_aofo_01_plug1
+  - entity_id: switch.plug_livingroom_sonos_sub
     from: 'on'
     platform: state
     to: 'off'
@@ -1065,8 +1073,8 @@
   action:
   - data:
       entity_id:
-      - switch.sonos_surround_rear_left
-      - switch.sonos_surround_rear_right
+      - switch.plug_livingroom_sonos_rear_left
+      - switch.plug_livingroom_sonos_rear_right
     service: switch.turn_off
 - id: '1575211081818'
   alias: Gameboy - Dunkelheit
@@ -1077,7 +1085,7 @@
     platform: sun
   condition:
   - condition: state
-    entity_id: switch.gameboy
+    entity_id: switch.plug_guestroom_gameboy
     state: 'on'
   action:
   - data: {}
@@ -2127,7 +2135,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.guest_room_printer
+    entity_id: switch.plug_guestroom_printer
     service: switch.turn_on
 - id: '1591013271712'
   alias: Büro - Drucker aus
@@ -2139,7 +2147,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.guest_room_printer
+    entity_id: switch.plug_guestroom_printer
     service: switch.turn_off
 - id: '1591445263935'
   alias: Bewässerung abgebrochen

@@ -1,0 +1,4 @@
+substitutions:
+  name: plug_klasremo_04
+
+<<: !include _klasremo.yaml

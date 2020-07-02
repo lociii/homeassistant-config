@@ -139,10 +139,10 @@ Using IKEA Trådfri bulbs, some Hue bulbs/strips and OSRAM smart+ plugs as route
 
 * TP Link HS110
 * OSRAM smart+ plugs (zigbee)
-* Lots of ESP8266 based tasmota plugs
-  [Gosund SP111 single switches](https://templates.blakadder.com/gosund_SP111.html)
-  [Klas Remo single switches](https://templates.blakadder.com/SWA11.html)
-  [AOFO 4AC + 4USB](https://templates.blakadder.com/aofo_4AC4USB.html)
+* Lots of ESP8266 based plugs running on [ESPHome](esphome/)
+  + [Gosund SP111 single switches](https://templates.blakadder.com/gosund_SP111.html)
+  + [Klas Remo single switches](https://templates.blakadder.com/SWA11.html)
+  + [AOFO 4AC + 4USB](https://templates.blakadder.com/aofo_4AC4USB.html)
 
 ### UPS
 
