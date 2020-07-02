@@ -85,7 +85,7 @@ Light and shutter control system, see https://www.digitalstrom.com/
 
 ### Zigbee
 
-Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 4 (4GB) using a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAUNCHXL-CC26X2R1) zigbee sniffer with ZStack 3.0 firmware](https://github.com/Koenkk/Z-Stack-firmware/blob/master/coordinator/Z-Stack_3.x.0/bin/CC26X2R1_20200417.zip).
+Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 4 (4GB) using a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAUNCHXL-CC26X2R1) zigbee sniffer with [ZStack 3.0 firmware](https://github.com/Koenkk/Z-Stack-firmware/blob/master/coordinator/Z-Stack_3.x.0/bin/CC26X2R1_20200417.zip).
 Using IKEA Trådfri bulbs, some Hue bulbs/strips and OSRAM smart+ plugs as routers.
 
 ## Ecosystem
