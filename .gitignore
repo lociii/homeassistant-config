@@ -27,6 +27,3 @@ www/
 
 # runtime
 *.pyc
-
-# outdated
-appdaemon/
