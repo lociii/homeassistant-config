@@ -27,3 +27,6 @@ www/
 
 # runtime
 *.pyc
+
+# zha
+neighbours/
