@@ -1,0 +1,6 @@
+zha:
+  zigpy_config:
+    ota:
+      ikea_provider: true
+
+zha_map:

@@ -51,9 +51,9 @@ My [homegrown component](https://github.com/lociii/homeassistant-csgo) to automa
 
 This is a custom component to allow control of Amazon Alexa devices in Home Assistant using the unofficial Alexa API.
 
-### zigbee2mqtt Networkmap
+### zha_map Zigbee network map
 
-Custom Component for Homeassistant to show zigbee2mqtt Networkmap
+Custom Component for Homeassistant to show a map of my zigbee network.
 
 ## Infrastructure
 

@@ -704,17 +704,6 @@
   - delay: 00:01:00
   - entity_id: media_player.wallpanel
     service: media_player.volume_mute
-- id: '1574515432482'
-  alias: Zigbee Map Update
-  description: ''
-  trigger:
-  - hours: '*'
-    minutes: /10
-    platform: time_pattern
-    seconds: '0'
-  condition: []
-  action:
-  - service: zigbee2mqtt_networkmap.update
 - id: '1574516069986'
   alias: Wäsche - Trockner - Status - Aus
   description: ''
@@ -1095,9 +1084,11 @@
   alias: Gameboy - An - Hell
   description: ''
   trigger:
-  - entity_id: sensor.switch_guestroom_computer_click
-    platform: state
-    to: single
+  - device_id: edfaccbc30184f80a144ff944b71a2fd
+    domain: zha
+    platform: device
+    subtype: remote_button_short_press
+    type: remote_button_short_press
   condition:
   - condition: state
     entity_id: sun.sun
@@ -1144,9 +1135,11 @@
   alias: Gameboy - Aus
   description: ''
   trigger:
-  - entity_id: sensor.switch_guestroom_computer_click
-    platform: state
-    to: double
+  - device_id: edfaccbc30184f80a144ff944b71a2fd
+    domain: zha
+    platform: device
+    subtype: remote_button_double_press
+    type: remote_button_double_press
   condition: []
   action:
   - data: {}
@@ -1331,9 +1324,11 @@
   alias: Gameboy - An - Dunkel
   description: ''
   trigger:
-  - entity_id: sensor.switch_guestroom_computer_click
-    platform: state
-    to: single
+  - device_id: edfaccbc30184f80a144ff944b71a2fd
+    domain: zha
+    platform: device
+    subtype: remote_button_short_press
+    type: remote_button_short_press
   condition:
   - condition: state
     entity_id: sun.sun
@@ -2129,10 +2124,11 @@
   alias: Büro - Drucker an
   description: ''
   trigger:
-  - entity_id: sensor.xiaomi_button_guestroom_printer
-    platform: state
-    to: single
-  condition: []
+  - device_id: 119079913f9242a784da1528f43bd949
+    domain: zha
+    platform: device
+    subtype: remote_button_short_press
+    type: remote_button_short_press
   action:
   - data: {}
     entity_id: switch.plug_guestroom_printer
@@ -2141,9 +2137,11 @@
   alias: Büro - Drucker aus
   description: ''
   trigger:
-  - entity_id: sensor.xiaomi_button_guestroom_printer
-    platform: state
-    to: double
+  - device_id: 119079913f9242a784da1528f43bd949
+    domain: zha
+    platform: device
+    subtype: remote_button_double_press
+    type: remote_button_double_press
   condition: []
   action:
   - data: {}
