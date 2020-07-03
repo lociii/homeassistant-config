@@ -1,12 +1,12 @@
 <<: !include _defaults.yaml
 
 # see https://templates.blakadder.com/SWA11.html
+# translation https://tasmota.github.io/docs/Components/
 
 esphome:
   name: ${name}
   platform: ESP8266
   board: esp8285
-  # esp8266_restore_from_flash: true
 
 # text sensors with general information
 text_sensor:
@@ -36,6 +36,7 @@ binary_sensor:
     pin:
       number: GPIO13
       inverted: true
+      mode: INPUT_PULLUP
     on_press:
       - switch.toggle: "${name}_relay"
 
@@ -48,22 +49,9 @@ switch:
     id: "${name}_relay"
     name: "${name}_switch"
     pin: GPIO05
-    # restore_mode: RESTORE_DEFAULT_ON
-    on_turn_on:
-      - light.turn_on: "${name}_led"
-    on_turn_off:
-      - light.turn_off: "${name}_led"
 
-output:
-  # relay state led
-  - platform: esp8266_pwm
-    id: "${name}_state_led"
-    pin:
-      number: GPIO04
-      inverted: true
-
-light:
-  # relay state light
-  - platform: monochromatic
-    output: "${name}_state_led"
-    id: "${name}_led"
+status_led:
+  # uses the red led as a status indicator
+  pin:
+    number: GPIO04
+    inverted: true
