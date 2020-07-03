@@ -1,7 +1,7 @@
 - id: '1577032817472'
   name: Gameboy an - Hell
   entities:
-    switch.plug_guestroom_desk_switch:
+    switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
       state: 'on'
     switch.plug_guestroom_gameboy:
@@ -13,7 +13,7 @@
 - id: '1577032840793'
   name: Gameboy an - Dunkel
   entities:
-    switch.plug_guestroom_desk_switch:
+    switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
       state: 'on'
     switch.plug_guestroom_gameboy:
@@ -25,7 +25,7 @@
 - id: '1577033397830'
   name: Gameboy - Aus
   entities:
-    switch.plug_guestroom_desk_switch:
+    switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
       state: 'off'
     switch.plug_guestroom_gameboy:
