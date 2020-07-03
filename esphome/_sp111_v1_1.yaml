@@ -1,6 +1,6 @@
 <<: !include _defaults.yaml
 
-# see https://templates.blakadder.com/gosund_SP111.html
+# see https://templates.blakadder.com/gosund_SP111_v2.html
 # translation https://tasmota.github.io/docs/Components/
 
 # Pin       v1.0        v1.1        v1.4
@@ -51,7 +51,7 @@ sensor:
       number: GPIO12
       inverted: true
     cf_pin: GPIO05
-    cf1_pin: GPIO14
+    cf1_pin: GPIO04
     change_mode_every: 3
     update_interval: 3s
     # current sensor

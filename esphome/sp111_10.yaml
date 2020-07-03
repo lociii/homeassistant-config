@@ -1,4 +1,4 @@
 substitutions:
   name: plug_sp111_10
 
-<<: !include _sp111.yaml
+<<: !include _sp111_v1_1.yaml

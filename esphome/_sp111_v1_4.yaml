@@ -1,6 +1,6 @@
 <<: !include _defaults.yaml
 
-# see https://templates.blakadder.com/gosund_SP111.html
+# see https://templates.blakadder.com/gosund_SP111_v1_4.html
 # translation https://tasmota.github.io/docs/Components/
 
 # Pin       v1.0        v1.1        v1.4
@@ -141,7 +141,7 @@ output:
   - platform: esp8266_pwm
     id: "${name}_state_led"
     pin:
-      number: GPIO02
+      number: GPIO00
       inverted: true
 
 light:
@@ -153,5 +153,5 @@ light:
 # uses the red led as a status indicator
 status_led:
   pin:
-    number: GPIO00
+    number: GPIO02
     inverted: true

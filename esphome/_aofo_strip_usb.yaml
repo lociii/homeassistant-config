@@ -6,7 +6,6 @@ esphome:
   name: ${name}
   platform: ESP8266
   board: esp8285
-  # esp8266_restore_from_flash: true
 
 # text sensors with general information
 text_sensor:
@@ -38,55 +37,24 @@ switch:
     id: "${name}_relay_1"
     name: "${name}_switch_1"
     pin: GPIO05
-    restore_mode: RESTORE_DEFAULT_ON
   # switch to toggle the relay of plug 2
   - platform: gpio
     id: "${name}_relay_2"
     name: "${name}_switch_2"
     pin: GPIO04
-    restore_mode: RESTORE_DEFAULT_ON
   # switch to toggle the relay of plug 3
   - platform: gpio
     id: "${name}_relay_3"
     name: "${name}_switch_3"
     pin: GPIO12
-    restore_mode: RESTORE_DEFAULT_ON
   # switch to toggle the relay of plug 4
   - platform: gpio
     id: "${name}_relay_4"
     name: "${name}_switch_4"
     pin: GPIO13
-    restore_mode: RESTORE_DEFAULT_ON
   # switch to toggle the relay of usb ports
   - platform: gpio
     id: "${name}_relay_usb"
     name: "${name}_switch_usb"
     pin: GPIO14
-    restore_mode: RESTORE_DEFAULT_ON
-
-binary_sensor:
-  - platform: gpio
-    pin:
-      number: GPIO03
-      inverted: True
-    name: ${name} button
-    internal: True
-    on_press:
-      then:
-        if:
-          condition:
-            lambda: return id(${name}_relay_1).state || id(${name}_relay_2).state || id(${name}_relay_3).state || id(${name}_relay_4).state || id(${name}_relay_usb).state;
-          then:
-            # at least one socket is on, so turn off all sockets
-            - switch.turn_off: ${name}_relay_1
-            - switch.turn_off: ${name}_relay_2
-            - switch.turn_off: ${name}_relay_3
-            - switch.turn_off: ${name}_relay_4
-            - switch.turn_off: ${name}_relay_usb
-          else:
-            # no socket is on, so turn on all sockets
-            - switch.turn_on: ${name}_relay_1
-            - switch.turn_on: ${name}_relay_2
-            - switch.turn_on: ${name}_relay_3
-            - switch.turn_on: ${name}_relay_4
-            - switch.turn_on: ${name}_relay_usb
+    
