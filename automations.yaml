@@ -180,8 +180,8 @@
       - switch.plug_bathroom_voice_assistant
       - switch.plug_livingroom_sonos_sub
       - switch.plug_livingroom_multimedia
-      - switch.plug_livingroom_multimedia_usb
-      - switch.plug_guestroom_desk_switch
+      - switch.plug_livingroom_tv
+      - switch.plug_guestroom_desk
       - switch.plug_guestroom_printer
       - switch.plug_office_voice_assistant
       - switch.plug_bedroom_tv
@@ -998,7 +998,7 @@
       - switch.plug_bathroom_voice_assistant
       - switch.plug_livingroom_sonos_sub
       - switch.plug_livingroom_multimedia
-      - switch.plug_livingroom_multimedia_usb
+      - switch.plug_livingroom_tv
       - switch.plug_office_voice_assistant
       - switch.plug_livingroom_telephone
     service: switch.turn_on
@@ -1019,8 +1019,8 @@
       - switch.plug_bathroom_voice_assistant
       - switch.plug_livingroom_sonos_sub
       - switch.plug_livingroom_multimedia
-      - switch.plug_livingroom_multimedia_usb
-      - switch.plug_guestroom_desk_switch
+      - switch.plug_livingroom_tv
+      - switch.plug_guestroom_desk
       - switch.plug_guestroom_printer
       - switch.plug_office_voice_assistant
       - switch.plug_livingroom_telephone
@@ -1042,7 +1042,7 @@
       - switch.plug_bathroom_voice_assistant
       - switch.plug_livingroom_sonos_sub
       - switch.plug_livingroom_multimedia
-      - switch.plug_livingroom_multimedia_usb
+      - switch.plug_livingroom_tv
       - switch.plug_office_voice_assistant
       - switch.plug_livingroom_telephone
     service: switch.turn_on
