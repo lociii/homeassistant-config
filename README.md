@@ -25,8 +25,6 @@ Custom repos in use:
   https://github.com/nalipaz/hassio-addons
 * Markus Pöschl (i.a. Valetudo mapper)
   https://github.com/Poeschl/Hassio-Addons
-* Home Assistant Community Edge Addons (Network UPS Tools)
-  https://addons.community/edge
 
 ## Automations
 
