@@ -2384,3 +2384,16 @@
   - data: {}
     entity_id: light.bewasserung_entnahme
     service: light.turn_off
+- id: '1593947735826'
+  alias: Büro - Drucker aus nach 15 Minuten Standby
+  description: ''
+  trigger:
+  - below: '5'
+    entity_id: sensor.plug_guestroom_printer_power
+    for: 00:15:00
+    platform: numeric_state
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.plug_guestroom_printer
+    service: switch.turn_off
