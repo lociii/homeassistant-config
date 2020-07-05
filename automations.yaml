@@ -107,7 +107,7 @@
     service: light.turn_off
   - data:
       entity_id:
-      - switch.plug_livingroom_readlinglight
+      - switch.plug_livingroom_readinglight
     service: switch.turn_off
 - id: '1574018705350'
   alias: Schlafen - Aufstehen - Rolläden
@@ -677,7 +677,7 @@
     service: light.turn_off
   - data:
       entity_id:
-      - switch.plug_livingroom_readlinglight
+      - switch.plug_livingroom_readinglight
     service: switch.turn_off
 - id: '1574417564491'
   alias: Präsenz - Verlassen - Immer - Announcement
@@ -918,11 +918,11 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.plug_livingroom_readlinglight
+    entity_id: switch.plug_livingroom_readinglight
     state: 'off'
   action:
   - data: {}
-    entity_id: switch.plug_livingroom_readlinglight
+    entity_id: switch.plug_livingroom_readinglight
     service: switch.turn_on
 - id: '1574517593262'
   alias: Forward status - Leselampe - Aus
@@ -934,10 +934,10 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: switch.plug_livingroom_readlinglight
+    entity_id: switch.plug_livingroom_readinglight
     state: 'on'
   action:
-  - entity_id: switch.plug_livingroom_readlinglight
+  - entity_id: switch.plug_livingroom_readinglight
     service: switch.turn_off
 - id: '1574518397208'
   alias: Präsenz - Verlassen - Dunkel (Nacht) - Rolläden
@@ -2345,50 +2345,6 @@
   - data: {}
     entity_id: cover.wohnzimmer_rolladen_couch
     service: cover.close_cover
-- alias: Theme - Helles Theme bei Sonnenaufgang
-  trigger:
-    platform: sun
-    event: sunrise
-  action:
-  - service: frontend.set_theme
-    data:
-      name: clear
-  id: 98e552b1b8e74e298d87b39af464a004
-- alias: Theme - Helles Theme bei Sonnenaufgang
-  trigger:
-    platform: sun
-    event: sunset
-  action:
-  - service: frontend.set_theme
-    data:
-      name: clear-dark
-  id: 006fb347c9a44ea582d6ba8a9654606e
-- alias: Theme - Helles Theme nach Reboot am Tag
-  trigger:
-    platform: homeassistant
-    event: start
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: above_horizon
-  action:
-    service: frontend.set_theme
-    data:
-      name: clear
-  id: 99f2a199358d40bc9900dba9f9e87c01
-- alias: Theme - Dunkles Theme nach Reboot bei Nacht
-  trigger:
-    platform: homeassistant
-    event: start
-  condition:
-    condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  action:
-    service: frontend.set_theme
-    data:
-      name: clear-dark
-  id: 0acf85e10ef347bfb00d5bf13f967d86
 - id: '1593275472391'
   alias: Bad - Zahnbürste laden an
   description: ''
