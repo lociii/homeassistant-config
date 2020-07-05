@@ -83,8 +83,9 @@ Light and shutter control system, see https://www.digitalstrom.com/
 
 ### Zigbee
 
-Running [zigbee2mqtt](https://github.com/Koenkk/zigbee2mqtt) on a Raspberry Pi 4 (4GB) using a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAUNCHXL-CC26X2R1) zigbee sniffer with [ZStack 3.0 firmware](https://github.com/Koenkk/Z-Stack-firmware/blob/master/coordinator/Z-Stack_3.x.0/bin/CC26X2R1_20200417.zip).
-Using IKEA Trådfri bulbs, some Hue bulbs/strips and OSRAM smart+ plugs as routers.
+Direct integration with ZHA in HomeAssistant. I'm forwarding the USB device of the controller by network as the NUC is placed in the basement and the zigbee controller should be located in the apartment. See #17
+
+Controller is a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAUNCHXL-CC26X2R1) zigbee sniffer with [ZStack 3.0 firmware](https://github.com/Koenkk/Z-Stack-firmware/blob/master/coordinator/Z-Stack_3.x.0/bin/CC26X2R1_20200417.zip) connected to as Raspberry Pi 3.
 
 ## Ecosystem
 
@@ -96,8 +97,7 @@ Using IKEA Trådfri bulbs, some Hue bulbs/strips and OSRAM smart+ plugs as route
 
 * [digitalSTROM](https://productinfo.digitalstrom.com/4290046000010/)
 * Trådfri light bulbs (zigbee)
-* Philips Hue light strip plus (zigbee)
-* Philips Hue bulbs (zigbee) 
+* Philips Hue light strip plus (zigbee) 
 
 ### Shutters
 
@@ -132,12 +132,12 @@ Using IKEA Trådfri bulbs, some Hue bulbs/strips and OSRAM smart+ plugs as route
 * Xiaomi Aqara water leakage sensors (zigbee)
 * Xiaomi Aqara occupancy sensors (zigbee)
 * Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway running ESPHome](https://esphome.io/components/sensor/xiaomi_miflora.html))
+* Bitron AV2010/32 wall thermostat to control the underfloor heating
 
 ### Power plugs
 
 * TP Link HS110
-* OSRAM smart+ plugs (zigbee)
-* Lots of ESP8266 based plugs running on [ESPHome](esphome/)
+* Lots of ESP8266 based plugs running on ESPHome - see my [ESPHome config for details](esphome/)
   + [Gosund SP111 single switches](https://templates.blakadder.com/gosund_SP111.html)
   + [Klas Remo single switches](https://templates.blakadder.com/SWA11.html)
   + [AOFO 4AC + 4USB](https://templates.blakadder.com/aofo_4AC4USB.html)
@@ -150,7 +150,3 @@ Using IKEA Trådfri bulbs, some Hue bulbs/strips and OSRAM smart+ plugs as route
 ### Utility
 
 * Xiaomi Roborock S50 vacuum running Valetudo
-
-### Spare ecosystem
-
-* Xiaomi Aqara magic cube (zigbee)
