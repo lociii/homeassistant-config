@@ -2410,3 +2410,31 @@
   - data: {}
     entity_id: switch.plug_kitchen_mobile_charging
     service: switch.turn_off
+- id: '1593955071971'
+  alias: Küche - Schranklicht an
+  description: ''
+  trigger:
+  - device_id: 90e0cd524ac340e2a6c82c53c046a707
+    domain: zha
+    platform: device
+    subtype: remote_button_short_press
+    type: remote_button_short_press
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.kuche_schranklicht
+    service: light.turn_on
+- id: '1593955105793'
+  alias: Küche - Schranklicht aus
+  description: ''
+  trigger:
+  - device_id: 90e0cd524ac340e2a6c82c53c046a707
+    domain: zha
+    platform: device
+    subtype: remote_button_double_press
+    type: remote_button_double_press
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.kuche_schranklicht
+    service: light.turn_off
