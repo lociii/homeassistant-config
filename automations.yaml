@@ -2,9 +2,10 @@
   alias: Sonne - Untergang - Licht
   description: ''
   trigger:
-  - event: sunset
-    offset: -00:15:00
-    platform: sun
+  - entity_id: input_boolean.licht_dunkelheit
+    from: 'off'
+    platform: state
+    to: 'on'
   condition: []
   action:
   - data:
@@ -17,9 +18,10 @@
   alias: Sonne - Untergang - Rolläden
   description: ''
   trigger:
-  - event: sunset
-    offset: 00:15:00
-    platform: sun
+  - entity_id: input_boolean.rolladen_dunkelheit
+    from: 'off'
+    platform: state
+    to: 'on'
   condition: []
   action:
   - data:
@@ -35,9 +37,10 @@
   alias: Sonne - Untergang - Rolläden - abwesend
   description: ''
   trigger:
-  - event: sunset
-    offset: 00:15:00
-    platform: sun
+  - entity_id: input_boolean.rolladen_dunkelheit
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: switch.apartment_present
@@ -51,9 +54,10 @@
   alias: Sonne - Untergang - Licht - Anwesend
   description: ''
   trigger:
-  - event: sunset
-    offset: -00:15:00
-    platform: sun
+  - entity_id: input_boolean.licht_dunkelheit
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: switch.apartment_present
@@ -137,8 +141,8 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: above_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'off'
   action:
   - data:
       entity_id:
@@ -154,8 +158,8 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - data:
       entity_id:
@@ -198,8 +202,8 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - data:
       entity_id:
@@ -291,10 +295,11 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  - before: '23:00'
-    condition: time
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'off'
   action:
   - data:
       entity_id:
@@ -582,10 +587,10 @@
   alias: Sonne - Aufgang - Wach - Rolladen Arbeitszimmer auf
   description: ''
   trigger:
-  - entity_id: sun.sun
-    from: below_horizon
+  - entity_id: input_boolean.rolladen_dunkelheit
+    from: 'on'
     platform: state
-    to: above_horizon
+    to: 'off'
   condition:
   - condition: state
     entity_id: switch.apartment_sleeping
@@ -602,10 +607,10 @@
   alias: Sonne - Aufgang - Gartenlampen aus
   description: ''
   trigger:
-  - entity_id: sun.sun
-    from: below_horizon
+  - entity_id: input_boolean.rolladen_dunkelheit
+    from: 'on'
     platform: state
-    to: above_horizon
+    to: 'off'
   condition: []
   action:
   - data:
@@ -623,8 +628,8 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - data:
       entity_id:
@@ -949,10 +954,11 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  - after: '23:00'
-    condition: time
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.rolladen_shutdown
+    state: 'on'
   action:
   - data:
       entity_id:
@@ -1069,9 +1075,10 @@
   alias: Gameboy - Dunkelheit
   description: ''
   trigger:
-  - event: sunset
-    offset: -00:15:00
-    platform: sun
+  - entity_id: input_boolean.rolladen_dunkelheit
+    from: 'off'
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: switch.plug_guestroom_gameboy
@@ -1091,8 +1098,8 @@
     type: remote_button_short_press
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: above_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'off'
   action:
   - entity_id: scene.gameboy_an_hell
     service: scene.turn_on
@@ -1331,8 +1338,8 @@
     type: remote_button_short_press
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - entity_id: scene.gameboy_an_dunkel
     service: scene.turn_on
@@ -1443,8 +1450,8 @@
     entity_id: automation.sonnenschutz_sued
     state: 'on'
   - condition: state
-    entity_id: sun.sun
-    state: above_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'off'
   action:
   - entity_id: cover.wohnzimmer_rolladen_esstisch
     service: cover.open_cover
@@ -1477,8 +1484,8 @@
     entity_id: automation.sonnenschutz_west
     state: 'on'
   - condition: state
-    entity_id: sun.sun
-    state: above_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'off'
   action:
   - entity_id: cover.wohnzimmer_rolladen_terrasse
     service: cover.open_cover
@@ -1514,8 +1521,8 @@
     entity_id: automation.sonnenschutz_orchideen
     state: 'on'
   - condition: state
-    entity_id: sun.sun
-    state: above_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'off'
   - condition: state
     entity_id: automation.sonnenschutz_west
     state: 'off'
@@ -1849,8 +1856,8 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - data: {}
     entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
@@ -1865,8 +1872,8 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - data: {}
     entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
@@ -1881,8 +1888,8 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - data: {}
     entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
@@ -1897,8 +1904,8 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   action:
   - data: {}
     entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
@@ -1919,10 +1926,9 @@
   alias: Rolladen - Shutdown - Ende
   description: ''
   trigger:
-  - entity_id: sun.sun
-    from: below_horizon
-    platform: state
-    to: above_horizon
+  - event: sunrise
+    offset: -00:15:00
+    platform: sun
   condition: []
   action:
   - data: {}
@@ -1938,8 +1944,8 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   - condition: state
     entity_id: input_boolean.rolladen_shutdown
     state: 'off'
@@ -1957,8 +1963,8 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   - condition: state
     entity_id: input_boolean.rolladen_shutdown
     state: 'off'
@@ -1976,8 +1982,8 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   - condition: state
     entity_id: input_boolean.rolladen_shutdown
     state: 'off'
@@ -1995,8 +2001,8 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: sun.sun
-    state: below_horizon
+    entity_id: input_boolean.rolladen_dunkelheit
+    state: 'on'
   - condition: state
     entity_id: input_boolean.rolladen_shutdown
     state: 'off'
@@ -2073,7 +2079,7 @@
   description: Rolläden 30 Minuten vor Sonnenaufgang schließen
   trigger:
   - event: sunrise
-    offset: -00:45:00
+    offset: -01:00:00
     platform: sun
   condition: []
   action:
@@ -2438,3 +2444,51 @@
   - data: {}
     entity_id: light.kuche_schranklicht
     service: light.turn_off
+- id: '1593978207542'
+  alias: Rolladen - Dunkelheit - Start
+  description: ''
+  trigger:
+  - event: sunset
+    offset: 00:15:00
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.rolladen_dunkelheit
+    service: input_boolean.turn_on
+- id: '1593978251330'
+  alias: Rolladen - Dunkelheit - Ende
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: -00:15:00
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.rolladen_dunkelheit
+    service: input_boolean.turn_off
+- id: '1593978992106'
+  alias: Licht - Dunkelheit - Start
+  description: ''
+  trigger:
+  - event: sunset
+    offset: -00:15:00
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.licht_dunkelheit
+    service: input_boolean.turn_on
+- id: '1593979020901'
+  alias: Licht - Dunkelheit - Ende
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: 00:15:00
+    platform: sun
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.licht_dunkelheit
+    service: input_boolean.turn_off
