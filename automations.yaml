@@ -673,7 +673,7 @@
       - light.arbeitszimmer_alle_lichter
       - light.bad_alle_lichter
       - light.schlafzimmer_alle_lichter
-      - light.philips_lightstrip_bett
+      - light.strip_bedroom_bed
     service: light.turn_off
   - data:
       entity_id:
@@ -1290,7 +1290,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     state: 'off'
   action:
   - data: {}
@@ -1300,7 +1300,7 @@
       brightness: 164
       color_temp: 440
       transition: 1
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     service: light.turn_on
 - id: '1577027772471'
   alias: Forward status - Bettlicht - Aus
@@ -1312,13 +1312,13 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     state: 'on'
   action:
   - entity_id: script.wakeup_light
     service: script.turn_off
   - data: {}
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     service: light.turn_off
 - id: '1577033218991'
   alias: Gameboy - An - Dunkel
@@ -1722,16 +1722,16 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     state: 'on'
   action:
   - data:
       brightness: 10
       transition: 60
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     service: light.turn_on
   - delay: 00:01:05
-  - entity_id: light.philips_lightstrip_bett
+  - entity_id: light.strip_bedroom_bed
     service: light.turn_off
 - id: '1588948500578'
   alias: Wecker - Rolladen auf Spalt

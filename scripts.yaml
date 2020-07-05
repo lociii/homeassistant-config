@@ -36,21 +36,21 @@ wakeup_light:
       brightness: 10
       color_temp: 440
       transition: 1
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     service: light.turn_on
   - delay: 00:00:05
   - data:
       brightness: 80
       color_temp: 440
       transition: 600
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     service: light.turn_on
   - delay: 00:10:05
   - data:
       brightness: 164
       color_temp: 440
       transition: 300
-    entity_id: light.philips_lightstrip_bett
+    entity_id: light.strip_bedroom_bed
     service: light.turn_on
 gaestezimmer_stehlampe_warmweiss:
   alias: Gaestezimmer - Stehlampe - Warmweiss
