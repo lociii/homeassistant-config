@@ -1,8 +1,10 @@
 - platform: amazon_polly
   cache: true
-  cache_dir: /tmp/tts
-  time_memory: 28800  # 8 hours
+  cache_dir: /config/tts
+  time_memory: 43200  # 1/2 day
   aws_access_key_id: !secret aws_access_key_id
   aws_secret_access_key: !secret aws_secret_access_key
   region_name: eu-central-1
   voice: Marlene
+  text_type: ssml
+  base_url: !secret tts_base_url

@@ -851,12 +851,12 @@
   action:
   - data:
       entity_id: media_player.wohnzimmer
-      volume_level: 0.5
+      volume_level: 0.7
     service: media_player.volume_set
   - delay: 00:00:03
   - data:
       entity_id: media_player.wohnzimmer
-      message: Der Trockner ist fertig.
+      message: <speak>Der Trockner ist fertig.</speak>
     service: tts.amazon_polly_say
   - delay: 00:00:15
   - data:
@@ -876,12 +876,12 @@
   action:
   - data:
       entity_id: media_player.wohnzimmer
-      volume_level: 0.5
+      volume_level: 0.7
     service: media_player.volume_set
   - delay: 00:00:03
   - data:
       entity_id: media_player.wohnzimmer
-      message: Die Waschmaschine ist fertig.
+      message: <speak>Die Waschmaschine ist fertig.</speak>
     service: tts.amazon_polly_say
   - delay: 00:00:15
   - data:
@@ -901,12 +901,12 @@
   action:
   - data:
       entity_id: media_player.wohnzimmer
-      volume_level: 0.5
+      volume_level: 0.7
     service: media_player.volume_set
   - delay: 00:00:03
   - data:
       entity_id: media_player.wohnzimmer
-      message: Die Tier-Waschmaschine ist fertig.
+      message: <speak>Die Tier-Waschmaschine ist fertig.</speak>
     service: tts.amazon_polly_say
   - delay: 00:00:15
   - data:
