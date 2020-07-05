@@ -2397,3 +2397,16 @@
   - data: {}
     entity_id: switch.plug_guestroom_printer
     service: switch.turn_off
+- id: '1593951862639'
+  alias: Küche - Ladestation Mobilgeräte aus nach 15 Minuten ohne Verbrauch
+  description: ''
+  trigger:
+  - below: '1'
+    entity_id: sensor.plug_kitchen_mobile_charging_power
+    for: 00:15:00
+    platform: numeric_state
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.plug_kitchen_mobile_charging
+    service: switch.turn_off
