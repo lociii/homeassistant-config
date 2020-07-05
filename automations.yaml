@@ -2492,3 +2492,113 @@
   - data: {}
     entity_id: input_boolean.licht_dunkelheit
     service: input_boolean.turn_off
+- id: '1593982318176'
+  alias: Temperatur - Innen warm, aussen kühl, alle Fenster zu
+  description: ''
+  trigger:
+  - entity_id: sensor.temperatur_aussen_schnitt_15
+    platform: state
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_kitchen_contact
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_guestroom_contact
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_bedroom_contact
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_office_contact
+      state: 'off'
+  - below: '23'
+    condition: numeric_state
+    entity_id: sensor.temperatur_aussen_schnitt_15
+  - condition: template
+    value_template: '{{ states(''sensor.temperatur_aussen_schnitt_15'') < states(sensor.temperatur_innen_schnitt_15)
+      }}'
+  - condition: state
+    entity_id: scene.arbeitszimmer_sleeping
+    state: 'off'
+  - condition: state
+    entity_id: scene.apartment_present
+    state: 'on'
+  - condition: state
+    entity_id: input_select.temperatur_schwelle
+    state: Warm
+  action:
+  - data:
+      volume_level: 0.7
+    entity_id: media_player.wohnzimmer
+    service: media_player.volume_set
+  - delay: 00:00:01
+  - data:
+      entity_id: media_player.wohnzimmer
+      message: <speak>Draussen wird's kühl, mach die Fenster auf.</speak>
+    service: tts.amazon_polly_say
+  - delay: 00:00:15
+  - data:
+      volume_level: 0.3
+    entity_id: media_player.wohnzimmer
+    service: media_player.volume_set
+  - data:
+      option: Kalt
+    entity_id: input_select.temperatur_schwelle
+    service: input_select.select_option
+- id: '1593982318177'
+  alias: Temperatur - Innen kühl, aussen warm, irgendein Fenster auf
+  description: ''
+  trigger:
+  - entity_id: sensor.temperatur_aussen_schnitt_15
+    platform: state
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_kitchen_contact
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_guestroom_contact
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_bedroom_contact
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_office_contact
+      state: 'on'
+  - condition: template
+    value_template: '{{ states(''sensor.temperatur_aussen_schnitt_15'') > states(sensor.temperatur_innen_schnitt_15)
+      }}'
+  - above: '21'
+    condition: numeric_state
+    entity_id: sensor.temperatur_aussen_schnitt_15
+  - condition: state
+    entity_id: scene.arbeitszimmer_sleeping
+    state: 'off'
+  - condition: state
+    entity_id: scene.apartment_present
+    state: 'on'
+  - condition: state
+    entity_id: input_select.temperatur_schwelle
+    state: Kalt
+  action:
+  - data:
+      volume_level: 0.7
+    entity_id: media_player.wohnzimmer
+    service: media_player.volume_set
+  - delay: 00:00:01
+  - data:
+      entity_id: media_player.wohnzimmer
+      message: <speak>Draussen wird's warm, mach schnell die Fenster zu.</speak>
+    service: tts.amazon_polly_say
+  - delay: 00:00:15
+  - data:
+      volume_level: 0.3
+    entity_id: media_player.wohnzimmer
+    service: media_player.volume_set
+  - data:
+      option: Warm
+    entity_id: input_select.temperatur_schwelle
+    service: input_select.select_option
