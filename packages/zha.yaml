@@ -4,3 +4,24 @@ zha:
       ikea_provider: true
 
 zha_map:
+
+# this is just a workaround as zigbee groups don't work for now
+light:
+  - platform: group
+    name: Stehlampe Gästezimmer
+    entities:
+      - light.bulb_guestroom_standinglight_top
+      - light.bulb_guestroom_standinglight_mid
+      - light.bulb_guestroom_standinglight_bottom
+  - platform: group
+    name: Stehlampe Wohnzimmer
+    entities:
+      - light.bulb_livingroom_standinglight_top
+      - light.bulb_livingroom_standinglight_mid
+      - light.bulb_livingroom_standinglight_bottom
+  - platform: group
+    name: Balllampen
+    entities:
+      - light.bulb_garden_balllamps_large
+      - light.bulb_garden_balllamps_small_back
+      - light.bulb_garden_balllamps_small_front

@@ -11,7 +11,7 @@
       entity_id:
       - light.wohnzimmer_wandlampen
       - light.garten_alle_lichter
-      - light.garten_balllampen
+      - light.balllampen
     service: light.turn_on
 - id: '1574017577024'
   alias: Sonne - Untergang - Rolläden
@@ -92,7 +92,7 @@
   - data:
       entity_id:
       - light.garten_alle_lichter
-      - light.garten_balllampen
+      - light.balllampen
       - light.kuche_alle_lichter
       - light.esszimmer_alle_lichter
       - light.wohnzimmer_alle_lichter
@@ -205,7 +205,7 @@
       entity_id:
       - light.wohnzimmer_wandlampen
       - light.garten_alle_lichter
-      - light.garten_balllampen
+      - light.balllampen
     service: light.turn_on
 - id: '1574022674864'
   alias: Shutdown - Rolladen Esstisch
@@ -611,7 +611,7 @@
   - data:
       entity_id:
       - light.garten_alle_lichter
-      - light.garten_balllampen
+      - light.balllampen
     service: light.turn_off
 - id: '1574417268114'
   alias: Präsenz - Ankommen - Dunkel - Rolläden

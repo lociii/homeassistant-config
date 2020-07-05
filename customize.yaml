@@ -1,5 +1,3 @@
-light.garten_balllampen:
-  friendly_name: Balllampen
 sensor.travel_time_jens:
   friendly_name: Fahrzeit Jens
 sensor.travel_time_eva:
