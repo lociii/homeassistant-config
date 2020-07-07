@@ -2496,7 +2496,7 @@
   alias: Temperatur - Innen warm, aussen kühl, alle Fenster zu
   description: ''
   trigger:
-  - entity_id: sensor.temperatur_aussen_schnitt_15
+  - entity_id: sensor.environment_outside_temperature
     platform: state
   condition:
   - condition: and
@@ -2515,15 +2515,15 @@
       state: 'off'
   - below: '23'
     condition: numeric_state
-    entity_id: sensor.temperatur_aussen_schnitt_15
+    entity_id: sensor.environment_outside_temperature
   - condition: template
-    value_template: '{{ states(''sensor.temperatur_aussen_schnitt_15'') < states(sensor.temperatur_innen_schnitt_15)
+    value_template: '{{ states(''sensor.environment_outside_temperature'') < states(''sensor.environment_inside_temperature'')
       }}'
   - condition: state
-    entity_id: scene.arbeitszimmer_sleeping
+    entity_id: switch.apartment_sleeping
     state: 'off'
   - condition: state
-    entity_id: scene.apartment_present
+    entity_id: switch.apartment_present
     state: 'on'
   - condition: state
     entity_id: input_select.temperatur_schwelle
@@ -2551,7 +2551,7 @@
   alias: Temperatur - Innen kühl, aussen warm, irgendein Fenster auf
   description: ''
   trigger:
-  - entity_id: sensor.temperatur_aussen_schnitt_15
+  - entity_id: sensor.environment_outside_temperature
     platform: state
   condition:
   - condition: or
@@ -2569,16 +2569,16 @@
       entity_id: binary_sensor.magnet_window_office_contact
       state: 'on'
   - condition: template
-    value_template: '{{ states(''sensor.temperatur_aussen_schnitt_15'') > states(sensor.temperatur_innen_schnitt_15)
+    value_template: '{{ states(''sensor.environment_outside_temperature'') > states(''sensor.environment_inside_temperature'')
       }}'
   - above: '21'
     condition: numeric_state
-    entity_id: sensor.temperatur_aussen_schnitt_15
+    entity_id: sensor.environment_outside_temperature
   - condition: state
-    entity_id: scene.arbeitszimmer_sleeping
+    entity_id: switch.apartment_sleeping
     state: 'off'
   - condition: state
-    entity_id: scene.apartment_present
+    entity_id: switch.apartment_present
     state: 'on'
   - condition: state
     entity_id: input_select.temperatur_schwelle
