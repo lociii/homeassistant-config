@@ -32,6 +32,16 @@ recorder:
   exclude:
     entities:
       - sensor.date
+      - sensor.time
+      - sensor.time_date
+      - sensor.time_utc
+      - sensor.internet_time
+      - sensor.date_time_utc
+      - sensor.date_time_iso
+      - sensor.date_time
+      - sensor.seconds_of_day
+    entity_globs:
+      - device_tracker.unifi_*_default
 
 # include hacs themes
 frontend:
