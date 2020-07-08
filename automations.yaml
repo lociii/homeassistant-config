@@ -1075,7 +1075,7 @@
   alias: Gameboy - Dunkelheit
   description: ''
   trigger:
-  - entity_id: input_boolean.rolladen_dunkelheit
+  - entity_id: input_boolean.licht_dunkelheit
     from: 'off'
     platform: state
     to: 'on'
