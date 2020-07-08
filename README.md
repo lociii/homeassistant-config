@@ -97,7 +97,9 @@ Controller is a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAU
 
 * [digitalSTROM](https://productinfo.digitalstrom.com/4290046000010/)
 * Trådfri light bulbs (zigbee)
-* Philips Hue light strip plus (zigbee) 
+* Philips Hue light strip plus (zigbee)
+* [Shelly1](esphome/_shelly1.yaml) to control LED light fixtures
+* [MagicHome RGB LED controller](esphome/_magichome.yaml)
 
 ### Shutters
 
@@ -138,9 +140,9 @@ Controller is a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAU
 
 * TP Link HS110
 * Lots of ESP8266 based plugs running on ESPHome - see my [ESPHome config for details](esphome/)
-  + [Gosund SP111 single switches](https://templates.blakadder.com/gosund_SP111.html)
-  + [Klas Remo single switches](https://templates.blakadder.com/SWA11.html)
-  + [AOFO 4AC + 4USB](https://templates.blakadder.com/aofo_4AC4USB.html)
+  + [Gosund SP111 single plugs](esphome/_sp111.yaml) with power measurement
+  + [Klas Remo single plugs](esphome/_klasremo.yaml)
+  + [AOFO 4AC + 4USB](esphome/_aofo_strip_usb.yaml)
 
 ### UPS
 
