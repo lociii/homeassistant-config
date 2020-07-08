@@ -1,0 +1,31 @@
+<<: !include _defaults.yaml
+
+# see https://templates.blakadder.com/shelly_1.html
+# wiring diagrams
+# https://www.shelly-support.eu/lexikon/index.php?entry/58-anschlussschemen-shelly-1-fortsetzung/
+# https://shelly.cloud/support/knowledge-base/shelly-1/#wiring
+
+esphome:
+  name: ${name}
+  platform: ESP8266
+  board: esp01_1m
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name}_status"
+  # binary sensor for the button press
+  - platform: gpio
+    name: "${name}_button"
+    pin:
+      number: GPIO5
+    on_press:
+      - switch.toggle: "${name}_relay"
+
+switch:
+  # switch to toggle the relay
+  - platform: gpio
+    id: "${name}_relay"
+    name: "${name}_switch"
+    pin: GPIO4
+    restore_mode: RESTORE_DEFAULT_OFF

@@ -1,0 +1,4 @@
+substitutions:
+  name: switch_shelly1_02
+
+<<: !include _shelly1.yaml
