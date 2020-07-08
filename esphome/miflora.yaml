@@ -8,6 +8,14 @@ esphome:
 esp32_ble_tracker:
 
 sensor:
+  # uptime sensor
+  - platform: uptime
+    name: "${name}_uptime"
+  # wifi signal sensor
+  - platform: wifi_signal
+    name: "${name}_wifi_signal"
+    update_interval: 30s
+
   # gruenlilie neben orchideen
   - platform: xiaomi_hhccjcy01
     mac_address: C4:7C:8D:67:0F:60

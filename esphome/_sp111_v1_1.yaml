@@ -25,18 +25,6 @@ esphome:
   board: esp8285
   esp8266_restore_from_flash: true
 
-# text sensors with general information
-text_sensor:
-  - platform: version
-    name: "${name}_version"
-  - platform: wifi_info
-    ip_address:
-      name: "${name}_ip"
-    ssid:
-      name: "${name}_ssid"
-    bssid:
-      name: "${name}_bssid"
-
 sensor:
   # uptime sensor
   - platform: uptime
@@ -44,7 +32,7 @@ sensor:
   # wifi signal sensor
   - platform: wifi_signal
     name: "${name}_wifi_signal"
-    update_interval: 10s
+    update_interval: 30s
   # power sensor
   - platform: hlw8012
     sel_pin:

@@ -7,27 +7,6 @@ esphome:
   platform: ESP8266
   board: esp8285
 
-# text sensors with general information
-text_sensor:
-  - platform: version
-    name: "${name}_version"
-  - platform: wifi_info
-    ip_address:
-      name: "${name}_ip"
-    ssid:
-      name: "${name}_ssid"
-    bssid:
-      name: "${name}_bssid"
-
-sensor:
-  # uptime sensor
-  - platform: uptime
-    name: "${name}_uptime"
-  # wifi signal sensor
-  - platform: wifi_signal
-    name: "${name}_wifi_signal"
-    update_interval: 10s
-
 switch:
   # switch to restart the plug
   - platform: restart
@@ -57,4 +36,3 @@ switch:
     id: "${name}_relay_usb"
     name: "${name}_switch_usb"
     pin: GPIO14
-    
