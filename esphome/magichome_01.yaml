@@ -1,0 +1,4 @@
+substitutions:
+  name: light_magichome_01
+
+<<: !include _magichome.yaml

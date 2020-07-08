@@ -1,0 +1,35 @@
+<<: !include _defaults.yaml
+
+# see https://templates.blakadder.com/magichome_ZJ-FWMN-A_RGB.html
+
+esphome:
+  name: ${name}
+  platform: ESP8266
+  board: esp8285
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name}_status"
+
+light:
+  # light combining all three color channels
+  - platform: rgb
+    name: "${name}_light"
+    red: red_output
+    green: green_output
+    blue: blue_output
+
+output:
+  # red color channel
+  - platform: esp8266_pwm
+    id: red_output
+    pin: GPIO5
+  # green color channel
+  - platform: esp8266_pwm
+    id: green_output
+    pin: GPIO12
+  # blue color channel
+  - platform: esp8266_pwm
+    id: blue_output
+    pin: GPIO13
