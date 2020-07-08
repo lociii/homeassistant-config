@@ -2493,13 +2493,13 @@
     entity_id: input_boolean.licht_dunkelheit
     service: input_boolean.turn_off
 - id: '1593982318176'
-  alias: Temperatur - Innen warm, aussen kühl, alle Fenster zu
+  alias: Temperatur - Innen warm, aussen kühl, irgendein Fenster noch zu
   description: ''
   trigger:
   - entity_id: sensor.environment_outside_temperature
     platform: state
   condition:
-  - condition: and
+  - condition: or
     conditions:
     - condition: state
       entity_id: binary_sensor.magnet_window_kitchen_contact
@@ -2513,9 +2513,6 @@
     - condition: state
       entity_id: binary_sensor.magnet_window_office_contact
       state: 'off'
-  - below: '23'
-    condition: numeric_state
-    entity_id: sensor.environment_outside_temperature
   - condition: template
     value_template: '{{ states(''sensor.environment_outside_temperature'') < states(''sensor.environment_inside_temperature'')
       }}'
