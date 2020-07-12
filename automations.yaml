@@ -389,11 +389,15 @@
     entity_id: vacuum.rockrobo
     state: cleaning
   action:
-  - entity_id: input_boolean.staubsauger_aktiv
-    service: input_boolean.turn_off
+  - data: {}
+    entity_id: vacuum.rockrobo
+    service: vacuum.pause
+  - delay: 00:00:02
   - data: {}
     entity_id: vacuum.rockrobo
     service: vacuum.return_to_base
+  - entity_id: input_boolean.staubsauger_aktiv
+    service: input_boolean.turn_off
 - id: '1574283695055'
   alias: Präsenz - Abwesend - Lüfter Zyklus - Start
   description: ''
