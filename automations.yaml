@@ -104,7 +104,8 @@
       - light.gastezimmer_alle_lichter
       - light.stehlampe_gastezimmer
       - light.flur_alle_lichter
-      - light.dusche_alle_lichter
+      - light.shower_mirror
+      - light.shower_ceiling
       - light.arbeitszimmer_alle_lichter
       - light.bad_alle_lichter
       - light.schlafzimmer_alle_lichter
@@ -535,7 +536,7 @@
   alias: Lüfter - Dusche - Licht an, Lüfter an
   description: ''
   trigger:
-  - entity_id: light.dusche_deckenlicht
+  - entity_id: light.shower_ceiling
     for: 00:00:30
     from: 'off'
     platform: state
@@ -550,7 +551,7 @@
   alias: Lüfter - Dusche - Licht aus, Lüfter aus
   description: ''
   trigger:
-  - entity_id: light.dusche_deckenlicht
+  - entity_id: light.shower_ceiling
     for: 00:02:00
     from: 'on'
     platform: state
@@ -678,7 +679,8 @@
       - light.stehlampe_wohnzimmer
       - light.gastezimmer_alle_lichter
       - light.stehlampe_gastezimmer
-      - light.dusche_alle_lichter
+      - light.shower_mirror
+      - light.shower_ceiling
       - light.arbeitszimmer_alle_lichter
       - light.bad_alle_lichter
       - light.schlafzimmer_alle_lichter
@@ -2101,7 +2103,7 @@
   alias: Wiegen Jens - Erinnerung senden
   description: ''
   trigger:
-  - entity_id: light.dusche_deckenlicht
+  - entity_id: light.shower_ceiling
     from: 'off'
     platform: state
     to: 'on'
@@ -2603,3 +2605,25 @@
       option: Warm
     entity_id: input_select.temperatur_schwelle
     service: input_select.select_option
+- id: '1594225885396'
+  alias: Forward status - Dusche - Deckenlicht
+  description: ''
+  trigger:
+  - entity_id: light.dusche_deckenlicht
+    platform: state
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.shower_ceiling
+    service: light.toggle
+- id: '1594229701601'
+  alias: Forward status - Dusche - Spiegellicht
+  description: ''
+  trigger:
+  - entity_id: light.dusche_spiegellicht
+    platform: state
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.shower_mirror
+    service: light.toggle
