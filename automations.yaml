@@ -718,7 +718,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.dryer_watts
+    entity_id: sensor.basement_dryer_power
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -732,7 +732,7 @@
   description: ''
   trigger:
   - above: '40'
-    entity_id: sensor.dryer_watts
+    entity_id: sensor.basement_dryer_power
     for: 00:02:00
     platform: numeric_state
   condition: []
@@ -747,7 +747,7 @@
   trigger:
   - above: '1'
     below: '40'
-    entity_id: sensor.dryer_watts
+    entity_id: sensor.basement_dryer_power
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -761,7 +761,7 @@
   description: ''
   trigger:
   - above: '5'
-    entity_id: sensor.washer_human_watts
+    entity_id: sensor.basement_washer_human_power
     for: 00:02:00
     platform: numeric_state
   condition: []
@@ -775,7 +775,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.washer_human_watts
+    entity_id: sensor.basement_washer_human_power
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -790,7 +790,7 @@
   trigger:
   - above: '1'
     below: '5'
-    entity_id: sensor.washer_human_watts
+    entity_id: sensor.basement_washer_human_power
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -804,7 +804,7 @@
   description: ''
   trigger:
   - above: '5'
-    entity_id: sensor.washer_animal_watts
+    entity_id: sensor.basement_washer_animal_power
     for: 00:02:00
     platform: numeric_state
   condition: []
@@ -818,7 +818,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.washer_animal_watts
+    entity_id: sensor.basement_washer_animal_power
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -833,7 +833,7 @@
   trigger:
   - above: '1'
     below: '5'
-    entity_id: sensor.washer_animal_watts
+    entity_id: sensor.basement_washer_animal_power
     for: 00:05:00
     platform: numeric_state
   condition: []

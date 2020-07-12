@@ -138,7 +138,6 @@ Controller is a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAU
 
 ### Power plugs
 
-* TP Link HS110
 * Lots of ESP8266 based plugs running on ESPHome - see my [ESPHome config for details](esphome/)
   + [Gosund SP111 single plugs](esphome/_sp111.yaml) with power measurement
   + [Klas Remo single plugs](esphome/_klasremo.yaml)
