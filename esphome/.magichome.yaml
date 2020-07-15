@@ -1,24 +1,23 @@
-<<: !include _defaults.yaml
-
-# see https://templates.blakadder.com/magichome_ZJ-FWMN-A_RGB.html
+<<: !include .defaults.yaml
 
 esphome:
   name: ${name}
   platform: ESP8266
   board: esp8285
 
-binary_sensor:
-  # device status sensor
-  - platform: status
-    name: "${name}_status"
+switch:
+  # switch to restart the device
+  - platform: restart
+    name: "${name} restart"
 
 light:
   # light combining all three color channels
   - platform: rgb
-    name: "${name}_light"
+    name: "${name} light"
     red: red_output
     green: green_output
     blue: blue_output
+    restore_mode: RESTORE_DEFAULT_OFF
 
 output:
   # red color channel

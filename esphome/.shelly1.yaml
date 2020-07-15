@@ -1,0 +1,29 @@
+<<: !include .defaults.yaml
+
+esphome:
+  name: ${name}
+  platform: ESP8266
+  board: esp01_1m
+
+output:
+  # the output controller
+  - platform: gpio
+    id: "${name}_actor"
+    pin:
+      number: GPIO4
+
+switch:
+  # switch to restart the device
+  - platform: restart
+    name: "${name} restart"
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name} status"
+  # binary sensor for the button press
+  - platform: gpio
+    id: "${name}_sensor"
+    name: "${name} sensor"
+    pin:
+      number: GPIO05

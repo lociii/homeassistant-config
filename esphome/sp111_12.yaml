@@ -1,4 +1,17 @@
-substitutions:
-  name: plug_sp111_12
+# v1.1 device
+# basement - washer animal
 
-<<: !include _sp111_v1_1.yaml
+substitutions:
+  name: esphome_plug_sp111_12
+  cf1_pin: GPIO04
+  output_pin: GPIO02
+  status_led_pin: GPIO00
+  restore_mode: RESTORE_DEFAULT_ON
+
+<<: !include .sp111.yaml
+
+# device located in basement
+wifi:
+  ssid: !secret wifi_ssid_basement
+  password: !secret wifi_password
+  domain: !secret wifi_domain

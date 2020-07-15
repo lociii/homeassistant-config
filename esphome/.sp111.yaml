@@ -1,23 +1,4 @@
-<<: !include _defaults.yaml
-
-# see https://templates.blakadder.com/gosund_SP111_v1_4.html
-# translation https://tasmota.github.io/docs/Components/
-
-# Pin       v1.0        v1.1        v1.4
-# GPIO00	  Led1i       Led1i       Led2i
-# GPIO01	  None        None        User
-# GPIO02	  Led2i       LedLinki    Led1i
-# GPIO03	  None        None        User
-# GPIO04	  None        HLWBL CF1   None
-# GPIO05	  BL0937 CF   BL0937 CF   BL0937 CF
-# GPIO09	  None        None        None
-# GPIO10	  None        None        None
-# GPIO12	  HLWBL SELi  HLWBL SELi  HLWBL SELi
-# GPIO13	  Button1     Button1     Button1
-# GPIO14	  HLWBL CF1   None        HLWBL CF1
-# GPIO15	  Relay1      Relay1      Relay1
-# GPIO16	  None        None        None
-# FLAG	    None        None        None
+<<: !include .defaults.yaml
 
 esphome:
   name: ${name}
@@ -27,10 +8,10 @@ esphome:
 sensor:
   # uptime sensor
   - platform: uptime
-    name: "${name}_uptime"
+    name: "${name} uptime"
   # wifi signal sensor
   - platform: wifi_signal
-    name: "${name}_wifi_signal"
+    name: "${name} wifi signal"
     update_interval: 30s
   # power sensor
   - platform: hlw8012
@@ -38,12 +19,12 @@ sensor:
       number: GPIO12
       inverted: true
     cf_pin: GPIO05
-    cf1_pin: GPIO14
+    cf1_pin: ${cf1_pin}
     change_mode_every: 3
     update_interval: 3s
     # current sensor
     current:
-      name: "${name}_current"
+      name: "${name} current"
       unit_of_measurement: A
       accuracy_decimals: 3
       filters:
@@ -60,7 +41,7 @@ sensor:
         - lambda: if (x < (0.01 - 0.013)) return 0; else return (x - 0.013);
     # voltage sensor
     voltage:
-      name: "${name}_voltage"
+      name: "${name} voltage"
       unit_of_measurement: V
       accuracy_decimals: 1
       filters:
@@ -72,7 +53,7 @@ sensor:
     # power sensor
     power:
       id: "${name}_power"
-      name: "${name}_power"
+      name: "${name} power"
       unit_of_measurement: W
       accuracy_decimals: 0
       filters:
@@ -91,7 +72,7 @@ sensor:
         - lambda: if (x < (2 + 1.14)) return 0; else return (x - 1.14);
   # total daily energy sensor
   - platform: total_daily_energy
-    name: "${name}_daily_energy"
+    name: "${name} daily energy usage"
     power_id: "${name}_power"
     filters:
       # multiplication factor from W to kW is 0.001
@@ -99,25 +80,28 @@ sensor:
     unit_of_measurement: kWh
 
 binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name} status"
   # binary sensor for the button press
   - platform: gpio
-    name: "${name}_button"
+    name: "${name} sensor"
     pin:
       number: GPIO13
       inverted: true
     on_press:
-      - switch.toggle: "${name}_relay"
+      - switch.toggle: "${name}_actor"
 
 switch:
   # switch to restart the plug
   - platform: restart
-    name: "${name}_restart"
+    name: "${name} restart"
   # switch to toggle the relay
   - platform: gpio
-    id: "${name}_relay"
-    name: "${name}_switch"
+    id: "${name}_actor"
+    name: "${name} switch"
     pin: GPIO15
-    restore_mode: RESTORE_DEFAULT_ON
+    restore_mode: ${restore_mode}
     on_turn_on:
       - light.turn_on: "${name}_led"
     on_turn_off:
@@ -128,7 +112,7 @@ output:
   - platform: esp8266_pwm
     id: "${name}_state_led"
     pin:
-      number: GPIO00
+      number: ${output_pin}
       inverted: true
 
 light:
@@ -140,5 +124,5 @@ light:
 # uses the red led as a status indicator
 status_led:
   pin:
-    number: GPIO02
+    number: ${status_led_pin}
     inverted: true

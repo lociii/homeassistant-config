@@ -1,4 +1,0 @@
-substitutions:
-  name: plug_aofo_strip_usb_01
-
-<<: !include _aofo_strip_usb.yaml

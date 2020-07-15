@@ -1,4 +1,11 @@
-substitutions:
-  name: plug_sp111_11
+# v1.4 device
+# livingroom - readinglight
 
-<<: !include _sp111_v1_4.yaml
+substitutions:
+  name: esphome_plug_sp111_11
+  cf1_pin: GPIO14
+  output_pin: GPIO00
+  status_led_pin: GPIO02
+  restore_mode: RESTORE_DEFAULT_OFF
+
+<<: !include .sp111.yaml

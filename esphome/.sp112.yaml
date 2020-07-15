@@ -1,0 +1,37 @@
+<<: !include .sp111.yaml
+
+# v3.4 is the same as sp111 v1.4 but with two relays
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name} status"
+  # # binary sensor for the button press
+  # - platform: gpio
+  #   name: "${name} sensor"
+  #   pin:
+  #     number: GPIO13
+  #     inverted: true
+  #   on_press:
+  #     - switch.toggle: "${name}_actor"
+
+switch:
+  # switch to restart the plug
+  - platform: restart
+    name: "${name} restart"
+  # switch to toggle the relay
+  - platform: gpio
+    id: "${name}_actor"
+    name: "${name} switch"
+    pin: GPIO14
+    restore_mode: ${restore_mode}
+    on_turn_on:
+      - light.turn_on: "${name}_led"
+    on_turn_off:
+      - light.turn_off: "${name}_led"
+  # switch to toggle the usb relay
+  - platform: gpio
+    id: "${name}_actor_usb"
+    name: "${name} switch USB"
+    pin: GPIO13
+    restore_mode: ${restore_mode_usb}

@@ -1,7 +1,4 @@
-<<: !include _defaults.yaml
-
-# see https://templates.blakadder.com/SWA11.html
-# translation https://tasmota.github.io/docs/Components/
+<<: !include .defaults.yaml
 
 esphome:
   name: ${name}
@@ -9,25 +6,29 @@ esphome:
   board: esp8285
 
 binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name} status"
   # binary sensor for the button press
   - platform: gpio
-    name: "${name}_button"
+    name: "${name} sensor"
     pin:
       number: GPIO13
       inverted: true
       mode: INPUT_PULLUP
     on_press:
-      - switch.toggle: "${name}_relay"
+      - switch.toggle: "${name}_actor"
 
 switch:
   # switch to restart the plug
   - platform: restart
-    name: "${name}_restart"
+    name: "${name} restart"
   # switch to toggle the relay
   - platform: gpio
-    id: "${name}_relay"
-    name: "${name}_switch"
+    id: "${name}_actor"
+    name: "${name} switch"
     pin: GPIO05
+    restore_mode: ${restore_mode}
 
 status_led:
   # uses the red led as a status indicator

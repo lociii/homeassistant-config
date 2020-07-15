@@ -1,0 +1,6 @@
+# livingroom - tv, sonos, phone, multimedia
+
+substitutions:
+  name: esphome_aofo_4ac4usb_01
+
+<<: !include .aofo_4ac4usb.yaml

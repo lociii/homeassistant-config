@@ -1,4 +1,11 @@
-substitutions:
-  name: plug_sp111_03
+# v1.1 device
+# guestroom - printer
 
-<<: !include _sp111_v1_1.yaml
+substitutions:
+  name: esphome_plug_sp111_03
+  cf1_pin: GPIO04
+  output_pin: GPIO02
+  status_led_pin: GPIO00
+  restore_mode: RESTORE_DEFAULT_OFF
+
+<<: !include .sp111.yaml

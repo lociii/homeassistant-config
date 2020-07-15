@@ -1,7 +1,9 @@
-<<: !include _defaults.yaml
+# livingroom - ceiling
+
+<<: !include .defaults.yaml
 
 esphome:
-  name: miflora
+  name: esphome_miflora
   platform: ESP32
   board: nodemcu-32s
 
