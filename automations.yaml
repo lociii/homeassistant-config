@@ -1506,48 +1506,6 @@
   action:
   - entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
     service: scene.turn_on
-- id: '1582466939183'
-  alias: zigbee2MQTT log level
-  description: ''
-  trigger:
-  - entity_id: input_select.zigbee2mqtt_log_level
-    platform: state
-  condition: []
-  action:
-  - data:
-      payload_template: '{{ states(''input_select.zigbee2mqtt_log_level'') }}'
-      topic: zigbee2mqtt/bridge/config/log_level
-    service: mqtt.publish
-- id: '1582467006046'
-  alias: zigbee2MQTT join enabled
-  description: ''
-  trigger:
-  - entity_id: switch.zigbee2mqtt_allow_join
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - entity_id: timer.zigbee_permit_join
-    service: timer.start
-- id: '1582467120332'
-  alias: zigbee2MQTT join disable
-  description: ''
-  trigger:
-  - event_data:
-      entity_id: timer.zigbee_permit_join
-    event_type: timer.finished
-    platform: event
-  - entity_id: switch.zigbee2mqtt_allow_join
-    from: 'on'
-    platform: state
-    to: 'off'
-  condition: []
-  action:
-  - entity_id: timer.zigbee_permit_join
-    service: timer.cancel
-  - entity_id: switch.zigbee2mqtt_allow_join
-    service: switch.turn_off
 - id: '1582480132470'
   alias: Katzentür - Video versenden
   description: ''
