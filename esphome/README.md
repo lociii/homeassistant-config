@@ -93,7 +93,7 @@ Controls RGB light strips
 
 [Device type template](.magichome.yaml)
 
-### Shelly
+### Shelly switches
 
 #### Shelly 1
 
@@ -139,3 +139,10 @@ Two inputs, two outputs, power measurement
 
 TODO
 -->
+
+### Mi Flora
+
+Plant monitoring system based on BLE.
+I'm running a single ESP32 board to read their broadcasts.
+
+More info on the [ESPHome component](https://esphome.io/components/sensor/xiaomi_miflora.html).
