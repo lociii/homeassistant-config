@@ -2411,78 +2411,30 @@
     entity_id: input_boolean.licht_dunkelheit
     service: input_boolean.turn_off
 - id: '1593982318176'
-  alias: Temperatur - Innen warm, aussen kühl, irgendein Fenster noch zu
+  alias: Temperatur - Wechsel warm zu kalt
   description: ''
   trigger:
   - entity_id: sensor.environment_outside_temperature
     platform: state
   condition:
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: binary_sensor.magnet_window_kitchen_contact
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.magnet_window_guestroom_contact
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.magnet_window_bedroom_contact
-      state: 'off'
-    - condition: state
-      entity_id: binary_sensor.magnet_window_office_contact
-      state: 'off'
   - condition: template
     value_template: '{{ states(''sensor.environment_outside_temperature'') < states(''sensor.environment_inside_temperature'')
       }}'
-  - condition: state
-    entity_id: switch.apartment_sleeping
-    state: 'off'
-  - condition: state
-    entity_id: switch.apartment_present
-    state: 'on'
   - condition: state
     entity_id: input_select.temperatur_schwelle
     state: Warm
   action:
   - data:
-      volume_level: 0.7
-    entity_id: media_player.wohnzimmer
-    service: media_player.volume_set
-  - delay: 00:00:01
-  - data:
-      entity_id: media_player.wohnzimmer
-      message: <speak>Draussen wird's kühl, mach die Fenster auf.</speak>
-    service: tts.amazon_polly_say
-  - delay: 00:00:15
-  - data:
-      volume_level: 0.3
-    entity_id: media_player.wohnzimmer
-    service: media_player.volume_set
-  - data:
       option: Kalt
     entity_id: input_select.temperatur_schwelle
     service: input_select.select_option
 - id: '1593982318177'
-  alias: Temperatur - Innen kühl, aussen warm, irgendein Fenster auf
+  alias: Temperatur - Wechsel kalt zu warm
   description: ''
   trigger:
   - entity_id: sensor.environment_outside_temperature
     platform: state
   condition:
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: binary_sensor.magnet_window_kitchen_contact
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.magnet_window_guestroom_contact
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.magnet_window_bedroom_contact
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.magnet_window_office_contact
-      state: 'on'
   - condition: template
     value_template: '{{ states(''sensor.environment_outside_temperature'') > states(''sensor.environment_inside_temperature'')
       }}'
@@ -2490,14 +2442,42 @@
     condition: numeric_state
     entity_id: sensor.environment_outside_temperature
   - condition: state
+    entity_id: input_select.temperatur_schwelle
+    state: Kalt
+  action:
+  - data:
+      option: Warm
+    entity_id: input_select.temperatur_schwelle
+    service: input_select.select_option
+- id: '1594805988015'
+  alias: Temperatur - Wechsel kalt zu warm - Announcement
+  description: Innen kühl, aussen warm, irgendein Fenster auf
+  trigger:
+  - entity_id: input_select.temperatur_schwelle
+    from: Kalt
+    platform: state
+    to: Warm
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_kitchen_contact
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_guestroom_contact
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_bedroom_contact
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_office_contact
+      state: 'on'
+  - condition: state
     entity_id: switch.apartment_sleeping
     state: 'off'
   - condition: state
     entity_id: switch.apartment_present
     state: 'on'
-  - condition: state
-    entity_id: input_select.temperatur_schwelle
-    state: Kalt
   action:
   - data:
       volume_level: 0.7
@@ -2513,10 +2493,50 @@
       volume_level: 0.3
     entity_id: media_player.wohnzimmer
     service: media_player.volume_set
+- id: '1594806060988'
+  alias: Temperatur - Wechsel warm zu kalt - Announcement
+  description: Innen warm, aussen kühl, irgendein Fenster noch zu
+  trigger:
+  - entity_id: input_select.temperatur_schwelle
+    from: Warm
+    platform: state
+    to: Kalt
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_kitchen_contact
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_guestroom_contact
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_bedroom_contact
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.magnet_window_office_contact
+      state: 'off'
+  - condition: state
+    entity_id: switch.apartment_sleeping
+    state: 'off'
+  - condition: state
+    entity_id: switch.apartment_present
+    state: 'on'
+  action:
   - data:
-      option: Warm
-    entity_id: input_select.temperatur_schwelle
-    service: input_select.select_option
+      volume_level: 0.7
+    entity_id: media_player.wohnzimmer
+    service: media_player.volume_set
+  - delay: 00:00:01
+  - data:
+      entity_id: media_player.wohnzimmer
+      message: <speak>Draussen wird's kühl, mach die Fenster auf.</speak>
+    service: tts.amazon_polly_say
+  - delay: 00:00:15
+  - data:
+      volume_level: 0.3
+    entity_id: media_player.wohnzimmer
+    service: media_player.volume_set
 - id: '1594225885396'
   alias: Forward status - Dusche - Deckenlicht
   description: ''
