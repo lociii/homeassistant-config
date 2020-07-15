@@ -10,8 +10,8 @@
   action:
   - data:
       entity_id:
-      - light.wohnzimmer_wandlampen
-      - light.garten_alle_lichter
+      - light.livingroom_wall
+      - light.garten_laterne
       - light.balllampen
     service: light.turn_on
 - id: '1574017577024'
@@ -95,24 +95,29 @@
   action:
   - data:
       entity_id:
-      - light.garten_alle_lichter
+      - light.garten_laterne
       - light.balllampen
-      - light.kuche_alle_lichter
-      - light.esszimmer_alle_lichter
-      - light.wohnzimmer_alle_lichter
+      - light.kuche_deckenlicht
+      - light.kuche_spulenlicht
+      - light.barlicht
+      - light.esszimmer_esstischlicht
+      - light.wohnzimmer_deckenlampe
+      - light.livingroom_wall
       - light.stehlampe_wohnzimmer
-      - light.gastezimmer_alle_lichter
+      - light.gastezimmer_deckenlicht
       - light.stehlampe_gastezimmer
-      - light.flur_alle_lichter
+      - light.flur_flur
       - light.shower_mirror
       - light.shower_ceiling
-      - light.arbeitszimmer_alle_lichter
-      - light.bad_alle_lichter
-      - light.schlafzimmer_alle_lichter
+      - light.deckenlicht_buro
+      - light.bad_deckenlicht
+      - light.bad_spiegellicht
+      - light.schlafzimmer_deckenlicht
     service: light.turn_off
   - data:
       entity_id:
       - switch.plug_livingroom_readinglight
+      - switch.kitchen_cabinet_light
     service: switch.turn_off
 - id: '1574018705350'
   alias: Schlafen - Aufstehen - Rolläden
@@ -165,9 +170,12 @@
   - data:
       entity_id:
       - light.flur_flur
-      - light.kuche_schranklicht
       - light.stehlampe_wohnzimmer
     service: light.turn_on
+  - data:
+      entity_id:
+      - switch.kitchen_cabinet_light
+    service: switch.turn_on
 - id: '1574020163614'
   alias: Präsenz - Verlassen - Immer - Geräte
   description: Alle Lichter aus
@@ -208,8 +216,8 @@
   action:
   - data:
       entity_id:
-      - light.wohnzimmer_wandlampen
-      - light.garten_alle_lichter
+      - light.livingroom_wall
+      - light.garten_laterne
       - light.balllampen
     service: light.turn_on
 - id: '1574022674864'
@@ -620,7 +628,7 @@
   action:
   - data:
       entity_id:
-      - light.garten_alle_lichter
+      - light.garten_laterne
       - light.balllampen
     service: light.turn_off
 - id: '1574417268114'
@@ -672,23 +680,28 @@
   - delay: 00:00:02
   - data:
       entity_id:
-      - light.flur_alle_lichter
-      - light.kuche_alle_lichter
-      - light.esszimmer_alle_lichter
-      - light.wohnzimmer_alle_lichter
+      - light.flur_flur
+      - light.kuche_deckenlicht
+      - light.kuche_spulenlicht
+      - light.barlicht
+      - light.esszimmer_esstischlicht
+      - light.wohnzimmer_deckenlampe
+      - light.livingroom_wall
       - light.stehlampe_wohnzimmer
-      - light.gastezimmer_alle_lichter
+      - light.gastezimmer_deckenlicht
       - light.stehlampe_gastezimmer
       - light.shower_mirror
       - light.shower_ceiling
-      - light.arbeitszimmer_alle_lichter
-      - light.bad_alle_lichter
-      - light.schlafzimmer_alle_lichter
+      - light.deckenlicht_buro
+      - light.bad_deckenlicht
+      - light.bad_spiegellicht
+      - light.schlafzimmer_deckenlicht
       - light.strip_bedroom_bed
     service: light.turn_off
   - data:
       entity_id:
       - switch.plug_livingroom_readinglight
+      - switch.kitchen_cabinet_light
     service: switch.turn_off
 - id: '1574417564491'
   alias: Präsenz - Verlassen - Immer - Announcement
@@ -920,36 +933,16 @@
       volume_level: 0.3
     service: media_player.volume_set
 - id: '1574517562605'
-  alias: Forward status - Leselampe - An
+  alias: Forward status - Wohnzimmer - Leselampe
   description: ''
   trigger:
   - entity_id: light.wohnzimmer_leselampe
-    from: 'off'
     platform: state
-    to: 'on'
-  condition:
-  - condition: state
-    entity_id: switch.plug_livingroom_readinglight
-    state: 'off'
+  condition: []
   action:
   - data: {}
     entity_id: switch.plug_livingroom_readinglight
-    service: switch.turn_on
-- id: '1574517593262'
-  alias: Forward status - Leselampe - Aus
-  description: ''
-  trigger:
-  - entity_id: light.wohnzimmer_leselampe
-    from: 'on'
-    platform: state
-    to: 'off'
-  condition:
-  - condition: state
-    entity_id: switch.plug_livingroom_readinglight
-    state: 'on'
-  action:
-  - entity_id: switch.plug_livingroom_readinglight
-    service: switch.turn_off
+    service: switch.toggle
 - id: '1574518397208'
   alias: Präsenz - Verlassen - Dunkel (Nacht) - Rolläden
   description: ''
@@ -1294,17 +1287,14 @@
     entity_id: cover.wohnzimmer_rolladen_kuche
     service: cover.open_cover
 - id: '1577027687988'
-  alias: Forward status - Bettlicht - An
+  alias: Forward status - Schlafzimmer - Bettlicht - An
   description: ''
   trigger:
   - entity_id: light.schlafzimmer_bettlicht
     from: 'off'
     platform: state
     to: 'on'
-  condition:
-  - condition: state
-    entity_id: light.strip_bedroom_bed
-    state: 'off'
+  condition: []
   action:
   - data: {}
     entity_id: script.wakeup_light
@@ -1315,24 +1305,6 @@
       transition: 1
     entity_id: light.strip_bedroom_bed
     service: light.turn_on
-- id: '1577027772471'
-  alias: Forward status - Bettlicht - Aus
-  description: ''
-  trigger:
-  - entity_id: light.schlafzimmer_bettlicht
-    from: 'on'
-    platform: state
-    to: 'off'
-  condition:
-  - condition: state
-    entity_id: light.strip_bedroom_bed
-    state: 'on'
-  action:
-  - entity_id: script.wakeup_light
-    service: script.turn_off
-  - data: {}
-    entity_id: light.strip_bedroom_bed
-    service: light.turn_off
 - id: '1577033218991'
   alias: Gameboy - An - Dunkel
   description: ''
@@ -1389,33 +1361,16 @@
       title: Updates pending in HACS
     service: persistent_notification.create
 - id: '1581178095951'
-  alias: Forward status - Wohnzimmer - Stehlampe - An
+  alias: Forward status - Wohnzimmer - Stehlampe
   description: ''
   trigger:
   - entity_id: light.wohnzimmer_stehlampe
     platform: state
-  condition:
-  - condition: state
-    entity_id: light.stehlampe_wohnzimmer
-    state: 'off'
+  condition: []
   action:
   - data: {}
     entity_id: light.stehlampe_wohnzimmer
-    service: light.turn_on
-- id: '1581178173838'
-  alias: Forward status - Wohnzimmer - Stehlampe - Aus
-  description: ''
-  trigger:
-  - entity_id: light.wohnzimmer_stehlampe
-    platform: state
-  condition:
-  - condition: state
-    entity_id: light.stehlampe_wohnzimmer
-    state: 'on'
-  action:
-  - data: {}
-    entity_id: light.stehlampe_wohnzimmer
-    service: light.turn_on
+    service: light.toggle
 - id: '1581182751392'
   alias: Person - Eva - Stall verlassen
   description: ''
@@ -2434,8 +2389,8 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.kuche_schranklicht
-    service: light.turn_on
+    entity_id: switch.kitchen_cabinet_light
+    service: switch.turn_on
 - id: '1593955105793'
   alias: Küche - Schranklicht aus
   description: ''
@@ -2448,8 +2403,8 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.kuche_schranklicht
-    service: light.turn_off
+    entity_id: switch.kitchen_cabinet_light
+    service: switch.turn_off
 - id: '1593978207542'
   alias: Rolladen - Dunkelheit - Start
   description: ''
@@ -2624,6 +2579,69 @@
     platform: state
   condition: []
   action:
-  - data: {}
+  - data:
+      profile: '{{ states(''input_text.lightprofile_shower_mirror'') }}'
     entity_id: light.shower_mirror
+    service: light.toggle
+- id: '1594239689578'
+  alias: Forward status - Schlafzimmer - Bettlicht - Aus
+  description: ''
+  trigger:
+  - entity_id: light.schlafzimmer_bettlicht
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: script.wakeup_light
+    service: script.turn_off
+  - data:
+      transition: 1
+    entity_id: light.schlafzimmer_bettlicht
+    service: light.turn_off
+- id: '1594459435718'
+  alias: Forward status - Wohnzimmer - Wandlampen
+  description: ''
+  trigger:
+  - entity_id: light.wohnzimmer_wandlampen
+    platform: state
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.livingroom_wall
+    service: light.toggle
+    entity_id: light.shower_mirror
+- id: '1594745753712'
+  alias: Forward status - Küche - Barlicht
+  description: ''
+  trigger:
+  - entity_id: light.kuche_thekenlicht
+    platform: state
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.barlicht
+    service: light.toggle
+- id: '1594753399186'
+  alias: Forward status - Küche - Schranklicht
+  description: ''
+  trigger:
+  - entity_id: light.kuche_schranklicht
+    platform: state
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.kitchen_cabinet_light
+    service: switch.toggle
+- id: '1594756825778'
+  alias: Forward status - Büro - Deckenlicht
+  description: ''
+  trigger:
+  - entity_id: light.arbeitszimmer_deckenlicht
+    platform: state
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.deckenlicht_buro
     service: light.toggle
