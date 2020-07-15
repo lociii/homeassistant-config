@@ -803,8 +803,7 @@
   alias: Wäsche - Waschmaschine - Status - Fertig
   description: ''
   trigger:
-  - above: '1'
-    below: '5'
+  - below: '5'
     entity_id: sensor.basement_washer_human_power
     for: 00:05:00
     platform: numeric_state
