@@ -25,3 +25,15 @@ light:
       - light.bulb_garden_balllamps_large
       - light.bulb_garden_balllamps_small_back
       - light.bulb_garden_balllamps_small_front
+  - platform: group
+    name: Barlicht
+    entities:
+      - light.bulb_kitchen_bar_back
+      - light.bulb_kitchen_bar_front
+  - platform: group
+    name: Deckenlicht Büro
+    entities:
+      - light.bulb_office_ceiling_1
+      - light.bulb_office_ceiling_2
+      - light.bulb_office_ceiling_3
+      - light.bulb_office_ceiling_4
