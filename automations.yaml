@@ -10,7 +10,7 @@
   action:
   - data:
       entity_id:
-      - light.livingroom_wall
+      - light.wandlampen
       - light.garten_laterne
       - light.balllampen
     service: light.turn_on
@@ -102,7 +102,7 @@
       - light.barlicht
       - light.esszimmer_esstischlicht
       - light.wohnzimmer_deckenlampe
-      - light.livingroom_wall
+      - light.wandlampen
       - light.stehlampe_wohnzimmer
       - light.gastezimmer_deckenlicht
       - light.stehlampe_gastezimmer
@@ -216,7 +216,7 @@
   action:
   - data:
       entity_id:
-      - light.livingroom_wall
+      - light.wandlampen
       - light.garten_laterne
       - light.balllampen
     service: light.turn_on
@@ -686,7 +686,7 @@
       - light.barlicht
       - light.esszimmer_esstischlicht
       - light.wohnzimmer_deckenlampe
-      - light.livingroom_wall
+      - light.wandlampen
       - light.stehlampe_wohnzimmer
       - light.gastezimmer_deckenlicht
       - light.stehlampe_gastezimmer
@@ -2586,7 +2586,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.livingroom_wall
+    entity_id: light.wandlampen
     service: light.toggle
 - id: '1594646299143'
   alias: Lichtprofil - Dusche - Spiegel - ab 6 Uhr
