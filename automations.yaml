@@ -739,7 +739,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.basement_dryer_power
+    entity_id: sensor.basement_dryer_power_usage
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -753,7 +753,7 @@
   description: ''
   trigger:
   - above: '40'
-    entity_id: sensor.basement_dryer_power
+    entity_id: sensor.basement_dryer_power_usage
     for: 00:02:00
     platform: numeric_state
   condition: []
@@ -768,7 +768,7 @@
   trigger:
   - above: '1'
     below: '40'
-    entity_id: sensor.basement_dryer_power
+    entity_id: sensor.basement_dryer_power_usage
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -782,7 +782,7 @@
   description: ''
   trigger:
   - above: '5'
-    entity_id: sensor.basement_washer_human_power
+    entity_id: sensor.basement_washer_human_power_usage
     for: 00:02:00
     platform: numeric_state
   condition: []
@@ -796,7 +796,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.basement_washer_human_power
+    entity_id: sensor.basement_washer_human_power_usage
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -810,7 +810,7 @@
   description: ''
   trigger:
   - below: '5'
-    entity_id: sensor.basement_washer_human_power
+    entity_id: sensor.basement_washer_human_power_usage
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -824,7 +824,7 @@
   description: ''
   trigger:
   - above: '5'
-    entity_id: sensor.basement_washer_animal_power
+    entity_id: sensor.basement_washer_animal_power_usage
     for: 00:02:00
     platform: numeric_state
   condition: []
@@ -838,7 +838,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.basement_washer_animal_power
+    entity_id: sensor.basement_washer_animal_power_usage
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -853,7 +853,7 @@
   trigger:
   - above: '1'
     below: '5'
-    entity_id: sensor.basement_washer_animal_power
+    entity_id: sensor.basement_washer_animal_power_usage
     for: 00:05:00
     platform: numeric_state
   condition: []
@@ -2319,7 +2319,7 @@
   description: ''
   trigger:
   - below: '5'
-    entity_id: sensor.plug_guestroom_printer_power
+    entity_id: sensor.plug_guestroom_printer_power_usage
     for: 00:15:00
     platform: numeric_state
   condition: []
@@ -2332,7 +2332,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.plug_kitchen_mobile_charging_power
+    entity_id: sensor.plug_kitchen_mobile_charging_power_usage
     for: 00:15:00
     platform: numeric_state
   condition: []

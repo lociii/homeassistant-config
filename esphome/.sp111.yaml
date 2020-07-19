@@ -52,7 +52,7 @@ sensor:
             - 609.8 -> 232.8
     # power sensor
     power:
-      id: "${name}_power"
+      id: "${name}_power_usage"
       name: "${name} power"
       unit_of_measurement: W
       accuracy_decimals: 0
@@ -73,7 +73,7 @@ sensor:
   # total daily energy sensor
   - platform: total_daily_energy
     name: "${name} daily energy usage"
-    power_id: "${name}_power"
+    power_id: "${name}_power_usage"
     filters:
       # multiplication factor from W to kW is 0.001
       - multiply: 0.001
