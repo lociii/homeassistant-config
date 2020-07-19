@@ -39,33 +39,58 @@ Single plug with power measurement
 
 [Device type template](.sp111.yaml)
 
-Differences in device pinouts
+Device differences
 
 | Pin       | v1.0         | v1.1        | v1.4        |
 | --------- | ------------ | ----------- | ----------- |
-| GPIO00	|  Led1i       | Led1i       | Led2i       |
-| GPIO01	|  None        | None        | User        |
-| GPIO02	|  Led2i       | LedLinki    | Led1i       |
-| GPIO03	|  None        | None        | User        |
-| GPIO04	|  None        | HLWBL CF1   | None        |
-| GPIO05	|  BL0937 CF   | BL0937 CF   | BL0937 CF   |
-| GPIO09	|  None        | None        | None        |
-| GPIO10	|  None        | None        | None        |
-| GPIO12	|  HLWBL SELi  | HLWBL SELi  | HLWBL SELi  |
-| GPIO13	|  Button1     | Button1     | Button1     |
-| GPIO14	|  HLWBL CF1   | None        | HLWBL CF1   |
-| GPIO15	|  Relay1      | Relay1      | Relay1      |
-| GPIO16	|  None        | None        | None        |
-| FLAG	    |  None        | None        | None        |
+| GPIO00    |  Led1i       | Led1i       | Led2i       |
+| GPIO01    |  None        | None        | User        |
+| GPIO02    |  Led2i       | LedLinki    | Led1i       |
+| GPIO03    |  None        | None        | User        |
+| GPIO04    |  None        | HLWBL CF1   | None        |
+| GPIO05    |  BL0937 CF   | BL0937 CF   | BL0937 CF   |
+| GPIO09    |  None        | None        | None        |
+| GPIO10    |  None        | None        | None        |
+| GPIO12    |  HLWBL SELi  | HLWBL SELi  | HLWBL SELi  |
+| GPIO13    |  Button1     | Button1     | Button1     |
+| GPIO14    |  HLWBL CF1   | None        | HLWBL CF1   |
+| GPIO15    |  Relay1      | Relay1      | Relay1      |
+| GPIO16    |  None        | None        | None        |
+| FLAG      |  None        | None        | None        |
 
 #### Gosund SP112
 
 Single plug with power measurement and two switchable USB ports.
-Mostly the same as an SP111 v1.4 but with two relays.
 
+**There are two different versions on the market which are almost indistinguishable from the outside!!!**
+The print on the backside of the devices is slightly bolder and larger on v3.4 compared to v2.8.
+
+SP112 v3.4 is almost similar from it's inner parts to the SP111 v1.4
+
+* [Tasmota template v2.8](https://templates.blakadder.com/gosund_SP112.html)
 * [Tasmota template v3.4](https://templates.blakadder.com/gosund_SP112_v3_4.html)
 
-[Device type template](.sp112.yaml)
+[Device type template](.sp112_v28.yaml)
+[Device type template](.sp112_v34.yaml)
+
+Device differences
+
+| Pin       | v2.8          | v3.4          |
+| --------- | ------------- | ------------- |
+| GPIO00    |  Led2i        | Led1i         |
+| GPIO01    |  CSE7766 Tx   | None          |
+| GPIO02    |  Led1i        | Led2i         |
+| GPIO03    |  CSE7766 Rx   | None          |
+| GPIO04    |  User         | HLWBL CF1     |
+| GPIO05    |  Relay2       | BL0937 CF     |
+| GPIO09    |  None         | None          |
+| GPIO10    |  None         | None          |
+| GPIO12    |  User         | HLWBL SELi    |
+| GPIO13    |  User         | Relay2i       |
+| GPIO14    |  Relay1       | Relay1        |
+| GPIO15    |  User         | None          |
+| GPIO16    |  Button1      | None          |
+| FLAG      |  None         | Buttoni       |
 
 #### Klas Remo SWA11
 
@@ -103,7 +128,7 @@ One input, one output
 * [Shelly knowledge base](https://shelly.cloud/support/knowledge-base/shelly-1/#wiring)
 * Wiring diagrams [1](https://www.shelly-support.eu/lexikon/index.php?entry/47-connection-diagrams-shelly-1/) / [2](https://www.shelly-support.eu/lexikon/index.php?entry/58-anschlussschemen-shelly-1-fortsetzung/)
 
-[Device type template](.shelly1.yaml) - device needs to define the actual actor
+[Device type template](.shelly1.yaml) and [example device](.shelly1_example.yaml).
 
 <!--
 #### Shelly 1 PM
@@ -116,7 +141,7 @@ One input, one output, power measurement
 * [Instructions](https://github.com/arendst/Tasmota/issues/5716#issuecomment-589879170) to resolder some connections to measure voltage and amperage
 
 [Device type template](.shelly1pm.yaml) - device needs to define the actual actor
-
+-->
 
 #### Shelly 2.5
 
@@ -127,8 +152,9 @@ Two inputs, two outputs, power measurement
 * Wiring diagrams [1](https://www.shelly-support.eu/lexikon/index.php?entry/48-connection-diagrams-shelly-2-5/) / [2](https://www.shelly-support.eu/lexikon/index.php?entry/100-connection-diagrams-shelly-2-5-continuation/)
 * [Power monitor hints](https://esphome.io/components/sensor/ade7953.html)
 
-[Device type template](.shelly25.yaml) - device needs to define the actual actors
+[Device type template](.shelly25.yaml) and [example device](.shelly25_example.yaml).
 
+<!--
 #### Shelly i3
 
 * [Shelly knowledge base: wiring](https://shelly.cloud/support/knowledge-base/shelly-i3/#wiring)
