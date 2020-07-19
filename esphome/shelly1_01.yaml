@@ -1,5 +1,5 @@
-# light
-# shower - ceiling
+# shower - ceiling light
+# no switch connected, actor only
 
 substitutions:
   name: esphome_switch_shelly1_01
@@ -12,16 +12,3 @@ light:
     name: "${name} light"
     output: "${name}_actor"
     restore_mode: RESTORE_DEFAULT_OFF
-
-binary_sensor:
-  # device status sensor
-  - platform: status
-    name: "${name} status"
-  # binary sensor for the button press
-  - platform: gpio
-    name: "${name} sensor"
-    pin:
-      number: GPIO5
-      inverted: false
-    on_press:
-      - light.toggle: "${name}_light"

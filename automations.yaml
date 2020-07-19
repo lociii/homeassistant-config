@@ -420,9 +420,12 @@
   action:
   - data:
       entity_id:
-      - light.dusche_lufter
       - light.bad_lufter
     service: light.turn_on
+  - data:
+      entity_id:
+      - fan.shower
+    service: fan.turn_on
 - id: '1574283801703'
   alias: Präsenz - Abwesend - Lüfter Zyklus - Bad Pause
   description: ''
@@ -445,7 +448,7 @@
   alias: Präsenz - Abwesend - Lüfter Zyklus - Dusche Pause
   description: ''
   trigger:
-  - entity_id: light.dusche_lufter
+  - entity_id: fan.shower
     for: 00:10:00
     from: 'off'
     platform: state
@@ -457,13 +460,13 @@
   action:
   - data:
       entity_id:
-      - light.dusche_lufter
-    service: light.turn_off
+      - fan.shower
+    service: fan.turn_off
 - id: '1574283955482'
   alias: Präsenz - Abwesend - Lüfter Zyklus - Dusche Start
   description: ''
   trigger:
-  - entity_id: light.dusche_lufter
+  - entity_id: fan.shower
     for: 00:05:00
     from: 'on'
     platform: state
@@ -475,8 +478,8 @@
   action:
   - data:
       entity_id:
-      - light.dusche_lufter
-    service: light.turn_on
+      - fan.shower
+    service: fan.turn_on
 - id: '1574284021985'
   alias: Präsenz - Abwesend - Lüfter Zyklus - Bad Start
   description: ''
@@ -508,8 +511,11 @@
   - data:
       entity_id:
       - light.bad_lufter
-      - light.dusche_lufter
     service: light.turn_off
+  - data:
+      entity_id:
+      - fan.shower
+    service: fan.turn_off
 - id: '1574284422124'
   alias: Lüfter - Bad - Licht an, Lüfter an
   description: ''
@@ -553,8 +559,8 @@
   action:
   - data:
       entity_id:
-      - light.dusche_lufter
-    service: light.turn_on
+      - fan.shower
+    service: fan.turn_on
 - id: '1574284858035'
   alias: Lüfter - Dusche - Licht aus, Lüfter aus
   description: ''
@@ -568,8 +574,8 @@
   action:
   - data:
       entity_id:
-      - light.dusche_lufter
-    service: light.turn_off
+      - fan.shower
+    service: fan.turn_off
 - id: '1574285363572'
   alias: Präsenz - Ankommen - Immer - Announcement
   description: ''
@@ -2541,8 +2547,10 @@
   alias: Forward status - Dusche - Deckenlicht
   description: ''
   trigger:
-  - entity_id: light.dusche_deckenlicht
+  - entity_id: binary_sensor.switch_shower_ceiling
+    from: 'off'
     platform: state
+    to: 'on'
   condition: []
   action:
   - data: {}
@@ -2552,8 +2560,10 @@
   alias: Forward status - Dusche - Spiegellicht
   description: ''
   trigger:
-  - entity_id: light.dusche_spiegellicht
+  - entity_id: binary_sensor.switch_shower_mirror
+    from: 'off'
     platform: state
+    to: 'on'
   condition: []
   action:
   - data:

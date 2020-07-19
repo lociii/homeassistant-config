@@ -1,27 +1,13 @@
-# light
-# livingroom - wall
+# shower - fan
+# no switch connected, actor only
 
 substitutions:
   name: esphome_switch_shelly1_02
 
 <<: !include .shelly1.yaml
 
-light:
+fan:
   - platform: binary
-    id: "${name}_light"
-    name: "${name} light"
+    id: "${name}_fan"
+    name: "${name} fan"
     output: "${name}_actor"
-    restore_mode: RESTORE_DEFAULT_OFF
-
-binary_sensor:
-  # device status sensor
-  - platform: status
-    name: "${name} status"
-  # binary sensor for the button press
-  - platform: gpio
-    name: "${name} sensor"
-    pin:
-      number: GPIO5
-      inverted: false
-    on_press:
-      - light.toggle: "${name}_light"
