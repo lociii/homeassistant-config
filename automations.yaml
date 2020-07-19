@@ -2733,3 +2733,19 @@
   - data: {}
     entity_id: light.deckenlicht_buro
     service: light.toggle
+- id: '1594883586061'
+  alias: Schlafen - Aufstehen - Licht
+  description: ''
+  trigger:
+  - entity_id: switch.apartment_sleeping
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition:
+  - after: sunrise
+    condition: sun
+  action:
+  - delay: 00:00:30
+  - data: {}
+    entity_id: light.strip_bedroom_bed
+    service: light.turn_off
