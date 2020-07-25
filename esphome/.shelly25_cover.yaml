@@ -13,10 +13,10 @@ esphome:
     then:
       - lambda: id(${name}_cover).publish_state(id(cover_position));
       - binary_sensor.template.publish:
-          id: "${name}_endstop_binary_sensor_${a_direction}"
+          id: "${name}_endstop_binary_sensor_up"
           state: OFF
       - binary_sensor.template.publish:
-          id: "${name}_endstop_binary_sensor_${b_direction}"
+          id: "${name}_endstop_binary_sensor_down"
           state: OFF
 
 i2c:
@@ -83,7 +83,7 @@ sensor:
                 lambda: 'return id(${name}_power_usage_a).state > ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover is moving ${a_direction}"
+                    format: "Cover is moving ${switch_a}"
                     level: INFO
           - if:
               condition:
@@ -91,10 +91,11 @@ sensor:
                 - lambda: 'return id(${name}_power_usage_a).state < ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover has reached the ${a_direction}wards endposition"
+                    format: "Cover has reached the ${switch_a}wards endposition"
                     level: INFO
+                - delay: ${stop_delay}
                 - binary_sensor.template.publish:
-                    id: "${name}_endstop_binary_sensor_${a_direction}"
+                    id: "${name}_endstop_binary_sensor_${switch_a}"
                     state: ON
     active_power_b:
       id: "${name}_power_usage_b"
@@ -114,7 +115,7 @@ sensor:
                 lambda: 'return id(${name}_power_usage_b).state > ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover is moving ${b_direction}"
+                    format: "Cover is moving ${switch_b}"
                     level: INFO
           - if:
               condition:
@@ -122,10 +123,11 @@ sensor:
                 - lambda: 'return id(${name}_power_usage_b).state < ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover has reached the ${b_direction}wards endposition"
+                    format: "Cover has reached the ${switch_b}wards endposition"
                     level: INFO
+                - delay: ${stop_delay}
                 - binary_sensor.template.publish:
-                    id: "${name}_endstop_binary_sensor_${b_direction}"
+                    id: "${name}_endstop_binary_sensor_${switch_b}"
                     state: ON
 
   # device temperature
@@ -158,7 +160,7 @@ binary_sensor:
       inverted: false
     on_press:
       then:
-        - switch.toggle: "${name}_cover_${a_direction}"
+        - switch.toggle: "${name}_cover_${sensor_a}"
         - binary_sensor.template.publish:
             id: "${name}_endstop_binary_sensor_up"
             state: OFF
@@ -173,7 +175,7 @@ binary_sensor:
       inverted: false
     on_press:
       then:
-        - switch.toggle: "${name}_cover_${b_direction}"
+        - switch.toggle: "${name}_cover_${sensor_b}"
         - binary_sensor.template.publish:
             id: "${name}_endstop_binary_sensor_up"
             state: OFF
@@ -182,25 +184,25 @@ binary_sensor:
             state: OFF
   # endstop sensors
   - platform: template
-    id: "${name}_endstop_binary_sensor_${a_direction}"
-    name: "${name} ${a_direction} endstop"
+    id: "${name}_endstop_binary_sensor_up"
+    name: "${name} up endstop"
   - platform: template
-    id: "${name}_endstop_binary_sensor_${b_direction}"
-    name: "${name} ${b_direction} endstop"
+    id: "${name}_endstop_binary_sensor_down"
+    name: "${name} down endstop"
 
 switch:
   - platform: restart
     name: ${name} Restart
   - platform: gpio
-    id: "${name}_cover_${a_direction}"
-    name: "${name} cover ${a_direction}"
+    id: "${name}_cover_${switch_a}"
+    name: "${name} cover ${switch_a}"
     pin:
       number: GPIO15
-    interlock: &interlock ["${name}_cover_${a_direction}", "${name}_cover_${b_direction}"]
+    interlock: &interlock ["${name}_cover_up", "${name}_cover_down"]
     interlock_wait_time: ${interlock_wait}
   - platform: gpio
-    id: "${name}_cover_${b_direction}"
-    name: "${name} cover ${b_direction}"
+    id: "${name}_cover_${switch_b}"
+    name: "${name} cover ${switch_b}"
     pin:
       number: GPIO4
     interlock: *interlock
@@ -210,6 +212,7 @@ cover:
   - platform: endstop
     name: "${name} cover"
     id: "${name}_cover"
+    max_duration: ${max_duration}
 
     open_action:
       - switch.turn_on: "${name}_cover_up"
@@ -219,7 +222,7 @@ cover:
       - binary_sensor.template.publish:
           id: "${name}_endstop_binary_sensor_down"
           state: OFF
-    open_duration: 2.1min
+    open_duration: ${open_duration}
     open_endstop: "${name}_endstop_binary_sensor_up"
 
     close_action:
@@ -230,10 +233,9 @@ cover:
       - binary_sensor.template.publish:
           id: "${name}_endstop_binary_sensor_down"
           state: OFF
-    close_duration: 2min
+    close_duration: ${close_duration}
     close_endstop: "${name}_endstop_binary_sensor_down"
 
     stop_action:
-      - delay: ${stop_delay}
       - switch.turn_off: "${name}_cover_up"
       - switch.turn_off: "${name}_cover_down"

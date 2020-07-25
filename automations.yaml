@@ -29,10 +29,14 @@
       - scene.wohnzimmer_rolladen_kuche_schlitz
       - scene.wohnzimmer_rolladen_esstisch_katzenmodus
       - scene.wohnzimmer_rolladen_couch_katzenmodus
-      - scene.gastezimmer_rolladen_gastezimmer_schlitz
       - scene.schlafzimmer_rolladen_schlafzimmer_schlitz
       - scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
     service: scene.turn_on
+  - data:
+      position: 10
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
+  mode: single
 - id: '1574017668755'
   alias: Sonne - Untergang - Rolläden - abwesend
   description: ''
@@ -260,7 +264,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.gastezimmer_rolladen_gastezimmer
+    entity_id: cover.guestroom
     service: cover.close_cover
 - id: '1574022855896'
   alias: Shutdown - Rolladen Schlafzimmer
@@ -316,10 +320,13 @@
       - scene.wohnzimmer_rolladen_esstisch_katzenmodus
       - scene.wohnzimmer_rolladen_terrasse_schlitz
       - scene.wohnzimmer_rolladen_couch_katzenmodus
-      - scene.gastezimmer_rolladen_gastezimmer_schlitz
       - scene.schlafzimmer_rolladen_schlafzimmer_schlitz
       - scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
     service: scene.turn_on
+  - data:
+      position: 10
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
 - id: '1574282446207'
   alias: Shutdown - Rolladen Terrasse (abwesend)
   description: ''
@@ -1434,8 +1441,10 @@
   action:
   - entity_id: scene.wohnzimmer_rolladen_couch_schlitz
     service: scene.turn_on
-  - entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
-    service: scene.turn_on
+  - data:
+      position: 10
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
   - entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
     service: scene.turn_on
 - id: '1582375536734'
@@ -1457,7 +1466,7 @@
     service: cover.open_cover
   - entity_id: cover.wohnzimmer_rolladen_couch
     service: cover.open_cover
-  - entity_id: cover.gastezimmer_rolladen_gastezimmer
+  - entity_id: cover.guestroom
     service: cover.open_cover
   - entity_id: cover.schlafzimmer_rolladen_schlafzimmer
     service: cover.open_cover
@@ -1733,9 +1742,10 @@
     entity_id: binary_sensor.magnet_window_guestroom_contact
     state: 'on'
   action:
-  - data: {}
-    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
-    service: scene.turn_on
+  - data:
+      position: 10
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
 - id: '1589632144329'
   alias: Präsenz - Verlassen - Fenster Schlafzimmer offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1799,9 +1809,10 @@
     entity_id: input_boolean.rolladen_dunkelheit
     state: 'on'
   action:
-  - data: {}
-    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
-    service: scene.turn_on
+  - data:
+      position: 10
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
 - id: '1589638288081'
   alias: Fenster - Öffnen - Dunkel - Schlafzimmer
   description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
@@ -1893,9 +1904,10 @@
     entity_id: input_boolean.rolladen_shutdown
     state: 'off'
   action:
-  - data: {}
-    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
-    service: scene.turn_on
+  - data:
+      position: 10
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
 - id: '1589641478910'
   alias: Fenster - Schließen - Dunkel - Schlafzimmer
   description: ''
@@ -2010,7 +2022,7 @@
   - data: {}
     entity_id:
     - cover.schlafzimmer_rolladen_schlafzimmer
-    - cover.gastezimmer_rolladen_gastezimmer
+    - cover.guestroom
     - cover.arbeitszimmer_rolladen_arbeitszimmer
     - cover.wohnzimmer_rolladen_couch
     - cover.wohnzimmer_rolladen_terrasse
@@ -2145,9 +2157,10 @@
     entity_id: binary_sensor.magnet_window_guestroom_contact
     state: 'on'
   action:
-  - data: {}
-    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
-    service: scene.turn_on
+  - data:
+      position: 10
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
 - id: '1591447931958'
   alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster zu
   description: ''
@@ -2162,7 +2175,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.gastezimmer_rolladen_gastezimmer
+    entity_id: cover.guestroom
     service: cover.close_cover
 - id: '1591447931967'
   alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster auf
@@ -2178,7 +2191,7 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.gastezimmer_rolladen_gastezimmer_schlitz
+    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
     service: scene.turn_on
 - id: '1591447931968'
   alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster zu

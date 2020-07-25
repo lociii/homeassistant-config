@@ -7,11 +7,22 @@ substitutions:
   update_throttle: 10s
   interlock_wait: 500ms
 
-  # cover power consumption thresholds
-  cover_moving: "100.0"  # everything above 100 means we're moving
-  cover_stopping: "30.0"  # everything above 30 but below 100 means we're stopping
+  # how long to continue when the endposition has been reached?
   stop_delay: 2sec
 
+  # cover power consumption thresholds
+  cover_moving: "100.0"  # everything above 100 means we're moving
+  cover_stopping: "30.0"  # everything above 30 but below 100 means we're reaching the end position
+
+  # sensor directions
+  sensor_a: "up"
+  sensor_b: "down"
+
   # control direction for each switch
-  a_direction: "up"
-  b_direction: "down"
+  switch_a: "up"
+  switch_b: "down"
+
+  # how long does a full run take?
+  close_duration: 23sec  # from fully open to fully closed
+  open_duration: 23sec  # from fully closed to fully open
+  max_duration: 30sec  # always stop after this time
