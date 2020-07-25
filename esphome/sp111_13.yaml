@@ -1,11 +1,11 @@
 # v1.1 device
-# spare
+# guestroom - gameboy
 
 substitutions:
   name: esphome_plug_sp111_13
   cf1_pin: GPIO04
   output_pin: GPIO02
   status_led_pin: GPIO00
-  restore_mode: RESTORE_DEFAULT_ON
+  restore_mode: RESTORE_DEFAULT_OFF
 
 <<: !include .sp111.yaml
