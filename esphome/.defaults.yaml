@@ -40,10 +40,16 @@ sensor:
   # uptime sensor
   - platform: uptime
     name: "${name}_uptime"
+    unit_of_measurement: days
+    filters:
+      - lambda: return x / 60 / 60 / 24;
   # wifi signal sensor
   - platform: wifi_signal
     name: "${name}_wifi_signal"
-    update_interval: 30s
+    filters:
+      - or:
+        - heartbeat: 1h
+        - delta: 3
 
 binary_sensor:
   # device status sensor

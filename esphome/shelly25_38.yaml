@@ -1,0 +1,17 @@
+# guestroom - shutter
+
+<<: !include .shelly25_cover.yaml
+
+substitutions:
+  name: esphome_switch_shelly25_38
+  update_throttle: 10s
+  interlock_wait: 500ms
+
+  # cover power consumption thresholds
+  cover_moving: "100.0"  # everything above 100 means we're moving
+  cover_stopping: "30.0"  # everything above 30 but below 100 means we're stopping
+  stop_delay: 2sec
+
+  # control direction for each switch
+  a_direction: "up"
+  b_direction: "down"

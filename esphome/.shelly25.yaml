@@ -21,28 +21,45 @@ output:
 i2c:
   sda: GPIO12
   scl: GPIO14
+  scan: False
 
 sensor:
   # uptime sensor
   - platform: uptime
     name: "${name} uptime"
+    unit_of_measurement: days
+    filters:
+      - lambda: return x / 60 / 60 / 24;
   # wifi signal sensor
   - platform: wifi_signal
     name: "${name} wifi signal"
-    update_interval: 30s
+    filters:
+      - or:
+        - heartbeat: 1h
+        - delta: 3
 
   # power measurement
   - platform: ade7953
+    address: 0x38
+    update_interval: 1s
     voltage:
       name: "${name} voltage"
+      filters:
+        - throttle: ${update_throttle}
     current_a:
       name: "${name} current A"
       filters:
         - lambda: if (x < 0.1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
     current_b:
       name: "${name} current B"
       filters:
         - lambda: if (x < 0.1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
     active_power_a:
       id: "${name}_power_usage_a"
       name: "${name} power A"
@@ -50,8 +67,9 @@ sensor:
       icon: mdi:flash-circle
       accuracy_decimals: 0
       filters:
-        - multiply: -1
-        - lambda: if (x < 1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 1
     active_power_b:
       id: "${name}_power_usage_b"
       name: "${name} power B"
@@ -60,8 +78,9 @@ sensor:
       accuracy_decimals: 0
       filters:
         - multiply: -1
-        - lambda: if (x < 1) return 0; else return (x);
-    update_interval: 5s
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 1
 
   # device temperature
   - platform: ntc
