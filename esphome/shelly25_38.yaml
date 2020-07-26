@@ -5,18 +5,14 @@
 substitutions:
   name: esphome_switch_shelly25_38
   update_throttle: 10s
-  interlock_wait: 500ms
 
   # how long to continue when the endposition has been reached?
   stop_delay: 2sec
 
   # cover power consumption thresholds
-  cover_moving: "100.0"  # everything above 100 means we're moving
-  cover_stopping: "30.0"  # everything above 30 but below 100 means we're reaching the end position
-
-  # sensor directions
-  sensor_a: "up"
-  sensor_b: "down"
+  cover_moving: "100.0"  # everything above this value means the motor is moving
+  cover_stopping: "30.0"  # everything above this value but below cover_moving means the motor is reaching the end position
+  cover_stopped: "5.0"  # everything below that value means the motor has stopped
 
   # control direction for each switch
   switch_a: "up"
