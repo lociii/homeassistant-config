@@ -1,0 +1,19 @@
+# shutter test setup
+# used to find out which actor is which direction
+# actual cover is then derived from .shelly25_cover.yaml with switch_a and switch_b properly set to "up" and "down"
+
+substitutions:
+  name: esphome_switch_shelly25_covertest
+  update_throttle: 10s
+
+<<: !include .shelly25.yaml
+
+switch:
+  - platform: output
+    id: "${name}_cover_a"
+    name: "${name} cover A"
+    output: "${name}_actor_b"
+  - platform: output
+    id: "${name}_cover_b"
+    name: "${name} cover B"
+    output: "${name}_actor_a"

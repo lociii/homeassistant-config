@@ -118,7 +118,9 @@ Controls RGB light strips
 
 [Device type template](.magichome.yaml)
 
-### Shelly switches
+### Shelly switches / actors
+
+Except for the covers, these devices are either used as binary sensors for switch inputs (I only use momentary switches) or as actors.
 
 #### Shelly 1
 
@@ -153,6 +155,13 @@ Two inputs, two outputs, power measurement
 * [Power monitor hints](https://esphome.io/components/sensor/ade7953.html)
 
 [Device type template](.shelly25.yaml) and [example device](.shelly25_example.yaml).
+
+##### Cover setup
+
+My covers use momentary switches and have a slow down shortly before they reach their end stop.
+I'm using these features and the Shelly power usage sensor to control all aspects of the covers.
+
+[Device type template](.shelly25_cover.yaml) and [example device](.shelly25_cover_example.yaml).
 
 <!--
 #### Shelly i3
