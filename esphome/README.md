@@ -174,10 +174,3 @@ I'm using these features and the Shelly power usage sensor to control all aspect
 
 TODO
 -->
-
-### Mi Flora
-
-Plant monitoring system based on BLE.
-I'm running a single ESP32 board to read their broadcasts.
-
-More info on the [ESPHome component](https://esphome.io/components/sensor/xiaomi_miflora.html).

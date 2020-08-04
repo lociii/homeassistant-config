@@ -133,7 +133,6 @@ Controller is a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAU
 * Xiaomi Aqara climate sensors (zigbee)
 * Xiaomi Aqara water leakage sensors (zigbee)
 * Xiaomi Aqara occupancy sensors (zigbee)
-* Xiaomi MiFlora plant sensors (via [ESP32 BLE gateway running ESPHome](https://esphome.io/components/sensor/xiaomi_miflora.html))
 * Bitron AV2010/32 wall thermostat to control the underfloor heating
 
 ### Power plugs
