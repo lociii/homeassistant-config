@@ -1,0 +1,25 @@
+# shelly 2.5
+# 03
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: esphome_switch_shelly25_03
+  update_throttle: 10s
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name}_status"
+  # binary sensor for the button A press
+  - platform: gpio
+    name: "${name} sensor A"
+    pin:
+      number: GPIO13
+      inverted: false
+  # binary sensor for the button B press
+  - platform: gpio
+    name: "${name} sensor B"
+    pin:
+      number: GPIO5
+      inverted: false

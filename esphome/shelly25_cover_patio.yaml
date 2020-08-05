@@ -1,0 +1,17 @@
+# shelly 2.5
+# 06
+
+<<: !include .shelly25_cover_timebased.yaml
+
+substitutions:
+  name: cover_patio
+  friendly_name: Rolladen Terrasse
+  update_throttle: 10s
+
+  # set which direction is connected to which output
+  output_1: "down"
+  output_2: "up"
+
+  # how long does a full run take?
+  close_duration: 29sec  # from fully open to fully closed
+  open_duration: 30sec  # from fully closed to fully open

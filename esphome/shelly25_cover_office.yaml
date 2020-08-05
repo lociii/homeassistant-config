@@ -1,0 +1,17 @@
+# shelly 2.5
+# 19
+
+<<: !include .shelly25_cover_timebased.yaml
+
+substitutions:
+  name: cover_office
+  friendly_name: Rolladen Büro
+  update_throttle: 10s
+
+  # set which direction is connected to which output
+  output_1: "down"
+  output_2: "up"
+
+  # how long does a full run take?
+  close_duration: 24sec  # from fully open to fully closed
+  open_duration: 25sec  # from fully closed to fully open

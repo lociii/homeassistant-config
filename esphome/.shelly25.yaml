@@ -26,10 +26,9 @@ i2c:
 sensor:
   # uptime sensor
   - platform: uptime
-    name: "${name} uptime"
-    unit_of_measurement: days
-    filters:
-      - lambda: return x / 60 / 60 / 24;
+    name: "${name}_uptime"
+    unit_of_measurement: seconds
+    update_interval: 10min
   # wifi signal sensor
   - platform: wifi_signal
     name: "${name} wifi signal"
@@ -101,3 +100,7 @@ sensor:
   - platform: adc
     id: "${name}_analog_reading"
     pin: A0
+
+switch:
+  - platform: restart
+    name: ${name} Restart

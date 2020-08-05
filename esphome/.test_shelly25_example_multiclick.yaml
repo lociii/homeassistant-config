@@ -1,0 +1,98 @@
+# shower - switches
+# no actor connected, switch only
+
+substitutions:
+  name: esphome_switch_shelly25_02
+
+<<: !include .shelly25.yaml
+
+globals:
+  - id: counter
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+text_sensor:
+  - platform: version
+    name: "${name}_version"
+  - platform: wifi_info
+    ip_address:
+      name: "${name}_ip"
+    ssid:
+      name: "${name}_ssid"
+    bssid:
+      name: "${name}_bssid"
+  - platform: template
+    id: "${name}_button_a"
+    name: "${name} button A"
+    icon: "mdi:toggle-switch"
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name}_status"
+  # binary sensor for the button A press
+  - platform: gpio
+    id: "${name}_sensor_a"
+    name: "${name} sensor A"
+    pin:
+      number: GPIO13
+      inverted: false
+
+    filters:
+      - delayed_on: 10ms
+      - delayed_off: 10ms
+  
+    on_multi_click:
+      # double click
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at most 0.3s
+        - ON for at most 0.5s
+        - OFF for at least 0.2s
+        then:
+        - lambda: |-
+            id("${name}_button_a").publish_state("double");
+        - delay: 0.5s
+        - lambda: |-
+            id("${name}_button_a").publish_state("");
+      # single click
+      - timing:
+        - ON for at most 0.5s
+        - OFF for at least 0.5s
+        then:
+        - lambda: |-
+            id("${name}_button_a").publish_state("single");
+        - delay: 0.5s
+        - lambda: |-
+            id("${name}_button_a").publish_state("");
+      # hold
+      - timing:
+        - ON for at least 0.75s
+        then:
+        - while:
+            condition:
+              binary_sensor.is_on: "${name}_sensor_a"
+            then:
+              - lambda: |-
+                  id(counter) += 1;
+                  id("${name}_button_a").publish_state("hold");
+              - delay: 0.5s
+      # release
+      - timing:
+        - ON for at least 1.5s
+        - OFF for at least 0.5s
+        then:
+        - lambda: |-
+            id(counter) = 0;
+            id("${name}_button_a").publish_state("release");
+        - delay: 0.5s
+        - lambda: |-
+            id("${name}_button_a").publish_state("");
+
+  # binary sensor for the button B press
+  - platform: gpio
+    name: "${name} sensor B"
+    pin:
+      number: GPIO5
+      inverted: false

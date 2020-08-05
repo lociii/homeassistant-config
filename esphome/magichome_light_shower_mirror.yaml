@@ -1,0 +1,7 @@
+# magichome
+# 01
+
+<<: !include .magichome.yaml
+
+substitutions:
+  name: light_shower_mirror

@@ -1,19 +1,26 @@
-# shutter test setup
+# cover test setup
 # used to find out which actor is which direction
-# actual cover is then derived from .shelly25_cover.yaml with switch_a and switch_b properly set to "up" and "down"
+# actual cover is then derived from
+# .shelly25_cover_endstop.yaml if it has a slowdown
+# .shelly25_cover_timebased.yaml if it has no slowdown and must be time measured
+# both get switch_a and switch_b properly set to "up" and "down" then
 
-substitutions:
-  name: esphome_switch_shelly25_covertest
-  update_throttle: 10s
+# substitutions:
+#   name: esphome_switch_shelly25_covertest
+#   update_throttle: 10s
 
 <<: !include .shelly25.yaml
+
+substitutions:
+  name: cover_test
+  update_throttle: 10s
 
 switch:
   - platform: output
     id: "${name}_cover_a"
     name: "${name} cover A"
-    output: "${name}_actor_b"
+    output: "${name}_actor_a"
   - platform: output
     id: "${name}_cover_b"
     name: "${name} cover B"
-    output: "${name}_actor_a"
+    output: "${name}_actor_b"

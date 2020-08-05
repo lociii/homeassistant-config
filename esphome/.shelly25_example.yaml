@@ -1,19 +1,22 @@
-substitutions:
-  name: esphome_switch_shelly25_example
-
 <<: !include .shelly25.yaml
+
+substitutions:
+  name: shelly25_example
+  friendly_name: Shelly 2.5 example
+  update_throttle: 10s
 
 # define our first actor
 light:
   - platform: binary
     id: "${name}_light"
-    name: "${name} light"
+    name: "${friendly_name} light"
     output: "${name}_actor_a"
 
+# define our second actor
 fan:
   - platform: binary
     id: "${name}_fan"
-    name: "${name} fan"
+    name: "${friendly_name} fan"
     output: "${name}_actor_b"
 
 binary_sensor:
@@ -22,7 +25,7 @@ binary_sensor:
     name: "${name}_status"
   # binary sensor for the button A press
   - platform: gpio
-    name: "${name} sensor A"
+    name: "${friendly_name} sensor A"
     pin:
       number: GPIO13
       inverted: false
@@ -32,7 +35,7 @@ binary_sensor:
         - light.toggle: "${name}_light"
   # binary sensor for the button B press
   - platform: gpio
-    name: "${name} sensor B"
+    name: "${friendly_name} sensor B"
     pin:
       number: GPIO5
       inverted: false
@@ -41,7 +44,7 @@ binary_sensor:
       then:
         - fan.toggle: "${name}_fan"
 
-# overheat protection, shut actors off above 60 celsius
+# overheat protection, shut actors off above 70 celsius
 interval:
   - interval: 100ms
     then:
@@ -50,7 +53,7 @@ interval:
           and:
             - sensor.in_range:
                 id: "${name}_temperature"
-                above: 60.0
+                above: 70.0
         then:
           - light.turn_off: "${name}_light"
           - fan.turn_off: "${name}_fan"

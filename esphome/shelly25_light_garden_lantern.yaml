@@ -1,0 +1,16 @@
+# shelly 2.5
+# 36
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: light_garden_lantern
+  friendly_name: Garten Laterne
+  update_throttle: 10s
+
+light:
+  - platform: binary
+    id: "${name}"
+    name: "${friendly_name}"
+    output: "${name}_actor_a"
+    restore_mode: RESTORE_DEFAULT_OFF

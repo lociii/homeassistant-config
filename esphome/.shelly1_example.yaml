@@ -1,14 +1,15 @@
 # example
 
 substitutions:
-  name: esphome_switch_shelly1_example
+  name: shelly1_example
+  friendly_name: Shelly 1 example
 
 <<: !include .shelly1.yaml
 
 light:
   - platform: binary
     id: "${name}_light"
-    name: "${name} light"
+    name: "${friendly_name}"
     output: "${name}_actor"
     restore_mode: RESTORE_DEFAULT_OFF
 
@@ -18,7 +19,7 @@ binary_sensor:
     name: "${name} status"
   # binary sensor for the button press
   - platform: gpio
-    name: "${name} sensor"
+    name: "${friendly_name} sensor"
     pin:
       number: GPIO5
       inverted: false

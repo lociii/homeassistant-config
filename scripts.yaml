@@ -409,3 +409,75 @@ bewaesserung_lang:
   - data: {}
     entity_id: light.bewasserung_busche
     service: light.turn_off
+cover_guestroom_ajar:
+  alias: Rolladen - Gästezimmer - Schlitz
+  mode: single
+  sequence:
+  - data:
+      position: 20
+    entity_id: cover.guestroom
+    service: cover.set_cover_position
+cover_bedroom_ajar:
+  alias: Rolladen - Schlafzimmer - Spalt
+  mode: single
+  sequence:
+  - data:
+      position: 20
+    entity_id: cover.bedroom
+    service: cover.set_cover_position
+cover_kitchen_ajar:
+  alias: Rolladen - Küche - Spalt
+  mode: single
+  sequence:
+  - data:
+      position: 20
+    entity_id: cover.kitchen
+    service: cover.set_cover_position
+cover_dining_ajar:
+  alias: Rolladen - Esstisch - Spalt
+  mode: single
+  sequence:
+  - data:
+      position: 20
+    entity_id: cover.dining
+    service: cover.set_cover_position
+cover_dining_cat:
+  alias: Rolladen - Esstisch - Katze
+  mode: single
+  sequence:
+  - data:
+      position: 40
+    entity_id: cover.dining
+    service: cover.set_cover_position
+cover_patio_ajar:
+  alias: Rolladen - Terrasse - Spalt
+  mode: single
+  sequence:
+  - data:
+      position: 20
+    entity_id: cover.patio
+    service: cover.set_cover_position
+cover_couch_ajar:
+  alias: Rolladen - Couch - Spalt
+  mode: single
+  sequence:
+  - data:
+      position: 20
+    entity_id: cover.couch
+    service: cover.set_cover_position
+cover_couch_cat:
+  alias: Rolladen - Couch - Katze
+  mode: single
+  sequence:
+  - data:
+      position: 40
+    entity_id: cover.couch
+    service: cover.set_cover_position
+cover_office_ajar:
+  alias: Rolladen - Büro - Spalt
+  mode: single
+  sequence:
+  - data:
+      position: 20
+    entity_id: cover.office
+    service: cover.set_cover_position

@@ -2,9 +2,9 @@
 
 # this setup uses momentary switches!!!
 #
-# sensor A must be connected to the upwards switch
-# sensor B must be connected to the downwards switch
-# actor direction can be changed by setting switch_a and switch_b to "up"/"down"
+# SW1 must be connected to the upwards switch
+# SW2 must be connected to the downwards switch
+# actor direction can be changed by setting output_1 and output_2 to "up"/"down"
 
 esphome:
   name: ${name}
@@ -59,10 +59,9 @@ globals:
 sensor:
   # uptime sensor
   - platform: uptime
-    name: "${name} uptime"
-    unit_of_measurement: days
-    filters:
-      - lambda: return x / 60 / 60 / 24;
+    name: "${name}_uptime"
+    unit_of_measurement: seconds
+    update_interval: 10min
   # wifi signal sensor
   - platform: wifi_signal
     name: "${name} wifi signal"
@@ -80,22 +79,22 @@ sensor:
       filters:
         - throttle: ${update_throttle}
     current_a:
-      name: "${name} current A"
+      name: "${name} current ${output_1}"
       filters:
         - lambda: if (x < 0.1) return 0; else return (x);
         - or:
           - throttle: ${update_throttle}
           - delta: 0.03
     current_b:
-      name: "${name} current B"
+      name: "${name} current ${output_2}"
       filters:
         - lambda: if (x < 0.1) return 0; else return (x);
         - or:
           - throttle: ${update_throttle}
           - delta: 0.03
     active_power_a:
-      id: "${name}_power_usage_a"
-      name: "${name} power A"
+      id: "${name}_power_usage_${output_1}"
+      name: "${name} power ${output_1}"
       unit_of_measurement: W
       icon: mdi:flash-circle
       accuracy_decimals: 0
@@ -107,72 +106,50 @@ sensor:
       on_value:
         then:
           # consumption is higher than the moving threshold
-          # mark motor active and not in slowdown
+          # mark motor as not in slowdown
           - if:
               condition:
-                lambda: 'return id(${name}_power_usage_a).state > ${cover_moving};'
+                lambda: 'return id(${name}_power_usage_${output_1}).state > ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover is moving ${switch_a}"
+                    format: "Cover is moving ${output_1}"
                     level: INFO
                 - binary_sensor.template.publish:
-                    id: "${name}_powered"
-                    state: ON
-                - binary_sensor.template.publish:
-                    id: "${name}_slowdown_${switch_a}"
+                    id: "${name}_slowdown_${output_1}"
                     state: OFF
           # consumption is higher than the stopping threshold but less than the moving threshold
-          # mark motor active and slowing down
+          # mark motor as slowing down
           - if:
               condition:
-                - lambda: 'return id(${name}_power_usage_a).state > ${cover_stopping};'
-                - lambda: 'return id(${name}_power_usage_a).state < ${cover_moving};'
+                - lambda: 'return id(${name}_power_usage_${output_1}).state > ${cover_stopping};'
+                - lambda: 'return id(${name}_power_usage_${output_1}).state < ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover is close to the ${switch_a}wards endposition and slowing down"
+                    format: "Cover is close to the ${output_1}wards endposition and slowing down"
                     level: INFO
                 - binary_sensor.template.publish:
-                    id: "${name}_powered"
+                    id: "${name}_slowdown_${output_1}"
                     state: ON
-                - binary_sensor.template.publish:
-                    id: "${name}_slowdown_${switch_a}"
-                    state: ON
-          # consumption is less than the full stop threshold and motor is marked active and slowing down
-          # mark motor fully stopped
+          # consumption stopped after being on slowdown
+          # mark motor as fully stopped on end position
           - if:
               condition:
-                - lambda: 'return id(${name}_power_usage_a).state < ${cover_stopped};'
-                - binary_sensor.is_on: "${name}_powered"
-                - binary_sensor.is_on: "${name}_slowdown_${switch_a}"
+                - lambda: 'return id(${name}_power_usage_${output_1}).state < ${cover_stopped};'
+                - binary_sensor.is_on: "${name}_moving"
+                - binary_sensor.is_on: "${name}_slowdown_${output_1}"
               then:
                 - logger.log:
-                    format: "Cover has reached the ${switch_a}wards endposition and stopped"
+                    format: "Cover has reached the ${output_1}wards endposition and stopped"
                     level: INFO
                 - binary_sensor.template.publish:
-                    id: "${name}_endstop_${switch_a}"
+                    id: "${name}_endstop_${output_1}"
                     state: ON
                 - binary_sensor.template.publish:
-                    id: "${name}_powered"
-                    state: OFF
-                - binary_sensor.template.publish:
-                    id: "${name}_slowdown_${switch_a}"
-                    state: OFF
-          # consumption is less than the full stop threshold and motor is marked active but not yet slowing down
-          # mark motor fully stopped
-          - if:
-              condition:
-                - lambda: 'return id(${name}_power_usage_a).state < ${cover_stopped};'
-                - binary_sensor.is_on: "${name}_powered"
-              then:
-                - logger.log:
-                    format: "Cover has been stopped on the way ${switch_a}"
-                    level: INFO
-                - binary_sensor.template.publish:
-                    id: "${name}_powered"
+                    id: "${name}_slowdown_${output_1}"
                     state: OFF
     active_power_b:
-      id: "${name}_power_usage_b"
-      name: "${name} power B"
+      id: "${name}_power_usage_${output_2}"
+      name: "${name} power ${output_2}"
       unit_of_measurement: W
       icon: mdi:flash-circle
       accuracy_decimals: 0
@@ -185,68 +162,46 @@ sensor:
       on_value:
         then:
           # consumption is higher than the moving threshold
-          # mark motor active and not in slowdown
+          # mark motor as not in slowdown
           - if:
               condition:
-                lambda: 'return id(${name}_power_usage_b).state > ${cover_moving};'
+                lambda: 'return id(${name}_power_usage_${output_2}).state > ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover is moving ${switch_b}"
+                    format: "Cover is moving ${output_2}"
                     level: INFO
                 - binary_sensor.template.publish:
-                    id: "${name}_powered"
-                    state: ON
-                - binary_sensor.template.publish:
-                    id: "${name}_slowdown_${switch_b}"
+                    id: "${name}_slowdown_${output_2}"
                     state: OFF
           # consumption is higher than the stopping threshold but less than the moving threshold
-          # mark motor active and slowing down
+          # mark motor as slowing down
           - if:
               condition:
-                - lambda: 'return id(${name}_power_usage_b).state > ${cover_stopping};'
-                - lambda: 'return id(${name}_power_usage_b).state < ${cover_moving};'
+                - lambda: 'return id(${name}_power_usage_${output_2}).state > ${cover_stopping};'
+                - lambda: 'return id(${name}_power_usage_${output_2}).state < ${cover_moving};'
               then:
                 - logger.log:
-                    format: "Cover is close to the ${switch_b}wards endposition and slowing down"
+                    format: "Cover is close to the ${output_2}wards endposition and slowing down"
                     level: INFO
                 - binary_sensor.template.publish:
-                    id: "${name}_powered"
+                    id: "${name}_slowdown_${output_2}"
                     state: ON
-                - binary_sensor.template.publish:
-                    id: "${name}_slowdown_${switch_b}"
-                    state: ON
-          # consumption is less than the full stop threshold and motor is marked active and slowing down
-          # mark motor fully stopped
+          # consumption stopped after being on slowdown
+          # mark motor as fully stopped on end position
           - if:
               condition:
-                - lambda: 'return id(${name}_power_usage_b).state < ${cover_stopped};'
-                - binary_sensor.is_on: "${name}_powered"
-                - binary_sensor.is_on: "${name}_slowdown_${switch_b}"
+                - lambda: 'return id(${name}_power_usage_${output_2}).state < ${cover_stopped};'
+                - binary_sensor.is_on: "${name}_moving"
+                - binary_sensor.is_on: "${name}_slowdown_${output_2}"
               then:
                 - logger.log:
-                    format: "Cover has reached the ${switch_b}wards endposition and stopped"
+                    format: "Cover has reached the ${output_2}wards endposition and stopped"
                     level: INFO
                 - binary_sensor.template.publish:
-                    id: "${name}_endstop_${switch_b}"
+                    id: "${name}_endstop_${output_2}"
                     state: ON
                 - binary_sensor.template.publish:
-                    id: "${name}_powered"
-                    state: OFF
-                - binary_sensor.template.publish:
-                    id: "${name}_slowdown_${switch_b}"
-                    state: OFF
-          # consumption is less than the full stop threshold and motor is marked active but not yet slowing down
-          # mark motor fully stopped
-          - if:
-              condition:
-                - lambda: 'return id(${name}_power_usage_b).state < ${cover_stopped};'
-                - binary_sensor.is_on: "${name}_powered"
-              then:
-                - logger.log:
-                    format: "Cover has been stopped on the way ${switch_b}"
-                    level: INFO
-                - binary_sensor.template.publish:
-                    id: "${name}_powered"
+                    id: "${name}_slowdown_${output_2}"
                     state: OFF
 
   # device temperature
@@ -271,9 +226,9 @@ binary_sensor:
   # device status sensor
   - platform: status
     name: "${name}_status"
-  # binary sensor for the button A press
+  # binary sensor for the upwards button press
   - platform: gpio
-    name: "${name} sensor A"
+    name: "${name} sensor up"
     pin:
       number: GPIO13
       inverted: false
@@ -281,38 +236,26 @@ binary_sensor:
       # if the motor is moving, every press should just stop it
       - if:
           condition:
-            binary_sensor.is_on: "${name}_powered"
+            binary_sensor.is_on: "${name}_moving"
           then:
-            - switch.turn_off: "${name}_cover_up"
-            - switch.turn_off: "${name}_cover_down"
-      # if the motor is not moving and we didn't reach the end stop yet then start it
-      - if:
-          condition:
-            - binary_sensor.is_off: "${name}_powered"
-            - binary_sensor.is_off: "${name}_endstop_up"
-          then:
-            - cover.open: "${name}_cover"
-  # binary sensor for the button B press
+            cover.stop: "${name}_cover"
+          else:
+            cover.open: "${name}_cover"
+  # binary sensor for the downwards button press
   - platform: gpio
-    name: "${name} sensor B"
+    name: "${name} sensor down"
     pin:
       number: GPIO5
       inverted: false
     on_press:
-      # if the motor is moving, every press should just stop it
-      - if:
-          condition:
-            binary_sensor.is_on: "${name}_powered"
-          then:
-            - switch.turn_off: "${name}_cover_up"
-            - switch.turn_off: "${name}_cover_down"
-      # if the motor is not moving and we didn't reach the end stop yet then start it
-      - if:
-          condition:
-            not:
-              binary_sensor.is_on: "${name}_endstop_down"
-          then:
-            - cover.close: "${name}_cover"
+        # if the motor is moving, every press should just stop it
+        - if:
+            condition:
+              binary_sensor.is_on: "${name}_moving"
+            then:
+              cover.stop: "${name}_cover"
+            else:
+              cover.close: "${name}_cover"
   # endstop sensors
   - platform: template
     id: "${name}_endstop_up"
@@ -326,46 +269,63 @@ binary_sensor:
   - platform: template
     id: "${name}_slowdown_down"
     name: "${name} down slowdown"
+  # cover is moving
   - platform: template
-    id: "${name}_powered"
-    name: "${name} is powered"
+    id: "${name}_moving"
+    name: "${name} is moving"
 
 switch:
   - platform: restart
     name: ${name} Restart
-  # actual switch powering the motor, direction is defined by setting switch_a to "up" or "down"
+  # actual switch powering the motor, direction is defined by setting output_1 to "up" or "down"
   - platform: gpio
-    id: "${name}_cover_${switch_a}"
-    name: "${name} cover ${switch_a}"
+    id: "${name}_cover_${output_1}"
+    name: "${name} cover ${output_1}"
     pin:
       number: GPIO15
     # prevent both switches from being turned on at the same time
     interlock: &interlock ["${name}_cover_up", "${name}_cover_down"]
     interlock_wait_time: 500ms
-    # when starting to move, turn both end stop markers off
+    # set motor moving when not yet at the upper endstop, also remove eventual lower endstop flag as we're moving up
     on_turn_on:
+      - if:
+          condition:
+            binary_sensor.is_off: "${name}_endstop_${output_1}"
+          then:
+            - binary_sensor.template.publish:
+                id: "${name}_moving"
+                state: ON
+            - binary_sensor.template.publish:
+                id: "${name}_endstop_${output_2}"
+                state: OFF
+    on_turn_off:
       - binary_sensor.template.publish:
-          id: "${name}_endstop_up"
+          id: "${name}_moving"
           state: OFF
-      - binary_sensor.template.publish:
-          id: "${name}_endstop_down"
-          state: OFF
-  # actual switch powering the motor, direction is defined by setting switch_b to "up" or "down"
+  # actual switch powering the motor, direction is defined by setting output_2 to "up" or "down"
   - platform: gpio
-    id: "${name}_cover_${switch_b}"
-    name: "${name} cover ${switch_b}"
+    id: "${name}_cover_${output_2}"
+    name: "${name} cover ${output_2}"
     pin:
       number: GPIO4
     # prevent both switches from being turned on at the same time
     interlock: *interlock
     interlock_wait_time: 500ms
-    # when starting to move, turn both end stop markers off
+    # set motor moving when not yet at the lower endstop, also remove eventual upper endstop flag as we're moving down
     on_turn_on:
+      - if:
+          condition:
+            binary_sensor.is_off: "${name}_endstop_${output_2}"
+          then:
+            - binary_sensor.template.publish:
+                id: "${name}_moving"
+                state: ON
+            - binary_sensor.template.publish:
+                id: "${name}_endstop_${output_1}"
+                state: OFF
+    on_turn_off:
       - binary_sensor.template.publish:
-          id: "${name}_endstop_up"
-          state: OFF
-      - binary_sensor.template.publish:
-          id: "${name}_endstop_down"
+          id: "${name}_moving"
           state: OFF
 
 cover:

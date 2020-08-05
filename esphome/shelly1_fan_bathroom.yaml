@@ -1,0 +1,13 @@
+# shelly 1 
+# 04
+
+<<: !include .shelly1.yaml
+
+substitutions:
+  name: fan_bathroom
+
+fan:
+  - platform: binary
+    id: "${name}"
+    name: "Lüfter Bad"
+    output: "${name}_actor"

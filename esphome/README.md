@@ -120,7 +120,7 @@ Controls RGB light strips
 
 ### Shelly switches / actors
 
-Except for the covers, these devices are either used as binary sensors for switch inputs (I only use momentary switches) or as actors.
+All my inputs are momentary switches! You may need to adjust some templates if you're using regular on/off switches.
 
 #### Shelly 1
 
@@ -132,22 +132,11 @@ One input, one output
 
 [Device type template](.shelly1.yaml) and [example device](.shelly1_example.yaml).
 
-<!--
-#### Shelly 1 PM
-
-One input, one output, power measurement
-
-* [Tasmota template](https://templates.blakadder.com/shelly_1PM.html)
-* [Shelly knowledge base](https://shelly.cloud/support/knowledge-base/shelly-1/#wiring)
-* [Wiring diagrams](https://www.shelly-support.eu/lexikon/index.php?entry/51-connection-diagrams-shelly-1pm/)
-* [Instructions](https://github.com/arendst/Tasmota/issues/5716#issuecomment-589879170) to resolder some connections to measure voltage and amperage
-
-[Device type template](.shelly1pm.yaml) - device needs to define the actual actor
--->
-
 #### Shelly 2.5
 
-Two inputs, two outputs, power measurement
+Two inputs, two outputs, power measurement.
+
+Used for switch inputs, lights, fans and covers.
 
 * [Tasmota template](https://templates.blakadder.com/shelly_25.html)
 * [Shelly knowledge base](https://shelly.cloud/support/knowledge-base/shelly-25/#wiring)
@@ -158,19 +147,20 @@ Two inputs, two outputs, power measurement
 
 ##### Cover setup
 
-My covers use momentary switches and have a slow down shortly before they reach their end stop.
-I'm using these features and the Shelly power usage sensor to control all aspects of the covers.
+As my covers don't have a proper end stop reporting, I opted to use a [time based cover](.shelly25_cover_timebased.yaml) setup.
 
-[Device type template](.shelly25_cover.yaml) and [example device](.shelly25_cover_example.yaml).
+While setting up my covers, I used a [simple setup](.shelly25_covertest.yaml) that allowed me to check the switch presses and check the output direction.
 
-<!--
-#### Shelly i3
+#### Shelly RGBW2
 
-* [Shelly knowledge base: wiring](https://shelly.cloud/support/knowledge-base/shelly-i3/#wiring)
-* [Shelly knowledge base: device pinout](https://shelly.cloud/support/knowledge-base/shelly-i3/#pinout)
-* [Wiring diagrams](https://www.shelly-support.eu/lexikon/index.php?entry/212-connection-diagrams-shelly-i3/)
+Control LED light strips.
 
-[Device type template](.shellyi3.yaml)
+* [Tasmota template](https://templates.blakadder.com/shelly_RGBW2.html)
+* [Shelly knowledge base](https://shelly.cloud/knowledge-base/devices/shelly-rgbw2/#wiring)
+* Wiring diagrams [1](https://www.shelly-support.eu/lexikon/index.php?entry/53-connection-diagrams-shelly-rgbw2/) / [2](https://www.shelly-support.eu/lexikon/index.php?entry/180-connection-diagrams-shelly-rgbw2-continuation/)
 
-TODO
--->
+[Device type template](.shellyrgbw2.yaml)
+
+Example devices:
+* Warm/cold white control on a WOFI ceiling fixture ([9693.01.70.5200](https://www.amazon.de/gp/product/B00LUKGN0K/)), see [kitchen ceiling light](shellyrgbw_light_kitchen_ceiling.yaml).
+* Monochromatic control on a WOFI ceiling fixture ([9693.01.70.0600](https://www.amazon.de/gp/product/B00F467V84)), see [hallway lights](shellyrgbw_light_hallway_entrance.yaml).

@@ -1,0 +1,16 @@
+# shelly 2.5
+# 27
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: light_kitchen_sink
+  friendly_name: Küche Spülenlicht
+  update_throttle: 10s
+
+light:
+  - platform: binary
+    id: "${name}"
+    name: "${friendly_name}"
+    output: "${name}_actor_a"
+    restore_mode: RESTORE_DEFAULT_OFF

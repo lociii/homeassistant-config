@@ -1,0 +1,17 @@
+# shelly 2.5
+# 21
+
+<<: !include .shelly25_cover_timebased.yaml
+
+substitutions:
+  name: cover_kitchen
+  friendly_name: Rolladen Küche
+  update_throttle: 10s
+
+  # set which direction is connected to which output
+  output_1: "down"
+  output_2: "up"
+
+  # how long does a full run take?
+  close_duration: 19sec  # from fully open to fully closed
+  open_duration: 20sec  # from fully closed to fully open

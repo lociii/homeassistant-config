@@ -1,0 +1,15 @@
+# shelly 1
+# 01
+
+<<: !include .shelly1.yaml
+
+substitutions:
+  name: light_shower_ceiling
+  friendly_name: Dusche Deckenlicht
+
+light:
+  - platform: binary
+    id: "${name}"
+    name: "${friendly_name}"
+    output: "${name}_actor"
+    restore_mode: RESTORE_DEFAULT_OFF

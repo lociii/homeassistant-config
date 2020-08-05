@@ -1,0 +1,26 @@
+# shelly 2.5
+# 02
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: switch_shower
+  friendly_name: Schalter Dusche
+  update_throttle: 10s
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name}_status"
+  # binary sensor for the button A press
+  - platform: gpio
+    name: "${name} sensor A"
+    pin:
+      number: GPIO13
+      inverted: false
+  # binary sensor for the button B press
+  - platform: gpio
+    name: "${name} sensor B"
+    pin:
+      number: GPIO5
+      inverted: false

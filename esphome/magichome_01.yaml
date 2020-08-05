@@ -1,6 +1,0 @@
-# shower - mirror
-
-substitutions:
-  name: esphome_light_magichome_01
-
-<<: !include .magichome.yaml

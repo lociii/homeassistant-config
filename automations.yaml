@@ -11,7 +11,7 @@
   - data:
       entity_id:
       - light.wandlampen
-      - light.garten_laterne
+      - light.garden_lantern
       - light.balllampen
     service: light.turn_on
 - id: '1574017577024'
@@ -24,18 +24,24 @@
     to: 'on'
   condition: []
   action:
-  - data:
-      entity_id:
-      - scene.wohnzimmer_rolladen_kuche_schlitz
-      - scene.wohnzimmer_rolladen_esstisch_katzenmodus
-      - scene.wohnzimmer_rolladen_couch_katzenmodus
-      - scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-      - scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
-    service: scene.turn_on
-  - data:
-      position: 10
-    entity_id: cover.guestroom
-    service: cover.set_cover_position
+  - data: {}
+    entity_id: script.cover_kitchen_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_dining_cat
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_couch_cat
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_office_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_guestroom_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
   mode: single
 - id: '1574017668755'
   alias: Sonne - Untergang - Rolläden - abwesend
@@ -50,10 +56,9 @@
     entity_id: switch.apartment_present
     state: 'off'
   action:
-  - data:
-      entity_id:
-      - scene.wohnzimmer_rolladen_terrasse_schlitz
-    service: scene.turn_on
+  - data: {}
+    entity_id: script.cover_patio_ajar
+    service: script.turn_on
 - id: '1574017838922'
   alias: Sonne - Untergang - Licht - Anwesend
   description: ''
@@ -85,7 +90,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_kuche
+    entity_id: cover.kitchen
     service: cover.close_cover
 - id: '1574018283325'
   alias: Schlafen - Einschlafen - Licht
@@ -99,13 +104,13 @@
   action:
   - data:
       entity_id:
-      - light.garten_laterne
+      - light.garden_lantern
       - light.balllampen
-      - light.kuche_deckenlicht
-      - light.kuche_spulenlicht
+      - light.kitchen_ceiling
+      - light.kitchen_sink
       - light.barlicht
-      - light.esszimmer_esstischlicht
-      - light.wohnzimmer_deckenlampe
+      - light.livingroom_dining
+      - light.livingroom_ceiling
       - light.wandlampen
       - light.stehlampe_wohnzimmer
       - light.gastezimmer_deckenlicht
@@ -114,8 +119,8 @@
       - light.shower_mirror
       - light.shower_ceiling
       - light.deckenlicht_buro
-      - light.bad_deckenlicht
-      - light.bad_spiegellicht
+      - light.bathroom_ceiling
+      - light.bathroom_mirror
       - light.schlafzimmer_deckenlicht
     service: light.turn_off
   - data:
@@ -135,11 +140,11 @@
   action:
   - data:
       entity_id:
-      - cover.wohnzimmer_rolladen_esstisch
-      - cover.wohnzimmer_rolladen_terrasse
-      - cover.wohnzimmer_rolladen_couch
-      - cover.gastezimmer_alle_rolladen
-      - cover.schlafzimmer_alle_rolladen
+      - cover.dining
+      - cover.patio
+      - cover.couch
+      - cover.guestroom
+      - cover.bedroom
     service: cover.open_cover
 - id: '1574018758288'
   alias: Schlafen - Aufstehen - Rolläden - Hell
@@ -156,7 +161,7 @@
   action:
   - data:
       entity_id:
-      - cover.arbeitszimmer_alle_rolladen
+      - cover.office
     service: cover.open_cover
 - id: '1574019599778'
   alias: Präsenz - Ankommen - Dunkel - Licht
@@ -221,7 +226,7 @@
   - data:
       entity_id:
       - light.wandlampen
-      - light.garten_laterne
+      - light.garden_lantern
       - light.balllampen
     service: light.turn_on
 - id: '1574022674864'
@@ -235,7 +240,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_esstisch
+    entity_id: cover.dining
     service: cover.close_cover
 - id: '1574022722581'
   alias: Shutdown - Rolladen Couch
@@ -248,7 +253,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_couch
+    entity_id: cover.couch
     service: cover.close_cover
 - id: '1574022799195'
   alias: Shutdown - Rolladen Gästezimmer
@@ -280,7 +285,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.schlafzimmer_rolladen_schlafzimmer
+    entity_id: cover.bedroom
     service: cover.close_cover
 - id: '1574022922656'
   alias: Shutdown - Rolladen Arbeitszimmer
@@ -296,7 +301,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.arbeitszimmer_rolladen_arbeitszimmer
+    entity_id: cover.office
     service: cover.close_cover
 - id: '1574281438489'
   alias: Präsenz - Verlassen - Dunkel - Rolläden
@@ -314,19 +319,27 @@
     entity_id: input_boolean.rolladen_shutdown
     state: 'off'
   action:
-  - data:
-      entity_id:
-      - scene.wohnzimmer_rolladen_kuche_schlitz
-      - scene.wohnzimmer_rolladen_esstisch_katzenmodus
-      - scene.wohnzimmer_rolladen_terrasse_schlitz
-      - scene.wohnzimmer_rolladen_couch_katzenmodus
-      - scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-      - scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
-    service: scene.turn_on
-  - data:
-      position: 10
-    entity_id: cover.guestroom
-    service: cover.set_cover_position
+  - data: {}
+    entity_id: script.cover_kitchen_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_dining_cat
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_patio_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_couch_cat
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_office_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_guestroom_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
 - id: '1574282446207'
   alias: Shutdown - Rolladen Terrasse (abwesend)
   description: ''
@@ -344,7 +357,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_terrasse
+    entity_id: cover.patio
     service: cover.close_cover
 - id: '1574282534738'
   alias: Staubsauger - Reset um Mitternacht
@@ -427,8 +440,8 @@
   action:
   - data:
       entity_id:
-      - light.bad_lufter
-    service: light.turn_on
+      - fan.bathroom
+    service: fan.turn_on
   - data:
       entity_id:
       - fan.shower
@@ -437,7 +450,7 @@
   alias: Präsenz - Abwesend - Lüfter Zyklus - Bad Pause
   description: ''
   trigger:
-  - entity_id: light.bad_lufter
+  - entity_id: fan.bathroom
     for: 00:10:00
     from: 'off'
     platform: state
@@ -449,8 +462,8 @@
   action:
   - data:
       entity_id:
-      - light.bad_lufter
-    service: light.turn_off
+      - fan.bathroom
+    service: fan.turn_off
 - id: '1574283865647'
   alias: Präsenz - Abwesend - Lüfter Zyklus - Dusche Pause
   description: ''
@@ -491,7 +504,7 @@
   alias: Präsenz - Abwesend - Lüfter Zyklus - Bad Start
   description: ''
   trigger:
-  - entity_id: light.bad_lufter
+  - entity_id: fan.bathroom
     for: 00:05:00
     from: 'on'
     platform: state
@@ -503,8 +516,8 @@
   action:
   - data:
       entity_id:
-      - light.bad_lufter
-    service: light.turn_on
+      - fan.bathroom
+    service: fan.turn_on
 - id: '1574284345166'
   alias: Präsenz - Abwesend - Lüfter Zyklus - Stop
   description: ''
@@ -517,8 +530,8 @@
   action:
   - data:
       entity_id:
-      - light.bad_lufter
-    service: light.turn_off
+      - fan.bathroom
+    service: fan.turn_off
   - data:
       entity_id:
       - fan.shower
@@ -527,7 +540,7 @@
   alias: Lüfter - Bad - Licht an, Lüfter an
   description: ''
   trigger:
-  - entity_id: light.bad_deckenlicht
+  - entity_id: light.bathroom_ceiling
     for: 00:00:30
     from: 'off'
     platform: state
@@ -536,13 +549,13 @@
   action:
   - data:
       entity_id:
-      - light.bad_lufter
-    service: light.turn_on
+      - fan.bathroom
+    service: fan.turn_on
 - id: '1574284467743'
   alias: Lüfter - Bad - Licht aus, Lüfter aus
   description: ''
   trigger:
-  - entity_id: light.bad_deckenlicht
+  - entity_id: light.bathroom_ceiling
     for: 00:02:00
     from: 'on'
     platform: state
@@ -551,8 +564,8 @@
   action:
   - data:
       entity_id:
-      - light.bad_lufter
-    service: light.turn_off
+      - fan.bathroom
+    service: fan.turn_off
 - id: '1574284814277'
   alias: Lüfter - Dusche - Licht an, Lüfter an
   description: ''
@@ -627,7 +640,7 @@
   action:
   - data:
       entity_id:
-      - cover.arbeitszimmer_alle_rolladen
+      - cover.office
     service: cover.open_cover
 - id: '1574319660599'
   alias: Sonne - Aufgang - Gartenlampen aus
@@ -641,7 +654,7 @@
   action:
   - data:
       entity_id:
-      - light.garten_laterne
+      - light.garden_lantern
       - light.balllampen
     service: light.turn_off
 - id: '1574417268114'
@@ -659,7 +672,7 @@
   action:
   - data:
       entity_id:
-      - cover.wohnzimmer_rolladen_terrasse
+      - cover.patio
     service: cover.open_cover
 - id: '1574417403641'
   alias: Präsenz - Verlassen - Immer - Licht
@@ -694,11 +707,11 @@
   - data:
       entity_id:
       - light.flur_flur
-      - light.kuche_deckenlicht
-      - light.kuche_spulenlicht
+      - light.kitchen_ceiling
+      - light.kitchen_sink
       - light.barlicht
-      - light.esszimmer_esstischlicht
-      - light.wohnzimmer_deckenlampe
+      - light.livingroom_dining
+      - light.livingroom_ceiling
       - light.wandlampen
       - light.stehlampe_wohnzimmer
       - light.gastezimmer_deckenlicht
@@ -706,8 +719,8 @@
       - light.shower_mirror
       - light.shower_ceiling
       - light.deckenlicht_buro
-      - light.bad_deckenlicht
-      - light.bad_spiegellicht
+      - light.bathroom_ceiling
+      - light.bathroom_mirror
       - light.schlafzimmer_deckenlicht
       - light.strip_bedroom_bed
     service: light.turn_off
@@ -755,6 +768,7 @@
       entity_id: input_select.dryer_status
       option: Aus
     service: input_select.select_option
+  mode: single
 - id: '1574516162836'
   alias: Wäsche - Trockner - Status - Aktiv
   description: ''
@@ -944,17 +958,6 @@
       entity_id: media_player.wohnzimmer
       volume_level: 0.3
     service: media_player.volume_set
-- id: '1574517562605'
-  alias: Forward status - Wohnzimmer - Leselampe
-  description: ''
-  trigger:
-  - entity_id: light.wohnzimmer_leselampe
-    platform: state
-  condition: []
-  action:
-  - data: {}
-    entity_id: switch.plug_livingroom_readinglight
-    service: switch.toggle
 - id: '1574518397208'
   alias: Präsenz - Verlassen - Dunkel (Nacht) - Rolläden
   description: ''
@@ -973,10 +976,13 @@
   action:
   - data:
       entity_id:
-      - cover.wohnzimmer_alle_rolladen
-      - cover.gastezimmer_alle_rolladen
-      - cover.arbeitszimmer_alle_rolladen
-      - cover.schlafzimmer_alle_rolladen
+      - cover.kitchen
+      - cover.dining
+      - cover.patio
+      - cover.couch
+      - cover.guestroom
+      - cover.office
+      - cover.bedroom
     service: cover.close_cover
 - id: '1574518617472'
   alias: Präsenz - Ankommen - Immer - Geräte
@@ -1296,13 +1302,17 @@
     entity_id: sensor.environment_outside_temperature
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_kuche
+    entity_id: cover.kitchen
     service: cover.open_cover
 - id: '1577027687988'
-  alias: Forward status - Schlafzimmer - Bettlicht - An
+  alias: Schalter - Schlafzimmer - Bettlicht
   description: ''
   trigger:
-  - entity_id: light.schlafzimmer_bettlicht
+  - entity_id: binary_sensor.switch_bedroom_entrance_light_bed
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.switch_bedroom_bed_light_bed
     from: 'off'
     platform: state
     to: 'on'
@@ -1316,7 +1326,8 @@
       color_temp: 440
       transition: 1
     entity_id: light.strip_bedroom_bed
-    service: light.turn_on
+    service: light.toggle
+  mode: single
 - id: '1577033218991'
   alias: Gameboy - An - Dunkel
   description: ''
@@ -1373,16 +1384,19 @@
       title: Updates pending in HACS
     service: persistent_notification.create
 - id: '1581178095951'
-  alias: Forward status - Wohnzimmer - Stehlampe
+  alias: Schalter - Wohnzimmer - Stehlampe
   description: ''
   trigger:
-  - entity_id: light.wohnzimmer_stehlampe
+  - entity_id: binary_sensor.switch_livingroom_light_standing
+    from: 'off'
     platform: state
+    to: 'on'
   condition: []
   action:
   - data: {}
     entity_id: light.stehlampe_wohnzimmer
     service: light.toggle
+  mode: single
 - id: '1581182751392'
   alias: Person - Eva - Stall verlassen
   description: ''
@@ -1407,10 +1421,12 @@
       }}'
   condition: []
   action:
-  - entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
-    service: scene.turn_on
-  - entity_id: scene.wohnzimmer_rolladen_esstisch_katzenmodus
-    service: scene.turn_on
+  - data: {}
+    entity_id: script.cover_kitchen_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_dining_cat
+    service: script.turn_on
 - id: '1582375337181'
   alias: Sonnenschutz Süd - Ende
   description: ''
@@ -1426,9 +1442,9 @@
     entity_id: input_boolean.rolladen_dunkelheit
     state: 'off'
   action:
-  - entity_id: cover.wohnzimmer_rolladen_esstisch
+  - entity_id: cover.dining
     service: cover.open_cover
-  - entity_id: cover.wohnzimmer_rolladen_kuche
+  - entity_id: cover.kitchen
     service: cover.open_cover
 - id: '1582375522718'
   alias: Sonnenschutz West
@@ -1439,14 +1455,15 @@
       }}'
   condition: []
   action:
-  - entity_id: scene.wohnzimmer_rolladen_couch_schlitz
-    service: scene.turn_on
-  - data:
-      position: 10
-    entity_id: cover.guestroom
-    service: cover.set_cover_position
-  - entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-    service: scene.turn_on
+  - data: {}
+    entity_id: script.cover_couch_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_guestroom_ajar
+    service: script.turn_on
+  - data: {}
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
 - id: '1582375536734'
   alias: Sonnenschutz West - Ende
   description: ''
@@ -1462,13 +1479,13 @@
     entity_id: input_boolean.rolladen_dunkelheit
     state: 'off'
   action:
-  - entity_id: cover.wohnzimmer_rolladen_terrasse
+  - entity_id: cover.patio
     service: cover.open_cover
-  - entity_id: cover.wohnzimmer_rolladen_couch
+  - entity_id: cover.couch
     service: cover.open_cover
-  - entity_id: cover.guestroom
-    service: cover.open_cover
-  - entity_id: cover.schlafzimmer_rolladen_schlafzimmer
+  - entity_id:
+    - cover.guestroom
+    - cover.bedroom
     service: cover.open_cover
 - id: '1582375552703'
   alias: Sonnenschutz Orchideen
@@ -1502,7 +1519,7 @@
     entity_id: automation.sonnenschutz_west
     state: 'off'
   action:
-  - entity_id: cover.wohnzimmer_rolladen_couch
+  - entity_id: cover.couch
     service: cover.open_cover
 - id: '1582376190855'
   alias: Sonnenschutz West - Abwesend
@@ -1519,8 +1536,9 @@
     entity_id: automation.sonnenschutz_west
     state: 'on'
   action:
-  - entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
-    service: scene.turn_on
+  - data: {}
+    entity_id: script.cover_patio_ajar
+    service: script.turn_on
 - id: '1582480132470'
   alias: Katzentür - Video versenden
   description: ''
@@ -1692,8 +1710,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
 - id: '1589630612594'
   alias: Präsenz - Verlassen - Fenster Küche offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1709,8 +1727,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_kitchen_ajar
+    service: script.turn_on
 - id: '1589631843369'
   alias: Präsenz - Verlassen - Terrassentür offen
   description: Macht den Rolladen auf Schlitz, wenn die Tür beim Verlassen noch offen
@@ -1726,8 +1744,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_patio_ajar
+    service: script.turn_on
 - id: '1589632037291'
   alias: Präsenz - Verlassen - Fenster Gästezimmer offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1742,10 +1760,9 @@
     entity_id: binary_sensor.magnet_window_guestroom_contact
     state: 'on'
   action:
-  - data:
-      position: 10
-    entity_id: cover.guestroom
-    service: cover.set_cover_position
+  - data: {}
+    entity_id: script.cover_guestroom_ajar
+    service: script.turn_on
 - id: '1589632144329'
   alias: Präsenz - Verlassen - Fenster Schlafzimmer offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1761,8 +1778,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
 - id: '1589632559754'
   alias: Präsenz - Verlassen - Fenster Büro offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1778,8 +1795,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_office_ajar
+    service: script.turn_on
 - id: '1589638062144'
   alias: Fenster - Öffnen - Dunkel - Küche
   description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
@@ -1794,8 +1811,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_kitchen_ajar
+    service: script.turn_on
 - id: '1589638188040'
   alias: Fenster - Öffnen - Dunkel - Gästezimmer
   description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
@@ -1809,10 +1826,9 @@
     entity_id: input_boolean.rolladen_dunkelheit
     state: 'on'
   action:
-  - data:
-      position: 10
-    entity_id: cover.guestroom
-    service: cover.set_cover_position
+  - data: {}
+    entity_id: script.cover_guestroom_ajar
+    service: script.turn_on
 - id: '1589638288081'
   alias: Fenster - Öffnen - Dunkel - Schlafzimmer
   description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
@@ -1827,8 +1843,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
 - id: '1589638371871'
   alias: Fenster - Öffnen - Dunkel - Büro
   description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
@@ -1843,8 +1859,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_office_ajar
+    service: script.turn_on
 - id: '1589640780829'
   alias: Rolladen - Shutdown - Start
   description: ''
@@ -1886,8 +1902,8 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_kitchen_ajar
+    service: script.turn_on
 - id: '1589641338130'
   alias: Fenster - Schließen - Dunkel - Gästezimmer
   description: ''
@@ -1904,10 +1920,9 @@
     entity_id: input_boolean.rolladen_shutdown
     state: 'off'
   action:
-  - data:
-      position: 10
-    entity_id: cover.guestroom
-    service: cover.set_cover_position
+  - data: {}
+    entity_id: script.cover_guestroom_ajar
+    service: script.turn_on
 - id: '1589641478910'
   alias: Fenster - Schließen - Dunkel - Schlafzimmer
   description: ''
@@ -1925,8 +1940,8 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
 - id: '1589641576722'
   alias: Fenster - Schließen - Dunkel - Büro
   description: ''
@@ -1944,8 +1959,8 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_office_ajar
+    service: script.turn_on
 - id: '1589642144661'
   alias: Fenster - Schließen - Shutdown - Küche
   description: ''
@@ -1960,7 +1975,7 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_kuche
+    entity_id: cover.kitchen
     service: cover.close_cover
 - id: '1589642171934'
   alias: Fenster - Schließen - Shutdown - Gästezimmer
@@ -1976,7 +1991,7 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: cover.gastezimmer_alle_rolladen
+    entity_id: cover.guestroom
     service: cover.close_cover
 - id: '1589642485613'
   alias: Fenster - Schließen - Shutdown - Schlafzimmer
@@ -1992,7 +2007,7 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: cover.schlafzimmer_alle_rolladen
+    entity_id: cover.bedroom
     service: cover.close_cover
 - id: '1589642576057'
   alias: Fenster - Schließen - Shutdown - Büro
@@ -2008,7 +2023,7 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: cover.arbeitszimmer_alle_rolladen
+    entity_id: cover.office
     service: cover.close_cover
 - id: '1589642700574'
   alias: Schlafen - Lichtschutz
@@ -2021,13 +2036,13 @@
   action:
   - data: {}
     entity_id:
-    - cover.schlafzimmer_rolladen_schlafzimmer
+    - cover.bedroom
     - cover.guestroom
-    - cover.arbeitszimmer_rolladen_arbeitszimmer
-    - cover.wohnzimmer_rolladen_couch
-    - cover.wohnzimmer_rolladen_terrasse
-    - cover.wohnzimmer_rolladen_esstisch
-    - cover.wohnzimmer_rolladen_kuche
+    - cover.office
+    - cover.couch
+    - cover.patio
+    - cover.dining
+    - cover.kitchen
     service: cover.close_cover
 - id: '1589820839263'
   alias: Wiegen Jens - Erinnerung senden
@@ -2126,8 +2141,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.wohnzimmer_rolladen_kuche_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_kitchen_ajar
+    service: script.turn_on
 - id: '1591447931948'
   alias: Schlafen - Einschlafen - Rolladen Küche - Fenster zu
   description: ''
@@ -2142,7 +2157,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_kuche
+    entity_id: cover.kitchen
     service: cover.close_cover
 - id: '1591447931957'
   alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster auf
@@ -2157,10 +2172,9 @@
     entity_id: binary_sensor.magnet_window_guestroom_contact
     state: 'on'
   action:
-  - data:
-      position: 10
-    entity_id: cover.guestroom
-    service: cover.set_cover_position
+  - data: {}
+    entity_id: script.cover_guestroom_ajar
+    service: script.turn_on
 - id: '1591447931958'
   alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster zu
   description: ''
@@ -2191,8 +2205,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.schlafzimmer_rolladen_schlafzimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_bedroom_ajar
+    service: script.turn_on
 - id: '1591447931968'
   alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster zu
   description: ''
@@ -2207,7 +2221,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.schlafzimmer_rolladen_schlafzimmer
+    entity_id: cover.bedroom
     service: cover.close_cover
 - id: '1591447931977'
   alias: Schlafen - Einschlafen - Rolladen Büro - Fenster auf
@@ -2223,8 +2237,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.arbeitszimmer_rolladen_arbeitszimmer_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_office_ajar
+    service: script.turn_on
 - id: '1591447931978'
   alias: Schlafen - Einschlafen - Rolladen Büro - Fenster zu
   description: ''
@@ -2239,7 +2253,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.arbeitszimmer_rolladen_arbeitszimmer
+    entity_id: cover.office
     service: cover.close_cover
 - id: '1591447931987'
   alias: Schlafen - Einschlafen - Rolladen Terrasse - Fenster auf
@@ -2255,8 +2269,8 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: scene.wohnzimmer_rolladen_terrasse_schlitz
-    service: scene.turn_on
+    entity_id: script.cover_patio_ajar
+    service: script.turn_on
 - id: '1591447931988'
   alias: Schlafen - Einschlafen - Rolladen Terrasse - Fenster zu
   description: ''
@@ -2271,7 +2285,7 @@
     state: 'off'
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_terrasse
+    entity_id: cover.patio
     service: cover.close_cover
 - id: '159144793198'
   alias: Schlafen - Einschlafen - Rolläden Wohnzimmer (ohne Sensor)
@@ -2283,10 +2297,10 @@
     to: 'on'
   action:
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_esstisch
+    entity_id: cover.dining
     service: cover.close_cover
   - data: {}
-    entity_id: cover.wohnzimmer_rolladen_couch
+    entity_id: cover.couch
     service: cover.close_cover
 - id: '1593275472391'
   alias: Bad - Zahnbürste laden an
@@ -2557,10 +2571,10 @@
     entity_id: media_player.wohnzimmer
     service: media_player.volume_set
 - id: '1594225885396'
-  alias: Forward status - Dusche - Deckenlicht
+  alias: Schalter - Dusche - Deckenlicht
   description: ''
   trigger:
-  - entity_id: binary_sensor.switch_shower_ceiling
+  - entity_id: binary_sensor.switch_shower_light_ceiling
     from: 'off'
     platform: state
     to: 'on'
@@ -2569,11 +2583,12 @@
   - data: {}
     entity_id: light.shower_ceiling
     service: light.toggle
+  mode: single
 - id: '1594229701601'
-  alias: Forward status - Dusche - Spiegellicht
+  alias: Schalter - Dusche - Spiegellicht
   description: ''
   trigger:
-  - entity_id: binary_sensor.switch_shower_mirror
+  - entity_id: binary_sensor.switch_shower_light_mirror
     from: 'off'
     platform: state
     to: 'on'
@@ -2583,34 +2598,21 @@
       profile: '{{ states(''input_text.lightprofile_shower_mirror'') }}'
     entity_id: light.shower_mirror
     service: light.toggle
-- id: '1594239689578'
-  alias: Forward status - Schlafzimmer - Bettlicht - Aus
-  description: ''
-  trigger:
-  - entity_id: light.schlafzimmer_bettlicht
-    from: 'on'
-    platform: state
-    to: 'off'
-  condition: []
-  action:
-  - data: {}
-    entity_id: script.wakeup_light
-    service: script.turn_off
-  - data:
-      transition: 1
-    entity_id: light.schlafzimmer_bettlicht
-    service: light.turn_off
+  mode: single
 - id: '1594459435718'
-  alias: Forward status - Wohnzimmer - Wandlampen
+  alias: Schalter - Wohnzimmer - Wandlampen
   description: ''
   trigger:
-  - entity_id: light.wohnzimmer_wandlampen
+  - entity_id: binary_sensor.switch_livingroom_light_wall
+    from: 'off'
     platform: state
+    to: 'on'
   condition: []
   action:
   - data: {}
     entity_id: light.wandlampen
     service: light.toggle
+  mode: single
 - id: '1594646299143'
   alias: Lichtprofil - Dusche - Spiegel - ab 6 Uhr
   description: ''
@@ -2713,39 +2715,20 @@
       profile: '{{ states("input_text.lightprofile_shower_mirror") }}'
     entity_id: light.shower_mirror
     service: light.turn_on
-- id: '1594745753712'
-  alias: Forward status - Küche - Barlicht
-  description: ''
-  trigger:
-  - entity_id: light.kuche_thekenlicht
-    platform: state
-  condition: []
-  action:
-  - data: {}
-    entity_id: light.barlicht
-    service: light.toggle
-- id: '1594753399186'
-  alias: Forward status - Küche - Schranklicht
-  description: ''
-  trigger:
-  - entity_id: light.kuche_schranklicht
-    platform: state
-  condition: []
-  action:
-  - data: {}
-    entity_id: switch.kitchen_cabinet_light
-    service: switch.toggle
 - id: '1594756825778'
-  alias: Forward status - Büro - Deckenlicht
+  alias: Schalter - Büro - Deckenlicht
   description: ''
   trigger:
-  - entity_id: light.arbeitszimmer_deckenlicht
+  - entity_id: binary_sensor.switch_office_light_ceiling
+    from: 'off'
     platform: state
+    to: 'on'
   condition: []
   action:
   - data: {}
     entity_id: light.deckenlicht_buro
     service: light.toggle
+  mode: single
 - id: '1594883586061'
   alias: Schlafen - Aufstehen - Licht
   description: ''
@@ -2762,3 +2745,232 @@
   - data: {}
     entity_id: light.strip_bedroom_bed
     service: light.turn_off
+- id: '1595759085178'
+  alias: Schalter - Gästezimmer - Deckenlicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_guestroom_light_ceiling
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.gastezimmer_deckenlicht
+    service: light.toggle
+  mode: single
+- id: '1595764275507'
+  alias: Schalter - Schlafzimmer - Deckenlicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_bedroom_entrance_light_ceiling
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.switch_bedroom_bed_light_ceiling
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.schlafzimmer_deckenlicht
+    service: light.toggle
+  mode: single
+- id: '1595960087459'
+  alias: Schalter - Flur - Deckenlicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_hallway_light_ceiling
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.flur_flur
+    service: light.toggle
+  mode: single
+- id: '1596097548807'
+  alias: Schalter - Flur - Präsenz - Aus
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_hallway_presence
+    for: 00:00:02
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.apartment_present
+    service: switch.turn_off
+  mode: single
+- id: '1596098931378'
+  alias: Schalter - Präsenz - An
+  description: ''
+  trigger:
+  - event_data:
+      domain: binary_sensor
+    event_type: state_changed
+    platform: event
+  condition:
+  - condition: state
+    entity_id: switch.apartment_present
+    state: 'off'
+  - condition: template
+    value_template: '"{{ trigger.event.data.old_state.state is not none }}"'
+  - condition: template
+    value_template: '"{{ trigger.event.data.entity_id.startswith(''binary_sensor.switch_'')
+      }}"'
+  - condition: template
+    value_template: '"{{ trigger.event.data.old_state.state == ''off'' and trigger.event.data.new_state.state
+      == ''on'' }}"'
+  action:
+  - data: {}
+    entity_id: switch.apartment_present
+    service: switch.turn_on
+  mode: single
+- id: '1596281223420'
+  alias: Schalter - Wohnzimmer - Deckenlampe
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_livingroom_light_ceiling
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.livingroom_ceiling
+    service: light.toggle
+  mode: single
+- id: '1596281316016'
+  alias: Schalter - Wohnzimmer - Esstisch
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_livingroom_light_dining
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.livingroom_dining
+    service: light.toggle
+  mode: single
+- id: '1596290498423'
+  alias: Schalter - Bad - Deckenlicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_bathroom_light_ceiling
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.bathroom_ceiling
+    service: light.toggle
+  mode: single
+- id: '1596290542986'
+  alias: Schalter - Bad - Spiegellicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_bathroom_light_mirror
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.bathroom_mirror
+    service: light.toggle
+  mode: single
+- id: '1596363581602'
+  alias: Schalter - Küche - Deckenlicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_kitchen_light_ceiling
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.kitchen_ceiling
+    service: light.toggle
+  mode: single
+- id: '1596363628709'
+  alias: Schalter - Küche - Thekenlicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_kitchen_light_bar
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.barlicht
+    service: light.toggle
+  mode: single
+- id: '1596363736255'
+  alias: Schalter - Küche - Schranklicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_kitchen_light_cabinet
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.kitchen_cabinet_light
+    service: switch.toggle
+  mode: single
+- id: '1596363792731'
+  alias: Schalter - Küche - Spülenlicht
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_kitchen_light_sink
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.kitchen_sink
+    service: light.toggle
+  mode: single
+- id: '1596363839652'
+  alias: Schalter - Küche - Leselampe
+  description: (Leselampe im Wohnzimmer)
+  trigger:
+  - entity_id: binary_sensor.switch_kitchen_light_readinglight
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.plug_livingroom_readinglight
+    service: switch.toggle
+  mode: single
+- id: '1596363923142'
+  alias: Schalter - Küche - Gartenbeleuchtung
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.switch_kitchen_light_garden
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.garden_lantern
+    service: light.toggle
+  - data: {}
+    entity_id: light.balllampen
+    service: light.toggle
+  mode: single

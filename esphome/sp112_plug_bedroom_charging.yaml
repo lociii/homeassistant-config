@@ -1,0 +1,8 @@
+# bedroom - charging station and raspi zero w 
+
+<<: !include .sp112_v28.yaml
+
+substitutions:
+  name: plug_bedroom_charging
+  restore_mode: RESTORE_DEFAULT_OFF
+  restore_mode_usb: RESTORE_DEFAULT_ON

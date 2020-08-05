@@ -1,0 +1,16 @@
+# shelly 2.5
+# 22
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: light_livingroom_ceiling
+  friendly_name: Wohnzimmer Deckenlicht
+  update_throttle: 10s
+
+light:
+  - platform: binary
+    id: "${name}"
+    name: "${friendly_name}"
+    output: "${name}_actor_a"
+    restore_mode: RESTORE_DEFAULT_OFF

@@ -1,0 +1,16 @@
+# shelly 2.5
+# 30
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: light_livingroom_dining
+  friendly_name: Wohnzimmer Esstischlicht
+  update_throttle: 10s
+
+light:
+  - platform: binary
+    id: "${name}"
+    name: "${friendly_name}"
+    output: "${name}_actor_a"
+    restore_mode: RESTORE_DEFAULT_OFF

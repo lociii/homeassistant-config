@@ -1,0 +1,13 @@
+# shelly 1 
+# 02
+
+<<: !include .shelly1.yaml
+
+substitutions:
+  name: fan_shower
+
+fan:
+  - platform: binary
+    id: "${name}"
+    name: "Lüfter Dusche"
+    output: "${name}_actor"

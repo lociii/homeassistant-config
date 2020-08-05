@@ -1,0 +1,17 @@
+# shelly 2.5
+# 38
+
+<<: !include .shelly25_cover_timebased.yaml
+
+substitutions:
+  name: cover_guestroom
+  friendly_name: Rolladen Gästezimmer
+  update_throttle: 10s
+
+  # set which direction is connected to which output
+  output_1: "up"
+  output_2: "down"
+
+  # how long does a full run take?
+  close_duration: 24sec  # from fully open to fully closed
+  open_duration: 24sec  # from fully closed to fully open

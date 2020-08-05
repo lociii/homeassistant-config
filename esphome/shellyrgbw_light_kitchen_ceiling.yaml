@@ -1,0 +1,43 @@
+# shelly rgbw2
+# 01
+
+<<: !include .shellyrgbw2.yaml
+
+substitutions:
+  name: light_kitchen_ceiling
+  friendly_name: Deckenlicht Küche
+
+output:
+  - platform: esp8266_pwm
+    pin: GPIO12
+    frequency: 1000 Hz
+    max_power: 0.3
+    id: pwm_r
+
+  - platform: esp8266_pwm
+    pin: GPIO15
+    frequency: 1000 Hz
+    max_power: 0.3
+    id: pwm_g
+
+  - platform: esp8266_pwm
+    pin: GPIO14
+    frequency: 1000 Hz
+    max_power: 0.3
+    id: pwm_b
+
+  - platform: esp8266_pwm
+    pin: GPIO4
+    frequency: 1000 Hz
+    max_power: 0.3
+    id: pwm_w
+
+light:
+  - platform: cwww
+    id: "${name}"
+    name: "${friendly_name}"
+    cold_white: pwm_w
+    warm_white: pwm_b
+    cold_white_color_temperature: 6800 K
+    warm_white_color_temperature: 2800 K
+    default_transition_length: 10ms

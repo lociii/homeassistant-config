@@ -40,9 +40,8 @@ sensor:
   # uptime sensor
   - platform: uptime
     name: "${name}_uptime"
-    unit_of_measurement: days
-    filters:
-      - lambda: return x / 60 / 60 / 24;
+    unit_of_measurement: seconds
+    update_interval: 10min
   # wifi signal sensor
   - platform: wifi_signal
     name: "${name}_wifi_signal"
