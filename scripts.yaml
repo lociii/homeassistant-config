@@ -361,54 +361,54 @@ bewaesserung_kurz:
   alias: Bewässerung kurz
   sequence:
   - data: {}
-    entity_id: light.bewasserung_sprenkler
-    service: light.turn_on
+    entity_id: switch.garden_sprinklers
+    service: switch.turn_on
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_short_area_1")|int)}}'
   - data: {}
-    entity_id: light.bewasserung_sprenkler
-    service: light.turn_off
+    entity_id: switch.garden_sprinklers
+    service: switch.turn_off
   - delay: 00:00:10
   - data: {}
-    entity_id: light.bewasserung_raketen
-    service: light.turn_on
+    entity_id: switch.garden_rockets
+    service: switch.turn_on
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_short_area_2")|int)}}'
   - data: {}
-    entity_id: light.bewasserung_raketen
-    service: light.turn_off
+    entity_id: switch.garden_rockets
+    service: switch.turn_off
   - delay: 00:00:10
   - data: {}
-    entity_id: light.bewasserung_busche
-    service: light.turn_on
+    entity_id: switch.garden_hedge
+    service: switch.turn_on
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_short_area_3")|int)}}'
   - data: {}
-    entity_id: light.bewasserung_busche
-    service: light.turn_off
+    entity_id: switch.garden_hedge
+    service: switch.turn_off
 bewaesserung_lang:
   alias: Bewässerung lang
   sequence:
   - data: {}
-    entity_id: light.bewasserung_sprenkler
-    service: light.turn_on
+    entity_id: switch.garden_sprinklers
+    service: switch.turn_on
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_long_area_1")|int)}}'
   - data: {}
-    entity_id: light.bewasserung_sprenkler
-    service: light.turn_off
+    entity_id: switch.garden_sprinklers
+    service: switch.turn_off
   - delay: 00:00:10
   - data: {}
-    entity_id: light.bewasserung_raketen
-    service: light.turn_on
+    entity_id: switch.garden_rockets
+    service: switch.turn_on
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_long_area_2")|int)}}'
   - data: {}
-    entity_id: light.bewasserung_raketen
-    service: light.turn_off
+    entity_id: switch.garden_rockets
+    service: switch.turn_off
   - delay: 00:00:10
   - data: {}
-    entity_id: light.bewasserung_busche
-    service: light.turn_on
+    entity_id: switch.garden_hedge
+    service: switch.turn_on
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_long_area_3")|int)}}'
   - data: {}
-    entity_id: light.bewasserung_busche
-    service: light.turn_off
+    entity_id: switch.garden_hedge
+    service: switch.turn_off
 cover_guestroom_ajar:
   alias: Rolladen - Gästezimmer - Schlitz
   mode: single

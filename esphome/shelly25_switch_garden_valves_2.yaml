@@ -1,0 +1,20 @@
+# shelly 2.5
+# 09
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: switch_garden_valves_2
+  update_throttle: 10s
+
+switch:
+  - platform: gpio
+    name: "Sprenkler"
+    pin:
+      number: GPIO4
+    restore_mode: ALWAYS_OFF
+  - platform: gpio
+    name: "Entnahme"
+    pin:
+      number: GPIO15
+    restore_mode: ALWAYS_OFF

@@ -4,8 +4,7 @@
 <<: !include .shelly_rgbw2.yaml
 
 substitutions:
-  name: light_hallway_entrance
-  friendly_name: Flurlicht Eingang
+  name: shellyrgbw_spare_01
 
 output:
   - platform: esp8266_pwm

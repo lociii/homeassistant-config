@@ -113,15 +113,16 @@
       - light.livingroom_ceiling
       - light.wandlampen
       - light.stehlampe_wohnzimmer
-      - light.gastezimmer_deckenlicht
+      - light.guestroom_ceiling
       - light.stehlampe_gastezimmer
-      - light.flur_flur
+      - light.hallway_entrance
+      - light.hallway_center
       - light.shower_mirror
       - light.shower_ceiling
       - light.deckenlicht_buro
       - light.bathroom_ceiling
       - light.bathroom_mirror
-      - light.schlafzimmer_deckenlicht
+      - light.bedroom_ceiling
     service: light.turn_off
   - data:
       entity_id:
@@ -178,7 +179,8 @@
   action:
   - data:
       entity_id:
-      - light.flur_flur
+      - light.hallway_entrance
+      - light.hallway_center
       - light.stehlampe_wohnzimmer
     service: light.turn_on
   - data:
@@ -686,27 +688,28 @@
   action:
   - data:
       entity_id:
-      - light.flur_flur
+        - light.hallway_entrance
     service: light.turn_off
   - delay: 00:00:02
   - data:
       entity_id:
-      - light.flur_flur
+        - light.hallway_entrance
     service: light.turn_on
   - delay: 00:00:02
   - data:
       entity_id:
-      - light.flur_flur
+        - light.hallway_entrance
     service: light.turn_off
   - delay: 00:00:02
   - data:
       entity_id:
-      - light.flur_flur
+        - light.hallway_entrance
     service: light.turn_on
   - delay: 00:00:02
   - data:
       entity_id:
-      - light.flur_flur
+      - light.hallway_entrance
+      - light.hallway_center
       - light.kitchen_ceiling
       - light.kitchen_sink
       - light.barlicht
@@ -714,15 +717,15 @@
       - light.livingroom_ceiling
       - light.wandlampen
       - light.stehlampe_wohnzimmer
-      - light.gastezimmer_deckenlicht
+      - light.guestroom_ceiling
       - light.stehlampe_gastezimmer
       - light.shower_mirror
       - light.shower_ceiling
       - light.deckenlicht_buro
       - light.bathroom_ceiling
       - light.bathroom_mirror
-      - light.schlafzimmer_deckenlicht
-      - light.strip_bedroom_bed
+      - light.bedroom_ceiling
+      - light.bedroom_bed
     service: light.turn_off
   - data:
       entity_id:
@@ -1308,11 +1311,11 @@
   alias: Schalter - Schlafzimmer - Bettlicht
   description: ''
   trigger:
-  - entity_id: binary_sensor.switch_bedroom_entrance_light_bed
+  - entity_id: binary_sensor.switch_bedroom_entrance_bedlight
     from: 'off'
     platform: state
     to: 'on'
-  - entity_id: binary_sensor.switch_bedroom_bed_light_bed
+  - entity_id: binary_sensor.switch_bedroom_bed_bedlight
     from: 'off'
     platform: state
     to: 'on'
@@ -1325,7 +1328,7 @@
       brightness: 164
       color_temp: 440
       transition: 1
-    entity_id: light.strip_bedroom_bed
+    entity_id: light.bedroom_bed
     service: light.toggle
   mode: single
 - id: '1577033218991'
@@ -1499,8 +1502,9 @@
     entity_id: automation.sonnenschutz_west
     state: 'off'
   action:
-  - entity_id: scene.wohnzimmer_rolladen_couch_katzenmodus
-    service: scene.turn_on
+  - data: {}
+    entity_id: script.cover_couch_cat
+    service: script.turn_on
 - id: '1582375564594'
   alias: Sonnenschutz Orchideen - Ende
   description: ''
@@ -1680,16 +1684,16 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: light.strip_bedroom_bed
+    entity_id: light.bedroom_bed
     state: 'on'
   action:
   - data:
       brightness: 10
       transition: 60
-    entity_id: light.strip_bedroom_bed
+    entity_id: light.bedroom_bed
     service: light.turn_on
   - delay: 00:01:05
-  - entity_id: light.strip_bedroom_bed
+  - entity_id: light.bedroom_bed
     service: light.turn_off
 - id: '1588948500578'
   alias: Wecker - Rolladen auf Spalt
@@ -2119,14 +2123,14 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.bewasserung_sprenkler
-    service: light.turn_off
+    entity_id: switch.garden_sprinklers
+    service: switch.turn_off
   - data: {}
-    entity_id: light.bewasserung_raketen
-    service: light.turn_off
+    entity_id: switch.garden_rockets
+    service: switch.turn_off
   - data: {}
-    entity_id: light.bewasserung_busche
-    service: light.turn_off
+    entity_id: switch.garden_hedge
+    service: switch.turn_off
 - id: '1591447931947'
   alias: Schlafen - Einschlafen - Rolladen Küche - Fenster auf
   description: ''
@@ -2331,7 +2335,7 @@
   alias: Garten - Entnahme nach 30 Minuten wieder aus
   description: ''
   trigger:
-  - entity_id: light.bewasserung_entnahme
+  - entity_id: switch.garden_sockets
     for: 00:30:00
     from: 'off'
     platform: state
@@ -2339,8 +2343,8 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.bewasserung_entnahme
-    service: light.turn_off
+    entity_id: switch.garden_sockets
+    service: switch.turn_off
 - id: '1593947735826'
   alias: Büro - Drucker aus nach 15 Minuten Standby
   description: ''
@@ -2359,41 +2363,13 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.plug_kitchen_mobile_charging_power_usage
+    entity_id: sensor.plug_kitchen_charging_station_power_usage
     for: 00:15:00
     platform: numeric_state
   condition: []
   action:
   - data: {}
-    entity_id: switch.plug_kitchen_mobile_charging
-    service: switch.turn_off
-- id: '1593955071971'
-  alias: Küche - Schranklicht an
-  description: ''
-  trigger:
-  - device_id: 90e0cd524ac340e2a6c82c53c046a707
-    domain: zha
-    platform: device
-    subtype: remote_button_short_press
-    type: remote_button_short_press
-  condition: []
-  action:
-  - data: {}
-    entity_id: switch.kitchen_cabinet_light
-    service: switch.turn_on
-- id: '1593955105793'
-  alias: Küche - Schranklicht aus
-  description: ''
-  trigger:
-  - device_id: 90e0cd524ac340e2a6c82c53c046a707
-    domain: zha
-    platform: device
-    subtype: remote_button_double_press
-    type: remote_button_double_press
-  condition: []
-  action:
-  - data: {}
-    entity_id: switch.kitchen_cabinet_light
+    entity_id: switch.plug_kitchen_charging_station
     service: switch.turn_off
 - id: '1593978207542'
   alias: Rolladen - Dunkelheit - Start
@@ -2743,7 +2719,7 @@
   action:
   - delay: 00:00:30
   - data: {}
-    entity_id: light.strip_bedroom_bed
+    entity_id: light.bedroom_bed
     service: light.turn_off
 - id: '1595759085178'
   alias: Schalter - Gästezimmer - Deckenlicht
@@ -2756,7 +2732,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.gastezimmer_deckenlicht
+    entity_id: light.guestroom_ceiling
     service: light.toggle
   mode: single
 - id: '1595764275507'
@@ -2774,7 +2750,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.schlafzimmer_deckenlicht
+    entity_id: light.bedroom_ceiling
     service: light.toggle
   mode: single
 - id: '1595960087459'
@@ -2788,7 +2764,10 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.flur_flur
+    entity_id: light.hallway_entrance
+    service: light.toggle
+  - data: {}
+    entity_id: light.hallway_center
     service: light.toggle
   mode: single
 - id: '1596097548807'
@@ -2808,7 +2787,7 @@
   mode: single
 - id: '1596098931378'
   alias: Schalter - Präsenz - An
-  description: ''
+  description: Alle Schalter
   trigger:
   - event_data:
       domain: binary_sensor
@@ -2923,6 +2902,11 @@
     from: 'off'
     platform: state
     to: 'on'
+  - device_id: 90e0cd524ac340e2a6c82c53c046a707
+    domain: zha
+    platform: device
+    subtype: remote_button_short_press
+    type: remote_button_short_press
   condition: []
   action:
   - data: {}
@@ -2944,8 +2928,8 @@
     service: light.toggle
   mode: single
 - id: '1596363839652'
-  alias: Schalter - Küche - Leselampe
-  description: (Leselampe im Wohnzimmer)
+  alias: Schalter - Wohnzimmer - Leselampe
+  description: (Schalter gehoert zu Kueche, schaltet aber Wohnzimmer)
   trigger:
   - entity_id: binary_sensor.switch_kitchen_light_readinglight
     from: 'off'

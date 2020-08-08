@@ -1,0 +1,16 @@
+# shelly 2.5
+# 29
+
+<<: !include .shelly25.yaml
+
+substitutions:
+  name: light_guestroom_ceiling
+  friendly_name: Gästezimmer Deckenlicht
+  update_throttle: 10s
+
+light:
+  - platform: binary
+    id: "${name}"
+    name: "${friendly_name}"
+    output: "${name}_actor_a"
+    restore_mode: RESTORE_DEFAULT_OFF
