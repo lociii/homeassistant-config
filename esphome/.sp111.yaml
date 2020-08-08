@@ -26,12 +26,12 @@ sensor:
     cf_pin: GPIO05
     cf1_pin: ${cf1_pin}
     change_mode_every: 3
-    update_interval: 3s
+    update_interval: 1s
     # current sensor
     current:
       name: "${name} current"
       unit_of_measurement: A
-      accuracy_decimals: 3
+      accuracy_decimals: 2
       filters:
         # map from sensor -> measured value
         - calibrate_linear:
@@ -44,6 +44,9 @@ sensor:
         # make everything below 0.01A appear as just 0A
         # furthermore it corrects 0.013A for the power usage of the plug
         - lambda: if (x < (0.01 - 0.013)) return 0; else return (x - 0.013);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
     # voltage sensor
     voltage:
       name: "${name} voltage"
@@ -55,11 +58,13 @@ sensor:
             - 0.0 -> 0.0
             - 602.87506 -> 229.9
             - 609.8 -> 232.8
+        - throttle: ${update_throttle}
     # power sensor
     power:
       id: "${name}_power_usage"
-      name: "${name} power"
+      name: "${name} power usage"
       unit_of_measurement: W
+      icon: mdi:flash-circle
       accuracy_decimals: 0
       filters:
         # map from sensor -> measured value
@@ -75,6 +80,9 @@ sensor:
         # make everything below 2W appear as just 0W
         # furthermore it corrects 1.14W for the power usage of the plug
         - lambda: if (x < (2 + 1.14)) return 0; else return (x - 1.14);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 1
   # total daily energy sensor
   - platform: total_daily_energy
     name: "${name} daily energy usage"
@@ -104,7 +112,7 @@ switch:
   # switch to toggle the relay
   - platform: gpio
     id: "${name}_actor"
-    name: "${name} switch"
+    name: "${friendly_name}"
     pin: GPIO15
     restore_mode: ${restore_mode}
     on_turn_on:
