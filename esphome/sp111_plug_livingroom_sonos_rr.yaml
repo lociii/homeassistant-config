@@ -7,7 +7,8 @@ substitutions:
   name: plug_livingroom_sonos_rr
   friendly_name: Sonos (hinten rechts)
   cf1_pin: GPIO14
-  output_pin: GPIO00
+  state_led_pin: GPIO00
   status_led_pin: GPIO02
+  actor_pin: GPIO15
   restore_mode: RESTORE_DEFAULT_OFF
   update_throttle: 10s

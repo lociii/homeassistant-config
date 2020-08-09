@@ -7,15 +7,17 @@ substitutions:
   name: plug_kitchen_cabinet
   friendly_name: Schranklicht
   cf1_pin: GPIO04
-  output_pin: GPIO00
+  state_led_pin: GPIO00
   status_led_pin: GPIO02
+  actor_pin: GPIO14
+  actor_pin_usb: GPIO13
   restore_mode: RESTORE_DEFAULT_OFF
   restore_mode_usb: RESTORE_DEFAULT_ON
   update_throttle: 10s
 
 output:
   - platform: gpio
-    pin: GPIO14
+    pin: ${actor_pin}
     id: "${name}_actor"
 
 light:

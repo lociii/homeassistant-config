@@ -1,0 +1,35 @@
+# gosund sp112 v3.4
+# 03
+
+<<: !include .sp112_v34.yaml
+
+substitutions:
+  name: plug_guestroom_computer
+  friendly_name: Gameboy
+  cf1_pin: GPIO04
+  state_led_pin: GPIO00
+  status_led_pin: GPIO02
+  actor_pin: GPIO14
+  actor_pin_usb: GPIO13
+  restore_mode: RESTORE_DEFAULT_OFF
+  restore_mode_usb: RESTORE_DEFAULT_ON
+  update_throttle: 10s
+
+switch:
+  # switch to restart the plug
+  - platform: restart
+    name: "${name} restart"
+  # switch to toggle the usb relay
+  - platform: gpio
+    id: "${name}_actor_usb"
+    name: "${friendly_name} USB"
+    pin:
+      number: ${actor_pin_usb}
+      inverted: true
+    restore_mode: ${restore_mode_usb}
+  - platform: gpio
+    id: "${name}_actor"
+    name: "${friendly_name}"
+    pin:
+      number: ${actor_pin}
+    restore_mode: ${restore_mode}

@@ -11,7 +11,7 @@ binary_sensor:
   # - platform: gpio
   #   name: "${name} sensor"
   #   pin:
-  #     number: GPIO13
+  #     number: ???
   #     inverted: true
   #   on_press:
   #     - switch.toggle: "${name}_actor"
@@ -20,19 +20,11 @@ switch:
   # switch to restart the plug
   - platform: restart
     name: "${name} restart"
-  # switch to toggle the relay
-  # - platform: gpio
-  #   id: "${name}_actor"
-  #   name: "${name} switch"
-  #   pin: GPIO14
-  #   restore_mode: ${restore_mode}
-  #   on_turn_on:
-  #     - light.turn_on: "${name}_led"
-  #   on_turn_off:
-  #     - light.turn_off: "${name}_led"
   # switch to toggle the usb relay
   - platform: gpio
     id: "${name}_actor_usb"
-    name: "${name} switch USB"
-    pin: GPIO13
+    name: "${friendly_name} USB"
+    pin:
+      number: ${actor_pin_usb}
+      inverted: true
     restore_mode: ${restore_mode_usb}

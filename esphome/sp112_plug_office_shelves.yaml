@@ -1,9 +1,9 @@
 # gosund sp112 v2.8
-# 02
+# 04
 
 <<: !include .sp112_v28.yaml
 
 substitutions:
-  name: plug_bedroom_charging
+  name: plug_office_shelves
   restore_mode: RESTORE_DEFAULT_OFF
   restore_mode_usb: RESTORE_DEFAULT_ON

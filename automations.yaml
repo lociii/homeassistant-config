@@ -53,7 +53,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   action:
   - data: {}
@@ -69,7 +69,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'on'
   action:
   - data:
@@ -96,7 +96,7 @@
   alias: Schlafen - Einschlafen - Licht
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -124,16 +124,13 @@
       - light.bathroom_ceiling
       - light.bathroom_mirror
       - light.bedroom_ceiling
+      - light.plug_livingroom_readinglight
     service: light.turn_off
-  - data:
-      entity_id:
-      - switch.plug_livingroom_readinglight
-    service: switch.turn_off
 - id: '1574018705350'
   alias: Schlafen - Aufstehen - Rolläden
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'on'
     platform: state
     to: 'off'
@@ -151,7 +148,7 @@
   alias: Schlafen - Aufstehen - Rolläden - Hell
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'on'
     platform: state
     to: 'off'
@@ -168,7 +165,7 @@
   alias: Präsenz - Ankommen - Dunkel - Licht
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'off'
     platform: state
     to: 'on'
@@ -188,7 +185,7 @@
   alias: Präsenz - Verlassen - Immer - Geräte
   description: Alle Lichter aus
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -212,7 +209,7 @@
   alias: Präsenz - Verlassen - Dunkel - Licht
   description: Wandlampen und Garten an nach 30 Sekunden
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     for: 00:00:30
     from: 'on'
     platform: state
@@ -306,7 +303,7 @@
   alias: Präsenz - Verlassen - Dunkel - Rolläden
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -352,7 +349,7 @@
     entity_id: binary_sensor.magnet_door_patio_contact
     state: 'off'
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   action:
   - data: {}
@@ -389,7 +386,7 @@
   alias: Staubsauger - Starten wenn abwesend
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     for: 00:15:00
     from: 'on'
     platform: state
@@ -408,7 +405,7 @@
   alias: Staubsauger - Pausieren bei Rückkehr
   description: Wenn noch nicht fertig, aber Praesenz wieder ausgeloest
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'off'
     platform: state
     to: 'on'
@@ -430,7 +427,7 @@
   alias: Präsenz - Abwesend - Lüfter Zyklus - Start
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     for: 00:05:00
     from: 'on'
     platform: state
@@ -456,7 +453,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   action:
   - data:
@@ -474,7 +471,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   action:
   - data:
@@ -492,7 +489,7 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   action:
   - data:
@@ -510,7 +507,7 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   action:
   - data:
@@ -521,7 +518,7 @@
   alias: Präsenz - Abwesend - Lüfter Zyklus - Stop
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'off'
     platform: state
     to: 'on'
@@ -599,7 +596,7 @@
   alias: Präsenz - Ankommen - Immer - Announcement
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'off'
     platform: state
     to: 'on'
@@ -631,7 +628,7 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: switch.apartment_sleeping
+    entity_id: input_boolean.sleeping
     state: 'off'
   - condition: state
     entity_id: binary_sensor.magnet_window_office_contact
@@ -660,7 +657,7 @@
   alias: Präsenz - Ankommen - Dunkel - Rolläden
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'off'
     platform: state
     to: 'on'
@@ -677,7 +674,7 @@
   alias: Präsenz - Verlassen - Immer - Licht
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -685,22 +682,22 @@
   action:
   - data:
       entity_id:
-        - light.hallway_entrance
+      - light.hallway_entrance
     service: light.turn_off
   - delay: 00:00:02
   - data:
       entity_id:
-        - light.hallway_entrance
+      - light.hallway_entrance
     service: light.turn_on
   - delay: 00:00:02
   - data:
       entity_id:
-        - light.hallway_entrance
+      - light.hallway_entrance
     service: light.turn_off
   - delay: 00:00:02
   - data:
       entity_id:
-        - light.hallway_entrance
+      - light.hallway_entrance
     service: light.turn_on
   - delay: 00:00:02
   - data:
@@ -724,16 +721,13 @@
       - light.bathroom_mirror
       - light.bedroom_ceiling
       - light.bedroom_bed
+      - light.plug_livingroom_readinglight
     service: light.turn_off
-  - data:
-      entity_id:
-      - switch.plug_livingroom_readinglight
-    service: switch.turn_off
 - id: '1574417564491'
   alias: Präsenz - Verlassen - Immer - Announcement
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -962,7 +956,7 @@
   alias: Präsenz - Verlassen - Dunkel (Nacht) - Rolläden
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -988,7 +982,7 @@
   alias: Präsenz - Ankommen - Immer - Geräte
   description: ''
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'off'
     platform: state
     to: 'on'
@@ -998,7 +992,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'on'
   - condition: state
     entity_id: binary_sensor.people_home
@@ -1018,7 +1012,7 @@
   alias: Schlafen - Einschlafen - Geräte
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -1041,7 +1035,7 @@
   alias: Schlafen - Aufstehen - Geräte
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'on'
     platform: state
     to: 'off'
@@ -1292,7 +1286,7 @@
   alias: Schlafen - Aufstehen - Rolläden  - Kein Frost
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'on'
     platform: state
     to: 'off'
@@ -1356,7 +1350,7 @@
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   - condition: state
-    entity_id: switch.apartment_sleeping
+    entity_id: input_boolean.sleeping
     state: 'on'
   - condition: state
     entity_id: input_boolean.alarm_enabled
@@ -1531,7 +1525,7 @@
       }}'
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   - condition: state
     entity_id: automation.sonnenschutz_west
@@ -1675,7 +1669,7 @@
   alias: Schlafen - Einschlafen - Bettlicht
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -1704,7 +1698,7 @@
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   - condition: state
-    entity_id: switch.apartment_sleeping
+    entity_id: input_boolean.sleeping
     state: 'on'
   - condition: state
     entity_id: input_boolean.alarm_enabled
@@ -1718,7 +1712,7 @@
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
     offen ist
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -1735,7 +1729,7 @@
   description: Macht den Rolladen auf Schlitz, wenn die Tür beim Verlassen noch offen
     ist
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -1752,7 +1746,7 @@
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
     offen ist
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -1769,7 +1763,7 @@
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
     offen ist
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -1786,7 +1780,7 @@
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
     offen ist
   trigger:
-  - entity_id: switch.apartment_present
+  - entity_id: input_boolean.presence
     from: 'on'
     platform: state
     to: 'off'
@@ -2132,7 +2126,7 @@
   alias: Schlafen - Einschlafen - Rolladen Küche - Fenster auf
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2148,7 +2142,7 @@
   alias: Schlafen - Einschlafen - Rolladen Küche - Fenster zu
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2164,7 +2158,7 @@
   alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster auf
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2180,7 +2174,7 @@
   alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster zu
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2196,7 +2190,7 @@
   alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster auf
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2212,7 +2206,7 @@
   alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster zu
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2228,7 +2222,7 @@
   alias: Schlafen - Einschlafen - Rolladen Büro - Fenster auf
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2244,7 +2238,7 @@
   alias: Schlafen - Einschlafen - Rolladen Büro - Fenster zu
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2260,7 +2254,7 @@
   alias: Schlafen - Einschlafen - Rolladen Terrasse - Fenster auf
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2276,7 +2270,7 @@
   alias: Schlafen - Einschlafen - Rolladen Terrasse - Fenster zu
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2292,7 +2286,7 @@
   alias: Schlafen - Einschlafen - Rolläden Wohnzimmer (ohne Sensor)
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'off'
     platform: state
     to: 'on'
@@ -2479,10 +2473,10 @@
       entity_id: binary_sensor.magnet_window_office_contact
       state: 'on'
   - condition: state
-    entity_id: switch.apartment_sleeping
+    entity_id: input_boolean.sleeping
     state: 'off'
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'on'
   action:
   - data:
@@ -2523,10 +2517,10 @@
       entity_id: binary_sensor.magnet_window_office_contact
       state: 'off'
   - condition: state
-    entity_id: switch.apartment_sleeping
+    entity_id: input_boolean.sleeping
     state: 'off'
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'on'
   action:
   - data:
@@ -2706,7 +2700,7 @@
   alias: Schlafen - Aufstehen - Licht
   description: ''
   trigger:
-  - entity_id: switch.apartment_sleeping
+  - entity_id: input_boolean.sleeping
     from: 'on'
     platform: state
     to: 'off'
@@ -2779,8 +2773,8 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.apartment_present
-    service: switch.turn_off
+    entity_id: input_boolean.presence
+    service: input_boolean.turn_off
   mode: single
 - id: '1596098931378'
   alias: Schalter - Präsenz - An
@@ -2792,7 +2786,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: switch.apartment_present
+    entity_id: input_boolean.presence
     state: 'off'
   - condition: template
     value_template: '"{{ trigger.event.data.old_state.state is not none }}"'
@@ -2804,8 +2798,8 @@
       == ''on'' }}"'
   action:
   - data: {}
-    entity_id: switch.apartment_present
-    service: switch.turn_on
+    entity_id: input_boolean.presence
+    service: input_boolean.turn_on
   mode: single
 - id: '1596281223420'
   alias: Schalter - Wohnzimmer - Deckenlampe
@@ -2935,8 +2929,8 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.plug_livingroom_readinglight
-    service: switch.toggle
+    entity_id: light.plug_livingroom_readinglight
+    service: light.toggle
   mode: single
 - id: '1596363923142'
   alias: Schalter - Küche - Gartenbeleuchtung
@@ -2954,4 +2948,20 @@
   - data: {}
     entity_id: light.balllampen
     service: light.toggle
+  mode: single
+- id: '1596995269327'
+  alias: Schalter - Präsenz - An Test
+  description: ''
+  trigger:
+  - event_data:
+      domain: binary_sensor
+    event_type: state_changed
+    platform: event
+  condition: []
+  action:
+  - data:
+      message: triggered
+      notification_id: 524645
+      title: DEBUG
+    service: persistent_notification.create
   mode: single

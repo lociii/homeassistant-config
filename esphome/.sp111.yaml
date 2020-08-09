@@ -113,7 +113,7 @@ switch:
   - platform: gpio
     id: "${name}_actor"
     name: "${friendly_name}"
-    pin: GPIO15
+    pin: ${actor_pin}
     restore_mode: ${restore_mode}
     on_turn_on:
       - light.turn_on: "${name}_led"
@@ -125,7 +125,7 @@ output:
   - platform: esp8266_pwm
     id: "${name}_state_led"
     pin:
-      number: ${output_pin}
+      number: ${state_led_pin}
       inverted: true
 
 light:

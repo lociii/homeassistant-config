@@ -7,7 +7,8 @@ substitutions:
   name: plug_guestroom_printer
   friendly_name: Drucker
   cf1_pin: GPIO04
-  output_pin: GPIO02
+  state_led_pin: GPIO02
   status_led_pin: GPIO00
+  actor_pin: GPIO15
   restore_mode: RESTORE_DEFAULT_OFF
   update_throttle: 10s
