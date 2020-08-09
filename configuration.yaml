@@ -53,4 +53,4 @@ frontend:
 webhook:
 
 logger:
-  default: warning
+  default: error
