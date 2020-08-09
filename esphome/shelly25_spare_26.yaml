@@ -1,10 +1,11 @@
 # shelly 2.5
-# 35
+# 26
 
 <<: !include .shelly25.yaml
 
 substitutions:
-  name: esphome_switch_shelly25_35
+  name: shelly25_spare_26
+  friendly_name: Shelly 2.5 Spare 26
   update_throttle: 10s
 
 binary_sensor:

@@ -4,8 +4,8 @@
 <<: !include .sp111.yaml
 
 substitutions:
-  name: plug_spare_18
-  friendly_name: Spare 18
+  name: plug_sp111_spare_18
+  friendly_name: SP111 Spare 18
   cf1_pin: GPIO04
   state_led_pin: GPIO02
   status_led_pin: GPIO00

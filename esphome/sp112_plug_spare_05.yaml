@@ -4,7 +4,7 @@
 <<: !include .sp112_v28.yaml
 
 substitutions:
-  name: plug_office_shelves
-  friendly_name: Büro Regale
+  name: plug_sp112_spare_05
+  friendly_name: SP112 Spare 05
   restore_mode: RESTORE_DEFAULT_OFF
   restore_mode_usb: RESTORE_DEFAULT_ON

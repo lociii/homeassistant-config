@@ -1,7 +1,0 @@
-# spare
-
-substitutions:
-  name: esphome_plug_swa11_08
-  restore_mode: RESTORE_DEFAULT_OFF
-
-<<: !include .swa11.yaml

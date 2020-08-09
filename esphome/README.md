@@ -92,14 +92,6 @@ Device differences
 | GPIO16    |  Button1      | None          |
 | FLAG      |  None         | Buttoni       |
 
-#### Klas Remo SWA11
-
-Single plug with power measurement
-
-* [Tasmota template](https://templates.blakadder.com/SWA11.html)
-
-[Device type template](.swa11.yaml)
-
 #### AOFO strip
 
 Power strip with four outlets and four USB ports
@@ -136,7 +128,7 @@ One input, one output
 
 Two inputs, two outputs, power measurement.
 
-Used for switch inputs, lights, fans and covers.
+Used for switch inputs (sensors), lights, fans and covers.
 
 * [Tasmota template](https://templates.blakadder.com/shelly_25.html)
 * [Shelly knowledge base](https://shelly.cloud/support/knowledge-base/shelly-25/#wiring)
@@ -163,4 +155,3 @@ Control LED light strips.
 
 Example devices:
 * Warm/cold white control on a WOFI ceiling fixture ([9693.01.70.5200](https://www.amazon.de/gp/product/B00LUKGN0K/)), see [kitchen ceiling light](shellyrgbw_light_kitchen_ceiling.yaml).
-* Monochromatic control on a WOFI ceiling fixture ([9693.01.70.0600](https://www.amazon.de/gp/product/B00F467V84)), see [hallway lights](shellyrgbw_light_hallway_entrance.yaml).

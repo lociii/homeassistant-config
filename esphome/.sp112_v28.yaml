@@ -110,7 +110,7 @@ switch:
   # switch to toggle the relay
   - platform: gpio
     id: "${name}_actor"
-    name: "${name} switch"
+    name: "${friendly_name}"
     pin: GPIO14
     restore_mode: ${restore_mode}
     on_turn_on:
@@ -120,7 +120,7 @@ switch:
   # switch to toggle the usb relay
   - platform: gpio
     id: "${name}_actor_usb"
-    name: "${name} switch USB"
+    name: "${friendly_name} USB"
     pin: GPIO05
     restore_mode: ${restore_mode_usb}
 
