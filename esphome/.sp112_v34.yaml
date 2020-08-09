@@ -21,15 +21,15 @@ switch:
   - platform: restart
     name: "${name} restart"
   # switch to toggle the relay
-  - platform: gpio
-    id: "${name}_actor"
-    name: "${name} switch"
-    pin: GPIO14
-    restore_mode: ${restore_mode}
-    on_turn_on:
-      - light.turn_on: "${name}_led"
-    on_turn_off:
-      - light.turn_off: "${name}_led"
+  # - platform: gpio
+  #   id: "${name}_actor"
+  #   name: "${name} switch"
+  #   pin: GPIO14
+  #   restore_mode: ${restore_mode}
+  #   on_turn_on:
+  #     - light.turn_on: "${name}_led"
+  #   on_turn_off:
+  #     - light.turn_off: "${name}_led"
   # switch to toggle the usb relay
   - platform: gpio
     id: "${name}_actor_usb"

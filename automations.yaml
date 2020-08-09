@@ -108,6 +108,7 @@
       - light.balllampen
       - light.kitchen_ceiling
       - light.kitchen_sink
+      - light.kitchen_cabinet
       - light.barlicht
       - light.livingroom_dining
       - light.livingroom_ceiling
@@ -127,7 +128,6 @@
   - data:
       entity_id:
       - switch.plug_livingroom_readinglight
-      - switch.kitchen_cabinet_light
     service: switch.turn_off
 - id: '1574018705350'
   alias: Schlafen - Aufstehen - Rolläden
@@ -182,11 +182,8 @@
       - light.hallway_entrance
       - light.hallway_center
       - light.stehlampe_wohnzimmer
+      - light.kitchen_cabinet
     service: light.turn_on
-  - data:
-      entity_id:
-      - switch.kitchen_cabinet_light
-    service: switch.turn_on
 - id: '1574020163614'
   alias: Präsenz - Verlassen - Immer - Geräte
   description: Alle Lichter aus
@@ -712,6 +709,7 @@
       - light.hallway_center
       - light.kitchen_ceiling
       - light.kitchen_sink
+      - light.kitchen_cabinet
       - light.barlicht
       - light.livingroom_dining
       - light.livingroom_ceiling
@@ -730,7 +728,6 @@
   - data:
       entity_id:
       - switch.plug_livingroom_readinglight
-      - switch.kitchen_cabinet_light
     service: switch.turn_off
 - id: '1574417564491'
   alias: Präsenz - Verlassen - Immer - Announcement
@@ -1101,7 +1098,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: switch.plug_guestroom_gameboy
+    entity_id: switch.plug_guestroom_computer
     state: 'on'
   action:
   - data: {}
@@ -2910,8 +2907,8 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.kitchen_cabinet_light
-    service: switch.toggle
+    entity_id: light.kitchen_cabinet
+    service: light.toggle
   mode: single
 - id: '1596363792731'
   alias: Schalter - Küche - Spülenlicht

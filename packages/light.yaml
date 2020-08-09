@@ -1,0 +1,6 @@
+light:
+  - platform: group
+    name: Flurlicht
+    entities:
+      - light.hallway_entrance
+      - light.hallway_center

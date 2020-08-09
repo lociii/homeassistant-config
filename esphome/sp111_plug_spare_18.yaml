@@ -1,0 +1,13 @@
+# gosund sp111 v1.1
+# 18
+
+<<: !include .sp111.yaml
+
+substitutions:
+  name: plug_spare_18
+  friendly_name: Spare 18
+  cf1_pin: GPIO04
+  output_pin: GPIO02
+  status_led_pin: GPIO00
+  restore_mode: RESTORE_DEFAULT_OFF
+  update_throttle: 10s

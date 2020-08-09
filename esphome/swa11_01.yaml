@@ -1,7 +1,0 @@
-# guestroom - fan
-
-substitutions:
-  name: esphome_plug_swa11_01
-  restore_mode: RESTORE_DEFAULT_OFF
-
-<<: !include .swa11.yaml

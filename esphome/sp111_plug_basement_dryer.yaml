@@ -1,0 +1,19 @@
+# gosund sp111 v1.1
+# 10
+
+<<: !include .sp111.yaml
+
+substitutions:
+  name: plug_basement_dryer
+  friendly_name: Trockner
+  cf1_pin: GPIO04
+  output_pin: GPIO02
+  status_led_pin: GPIO00
+  restore_mode: RESTORE_DEFAULT_OFF
+  update_throttle: 10s
+
+# connect to basement wifi
+wifi:
+  ssid: !secret wifi_ssid_basement
+  password: !secret wifi_password
+  domain: !secret wifi_domain

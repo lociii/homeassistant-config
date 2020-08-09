@@ -1,0 +1,13 @@
+# gosund sp111 v1.1
+# 13
+
+<<: !include .sp111.yaml
+
+substitutions:
+  name: plug_guestroom_computer
+  friendly_name: Gameboy
+  cf1_pin: GPIO04
+  output_pin: GPIO02
+  status_led_pin: GPIO00
+  restore_mode: RESTORE_DEFAULT_OFF
+  update_throttle: 10s
