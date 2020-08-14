@@ -2709,9 +2709,11 @@
     condition: sun
   action:
   - delay: 00:00:30
-  - data: {}
+  - data:
+      transition: 10
     entity_id: light.bedroom_bed
     service: light.turn_off
+  mode: single
 - id: '1595759085178'
   alias: Schalter - Gästezimmer - Deckenlicht
   description: ''
