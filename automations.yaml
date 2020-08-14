@@ -2965,3 +2965,18 @@
       title: DEBUG
     service: persistent_notification.create
   mode: single
+- id: '1597421858109'
+  alias: Garten - Büsche nach 120 Minuten wieder aus
+  description: ''
+  trigger:
+  - entity_id: switch.garden_hedge
+    for: 02:00:00
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.garden_hedge
+    service: switch.turn_off
+  mode: single
