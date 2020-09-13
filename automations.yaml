@@ -1133,6 +1133,7 @@
       filename: /share/catdoor_{{ as_timestamp(now()) | int}}.mp4
       lookback: 5
     service: camera.record
+  mode: single
 - id: '1575655704902'
   alias: Präsenz - Ankommen - Eva
   description: ''
@@ -1547,6 +1548,7 @@
     value_template: '{{ ''catdoor_'' in trigger.event.data.file and ''/share'' in
       trigger.event.data.folder }}'
   action:
+  - delay: 00:00:05
   - data_template:
       filename: '{{ trigger.event.data.path }}'
     service: shell_command.catdoor_copy_video
@@ -1574,6 +1576,7 @@
   - data_template:
       filename: /share/catdoor.mp4
     service: shell_command.catdoor_remove_video
+  mode: single
 - id: '1582969948699'
   alias: CSGO - Freezetime beginnt - Stehlampe
   description: ''

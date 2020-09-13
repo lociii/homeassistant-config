@@ -6,7 +6,7 @@ homeassistant:
   packages: !include_dir_named packages
   customize: !include customize.yaml
 
-  whitelist_external_dirs:
+  allowlist_external_dirs:
     - /tmp
     - /share
 
