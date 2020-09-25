@@ -6,7 +6,7 @@
 substitutions:
   name: switch_bedroom_bed_left
   friendly_name: Schalter Schlafzimmer Bett links
-  update_throttle: 10s
+  update_throttle: 30s
 
 binary_sensor:
   # device status sensor

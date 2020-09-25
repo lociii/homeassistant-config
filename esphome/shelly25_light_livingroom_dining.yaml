@@ -6,7 +6,7 @@
 substitutions:
   name: light_livingroom_dining
   friendly_name: Wohnzimmer Esstischlicht
-  update_throttle: 10s
+  update_throttle: 30s
 
 light:
   - platform: binary

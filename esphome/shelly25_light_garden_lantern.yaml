@@ -6,7 +6,7 @@
 substitutions:
   name: light_garden_lantern
   friendly_name: Garten Laterne
-  update_throttle: 10s
+  update_throttle: 30s
 
 light:
   - platform: binary

@@ -6,7 +6,7 @@
 substitutions:
   name: switch_guestroom
   friendly_name: Schalter Gästezimmer
-  update_throttle: 10s
+  update_throttle: 30s
 
 binary_sensor:
   # device status sensor

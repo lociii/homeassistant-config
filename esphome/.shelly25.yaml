@@ -35,7 +35,7 @@ sensor:
     filters:
       - or:
         - heartbeat: 1h
-        - delta: 3
+        - delta: 5
 
   # power measurement
   - platform: ade7953
@@ -69,7 +69,7 @@ sensor:
         - lambda: if (x < 1) return 0; else return (x);
         - or:
           - throttle: ${update_throttle}
-          - delta: 1
+          - delta: 3
     active_power_b:
       id: "${name}_power_usage_b"
       name: "${name} power B"
@@ -81,7 +81,7 @@ sensor:
         - lambda: if (x < 1) return 0; else return (x);
         - or:
           - throttle: ${update_throttle}
-          - delta: 1
+          - delta: 3
 
   # device temperature
   - platform: ntc

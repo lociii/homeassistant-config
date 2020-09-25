@@ -3,7 +3,7 @@
 substitutions:
   name: shelly25_example
   friendly_name: Shelly 2.5 example
-  update_throttle: 10s
+  update_throttle: 30s
 
 # define our first actor
 light:

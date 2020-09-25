@@ -6,7 +6,7 @@
 substitutions:
   name: light_livingroom_ceiling
   friendly_name: Wohnzimmer Deckenlicht
-  update_throttle: 10s
+  update_throttle: 30s
 
 light:
   - platform: binary

@@ -6,7 +6,7 @@
 substitutions:
   name: light_bathroom_mirror
   friendly_name: Bad Spiegellicht
-  update_throttle: 10s
+  update_throttle: 30s
 
 light:
   - platform: binary

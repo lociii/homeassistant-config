@@ -11,7 +11,7 @@ substitutions:
   status_led_pin: GPIO02
   actor_pin: GPIO15
   restore_mode: RESTORE_DEFAULT_OFF
-  update_throttle: 10s
+  update_throttle: 30s
 
 switch:
   # switch to restart the plug

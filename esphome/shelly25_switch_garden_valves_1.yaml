@@ -5,7 +5,7 @@
 
 substitutions:
   name: switch_garden_valves_1
-  update_throttle: 10s
+  update_throttle: 30s
 
 switch:
   - platform: gpio

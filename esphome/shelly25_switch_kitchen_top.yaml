@@ -6,7 +6,7 @@
 substitutions:
   name: switch_kitchen_top
   friendly_name: Schalter Küche oben
-  update_throttle: 10s
+  update_throttle: 30s
 
 binary_sensor:
   # device status sensor

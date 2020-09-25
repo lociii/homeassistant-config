@@ -7,13 +7,13 @@
 
 # substitutions:
 #   name: esphome_switch_shelly25_covertest
-#   update_throttle: 10s
+#   update_throttle: 30s
 
 <<: !include .shelly25.yaml
 
 substitutions:
   name: cover_test
-  update_throttle: 10s
+  update_throttle: 30s
 
 switch:
   - platform: output

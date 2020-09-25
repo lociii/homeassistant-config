@@ -17,7 +17,7 @@ sensor:
     filters:
       - or:
         - heartbeat: 1h
-        - delta: 3
+        - delta: 5
   # power sensor
   - platform: hlw8012
     sel_pin:
@@ -82,7 +82,7 @@ sensor:
         - lambda: if (x < (2 + 1.14)) return 0; else return (x - 1.14);
         - or:
           - throttle: ${update_throttle}
-          - delta: 1
+          - delta: 3
   # total daily energy sensor
   - platform: total_daily_energy
     name: "${name} daily energy usage"

@@ -48,7 +48,7 @@ sensor:
     filters:
       - or:
         - heartbeat: 1h
-        - delta: 3
+        - delta: 5
 
 binary_sensor:
   # device status sensor

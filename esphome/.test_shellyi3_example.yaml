@@ -1,4 +1,0 @@
-substitutions:
-  name: esphome_switch_shellyi3_example
-
-<<: !include .shellyi3.yaml

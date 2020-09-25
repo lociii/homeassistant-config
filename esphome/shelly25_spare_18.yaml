@@ -6,7 +6,7 @@
 substitutions:
   name: shelly25_spare_18
   friendly_name: Shelly 2.5 Spare 18
-  update_throttle: 10s
+  update_throttle: 30s
 
 binary_sensor:
   # device status sensor

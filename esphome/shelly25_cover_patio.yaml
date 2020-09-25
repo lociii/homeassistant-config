@@ -6,7 +6,7 @@
 substitutions:
   name: cover_patio
   friendly_name: Rolladen Terrasse
-  update_throttle: 10s
+  update_throttle: 30s
 
   # set which direction is connected to which output
   output_1: "down"

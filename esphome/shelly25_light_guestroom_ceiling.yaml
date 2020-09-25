@@ -6,7 +6,7 @@
 substitutions:
   name: light_guestroom_ceiling
   friendly_name: Gästezimmer Deckenlicht
-  update_throttle: 10s
+  update_throttle: 30s
 
 light:
   - platform: binary

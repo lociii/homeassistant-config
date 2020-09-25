@@ -13,7 +13,7 @@ substitutions:
   actor_pin_usb: GPIO13
   restore_mode: RESTORE_DEFAULT_OFF
   restore_mode_usb: RESTORE_DEFAULT_ON
-  update_throttle: 10s
+  update_throttle: 30s
 
 output:
   - platform: gpio

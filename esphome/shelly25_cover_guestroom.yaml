@@ -6,7 +6,7 @@
 substitutions:
   name: cover_guestroom
   friendly_name: Rolladen Gästezimmer
-  update_throttle: 10s
+  update_throttle: 30s
 
   # set which direction is connected to which output
   output_1: "up"
