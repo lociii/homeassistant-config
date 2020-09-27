@@ -194,7 +194,6 @@
   - data:
       entity_id:
       - switch.plug_kitchen_coffeemachine
-      - switch.plug_shower_voice_assistant
       - switch.plug_bathroom_voice_assistant
       - switch.plug_livingroom_sonos_sub
       - switch.plug_livingroom_multimedia
@@ -205,6 +204,7 @@
       - switch.plug_bedroom_tv
       - switch.plug_livingroom_telephone
     service: switch.turn_off
+  mode: single
 - id: '1574021126103'
   alias: Präsenz - Verlassen - Dunkel - Licht
   description: Wandlampen und Garten an nach 30 Sekunden
@@ -603,8 +603,8 @@
   condition: []
   action:
   - data:
-      volume_level: 0.5
-    entity_id: media_player.wallpanel
+      volume_level: 0.4
+    entity_id: media_player.dusche
     service: media_player.volume_set
   - delay: 00:00:01
   - data:
@@ -612,12 +612,13 @@
         type: tts
       message: Willkommen zurück. Schön, dass du wieder da bist.
       target:
-      - media_player.wallpanel
+      - media_player.dusche
     service: notify.alexa_media
   - delay: 00:01:00
-  - data: {}
-    entity_id: media_player.wallpanel
-    service: media_player.volume_mute
+  - data:
+      volume_level: 0.3
+    entity_id: media_player.dusche
+    service: media_player.volume_set
 - id: '1574319521177'
   alias: Sonne - Aufgang - Wach - Rolladen Arbeitszimmer auf
   description: ''
@@ -734,8 +735,8 @@
   condition: []
   action:
   - data:
-      volume_level: 0.5
-    entity_id: media_player.wallpanel
+      volume_level: 0.4
+    entity_id: media_player.dusche
     service: media_player.volume_set
   - delay: 00:00:01
   - data:
@@ -743,11 +744,13 @@
         type: tts
       message: Komm gesund wieder. Ich halte hier die Stellung!
       target:
-      - media_player.wallpanel
+      - media_player.dusche
     service: notify.alexa_media
   - delay: 00:01:00
-  - entity_id: media_player.wallpanel
-    service: media_player.volume_mute
+  - data:
+      volume_level: 0.3
+    entity_id: media_player.dusche
+    service: media_player.volume_set
 - id: '1574516069986'
   alias: Wäsche - Trockner - Status - Aus
   description: ''
