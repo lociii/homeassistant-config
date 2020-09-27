@@ -2,6 +2,7 @@ zha:
   zigpy_config:
     ota:
       ikea_provider: true
+      ledvance_provider: true
     network:
       channel: 11
       channels: [11]
