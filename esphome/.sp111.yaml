@@ -58,6 +58,7 @@ sensor:
             - 0.0 -> 0.0
             - 602.87506 -> 229.9
             - 609.8 -> 232.8
+        - delta: 3
         - throttle: ${update_throttle}
     # power sensor
     power:

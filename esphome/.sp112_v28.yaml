@@ -48,6 +48,9 @@ sensor:
       name: "${name} voltage"
       unit_of_measurement: V
       accuracy_decimals: 1
+      filters:
+        - delta: 3
+        - throttle: ${update_throttle}
       # filters:
         # map from sensor -> measured value
         # - calibrate_linear:

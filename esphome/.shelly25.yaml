@@ -44,6 +44,7 @@ sensor:
     voltage:
       name: "${name} voltage"
       filters:
+        - delta: 3
         - throttle: ${update_throttle}
     current_a:
       name: "${name} current A"
