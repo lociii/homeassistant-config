@@ -1,0 +1,2 @@
+keba:
+  host: !secret keba_host_ip
