@@ -85,13 +85,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_kitchen_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_kitchen_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.kitchen
     service: cover.close_cover
+  mode: single
 - id: '1574018283325'
   alias: Schlafen - Einschlafen - Licht
   description: ''
@@ -238,6 +241,7 @@
   - data: {}
     entity_id: cover.dining
     service: cover.close_cover
+  mode: single
 - id: '1574022722581'
   alias: Shutdown - Rolladen Couch
   description: ''
@@ -251,6 +255,7 @@
   - data: {}
     entity_id: cover.couch
     service: cover.close_cover
+  mode: single
 - id: '1574022799195'
   alias: Shutdown - Rolladen Gästezimmer
   description: ''
@@ -260,13 +265,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_guestroom_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_guestroom_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.guestroom
     service: cover.close_cover
+  mode: single
 - id: '1574022855896'
   alias: Shutdown - Rolladen Schlafzimmer
   description: ''
@@ -276,13 +284,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_bedroom_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_bedroom_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.bedroom
     service: cover.close_cover
+  mode: single
 - id: '1574022922656'
   alias: Shutdown - Rolladen Arbeitszimmer
   description: ''
@@ -292,13 +303,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_office_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_office_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.office
     service: cover.close_cover
+  mode: single
 - id: '1574281438489'
   alias: Präsenz - Verlassen - Dunkel - Rolläden
   description: ''
@@ -346,15 +360,18 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: binary_sensor.magnet_door_patio_contact
-    state: 'off'
-  - condition: state
     entity_id: input_boolean.presence
     state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_door_patio_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.patio
     service: cover.close_cover
+  mode: single
 - id: '1574282534738'
   alias: Staubsauger - Reset um Mitternacht
   description: ''
@@ -1723,13 +1740,16 @@
     platform: state
     to: 'off'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_kitchen_contact
-    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_kitchen_contact
+      state: 'off'
   action:
   - data: {}
     entity_id: script.cover_kitchen_ajar
     service: script.turn_on
+  mode: single
 - id: '1589631843369'
   alias: Präsenz - Verlassen - Terrassentür offen
   description: Macht den Rolladen auf Schlitz, wenn die Tür beim Verlassen noch offen
@@ -1740,13 +1760,16 @@
     platform: state
     to: 'off'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_door_patio_contact
-    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_door_patio_contact
+      state: 'off'
   action:
   - data: {}
     entity_id: script.cover_patio_ajar
     service: script.turn_on
+  mode: single
 - id: '1589632037291'
   alias: Präsenz - Verlassen - Fenster Gästezimmer offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1757,13 +1780,16 @@
     platform: state
     to: 'off'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_guestroom_contact
-    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_guestroom_contact
+      state: 'off'
   action:
   - data: {}
     entity_id: script.cover_guestroom_ajar
     service: script.turn_on
+  mode: single
 - id: '1589632144329'
   alias: Präsenz - Verlassen - Fenster Schlafzimmer offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1774,13 +1800,16 @@
     platform: state
     to: 'off'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_bedroom_contact
-    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_bedroom_contact
+      state: 'off'
   action:
   - data: {}
     entity_id: script.cover_bedroom_ajar
     service: script.turn_on
+  mode: single
 - id: '1589632559754'
   alias: Präsenz - Verlassen - Fenster Büro offen
   description: Macht den Rolladen auf Schlitz, wenn das Fenster beim Verlassen noch
@@ -1791,13 +1820,16 @@
     platform: state
     to: 'off'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_office_contact
-    state: 'on'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_office_contact
+      state: 'off'
   action:
   - data: {}
     entity_id: script.cover_office_ajar
     service: script.turn_on
+  mode: single
 - id: '1589638062144'
   alias: Fenster - Öffnen - Dunkel - Küche
   description: Rolladen auf Schlitz, wenn Fenster bei Dunkelheit geöffnet wird
@@ -2153,13 +2185,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_kitchen_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_kitchen_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.kitchen
     service: cover.close_cover
+  mode: single
 - id: '1591447931957'
   alias: Schlafen - Einschlafen - Rolladen Gästezimmer - Fenster auf
   description: ''
@@ -2185,13 +2220,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_guestroom_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_guestroom_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.guestroom
     service: cover.close_cover
+  mode: single
 - id: '1591447931967'
   alias: Schlafen - Einschlafen - Rolladen Schlafzimmer - Fenster auf
   description: ''
@@ -2217,13 +2255,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_bedroom_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_bedroom_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.bedroom
     service: cover.close_cover
+  mode: single
 - id: '1591447931977'
   alias: Schlafen - Einschlafen - Rolladen Büro - Fenster auf
   description: ''
@@ -2249,13 +2290,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_window_office_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_window_office_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.office
     service: cover.close_cover
+  mode: single
 - id: '1591447931987'
   alias: Schlafen - Einschlafen - Rolladen Terrasse - Fenster auf
   description: ''
@@ -2281,13 +2325,16 @@
     platform: state
     to: 'on'
   condition:
-  - condition: state
-    entity_id: binary_sensor.magnet_door_patio_contact
-    state: 'off'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.magnet_door_patio_contact
+      state: 'on'
   action:
   - data: {}
     entity_id: cover.patio
     service: cover.close_cover
+  mode: single
 - id: '159144793198'
   alias: Schlafen - Einschlafen - Rolläden Wohnzimmer (ohne Sensor)
   description: ''
