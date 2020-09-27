@@ -422,8 +422,13 @@ cover_bedroom_ajar:
   alias: Rolladen - Schlafzimmer - Spalt
   mode: single
   sequence:
+  - data: {}
+    entity_id: cover.bedroom
+    service: cover.close_cover
+  - timeout: '60'
+    wait_template: '{{ state_attr("cover.bedroom", "current_position") == 0 }}'
   - data:
-      position: 20
+      position: 12
     entity_id: cover.bedroom
     service: cover.set_cover_position
 cover_kitchen_ajar:
