@@ -115,12 +115,12 @@
       - light.wandlampen
       - light.stehlampe_wohnzimmer
       - light.guestroom_ceiling
-      - light.stehlampe_gastezimmer
+      - light.stehlampe_gaestezimmer
       - light.hallway_entrance
       - light.hallway_center
       - light.shower_mirror
       - light.shower_ceiling
-      - light.deckenlicht_buro
+      - light.deckenlicht_buero
       - light.bathroom_ceiling
       - light.bathroom_mirror
       - light.bedroom_ceiling
@@ -713,10 +713,10 @@
       - light.wandlampen
       - light.stehlampe_wohnzimmer
       - light.guestroom_ceiling
-      - light.stehlampe_gastezimmer
+      - light.stehlampe_gaestezimmer
       - light.shower_mirror
       - light.shower_ceiling
-      - light.deckenlicht_buro
+      - light.deckenlicht_buero
       - light.bathroom_ceiling
       - light.bathroom_mirror
       - light.bedroom_ceiling
@@ -1402,7 +1402,7 @@
     zone: zone.hof_holzapfel
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - entity_id: script.gaestezimmer_stehlampe_alarm_rot
@@ -1586,7 +1586,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - data: {}
@@ -1604,7 +1604,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - data: {}
@@ -1619,7 +1619,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - data: {}
@@ -1634,7 +1634,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - data: {}
@@ -1649,7 +1649,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - data: {}
@@ -1663,7 +1663,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - data: {}
@@ -2663,12 +2663,12 @@
     platform: state
   condition:
   - condition: state
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     state: 'on'
   action:
   - data_template:
       profile: '{{ states("input_text.lightprofile_guestroom_standinglight") }}'
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 - id: '1594659306916'
   alias: Lichtprofil - Dusche - Spiegel - verändert
@@ -2696,7 +2696,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.deckenlicht_buro
+    entity_id: light.deckenlicht_buero
     service: light.toggle
   mode: single
 - id: '1594883586061'

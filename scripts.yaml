@@ -60,7 +60,7 @@ gaestezimmer_stehlampe_warmweiss:
       xy_color:
       - 0.45989990234
       - 0.41059875488
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 gaestezimmer_stehlampe_alarm_rot:
   alias: Gaestezimmer - Stehlampe - Alarm Rot
@@ -71,12 +71,12 @@ gaestezimmer_stehlampe_alarm_rot:
       - 0
       - 0
       transition: 1
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
   - delay: '1'
   - data:
       flash: short
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
   - delay: '3'
   - data:
@@ -84,7 +84,7 @@ gaestezimmer_stehlampe_alarm_rot:
       xy_color:
       - 0.45989990234
       - 0.41059875488
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 gaestezimmer_stehlampe_alarm_blau:
   alias: Gaestezimmer - Stehlampe - Alarm Blau
@@ -95,12 +95,12 @@ gaestezimmer_stehlampe_alarm_blau:
       - 0
       - 255
       transition: 1
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
   - delay: '1'
   - data:
       flash: short
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gestezimmer
     service: light.turn_on
   - delay: '3'
   - data:
@@ -108,7 +108,7 @@ gaestezimmer_stehlampe_alarm_blau:
       xy_color:
       - 0.45989990234
       - 0.41059875488
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 wohnzimmer_stehlampe_warmweiss:
   alias: Wohnzimmer - Stehlampe - Warmweiss
@@ -269,7 +269,7 @@ csgo_freezetime_stehlampe:
       - 52
       - 235
       transition: 0.5
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 csgo_rundenstart_spielende_stehlampe:
   alias: CSGO - Rundenstart/Spielende - Stehlampe
@@ -284,7 +284,7 @@ csgo_rundenstart_spielende_stehlampe:
       xy_color:
       - 0.45989990234
       - 0.41059875488
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 csgo_bombegelegt_stehlampe:
   alias: CSGO - Bombe gelegt - Stehlampe
@@ -295,7 +295,7 @@ csgo_bombegelegt_stehlampe:
       - 190
       - 0
       transition: 0.5
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
   - delay: '1'
   - service: script.csgo_flashloop1_stehlampe
@@ -313,7 +313,7 @@ csgo_bombeentschaeft_stehlampe:
       - 255
       - 0
       transition: 0.5
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 csgo_bombeexplodiert_stehlampe:
   alias: CSGO - Bombe explodiert - Stehlampe
@@ -329,7 +329,7 @@ csgo_bombeexplodiert_stehlampe:
       - 0
       - 0
       transition: 0.5
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
 csgo_flashloop1_stehlampe:
   alias: CSGO - Flashloop 1 - Stehlampe
@@ -340,7 +340,7 @@ csgo_flashloop1_stehlampe:
   - service: script.csgo_flashloop2_stehlampe
   - data:
       flash: long
-    entity_id: light.stehlampe_gastezimmer
+    entity_id: light.stehlampe_gaestezimmer
     service: light.turn_on
   - delay: '10'
 csgo_flashloop2_stehlampe:

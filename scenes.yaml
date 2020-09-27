@@ -4,10 +4,10 @@
     switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
       state: 'on'
-    switch.plug_guestroom_gameboy:
+    switch.plug_guestroom_computer:
       friendly_name: Gameboy
       state: 'on'
-    light.stehlampe_gastezimmer:
+    light.stehlampe_gaestezimmer:
       friendly_name: Stehlampe
       state: 'off'
 - id: '1577032840793'
@@ -16,10 +16,10 @@
     switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
       state: 'on'
-    switch.plug_guestroom_gameboy:
+    switch.plug_guestroom_computer:
       friendly_name: Gameboy
       state: 'on'
-    light.stehlampe_gastezimmer:
+    light.stehlampe_gaestezimmer:
       friendly_name: Stehlampe
       state: 'on'
 - id: '1577033397830'
@@ -28,9 +28,9 @@
     switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
       state: 'off'
-    switch.plug_guestroom_gameboy:
+    switch.plug_guestroom_computer:
       friendly_name: Gameboy
       state: 'off'
-    light.stehlampe_gastezimmer:
+    light.stehlampe_gaestezimmer:
       friendly_name: Stehlampe
       state: 'off'

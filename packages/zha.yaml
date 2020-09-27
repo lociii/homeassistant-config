@@ -2,45 +2,10 @@ zha:
   zigpy_config:
     ota:
       ikea_provider: true
+    network:
+      channel: 11
+      channels: [11]
+      pan_id: 0x1A62
+      extended_pan_id: "DD:DD:DD:DD:DD:DD:DD:DD"
 
 zha_map:
-
-# this is just a workaround as zigbee groups don't work for now
-light:
-  - platform: group
-    name: Stehlampe Gästezimmer
-    entities:
-      - light.bulb_guestroom_standinglight_top
-      - light.bulb_guestroom_standinglight_mid
-      - light.bulb_guestroom_standinglight_bottom
-  - platform: group
-    name: Stehlampe Wohnzimmer
-    entities:
-      - light.bulb_livingroom_standinglight_top
-      - light.bulb_livingroom_standinglight_mid
-      - light.bulb_livingroom_standinglight_bottom
-  - platform: group
-    name: Balllampen
-    entities:
-      - light.bulb_garden_balllamps_large
-      - light.bulb_garden_balllamps_small_back
-      - light.bulb_garden_balllamps_small_front
-  - platform: group
-    name: Barlicht
-    entities:
-      - light.bulb_kitchen_bar_back
-      - light.bulb_kitchen_bar_front
-  - platform: group
-    name: Deckenlicht Büro
-    entities:
-      - light.bulb_office_ceiling_1
-      - light.bulb_office_ceiling_2
-      - light.bulb_office_ceiling_3
-      - light.bulb_office_ceiling_4
-  - platform: group
-    name: Wandlampen
-    entities:
-      - light.bulb_livingroom_wall_left_bottom
-      - light.bulb_livingroom_wall_left_top
-      - light.bulb_livingroom_wall_right_bottom
-      - light.bulb_livingroom_wall_right_top
