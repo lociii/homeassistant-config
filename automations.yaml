@@ -2835,8 +2835,7 @@
   alias: Schalter - Präsenz - An
   description: Alle Schalter
   trigger:
-  - event_data:
-      domain: binary_sensor
+  - event_data: {}
     event_type: state_changed
     platform: event
   condition:
@@ -2844,13 +2843,13 @@
     entity_id: input_boolean.presence
     state: 'off'
   - condition: template
-    value_template: '"{{ trigger.event.data.old_state.state is not none }}"'
+    value_template: '{{ trigger.event.data.old_state.state is not none }}'
   - condition: template
-    value_template: '"{{ trigger.event.data.entity_id.startswith(''binary_sensor.switch_'')
-      }}"'
+    value_template: '{{ trigger.event.data.entity_id.startswith(''binary_sensor.switch_'')
+      }}'
   - condition: template
-    value_template: '"{{ trigger.event.data.old_state.state == ''off'' and trigger.event.data.new_state.state
-      == ''on'' }}"'
+    value_template: '{{ trigger.event.data.old_state.state == ''off'' and trigger.event.data.new_state.state
+      == ''on'' }}'
   action:
   - data: {}
     entity_id: input_boolean.presence
@@ -3003,22 +3002,6 @@
   - data: {}
     entity_id: light.balllampen
     service: light.toggle
-  mode: single
-- id: '1596995269327'
-  alias: Schalter - Präsenz - An Test
-  description: ''
-  trigger:
-  - event_data:
-      domain: binary_sensor
-    event_type: state_changed
-    platform: event
-  condition: []
-  action:
-  - data:
-      message: triggered
-      notification_id: 524645
-      title: DEBUG
-    service: persistent_notification.create
   mode: single
 - id: '1597421858109'
   alias: Garten - Büsche nach 120 Minuten wieder aus
