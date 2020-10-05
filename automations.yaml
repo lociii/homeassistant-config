@@ -2848,6 +2848,8 @@
     value_template: '{{ trigger.event.data.entity_id.startswith(''binary_sensor.switch_'')
       }}'
   - condition: template
+    value_template: '{{ not trigger.event.data.entity_id.endswith(''_status'') }}'
+  - condition: template
     value_template: '{{ trigger.event.data.old_state.state == ''off'' and trigger.event.data.new_state.state
       == ''on'' }}'
   action:
