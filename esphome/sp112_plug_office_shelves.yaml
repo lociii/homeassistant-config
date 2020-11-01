@@ -8,3 +8,4 @@ substitutions:
   friendly_name: Büro Regale
   restore_mode: RESTORE_DEFAULT_OFF
   restore_mode_usb: RESTORE_DEFAULT_ON
+  update_throttle: 30s
