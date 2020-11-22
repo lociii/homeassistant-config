@@ -4,9 +4,9 @@ zha:
       ikea_provider: true
       ledvance_provider: true
     network:
-      channel: 11
-      channels: [11]
-      pan_id: 0x1A62
-      extended_pan_id: "DD:DD:DD:DD:DD:DD:DD:DD"
+      channel: !secret zha_channel
+      channels: !secret zha_channels
+      pan_id: !secret zha_pan_id
+      extended_pan_id: !secret zha_extended_pan_id
 
 zha_map:
