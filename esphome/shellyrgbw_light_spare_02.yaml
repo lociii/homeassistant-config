@@ -1,8 +1,0 @@
-# shelly rgbw2
-# 02
-
-<<: !include .shellyrgbw2.yaml
-
-substitutions:
-  name: rgbw_spare_02
-  friendly_name: Spare 02
