@@ -1,0 +1,42 @@
+sensor:
+  # average temperature
+  # custom component https://github.com/Limych/ha-average
+  - platform: average
+    name: Temperatur innen (15 Minuten)
+    duration:
+      minutes: 15
+    entities:
+      - sensor.environment_inside_temperature
+  - platform: average
+    name: Temperatur aussen (15 Minuten)
+    duration:
+      minutes: 15
+    entities:
+      - sensor.environment_outside_temperature
+  - platform: average
+    name: Temperatur Garten Süd (15 Minuten)
+    duration:
+      minutes: 15
+    entities:
+      - sensor.environment_garden_south_temperature
+  - platform: average
+    name: Temperatur Garten West (15 Minuten)
+    duration:
+      minutes: 15
+    entities:
+      - sensor.environment_garden_west_temperature
+
+  # average illuminance
+  # custom component https://github.com/Limych/ha-average
+  - platform: average
+    name: Helligkeit Garten Süd (15 Minuten)
+    duration:
+      minutes: 15
+    entities:
+      - sensor.environment_garden_south_illuminance
+  - platform: average
+    name: Helligkeit Garten West (15 Minuten)
+    duration:
+      minutes: 15
+    entities:
+      - sensor.environment_garden_west_illuminance

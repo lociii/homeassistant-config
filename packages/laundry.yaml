@@ -8,3 +8,24 @@ sensor:
         value_template: '{{ states.input_select.washer_animal_status.state }}'
       dryer_status_text:
         value_template: '{{ states.input_select.dryer_status.state }}'
+
+  # averages
+  # custom component https://github.com/Limych/ha-average
+  - platform: average
+    name: Verbrauch Trockner (5 Minuten)
+    duration:
+      minutes: 5
+    entities:
+      - sensor.basement_dryer_power_usage
+  - platform: average
+    name: Verbrauch Waschmaschine (5 Minuten)
+    duration:
+      minutes: 5
+    entities:
+      - sensor.basement_washer_human_power_usage
+  - platform: average
+    name: Verbrauch Tier-Waschmaschine (5 Minuten)
+    duration:
+      minutes: 5
+    entities:
+      - sensor.basement_washer_animal_power_usage
