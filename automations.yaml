@@ -1,8 +1,8 @@
 - id: '1574016846661'
-  alias: Sonne - Untergang - Licht
+  alias: Sonne - Untergang - Licht innen
   description: ''
   trigger:
-  - entity_id: input_boolean.licht_dunkelheit
+  - entity_id: input_boolean.licht_innen_dunkelheit
     from: 'off'
     platform: state
     to: 'on'
@@ -10,7 +10,20 @@
   action:
   - data:
       entity_id:
-      - light.wandlampen
+      - light.livingroom_wall
+    service: light.turn_on
+- id: '1574016846662'
+  alias: Sonne - Untergang - Licht aussen
+  description: ''
+  trigger:
+  - entity_id: input_boolean.licht_aussen_dunkelheit
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id:
       - light.garden_lantern
       - light.garden_ball_lamps
     service: light.turn_on
@@ -63,7 +76,7 @@
   alias: Sonne - Untergang - Licht - Anwesend
   description: ''
   trigger:
-  - entity_id: input_boolean.licht_dunkelheit
+  - entity_id: input_boolean.licht_innen_dunkelheit
     from: 'off'
     platform: state
     to: 'on'
@@ -174,7 +187,7 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: input_boolean.rolladen_dunkelheit
+    entity_id: input_boolean.licht_innen_dunkelheit
     state: 'on'
   action:
   - data:
@@ -218,7 +231,7 @@
     to: 'off'
   condition:
   - condition: state
-    entity_id: input_boolean.rolladen_dunkelheit
+    entity_id: input_boolean.licht_innen_dunkelheit
     state: 'on'
   action:
   - data:
@@ -659,7 +672,7 @@
   alias: Sonne - Aufgang - Gartenlampen aus
   description: ''
   trigger:
-  - entity_id: input_boolean.rolladen_dunkelheit
+  - entity_id: input_boolean.licht_aussen_dunkelheit
     from: 'on'
     platform: state
     to: 'off'
@@ -1105,7 +1118,7 @@
   alias: Gameboy - Dunkelheit
   description: ''
   trigger:
-  - entity_id: input_boolean.licht_dunkelheit
+  - entity_id: input_boolean.licht_innen_dunkelheit
     from: 'off'
     platform: state
     to: 'on'
@@ -1128,7 +1141,7 @@
     type: remote_button_short_press
   condition:
   - condition: state
-    entity_id: input_boolean.rolladen_dunkelheit
+    entity_id: input_boolean.licht_innen_dunkelheit
     state: 'off'
   action:
   - entity_id: scene.gameboy_an_hell
@@ -1353,7 +1366,7 @@
     type: remote_button_short_press
   condition:
   - condition: state
-    entity_id: input_boolean.rolladen_dunkelheit
+    entity_id: input_boolean.licht_innen_dunkelheit
     state: 'on'
   action:
   - entity_id: scene.gameboy_an_dunkel
@@ -2439,19 +2452,26 @@
     entity_id: input_boolean.rolladen_dunkelheit
     service: input_boolean.turn_off
 - id: '1593978992106'
-  alias: Licht - Dunkelheit - Start
+  alias: Licht - Dunkelheit aussen - Start
   description: ''
   trigger:
   - event: sunset
     offset: -00:15:00
     platform: sun
+  - platform: numeric_state
+    entity_id: sensor.helligkeit_garten_sud_15_minuten
+    below: '200'
+  - platform: numeric_state
+    entity_id: sensor.helligkeit_garten_west_15_minuten
+    below: '200'
   condition: []
   action:
   - data: {}
-    entity_id: input_boolean.licht_dunkelheit
+    entity_id: input_boolean.licht_aussen_dunkelheit
     service: input_boolean.turn_on
+  mode: single
 - id: '1593979020901'
-  alias: Licht - Dunkelheit - Ende
+  alias: Licht - Dunkelheit aussen - Ende
   description: ''
   trigger:
   - event: sunrise
@@ -2460,7 +2480,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: input_boolean.licht_dunkelheit
+    entity_id: input_boolean.licht_aussen_dunkelheit
     service: input_boolean.turn_off
 - id: '1593982318176'
   alias: Temperatur - Wechsel warm zu kalt
@@ -2998,7 +3018,7 @@
     entity_id: light.garden_lantern
     service: light.toggle
   - data: {}
-    entity_id: light.balllampen
+    entity_id: light.garden_ball_lamps
     service: light.toggle
   mode: single
 - id: '1597421858109'
@@ -3015,6 +3035,37 @@
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_off
+  mode: single
+- id: '1601905854600'
+  alias: Licht - Dunkelheit innen - Start
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.helligkeit_garten_sud_15_minuten
+    below: '1000'
+  - platform: numeric_state
+    entity_id: sensor.environment_garden_west_illuminance
+    below: '1000'
+  - platform: sun
+    event: sunset
+    offset: -00:15:00
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    entity_id: input_boolean.licht_innen_dunkelheit
+  mode: single
+- id: '1601905888026'
+  alias: Licht - Dunkelheit innen - Ende
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.licht_innen_dunkelheit
   mode: single
 - id: '1606053818958'
   alias: Licht Flur - An
