@@ -785,8 +785,7 @@
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.basement_dryer_power_usage
-    for: 00:05:00
+    entity_id: sensor.verbrauch_trockner_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -799,9 +798,8 @@
   alias: Wäsche - Trockner - Status - Aktiv
   description: ''
   trigger:
-  - above: '40'
-    entity_id: sensor.basement_dryer_power_usage
-    for: 00:02:00
+  - above: '20'
+    entity_id: sensor.verbrauch_trockner_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -809,14 +807,14 @@
       entity_id: input_select.dryer_status
       option: Aktiv
     service: input_select.select_option
+  mode: single
 - id: '1574516245695'
   alias: Wäsche - Trockner - Status - Fertig
   description: ''
   trigger:
   - above: '1'
-    below: '40'
-    entity_id: sensor.basement_dryer_power_usage
-    for: 00:05:00
+    below: '20'
+    entity_id: sensor.verbrauch_trockner_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -824,13 +822,13 @@
       entity_id: input_select.dryer_status
       option: Fertig
     service: input_select.select_option
+  mode: single
 - id: '1574516404593'
   alias: Wäsche - Waschmaschine - Status - Aktiv
   description: ''
   trigger:
   - above: '5'
-    entity_id: sensor.basement_washer_human_power_usage
-    for: 00:02:00
+    entity_id: sensor.verbrauch_waschmaschine_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -838,13 +836,13 @@
       entity_id: input_select.washer_human_status
       option: Aktiv
     service: input_select.select_option
+  mode: single
 - id: '1574516479535'
   alias: Wäsche - Waschmaschine - Status - Aus
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.basement_washer_human_power_usage
-    for: 00:05:00
+    entity_id: sensor.verbrauch_waschmaschine_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -852,27 +850,28 @@
       entity_id: input_select.washer_human_status
       option: Aus
     service: input_select.select_option
+  mode: single
 - id: '1574516542749'
   alias: Wäsche - Waschmaschine - Status - Fertig
   description: ''
   trigger:
   - below: '5'
-    entity_id: sensor.basement_washer_human_power_usage
-    for: 00:05:00
+    entity_id: sensor.verbrauch_waschmaschine_5_minuten
     platform: numeric_state
+    above: '1'
   condition: []
   action:
   - data:
       entity_id: input_select.washer_human_status
       option: Fertig
     service: input_select.select_option
+  mode: single
 - id: '1574516601948'
   alias: Wäsche - Waschmaschine Tier - Status - Aktiv
   description: ''
   trigger:
   - above: '5'
-    entity_id: sensor.basement_washer_animal_power_usage
-    for: 00:02:00
+    entity_id: sensor.verbrauch_tier_waschmaschine_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -880,13 +879,13 @@
       entity_id: input_select.washer_animal_status
       option: Aktiv
     service: input_select.select_option
+  mode: single
 - id: '1574516653697'
   alias: Wäsche - Waschmaschine Tier - Status - Aus
   description: ''
   trigger:
   - below: '1'
-    entity_id: sensor.basement_washer_animal_power_usage
-    for: 00:05:00
+    entity_id: sensor.verbrauch_tier_waschmaschine_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -894,14 +893,14 @@
       entity_id: input_select.washer_animal_status
       option: Aus
     service: input_select.select_option
+  mode: single
 - id: '1574516701027'
   alias: Wäsche - Waschmaschine Tier - Status - Fertig
   description: ''
   trigger:
   - above: '1'
     below: '5'
-    entity_id: sensor.basement_washer_animal_power_usage
-    for: 00:05:00
+    entity_id: sensor.verbrauch_tier_waschmaschine_5_minuten
     platform: numeric_state
   condition: []
   action:
@@ -909,6 +908,7 @@
       entity_id: input_select.washer_animal_status
       option: Fertig
     service: input_select.select_option
+  mode: single
 - id: '1574517014436'
   alias: Wäsche - Trockner - Announcement
   description: ''
