@@ -12,7 +12,7 @@
       entity_id:
       - light.wandlampen
       - light.garden_lantern
-      - light.balllampen
+      - light.garden_ball_lamps
     service: light.turn_on
 - id: '1574017577024'
   alias: Sonne - Untergang - Rolläden
@@ -74,7 +74,7 @@
   action:
   - data:
       entity_id:
-      - light.stehlampe_wohnzimmer
+      - light.livingroom_standinglight
     service: light.turn_on
 - id: '1574018039900'
   alias: Shutdown - Rolladen Küche
@@ -108,22 +108,22 @@
   - data:
       entity_id:
       - light.garden_lantern
-      - light.balllampen
+      - light.garden_ball_lamps
       - light.kitchen_ceiling
       - light.kitchen_sink
       - light.kitchen_cabinet
-      - light.barlicht
+      - light.kitchen_bar
       - light.livingroom_dining
       - light.livingroom_ceiling
-      - light.wandlampen
-      - light.stehlampe_wohnzimmer
+      - light.livingroom_wall
+      - light.livingroom_standinglight
       - light.guestroom_ceiling
-      - light.stehlampe_gaestezimmer
+      - light.guestroom_standinglight
       - light.hallway_entrance
       - light.hallway_center
       - light.shower_mirror
       - light.shower_ceiling
-      - light.deckenlicht_buero
+      - light.office_ceilinglight
       - light.bathroom_ceiling
       - light.bathroom_mirror
       - light.bedroom_ceiling
@@ -179,9 +179,8 @@
   action:
   - data:
       entity_id:
-      - light.hallway_entrance
-      - light.hallway_center
-      - light.stehlampe_wohnzimmer
+      - input_boolean.hallway_light
+      - light.livingroom_standinglight
       - light.kitchen_cabinet
     service: light.turn_on
 - id: '1574020163614'
@@ -224,9 +223,9 @@
   action:
   - data:
       entity_id:
-      - light.wandlampen
+      - light.livingroom_wall
       - light.garden_lantern
-      - light.balllampen
+      - light.garden_ball_lamps
     service: light.turn_on
 - id: '1574022674864'
   alias: Shutdown - Rolladen Esstisch
@@ -669,7 +668,7 @@
   - data:
       entity_id:
       - light.garden_lantern
-      - light.balllampen
+      - light.garden_ball_lamps
     service: light.turn_off
 - id: '1574417268114'
   alias: Präsenz - Ankommen - Dunkel - Rolläden
@@ -725,16 +724,16 @@
       - light.kitchen_ceiling
       - light.kitchen_sink
       - light.kitchen_cabinet
-      - light.barlicht
+      - light.kitchen_bar
       - light.livingroom_dining
       - light.livingroom_ceiling
-      - light.wandlampen
-      - light.stehlampe_wohnzimmer
+      - light.livingroom_wall
+      - light.livingroom_standinglight
       - light.guestroom_ceiling
-      - light.stehlampe_gaestezimmer
+      - light.guestroom_standinglight
       - light.shower_mirror
       - light.shower_ceiling
-      - light.deckenlicht_buero
+      - light.office_ceilinglight
       - light.bathroom_ceiling
       - light.bathroom_mirror
       - light.bedroom_ceiling
@@ -1409,7 +1408,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.stehlampe_wohnzimmer
+    entity_id: light.livingroom_standinglight
     service: light.toggle
   mode: single
 - id: '1581182751392'
@@ -1422,7 +1421,7 @@
     zone: zone.hof_holzapfel
   condition:
   - condition: state
-    entity_id: light.stehlampe_gaestezimmer
+    entity_id: light.guestroom_standinglight
     state: 'on'
   action:
   - entity_id: script.gaestezimmer_stehlampe_alarm_rot
@@ -1606,7 +1605,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gaestezimmer
+    entity_id: light.guestroom_standinglight
     state: 'on'
   action:
   - data: {}
@@ -1624,7 +1623,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gaestezimmer
+    entity_id: light.guestroom_standinglight
     state: 'on'
   action:
   - data: {}
@@ -1639,7 +1638,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gaestezimmer
+    entity_id: light.guestroom_standinglight
     state: 'on'
   action:
   - data: {}
@@ -1654,7 +1653,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gaestezimmer
+    entity_id: light.guestroom_standinglight
     state: 'on'
   action:
   - data: {}
@@ -1669,7 +1668,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gaestezimmer
+    entity_id: light.guestroom_standinglight
     state: 'on'
   action:
   - data: {}
@@ -1683,7 +1682,7 @@
     platform: event
   condition:
   - condition: state
-    entity_id: light.stehlampe_gaestezimmer
+    entity_id: light.guestroom_standinglight
     state: 'on'
   action:
   - data: {}
@@ -2630,7 +2629,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.wandlampen
+    entity_id: light.livingroom_wall
     service: light.toggle
   mode: single
 - id: '1594646299143'
@@ -2746,7 +2745,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.deckenlicht_buero
+    entity_id: light.office_ceilinglight
     service: light.toggle
   mode: single
 - id: '1594883586061'
@@ -2810,11 +2809,8 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.hallway_entrance
-    service: light.toggle
-  - data: {}
-    entity_id: light.hallway_center
-    service: light.toggle
+    entity_id: input_boolean.hallway_light
+    service: input_boolean.toggle
   mode: single
 - id: '1596097548807'
   alias: Schalter - Flur - Präsenz - Aus
@@ -2938,7 +2934,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: light.barlicht
+    entity_id: light.kitchen_bar
     service: light.toggle
   mode: single
 - id: '1596363736255'
@@ -3019,4 +3015,38 @@
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_off
+  mode: single
+- id: '1606053818958'
+  alias: Licht Flur - An
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.hallway_light
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    entity_id: light.hallway_entrance
+  - service: light.turn_on
+    data: {}
+    entity_id: light.hallway_center
+  mode: single
+- id: '1606053837867'
+  alias: Licht Flur - Aus
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.hallway_light
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.hallway_entrance
+  - service: light.turn_off
+    data: {}
+    entity_id: light.hallway_center
   mode: single
