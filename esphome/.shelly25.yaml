@@ -23,6 +23,29 @@ i2c:
   scl: GPIO14
   scan: False
 
+binary_sensor:
+  # keep device from overheatimg
+  # see https://savjee.be/2020/11/shelly25-esphome-potential-fire-hazard-fix/
+  - platform: gpio
+    pin: GPIO16
+    name: "ade7953 IRQ pin"
+    internal: true
+  # device status sensor
+  - platform: status
+    name: "${name}_status"
+  # binary sensor for the button A press
+  - platform: gpio
+    name: "${name} sensor A"
+    pin:
+      number: GPIO13
+      inverted: false
+  # binary sensor for the button B press
+  - platform: gpio
+    name: "${name} sensor B"
+    pin:
+      number: GPIO5
+      inverted: false
+
 sensor:
   # uptime sensor
   - platform: uptime

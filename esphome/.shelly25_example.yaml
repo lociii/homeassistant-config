@@ -20,6 +20,12 @@ fan:
     output: "${name}_actor_b"
 
 binary_sensor:
+  # keep device from overheatimg
+  # see https://savjee.be/2020/11/shelly25-esphome-potential-fire-hazard-fix/
+  - platform: gpio
+    pin: GPIO16
+    name: "ade7953 IRQ pin"
+    internal: true
   # device status sensor
   - platform: status
     name: "${name}_status"
