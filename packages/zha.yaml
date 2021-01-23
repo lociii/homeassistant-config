@@ -8,5 +8,3 @@ zha:
       channels: !secret zha_channels
       pan_id: !secret zha_pan_id
       extended_pan_id: !secret zha_extended_pan_id
-
-zha_map:
