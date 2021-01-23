@@ -1,11 +1,11 @@
 # gosund sp111 v1.1
-# 19
+# 20
 
 <<: !include .sp111.yaml
 
 substitutions:
-  name: plug_sp111_spare_19
-  friendly_name: SP111 Spare 19
+  name: plug_office_desk
+  friendly_name: Schreibtisch
   cf1_pin: GPIO04
   state_led_pin: GPIO02
   status_led_pin: GPIO00

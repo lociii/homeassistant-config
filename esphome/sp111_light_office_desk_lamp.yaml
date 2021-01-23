@@ -1,0 +1,60 @@
+# gosund sp111 v1.1
+# 19
+
+<<: !include .sp111.yaml
+
+substitutions:
+  name: light_office_desk_lamp
+  friendly_name: Schreibtischlampe
+  cf1_pin: GPIO04
+  state_led_pin: GPIO02
+  status_led_pin: GPIO00
+  actor_pin: GPIO15
+  restore_mode: RESTORE_DEFAULT_OFF
+  update_throttle: 30s
+
+output:
+  # relay state led
+  - platform: esp8266_pwm
+    id: "${name}_state_led"
+    pin:
+      number: ${state_led_pin}
+      inverted: true
+  # switched output
+  - platform: gpio
+    pin: ${actor_pin}
+    id: "${name}_actor"
+
+light:
+  # relay state light
+  - platform: monochromatic
+    output: "${name}_state_led"
+    id: "${name}_led"
+  # exposed light entity
+  - platform: binary
+    id: "${name}"
+    name: "${friendly_name}"
+    output: "${name}_actor"
+    restore_mode: RESTORE_DEFAULT_OFF
+    on_turn_on:
+      - light.turn_on: "${name}_led"
+    on_turn_off:
+      - light.turn_off: "${name}_led"
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    name: "${name} status"
+  # binary sensor for the button press
+  - platform: gpio
+    name: "${name} sensor"
+    pin:
+      number: GPIO13
+      inverted: true
+    on_press:
+      - light.toggle: "${name}"
+
+switch:
+  # switch to restart the plug
+  - platform: restart
+    name: "${name} restart"
