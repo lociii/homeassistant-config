@@ -7,7 +7,7 @@
     switch.plug_guestroom_computer:
       friendly_name: Gameboy
       state: 'on'
-    light.stehlampe_gaestezimmer:
+    light.guestroom_standinglight:
       friendly_name: Stehlampe
       state: 'off'
 - id: '1577032840793'
@@ -15,12 +15,16 @@
   entities:
     switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
+      icon: ''
       state: 'on'
     switch.plug_guestroom_computer:
       friendly_name: Gameboy
+      icon: mdi:desktop-classic
       state: 'on'
-    light.stehlampe_gaestezimmer:
-      friendly_name: Stehlampe
+    light.guestroom_standinglight:
+      brightness: 254
+      friendly_name: Stehlampe Gästezimmer
+      supported_features: 57
       state: 'on'
 - id: '1577033397830'
   name: Gameboy - Aus
@@ -31,6 +35,6 @@
     switch.plug_guestroom_computer:
       friendly_name: Gameboy
       state: 'off'
-    light.stehlampe_gaestezimmer:
+    light.guestroom_standinglight:
       friendly_name: Stehlampe
       state: 'off'
