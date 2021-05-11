@@ -1,14 +1,14 @@
-# gosund sp111 v1.4
-# 07
+# gosund sp111 v1.1
+# 13
 
 <<: !include .sp111.yaml
 
 substitutions:
   name: plug_guestroom_desk
   friendly_name: Schreibtisch
-  cf1_pin: GPIO14
-  state_led_pin: GPIO00
-  status_led_pin: GPIO02
+  cf1_pin: GPIO04
+  state_led_pin: GPIO02
+  status_led_pin: GPIO00
   actor_pin: GPIO15
   restore_mode: RESTORE_DEFAULT_OFF
   update_throttle: 30s

@@ -14,3 +14,9 @@ light:
     name: "${friendly_name}"
     output: "${name}_actor_a"
     restore_mode: RESTORE_DEFAULT_OFF
+
+# connect to basement wifi
+wifi:
+  ssid: !secret wifi_ssid_basement
+  password: !secret wifi_password
+  domain: !secret wifi_domain
