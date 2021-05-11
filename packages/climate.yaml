@@ -40,3 +40,15 @@ sensor:
       minutes: 15
     entities:
       - sensor.environment_garden_west_illuminance
+
+  # export sun attributes to sensors
+  - platform: template
+    sensors:
+      solar_elevation:
+        friendly_name: "Elevation"
+        unit_of_measurement: '°'
+        value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+      solar_azimuth:
+        friendly_name: "Azimut"
+        unit_of_measurement: '°'
+        value_template: "{{ state_attr('sun.sun', 'azimuth') }}"
