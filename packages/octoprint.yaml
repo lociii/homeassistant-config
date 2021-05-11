@@ -1,0 +1,25 @@
+octoprint:
+  - host: !secret octoprint_host
+    api_key: !secret octoprint_key
+    name: Prusa Mini+
+    bed: true
+    number_of_tools: 1
+    sensors:
+      monitored_conditions:
+        - Current State
+        - Job Percentage
+        - Temperatures
+        - Time Elapsed
+        - Time Remaining
+
+binary_sensor:
+  - platform: octoprint
+    monitored_conditions:
+      - Printing
+      - Printing Error
+
+camera:
+  - platform: mjpeg
+    name: OctoPrint
+    still_image_url: !secret octoprint_image
+    mjpeg_url: !secret octoprint_stream
