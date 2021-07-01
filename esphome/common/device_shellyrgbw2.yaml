@@ -1,0 +1,38 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp01_1m.yaml
+
+output:
+  - platform: esp8266_pwm
+    pin: GPIO12
+    frequency: 1000 Hz
+    max_power: ${max_power}
+    id: pwm_r
+
+  - platform: esp8266_pwm
+    pin: GPIO15
+    frequency: 1000 Hz
+    max_power: ${max_power}
+    id: pwm_g
+
+  - platform: esp8266_pwm
+    pin: GPIO14
+    frequency: 1000 Hz
+    max_power: ${max_power}
+    id: pwm_b
+
+  - platform: esp8266_pwm
+    pin: GPIO4
+    frequency: 1000 Hz
+    max_power: ${max_power}
+    id: pwm_w
+
+light:
+  - platform: cwww
+    id: "${id}"
+    name: "${name}"
+    cold_white: pwm_w
+    warm_white: pwm_b
+    cold_white_color_temperature: ${cold_white_color_temperature}
+    warm_white_color_temperature: ${warm_white_color_temperature}
+    default_transition_length: ${default_transition_length}

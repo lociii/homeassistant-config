@@ -1,14 +1,17 @@
 # gosund sp111 v1.4
 # 08
 
-<<: !include .sp111.yaml
-
 substitutions:
-  name: plug_bedroom_tv
-  friendly_name: Fernseher Schlafzimmer
+  id: plug_bedroom_tv
+  update_throttle: 30s
+
+  name_a: Fernseher Schlafzimmer
+
   cf1_pin: GPIO14
   state_led_pin: GPIO00
   status_led_pin: GPIO02
   actor_pin: GPIO15
-  restore_mode: RESTORE_DEFAULT_OFF
-  update_throttle: 30s
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  template: !include common/template_sp111_switch.yaml

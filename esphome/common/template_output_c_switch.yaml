@@ -1,0 +1,5 @@
+switch:
+  - platform: output
+    id: "${id}_switch_c"
+    name: "${name_c}"
+    output: "${id}_actor_c"

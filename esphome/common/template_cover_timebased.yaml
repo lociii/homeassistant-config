@@ -1,0 +1,154 @@
+esphome:
+  on_shutdown:
+    then:
+      # store the current cover position
+      - globals.set:
+          id: cover_position
+          value: id(${id}_cover).position
+  on_boot:
+    then:
+      # restore the cover position
+      - lambda: id(${id}_cover).publish_state(id(cover_position));
+
+globals:
+  # used to store the state of the cover while rebooting the device
+  - id: cover_position
+    type: int
+    restore_value: yes
+
+binary_sensor:
+  # binary sensor for the upwards button press
+  - platform: gpio
+    name: "${id} sensor up"
+    pin:
+      number: GPIO13
+      inverted: false
+    on_press:
+      # if the motor is moving, every press should just stop it
+      - if:
+          condition:
+            binary_sensor.is_on: "${id}_moving"
+          then:
+            cover.stop: "${id}_cover"
+          else:
+            cover.open: "${id}_cover"
+  # binary sensor for the downwards button press
+  - platform: gpio
+    name: "${id} sensor down"
+    pin:
+      number: GPIO5
+      inverted: false
+    on_press:
+      # if the motor is moving, every press should just stop it
+      - if:
+          condition:
+            binary_sensor.is_on: "${id}_moving"
+          then:
+            cover.stop: "${id}_cover"
+          else:
+            cover.close: "${id}_cover"
+  # cover is moving
+  - platform: template
+    id: "${id}_moving"
+    name: "${id} is moving"
+
+sensor:
+  # power measurement
+  - platform: ade7953
+    address: 0x38
+    update_interval: 1s
+    voltage:
+      name: "${id} voltage"
+      filters:
+        - delta: 3
+        - throttle: ${update_throttle}
+    current_a:
+      name: "${id} current ${output_1}"
+      filters:
+        - lambda: if (x < 0.1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
+    current_b:
+      name: "${id} current ${output_2}"
+      filters:
+        - lambda: if (x < 0.1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
+    active_power_a:
+      id: "${id}_power_usage_${output_1}"
+      name: "${id} power A"
+      unit_of_measurement: W
+      icon: mdi:flash-circle
+      accuracy_decimals: 0
+      filters:
+        - lambda: if (x < 1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 3
+    active_power_b:
+      id: "${id}_power_usage_${output_2}"
+      name: "${id} power B"
+      unit_of_measurement: W
+      icon: mdi:flash-circle
+      accuracy_decimals: 0
+      filters:
+        - multiply: -1
+        - lambda: if (x < 1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 3
+
+switch:
+  # actual switch powering the motor, direction is defined by setting output_1 to "up" or "down"
+  - platform: gpio
+    id: "${id}_cover_${output_1}"
+    name: "${id} cover ${output_1}"
+    pin:
+      number: GPIO15
+    # prevent both switches from being turned on at the same time
+    interlock: &interlock ["${id}_cover_up", "${id}_cover_down"]
+    interlock_wait_time: 500ms
+    on_turn_on:
+      - binary_sensor.template.publish:
+          id: "${id}_moving"
+          state: ON
+    on_turn_off:
+      - binary_sensor.template.publish:
+          id: "${id}_moving"
+          state: OFF
+  # actual switch powering the motor, direction is defined by setting output_2 to "up" or "down"
+  - platform: gpio
+    id: "${id}_cover_${output_2}"
+    name: "${id} cover ${output_2}"
+    pin:
+      number: GPIO4
+    # prevent both switches from being turned on at the same time
+    interlock: *interlock
+    interlock_wait_time: 500ms
+    on_turn_on:
+      - binary_sensor.template.publish:
+          id: "${id}_moving"
+          state: ON
+    on_turn_off:
+      - binary_sensor.template.publish:
+          id: "${id}_moving"
+          state: OFF
+
+cover:
+  - platform: time_based
+    name: "${id} cover"
+    id: "${id}_cover"
+
+    open_action:
+      - switch.turn_on: "${id}_cover_up"
+    open_duration: ${open_duration}
+
+    close_action:
+      - switch.turn_on: "${id}_cover_down"
+    close_duration: ${close_duration}
+
+    stop_action:
+      - switch.turn_off: "${id}_cover_up"
+      - switch.turn_off: "${id}_cover_down"

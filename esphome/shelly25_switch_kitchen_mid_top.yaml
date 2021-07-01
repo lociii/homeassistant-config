@@ -1,9 +1,0 @@
-# shelly 2.5
-# 28
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_kitchen_mid_top
-  friendly_name: Schalter Küche Mitte oben
-  update_throttle: 30s

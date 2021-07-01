@@ -1,9 +1,0 @@
-# shelly 2.5
-# 11
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_livingroom_bottom
-  friendly_name: Schalter Wohnzimmer unten
-  update_throttle: 30s

@@ -414,10 +414,16 @@ cover_guestroom_ajar:
   alias: Rolladen - Gästezimmer - Schlitz
   mode: single
   sequence:
+  - service: cover.close_cover
+    target:
+      entity_id: cover.guestroom
+  - wait_template: '{{ state_attr("cover.guestroom", "current_position") == 0 }}'
+    timeout: '60'
   - data:
-      position: 20
-    entity_id: cover.guestroom
+      position: 15
     service: cover.set_cover_position
+    target:
+      entity_id: cover.guestroom
 cover_bedroom_ajar:
   alias: Rolladen - Schlafzimmer - Spalt
   mode: single

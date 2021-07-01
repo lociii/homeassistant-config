@@ -1,16 +1,13 @@
 # shelly 2.5
 # 03
 
-<<: !include .shelly25.yaml
-
 substitutions:
-  name: light_bedroom_ceiling
-  friendly_name: Schlafzimmer Deckenlicht
+  id: light_bedroom_ceiling
   update_throttle: 30s
 
-light:
-  - platform: binary
-    id: "${name}"
-    name: "${friendly_name}"
-    output: "${name}_actor_a"
-    restore_mode: RESTORE_DEFAULT_OFF
+  name_a: Schlafzimmer Deckenlicht
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_shelly25.yaml
+  template_a: !include common/template_output_a_light.yaml

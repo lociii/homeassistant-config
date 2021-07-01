@@ -1,9 +1,0 @@
-# shelly 2.5
-# 13
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_office
-  friendly_name: Schalter Büro
-  update_throttle: 30s

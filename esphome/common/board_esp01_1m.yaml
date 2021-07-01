@@ -1,0 +1,5 @@
+esphome:
+  name: ${id}
+  platform: ESP8266
+  board: esp01_1m
+  build_path: ./build/${id}

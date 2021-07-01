@@ -1,44 +1,17 @@
 # gosund sp111 v1.4
 # 11
 
-<<: !include .sp111.yaml
-
 substitutions:
-  name: plug_livingroom_readinglight
-  friendly_name: Leselampe
+  id: plug_livingroom_readinglight
+  update_throttle: 30s
+
+  name_a: Leselampe
+
   cf1_pin: GPIO14
   state_led_pin: GPIO00
   status_led_pin: GPIO02
   actor_pin: GPIO15
-  restore_mode: RESTORE_DEFAULT_OFF
-  update_throttle: 30s
 
-switch:
-  # switch to restart the plug
-  - platform: restart
-    name: "${name} restart"
-
-binary_sensor:
-  # device status sensor
-  - platform: status
-    name: "${name} status"
-  # binary sensor for the button press
-  - platform: gpio
-    name: "${name} sensor"
-    pin:
-      number: GPIO13
-      inverted: true
-    on_press:
-      - light.toggle: "${name}_actor"
-
-output:
-  - platform: gpio
-    pin: ${actor_pin}
-    id: "${name}_output"
-
-light:
-  - platform: binary
-    id: "${name}_actor"
-    name: "${friendly_name}"
-    output: "${name}_output"
-    restore_mode: ${restore_mode}
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  template: !include common/template_sp111_light.yaml

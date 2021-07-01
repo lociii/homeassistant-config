@@ -1,0 +1,18 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp01_1m.yaml
+
+output:
+  # the output controller
+  - platform: gpio
+    id: "${id}_actor_a"
+    pin:
+      number: GPIO4
+
+binary_sensor:
+  # binary sensor for the button press
+  - platform: gpio
+    id: "${id}_sensor"
+    name: "${id} sensor"
+    pin:
+      number: GPIO05

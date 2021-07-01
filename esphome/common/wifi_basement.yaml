@@ -1,0 +1,6 @@
+# wifi connection for devices in basement
+wifi:
+  ssid: !secret wifi_ssid_basement
+  password: !secret wifi_password
+  domain: !secret wifi_domain
+  reboot_timeout: 5min

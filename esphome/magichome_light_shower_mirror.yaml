@@ -1,7 +1,11 @@
 # magichome
 # 01
 
-<<: !include .magichome.yaml
-
 substitutions:
-  name: light_shower_mirror
+  id: light_shower_mirror
+
+  name_a: Spiegellicht Dusche
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_magichome.yaml

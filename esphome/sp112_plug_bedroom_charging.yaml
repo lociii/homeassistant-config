@@ -1,11 +1,15 @@
 # gosund sp112 v2.8
 # 02
 
-<<: !include .sp112_v28.yaml
-
 substitutions:
-  name: plug_bedroom_charging
-  friendly_name: Schlafzimmer Ladestation
-  restore_mode: RESTORE_DEFAULT_OFF
-  restore_mode_usb: RESTORE_DEFAULT_ON
+  id: plug_bedroom_charging
   update_throttle: 30s
+
+  name_a: Schlafzimmer Ladestation
+  name_b: Schlafzimmer Ladestation USB
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_sp112_v28.yaml
+  template_a: !include common/template_output_a_switch.yaml
+  template_b: !include common/template_output_b_switch.yaml

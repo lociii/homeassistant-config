@@ -1,9 +1,0 @@
-# shelly 2.5
-# 32
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_bedroom_bed_left
-  friendly_name: Schalter Schlafzimmer Bett links
-  update_throttle: 30s

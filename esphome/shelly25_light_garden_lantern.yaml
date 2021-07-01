@@ -1,22 +1,13 @@
 # shelly 2.5
 # 36
 
-<<: !include .shelly25.yaml
-
 substitutions:
-  name: light_garden_lantern
-  friendly_name: Garten Laterne
+  id: light_garden_lantern
   update_throttle: 30s
 
-light:
-  - platform: binary
-    id: "${name}"
-    name: "${friendly_name}"
-    output: "${name}_actor_a"
-    restore_mode: RESTORE_DEFAULT_OFF
+  name_b: Garten Laterne
 
-# connect to basement wifi
-wifi:
-  ssid: !secret wifi_ssid_basement
-  password: !secret wifi_password
-  domain: !secret wifi_domain
+packages:
+  wifi: !include common/wifi_basement.yaml
+  device: !include common/device_shelly25.yaml
+  template_b: !include common/template_output_b_light.yaml

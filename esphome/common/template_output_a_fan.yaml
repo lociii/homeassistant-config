@@ -1,0 +1,5 @@
+fan:
+  - platform: binary
+    id: "${id}_fan_a"
+    name: "${name_a}"
+    output: "${id}_actor_a"

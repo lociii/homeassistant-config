@@ -1,0 +1,5 @@
+light:
+  - platform: binary
+    id: "${id}_light_a"
+    name: "${name_a}"
+    output: "${id}_actor_a"

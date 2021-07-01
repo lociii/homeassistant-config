@@ -1,0 +1,15 @@
+# gosund sp112 v2.8
+# 04
+
+substitutions:
+  id: plug_sp112_spare_05
+  update_throttle: 30s
+
+  name_a: SP112 05
+  name_b: SP112 05 USB
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_sp112_v28.yaml
+  template_a: !include common/template_output_a_switch.yaml
+  template_b: !include common/template_output_b_switch.yaml

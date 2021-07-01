@@ -1,13 +1,13 @@
 # shelly 1 
 # 02
 
-<<: !include .shelly1.yaml
-
 substitutions:
-  name: fan_shower
+  id: fan_shower
+  update_throttle: 30s
 
-fan:
-  - platform: binary
-    id: "${name}"
-    name: "Lüfter Dusche"
-    output: "${name}_actor"
+  name_a: "Lüfter Dusche"
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_shelly1.yaml
+  template_a: !include common/template_output_a_fan.yaml

@@ -1,14 +1,17 @@
 # gosund sp111 v1.4
 # 05
 
-<<: !include .sp111.yaml
-
 substitutions:
-  name: plug_kitchen_charging_station
-  friendly_name: Ladestation Mobilgeräte
+  id: plug_kitchen_charging_station
+  update_throttle: 30s
+
+  name_a: Ladestation Mobilgeräte
+
   cf1_pin: GPIO14
   state_led_pin: GPIO00
   status_led_pin: GPIO02
   actor_pin: GPIO15
-  restore_mode: RESTORE_DEFAULT_OFF
-  update_throttle: 30s
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  template: !include common/template_sp111_switch.yaml

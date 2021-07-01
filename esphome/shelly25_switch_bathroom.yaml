@@ -1,9 +1,0 @@
-# shelly 2.5
-# 10
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_bathroom
-  friendly_name: Schalter Badezimmer
-  update_throttle: 30s

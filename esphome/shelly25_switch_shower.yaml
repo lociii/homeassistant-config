@@ -1,9 +1,0 @@
-# shelly 2.5
-# 02
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_shower
-  friendly_name: Schalter Dusche
-  update_throttle: 30s

@@ -1,0 +1,109 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp01_1m.yaml
+
+# define generic outputs than can be mapped by lights or switches
+output:
+  # output controller A
+  - platform: gpio
+    id: "${id}_actor_a"
+    pin:
+      number: GPIO4
+  # output controller B
+  - platform: gpio
+    id: "${id}_actor_b"
+    pin:
+      number: GPIO15
+
+i2c:
+  sda: GPIO12
+  scl: GPIO14
+  scan: False
+
+binary_sensor:
+  # keep device from overheatimg
+  # see https://savjee.be/2020/11/shelly25-esphome-potential-fire-hazard-fix/
+  - platform: gpio
+    pin: GPIO16
+    name: "ade7953 IRQ pin"
+    internal: true
+  # binary sensor for the button A press
+  - platform: gpio
+    id: "${id}_sensor_a"
+    name: "${id} sensor A"
+    pin:
+      number: GPIO13
+      inverted: false
+  # binary sensor for the button B press
+  - platform: gpio
+    id: "${id}_sensor_b"
+    name: "${id} sensor B"
+    pin:
+      number: GPIO5
+      inverted: false
+
+sensor:
+  # power measurement
+  - platform: ade7953
+    address: 0x38
+    update_interval: 1s
+    voltage:
+      name: "${id} voltage"
+      filters:
+        - delta: 3
+        - throttle: ${update_throttle}
+    current_a:
+      name: "${id} current A"
+      filters:
+        - lambda: if (x < 0.1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
+    current_b:
+      name: "${id} current B"
+      filters:
+        - lambda: if (x < 0.1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
+    active_power_a:
+      id: "${id}_power_usage_a"
+      name: "${id} power A"
+      unit_of_measurement: W
+      icon: mdi:flash-circle
+      accuracy_decimals: 0
+      filters:
+        - lambda: if (x < 1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 3
+    active_power_b:
+      id: "${id}_power_usage_b"
+      name: "${id} power B"
+      unit_of_measurement: W
+      icon: mdi:flash-circle
+      accuracy_decimals: 0
+      filters:
+        - multiply: -1
+        - lambda: if (x < 1) return 0; else return (x);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 3
+
+  # device temperature
+  - platform: ntc
+    sensor: "${id}_resistance_reading"
+    id: "${id}_temperature"
+    name: "${id} temperature"
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
+  - platform: resistance
+    id: "${id}_resistance_reading"
+    sensor: "${id}_analog_reading"
+    configuration: DOWNSTREAM
+    resistor: 32kOhm
+  - platform: adc
+    id: "${id}_analog_reading"
+    pin: A0

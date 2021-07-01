@@ -1,15 +1,13 @@
 # shelly 1
 # 03
 
-<<: !include .shelly1.yaml
-
 substitutions:
-  name: light_bathroom_ceiling
-  friendly_name: Bad Deckenlicht
+  id: light_bathroom_ceiling
+  update_throttle: 30s
 
-light:
-  - platform: binary
-    id: "${name}"
-    name: "${friendly_name}"
-    output: "${name}_actor"
-    restore_mode: RESTORE_DEFAULT_OFF
+  name_a: Bad Deckenlicht
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_shelly1.yaml
+  template_a: !include common/template_output_a_light.yaml

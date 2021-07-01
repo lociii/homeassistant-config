@@ -1,14 +1,17 @@
 # gosund sp111 v1.4
 # 04
 
-<<: !include .sp111.yaml
-
 substitutions:
-  name: plug_bathroom_voice_assistant
-  friendly_name: Badezimmer Sonos
+  id: plug_bathroom_voice_assistant
+  update_throttle: 30s
+
+  name_a: Badezimmer Sonos
+
   cf1_pin: GPIO14
   state_led_pin: GPIO00
   status_led_pin: GPIO02
   actor_pin: GPIO15
-  restore_mode: RESTORE_DEFAULT_OFF
-  update_throttle: 30s
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  template: !include common/template_sp111_switch.yaml

@@ -1,0 +1,125 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp8285.yaml
+
+logger:
+  baud_rate: 0
+
+uart:
+  rx_pin: GPIO03
+  baud_rate: 4800
+
+sensor:
+  # uptime sensor
+  - platform: uptime
+    name: "${id}_uptime"
+    unit_of_measurement: seconds
+    update_interval: 10min
+  # wifi signal sensor
+  - platform: wifi_signal
+    name: "${id}_wifi_signal"
+    filters:
+      - or:
+        - heartbeat: 1h
+        - delta: 5
+  # power sensor
+  - platform: cse7766
+    current:
+      name: "${id} current"
+      unit_of_measurement: A
+      accuracy_decimals: 3
+      filters:
+        # map from sensor -> measured value
+        # - calibrate_linear:
+        #     - 0.0 -> 0.013
+        #     - 0.08208 -> 0.071
+        #     - 1.34223 -> 1.066
+        #     - 5.57170 -> 4.408
+        #     - 6.69184 -> 5.259
+        #     - 6.97187 -> 5.540
+        # make everything below 0.01A appear as just 0A
+        # furthermore it corrects 0.013A for the power usage of the plug
+        - lambda: if (x < (0.01 - 0.013)) return 0; else return (x - 0.013);
+    # voltage sensor
+    voltage:
+      name: "${id} voltage"
+      unit_of_measurement: V
+      accuracy_decimals: 1
+      filters:
+        - delta: 3
+        - throttle: ${update_throttle}
+      # filters:
+        # map from sensor -> measured value
+        # - calibrate_linear:
+        #     - 0.0 -> 0.0
+        #     - 602.87506 -> 229.9
+        #     - 609.8 -> 232.8
+    # power sensor
+    power:
+      id: "${id}_power_usage"
+      name: "${id} power"
+      unit_of_measurement: W
+      accuracy_decimals: 0
+      filters:
+        # map from sensor -> measured value
+        # - calibrate_linear:
+        #     - 0.0 -> 1.14
+        #     - 62.06167 -> 10.93
+        #     - 1503.27161 -> 247.6
+        #     - 1599.81213 -> 263.7
+        #     - 3923.67700 -> 631.4
+        #     - 7109.50928 -> 1148.0
+        #     - 7237.0857 -> 1193.0
+        #     - 7426.71338 -> 1217.0
+        # make everything below 2W appear as just 0W
+        # furthermore it corrects 1.14W for the power usage of the plug
+        - lambda: if (x < (2 + 1.14)) return 0; else return (x - 1.14);
+  # total daily energy sensor
+  - platform: total_daily_energy
+    name: "${id} daily energy usage"
+    power_id: "${id}_power_usage"
+    filters:
+      # multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    unit_of_measurement: kWh
+
+output:
+  # relay state led
+  - platform: esp8266_pwm
+    id: "${id}_state_led"
+    pin:
+      number: GPIO02
+      inverted: true
+  # switched output a (mains output)
+  - platform: gpio
+    pin: GPIO14
+    id: "${id}_actor_a"
+  # switched output b (USB)
+  - platform: gpio
+    pin: GPIO05
+    id: "${id}_actor_b"
+
+light:
+  # relay state light
+  - platform: monochromatic
+    output: "${id}_state_led"
+    id: "${id}_relay_state_light"
+
+# uses the red led as a status indicator
+status_led:
+  pin:
+    number: GPIO00
+    inverted: true
+
+switch:
+  # switch to restart the plug
+  - platform: restart
+    name: "${id} restart"
+
+binary_sensor:
+  # binary sensor for the button press
+  - platform: gpio
+    id: "${id}_sensor"
+    name: "${id} sensor"
+    pin:
+      number: GPIO16

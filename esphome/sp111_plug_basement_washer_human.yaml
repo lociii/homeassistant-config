@@ -1,20 +1,18 @@
 # gosund sp111 v1.1
 # 09
 
-<<: !include .sp111.yaml
-
 substitutions:
-  name: plug_basement_washer_human
-  friendly_name: Waschmaschine Mensch
+  id: plug_basement_washer_human
+  update_throttle: 30s
+
+  name_a: Waschmaschine Mensch
+  restore_mode_a: RESTORE_DEFAULT_ON
+
   cf1_pin: GPIO04
   state_led_pin: GPIO02
   status_led_pin: GPIO00
   actor_pin: GPIO15
-  restore_mode: RESTORE_DEFAULT_OFF
-  update_throttle: 30s
 
-# connect to basement wifi
-wifi:
-  ssid: !secret wifi_ssid_basement
-  password: !secret wifi_password
-  domain: !secret wifi_domain
+packages:
+  wifi: !include common/wifi_basement.yaml
+  template: !include common/template_sp111_switch.yaml

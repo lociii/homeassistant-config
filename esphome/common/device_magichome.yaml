@@ -1,0 +1,26 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp8285.yaml
+
+output:
+  # red color channel
+  - platform: esp8266_pwm
+    id: red_output
+    pin: GPIO5
+  # green color channel
+  - platform: esp8266_pwm
+    id: green_output
+    pin: GPIO12
+  # blue color channel
+  - platform: esp8266_pwm
+    id: blue_output
+    pin: GPIO13
+
+light:
+  # light combining all three color channels
+  - platform: rgb
+    id: "${id}_light_a"
+    name: "${name_a}"
+    red: red_output
+    green: green_output
+    blue: blue_output

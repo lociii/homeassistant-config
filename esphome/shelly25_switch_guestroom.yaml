@@ -1,9 +1,0 @@
-# shelly 2.5
-# 34
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_guestroom
-  friendly_name: Schalter Gästezimmer
-  update_throttle: 30s

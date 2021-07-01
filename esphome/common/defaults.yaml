@@ -1,0 +1,58 @@
+# enable logging
+logger:
+
+# enable api
+api:
+  password: !secret esphome_api_password
+
+# enable over-the-air updates
+ota:
+  password: !secret esphome_ota_password
+
+# enable web server
+web_server:
+  port: 80
+
+# sync time with home assistant
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+text_sensor:
+  # esphome version sensor
+  - platform: version
+    name: "${id}_version"
+  # wifi info sensors
+  - platform: wifi_info
+    ip_address:
+      name: "${id}_ip"
+    ssid:
+      name: "${id}_ssid"
+    bssid:
+      name: "${id}_bssid"
+
+sensor:
+  # uptime sensor
+  - platform: uptime
+    name: "${id}_uptime"
+    unit_of_measurement: seconds
+    update_interval: 10min
+  # wifi signal sensor
+  - platform: wifi_signal
+    name: "${id}_wifi_signal"
+    filters:
+      - or:
+        - heartbeat: 1h
+        - delta: 5
+
+binary_sensor:
+  # device status sensor
+  - platform: status
+    id: "${id}_status"
+    name: "${id} status"
+
+switch:
+  # switch to restart the device
+  - platform: restart
+    id: "${id}_restart"
+    name: "${id} restart"

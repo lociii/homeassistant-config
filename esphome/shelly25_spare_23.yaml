@@ -1,9 +1,0 @@
-# shelly 2.5
-# 23
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: shelly25_spare_23
-  friendly_name: Shelly 2.5 Spare 23
-  update_throttle: 30s

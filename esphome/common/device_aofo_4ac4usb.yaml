@@ -1,0 +1,72 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp8285.yaml
+
+switch:
+  # switch to restart the plug
+  - platform: restart
+    name: "${id} restart"
+  # switch to toggle the relay of plug 1
+  - platform: gpio
+    id: "${id}_switch_a"
+    name: "${name_a}"
+    pin: GPIO05
+    restore_mode: "${restore_mode_a}"
+  # switch to toggle the relay of plug 2
+  - platform: gpio
+    id: "${id}_switch_b"
+    name: "${name_b}"
+    pin: GPIO04
+    restore_mode: "${restore_mode_b}"
+  # switch to toggle the relay of plug 3
+  - platform: gpio
+    id: "${id}_switch_c"
+    name: "${name_c}"
+    pin: GPIO12
+    restore_mode: "${restore_mode_c}"
+  # switch to toggle the relay of plug 4
+  - platform: gpio
+    id: "${id}_switch_d"
+    name: "${name_d}"
+    pin: GPIO13
+    restore_mode: "${restore_mode_d}"
+  # switch to toggle the relay of usb ports
+  - platform: gpio
+    id: "${id}_switch_e"
+    name: "${name_e}"
+    pin: GPIO14
+    restore_mode: "${restore_mode_e}"
+
+  # template switch to turn off all outlets (except for usb) at once
+  - platform: template
+    id: "${id}_actor_all"
+    name: "${id} switch all"
+    turn_on_action:
+      - switch.turn_on: "${id}_switch_a"
+      - switch.turn_on: "${id}_switch_b"
+      - switch.turn_on: "${id}_switch_c"
+      - switch.turn_on: "${id}_switch_d"
+    turn_off_action:
+      - switch.turn_off: "${id}_switch_a"
+      - switch.turn_off: "${id}_switch_b"
+      - switch.turn_off: "${id}_switch_c"
+      - switch.turn_off: "${id}_switch_d"
+
+# binary_sensor:
+#   # binary sensor for the button press
+#   - platform: gpio
+#     name: "${name} sensor"
+#     pin:
+#       number: GPIO03
+#       # inverted: true
+#       # mode: INPUT_PULLUP
+#     on_press:
+#       - switch.turn_off: "${name}_actor_all"
+#     on_double_click:
+#       - switch.turn_on: "${name}_actor_all"
+
+# status_led:
+#   # uses the led as a status indicator
+#   pin:
+#     number: GPIO01
+#     inverted: true

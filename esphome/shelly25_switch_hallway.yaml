@@ -1,9 +1,0 @@
-# shelly 2.5
-# 05
-
-<<: !include .shelly25.yaml
-
-substitutions:
-  name: switch_hallway
-  friendly_name: Schalter Flur
-  update_throttle: 30s

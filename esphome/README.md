@@ -1,29 +1,23 @@
-
 # ESPHome
 
-All ESP8266 based components in my home are running on [ESPHome](https://esphome.io/) by [Otto Winter](https://github.com/OttoWinter) and a [big bunch of contributors](https://github.com/esphome/esphome/graphs/contributors).
+All ESP8266 based components in my home are running on [ESPHome](https://esphome.io/).
 
 Most of the configs are based on forum threads and the [Tasmota](https://tasmota.github.io) [templates](https://tasmota.github.io/docs/Components/) for them.
 
 ## Config structure
 
-My device configs are split into several files to make them reusable.
+The configuration is package based and as modular and reusable as possible.
+Packages are structured by
+* Shared defaults (API, OTA, version sensors, etc.)
+* WiFi settings (Main floor WiFi, basement WiFi)
+* Board (ESP01, ESP8285, etc.)
+* Device (Shelly1, Shelly2.5, SP111, etc.)
+* Usage template (Fan, switch, light, etc.)
 
-* [Defaults](.defaults.yaml) - used in every device type template
-* [Device type templates](#devices) that define specific behavior of a certain device like the [SP111 plug](#gosund-sp111)
-* Device configs that specify a single, physical device with their name (substitutes) and device specific settings like actors
+Devices always only define outputs. The usage templates then convert these outputs to components that are exposed in Home Assistant.
 
-## ESPTool
-
-Just listed here because I'm bad at remembering such commands.
-
-### Read original flash
-
-`esptool.py --p /dev/ttyUSB0 read_flash 0x00000 0x200000 <filename.bin>`
-
-### Flash new firmware
-
-`esptool.py --p /dev/ttyUSB0 write_flash -fs 1MB -fm dout 0x0 <filename.bin>`
+e.g. The [GoSund SP112](common/device_sp112_v28.yaml) defines one output for AC (a) and one output for USB (b).
+A physical device now just needs to add the WiFi and device packages and define how the output should be exposed as a component, see the [bedroom charging plug](sp112_plug_bedroom_charging.yaml) for an example.
 
 ## Devices
 
@@ -37,7 +31,7 @@ Single plug with power measurement
 * [Tasmota template v1.1](https://templates.blakadder.com/gosund_SP111_v2.html)
 * [Tasmota template v1.4](https://templates.blakadder.com/gosund_SP111_v1_4.html)
 
-[Device type template](.sp111.yaml)
+[Device type template](common/device_sp111.yaml)
 
 Device differences
 
@@ -60,7 +54,7 @@ Device differences
 
 #### Gosund SP112
 
-Single plug with power measurement and two switchable USB ports.
+Single plug with power measurement and switchable USB ports.
 
 **There are two different versions on the market which are almost indistinguishable from the outside!!!**
 The print on the backside of the devices is slightly bolder and larger on v3.4 compared to v2.8.
@@ -70,8 +64,8 @@ SP112 v3.4 is almost similar from it's inner parts to the SP111 v1.4
 * [Tasmota template v2.8](https://templates.blakadder.com/gosund_SP112.html)
 * [Tasmota template v3.4](https://templates.blakadder.com/gosund_SP112_v3_4.html)
 
-[Device type template](.sp112_v28.yaml)
-[Device type template](.sp112_v34.yaml)
+[Device type template v2.8](common/device_sp112_v28.yaml)
+[Device type template v3.4](common/device_sp112_v34.yaml)
 
 Device differences
 
@@ -94,11 +88,11 @@ Device differences
 
 #### AOFO strip
 
-Power strip with four outlets and four USB ports
+Power strip with four mains outlets and four USB ports
 
 * [Tasmota template](https://templates.blakadder.com/aofo_4AC4USB.html)
 
-[Device type template](.aofo_4ac4usb.yaml)
+[Device type template](common/device_aofo_4ac4usb.yaml)
 
 ### LED controllers
 
@@ -108,7 +102,7 @@ Controls RGB light strips
 
 * [Tasmota template](https://templates.blakadder.com/magichome_ZJ-FWMN-A_RGB.html)
 
-[Device type template](.magichome.yaml)
+[Device type template](common/device_magichome.yaml)
 
 ### Shelly switches / actors
 
@@ -122,7 +116,7 @@ One input, one output
 * [Shelly knowledge base](https://shelly.cloud/support/knowledge-base/shelly-1/#wiring)
 * Wiring diagrams [1](https://www.shelly-support.eu/lexikon/index.php?entry/47-connection-diagrams-shelly-1/) / [2](https://www.shelly-support.eu/lexikon/index.php?entry/58-anschlussschemen-shelly-1-fortsetzung/)
 
-[Device type template](.shelly1.yaml) and [example device](.shelly1_example.yaml).
+[Device type template](common/device_shelly1.yaml)
 
 #### Shelly 2.5
 
@@ -135,13 +129,7 @@ Used for switch inputs (sensors), lights, fans and covers.
 * Wiring diagrams [1](https://www.shelly-support.eu/lexikon/index.php?entry/48-connection-diagrams-shelly-2-5/) / [2](https://www.shelly-support.eu/lexikon/index.php?entry/100-connection-diagrams-shelly-2-5-continuation/)
 * [Power monitor hints](https://esphome.io/components/sensor/ade7953.html)
 
-[Device type template](.shelly25.yaml) and [example device](.shelly25_example.yaml).
-
-##### Cover setup
-
-As my covers don't have a proper end stop reporting, I opted to use a [time based cover](.shelly25_cover_timebased.yaml) setup.
-
-While setting up my covers, I used a [simple setup](.shelly25_covertest.yaml) that allowed me to check the switch presses and check the output direction.
+[Device type template](common/device_shelly25.yaml)
 
 #### Shelly RGBW2
 
@@ -151,7 +139,25 @@ Control LED light strips.
 * [Shelly knowledge base](https://shelly.cloud/knowledge-base/devices/shelly-rgbw2/#wiring)
 * Wiring diagrams [1](https://www.shelly-support.eu/lexikon/index.php?entry/53-connection-diagrams-shelly-rgbw2/) / [2](https://www.shelly-support.eu/lexikon/index.php?entry/180-connection-diagrams-shelly-rgbw2-continuation/)
 
-[Device type template](.shellyrgbw2.yaml)
+[Device type template](common/device_shellyrgbw2.yaml)
 
 Example devices:
 * Warm/cold white control on a WOFI ceiling fixture ([9693.01.70.5200](https://www.amazon.de/gp/product/B00LUKGN0K/)), see [kitchen ceiling light](shellyrgbw_light_kitchen_ceiling.yaml).
+
+## Templates
+
+### Time based covers
+
+As my covers don't have a proper end stop reporting, I opted to use a [time based cover](common/template_cover_timebased.yaml) setup.
+
+## ESPTool
+
+Just listed here because I'm bad at remembering such commands.
+
+### Read original flash
+
+`esptool.py --p /dev/ttyUSB0 read_flash 0x00000 0x200000 <filename.bin>`
+
+### Flash new firmware
+
+`esptool.py --p /dev/ttyUSB0 write_flash -fs 1MB -fm dout 0x0 <filename.bin>`

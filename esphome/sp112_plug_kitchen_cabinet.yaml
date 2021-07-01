@@ -1,27 +1,21 @@
 # gosund sp112 v3.4
 # 01
 
-<<: !include .sp112_v34.yaml
-
 substitutions:
-  name: plug_kitchen_cabinet
-  friendly_name: Schranklicht
+  id: plug_kitchen_cabinet
+  update_throttle: 30s
+
+  name_a: Schranklicht
+  name_b: Schranklicht USB
+
   cf1_pin: GPIO04
   state_led_pin: GPIO00
   status_led_pin: GPIO02
   actor_pin: GPIO14
   actor_pin_usb: GPIO13
-  restore_mode: RESTORE_DEFAULT_OFF
-  restore_mode_usb: RESTORE_DEFAULT_ON
-  update_throttle: 30s
 
-output:
-  - platform: gpio
-    pin: ${actor_pin}
-    id: "${name}_actor"
-
-light:
-  - platform: binary
-    name: "${friendly_name}"
-    output: "${name}_actor"
-    restore_mode: ${restore_mode}
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_sp112_v34.yaml
+  template_a: !include common/template_output_a_light.yaml
+  template_b: !include common/template_output_b_switch.yaml

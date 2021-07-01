@@ -1,11 +1,9 @@
 # shelly 2.5
 # 19
 
-<<: !include .shelly25_cover_timebased.yaml
-
 substitutions:
-  name: cover_office
-  friendly_name: Rolladen Büro
+  id: cover_office
+  name: Rolladen Büro
   update_throttle: 30s
 
   # set which direction is connected to which output
@@ -15,3 +13,8 @@ substitutions:
   # how long does a full run take?
   close_duration: 24sec  # from fully open to fully closed
   open_duration: 25sec  # from fully closed to fully open
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_shelly25.yaml
+  template: !include common/template_cover_timebased.yaml

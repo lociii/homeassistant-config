@@ -1,14 +1,17 @@
 # gosund sp111 v1.1
 # 20
 
-<<: !include .sp111.yaml
-
 substitutions:
-  name: plug_office_desk
-  friendly_name: Schreibtisch
+  id: plug_office_desk
+  update_throttle: 30s
+
+  name_a: Schreibtisch Eva
+
   cf1_pin: GPIO04
   state_led_pin: GPIO02
   status_led_pin: GPIO00
   actor_pin: GPIO15
-  restore_mode: RESTORE_DEFAULT_OFF
-  update_throttle: 30s
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  template: !include common/template_sp111_switch.yaml

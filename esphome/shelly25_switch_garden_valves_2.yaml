@@ -1,26 +1,15 @@
 # shelly 2.5
 # 09
 
-<<: !include .shelly25.yaml
-
 substitutions:
-  name: switch_garden_valves_2
+  id: switch_garden_valves_2
   update_throttle: 30s
 
-switch:
-  - platform: gpio
-    name: "Sprenkler"
-    pin:
-      number: GPIO4
-    restore_mode: ALWAYS_OFF
-  - platform: gpio
-    name: "Entnahme"
-    pin:
-      number: GPIO15
-    restore_mode: ALWAYS_OFF
+  name_a: Raketen
+  name_b: Entnahme
 
-# connect to basement wifi
-wifi:
-  ssid: !secret wifi_ssid_basement
-  password: !secret wifi_password
-  domain: !secret wifi_domain
+packages:
+  wifi: !include common/wifi_basement.yaml
+  device: !include common/device_shelly25.yaml
+  template_a: !include common/template_output_a_switch.yaml
+  template_b: !include common/template_output_b_switch.yaml
