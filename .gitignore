@@ -30,7 +30,3 @@ www/
 
 # zha
 neighbours/
-
-# ignore all blueprints except my own
-blueprints/automation/*
-!blueprints/automation/lociii

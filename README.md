@@ -75,7 +75,7 @@ Calculate averages of values over time
 
 Main 1000M/50M cable -> Fritz!Box 6591 Cable -> UniFi USG Pro
 
-Backup 100M50M DSL -> Fritz!Box 7412 (PPPoE passthrough only) -> UniFi USG Pro
+Backup 100M/50M DSL -> Fritz!Box 7412 (PPPoE passthrough only) -> UniFi USG Pro
 
 ### Network
 
