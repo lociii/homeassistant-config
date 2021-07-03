@@ -411,7 +411,7 @@ bewaesserung_lang:
     entity_id: switch.garden_hedge
     service: switch.turn_off
 cover_guestroom_ajar:
-  alias: Rolladen - Gästezimmer - Schlitz
+  alias: Rolladen - Gästezimmer - Spalt
   mode: single
   sequence:
   - service: cover.close_cover
@@ -420,7 +420,7 @@ cover_guestroom_ajar:
   - wait_template: '{{ state_attr("cover.guestroom", "current_position") == 0 }}'
     timeout: '60'
   - data:
-      position: 15
+      position: 12
     service: cover.set_cover_position
     target:
       entity_id: cover.guestroom
@@ -437,59 +437,100 @@ cover_bedroom_ajar:
       position: 12
     entity_id: cover.bedroom
     service: cover.set_cover_position
-cover_kitchen_ajar:
-  alias: Rolladen - Küche - Spalt
-  mode: single
-  sequence:
-  - data:
-      position: 20
-    entity_id: cover.kitchen
-    service: cover.set_cover_position
-cover_dining_ajar:
-  alias: Rolladen - Esstisch - Spalt
-  mode: single
-  sequence:
-  - data:
-      position: 20
-    entity_id: cover.dining
-    service: cover.set_cover_position
 cover_dining_cat:
-  alias: Rolladen - Esstisch - Katze
+  alias: Rolladen - Wohnzimmer - Esstisch - Katzenposition
   mode: single
   sequence:
   - data:
       position: 40
     entity_id: cover.dining
-    service: cover.set_cover_position
-cover_patio_ajar:
-  alias: Rolladen - Terrasse - Spalt
-  mode: single
-  sequence:
-  - data:
-      position: 20
-    entity_id: cover.patio
-    service: cover.set_cover_position
-cover_couch_ajar:
-  alias: Rolladen - Couch - Spalt
-  mode: single
-  sequence:
-  - data:
-      position: 20
-    entity_id: cover.couch
-    service: cover.set_cover_position
-cover_couch_cat:
-  alias: Rolladen - Couch - Katze
-  mode: single
-  sequence:
-  - data:
-      position: 40
-    entity_id: cover.couch
     service: cover.set_cover_position
 cover_office_ajar:
-  alias: Rolladen - Büro - Spalt
-  mode: single
+  alias: Rolladen - Buero - Spalt
   sequence:
+  - service: cover.close_cover
+    target:
+      entity_id:
+      - cover.office
+  - wait_template: '{{ state_attr("cover.office", "current_position") == 0 }}'
+    timeout: '60'
   - data:
-      position: 20
-    entity_id: cover.office
+      position: 16
     service: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.office
+  mode: single
+cover_couch_ajar:
+  alias: Rolladen - Wohnzimmer - Couch - Spalt
+  sequence:
+  - service: cover.close_cover
+    target:
+      entity_id:
+      - cover.couch
+  - wait_template: '{{ state_attr("cover.couch", "current_position") == 0 }}'
+    timeout: '60'
+  - data:
+      position: 13
+    service: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.couch
+  mode: single
+cover_patio_ajar:
+  alias: Rolladen - Wohnzimmer - Terrasse - Spalt
+  sequence:
+  - service: cover.close_cover
+    target:
+      entity_id:
+      - cover.patio
+  - wait_template: '{{ state_attr("cover.patio", "current_position") == 0 }}'
+    timeout: '60'
+  - data:
+      position: 15
+    service: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.patio
+  mode: single
+cover_dining_ajar:
+  alias: Rolladen - Wohnzimmer - Esstisch - Spalt
+  sequence:
+  - service: cover.close_cover
+    target:
+      entity_id:
+      - cover.dining
+  - wait_template: '{{ state_attr("cover.dining", "current_position") == 0 }}'
+    timeout: '60'
+  - data:
+      position: 10
+    service: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.dining
+  mode: single
+cover_kitchen_ajar:
+  alias: Rolladen - Kueche - Spalt
+  sequence:
+  - service: cover.close_cover
+    target:
+      entity_id:
+      - cover.kitchen
+  - wait_template: '{{ state_attr("cover.kitchen", "current_position") == 0 }}'
+    timeout: '60'
+  - data:
+      position: 10
+    service: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.kitchen
+  mode: single
+cover_couch_cat:
+  alias: Rolladen - Wohnzimmer - Couch - Katzenposition
+  sequence:
+  - device_id: 0925ca80824b47f894baf44301a5757c
+    domain: cover
+    entity_id: cover.couch
+    type: set_position
+    position: 40
+  mode: single

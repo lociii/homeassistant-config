@@ -2,10 +2,11 @@
 # 19
 
 substitutions:
-  id: sp111_plug_spare_19
+  id: plug_office_telephone
   update_throttle: 30s
 
-  name_a: SP111 19
+  name_a: Telefon Büro
+  restore_mode_a: RESTORE_DEFAULT_OFF
 
   cf1_pin: GPIO04
   state_led_pin: GPIO02
@@ -14,5 +15,4 @@ substitutions:
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
-  device: !include common/device_sp111.yaml
-  template_a: !include common/template_output_a_switch.yaml
+  template: !include common/template_sp111_switch.yaml

@@ -6,6 +6,7 @@ substitutions:
   update_throttle: 30s
 
   name_a: Fernseher Schlafzimmer
+  restore_mode_a: RESTORE_DEFAULT_OFF
 
   cf1_pin: GPIO14
   state_led_pin: GPIO00
