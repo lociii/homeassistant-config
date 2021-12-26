@@ -2,11 +2,11 @@
 # 03
 
 substitutions:
-  id: plug_guestroom_computer
+  id: plug_sp112_spare_03
   update_throttle: 30s
 
-  name_a: Gameboy
-  name_b: Gameboy USB
+  name_a: sp112_spare_03
+  name_b: sp112_spare_03 USB
 
   cf1_pin: GPIO04
   state_led_pin: GPIO00

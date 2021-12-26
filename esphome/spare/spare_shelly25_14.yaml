@@ -1,13 +1,10 @@
 # shelly 2.5
-# 24
+# 14
 
 substitutions:
-  id: light_hallway_center
+  id: shelly25_spare_14
   update_throttle: 30s
-
-  name_a: Flurlicht (Mitte)
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
   device: !include common/device_shelly25.yaml
-  template_a: !include common/template_output_a_light.yaml

@@ -1,11 +1,12 @@
 # gosund sp111 v1.1
-# 25
+# 13
 
 substitutions:
-  id: sp111_plug_spare_25
+  id: plug_guestroom_desk
   update_throttle: 30s
 
-  name_a: SP111 25
+  name_a: Schreibtisch
+  restore_mode_a: RESTORE_DEFAULT_OFF
 
   cf1_pin: GPIO04
   state_led_pin: GPIO02

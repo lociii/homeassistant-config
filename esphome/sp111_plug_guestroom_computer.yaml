@@ -1,11 +1,11 @@
 # gosund sp111 v1.1
-# 26
+# 25
 
 substitutions:
-  id: sp111_plug_spare_26
+  id: plug_guestroom_computer
   update_throttle: 30s
 
-  name_a: SP111 26
+  name_a: Shaun
 
   cf1_pin: GPIO04
   state_led_pin: GPIO02

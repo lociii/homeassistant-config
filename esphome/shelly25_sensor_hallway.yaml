@@ -5,6 +5,11 @@ substitutions:
   id: sensor_hallway
   update_throttle: 30s
 
+  name_a: Flurlicht (Eingang)
+  name_b: Flurlicht (Mitte)
+
 packages:
   wifi: !include common/wifi_mainfloor.yaml
   device: !include common/device_shelly25.yaml
+  template_a: !include common/template_output_a_light.yaml
+  template_b: !include common/template_output_b_light.yaml
