@@ -172,88 +172,88 @@ staubsauger_zone_kueche:
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - kueche
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 staubsauger_zone_bad:
   alias: Staubsauger - Bad
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - bad
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 staubsauger_zone_buero:
   alias: Staubsauger - Buero
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - buero
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 staubsauger_zone_dusche:
   alias: Staubsauger - Dusche
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - dusche
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 staubsauger_zone_flur:
   alias: Staubsauger - Flur
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - flur
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 staubsauger_zone_gaestezimmer:
   alias: Staubsauger - Gaestezimmer
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - gaestezimmer
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 staubsauger_zone_schlafzimmer:
   alias: Staubsauger - Schlafzimmer
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - schlafzimmer
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 staubsauger_zone_wohnzimmer:
   alias: Staubsauger - Wohnzimmer
   sequence:
   - data:
       command: zoned_cleanup
-      entity_id: vacuum.rockrobo
+      entity_id: vacuum.valetudo_rockrobo
       params:
         zone_ids:
         - wohnzimmer
-    entity_id: vacuum.rockrobo
+    entity_id: vacuum.valetudo_rockrobo
     service: vacuum.send_command
 csgo_freezetime_stehlampe:
   alias: CSGO - Freezetime - Stehlampe
