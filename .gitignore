@@ -10,7 +10,7 @@ secrets.yaml
 google_calendars.yaml
 
 # useless / large
-*.log
+*.log*
 *.db
 
 # temp
