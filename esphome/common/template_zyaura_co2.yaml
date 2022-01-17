@@ -1,0 +1,8 @@
+sensor:
+  - platform: zyaura
+    clock_pin: D2
+    data_pin: D1
+    co2:
+      name: "${name_co2}"
+    temperature:
+      name: "${name_temp}"

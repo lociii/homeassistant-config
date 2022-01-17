@@ -1,0 +1,11 @@
+substitutions:
+  id: sensor_guestroom_co2
+  update_throttle: 30s
+
+  name_co2: Gästezimmer CO2
+  name_temp: Gästezimmer Temperatur
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_wemos_d1m.yaml
+  template: !include common/template_zyaura_co2.yaml
