@@ -4,11 +4,11 @@
 substitutions:
   id: light_kitchen_ceiling
   name: Deckenlicht Küche
-  max_power: 0.3
+  max_power: "0.3"
   cold_white_color_temperature: 6800 K
   warm_white_color_temperature: 2800 K
   default_transition_length: 10ms
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
-  device: common/device_shellyrgbw2.yaml
+  device: !include common/device_shellyrgbw2.yaml
