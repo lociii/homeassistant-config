@@ -1,0 +1,74 @@
+blueprint:
+  name: Badezimmer Belüftung 
+  description: Steuert die Lüfter in den Badezimmern
+  source_url: https://github.com/lociii/homeassistant-config/blob/master/blueprints/automation/bathroom_ventilation.yaml
+  domain: automation
+  input:
+    fan:
+      name: Lüfter
+      selector:
+        entity:
+          domain: fan
+    helper:
+      name: Helfer
+      selector:
+        entity:
+          domain: input_boolean
+    light:
+      name: Licht
+      selector:
+        entity:
+          multiple: true
+          domain: light
+
+trigger:
+  - platform: state
+    entity_id: !input light
+    to: "on"
+    for: "00:00:30"
+  - platform: state
+    entity_id: !input light
+    to: "off"
+    for: "00:02:00"
+  - platform: time_pattern
+    minutes: "/5"
+
+action:
+  - if:
+    # light has been turned on or off
+    - condition: template
+      value_template: "{{ trigger.platform == 'state' }}"
+    then:
+      - if:
+        - condition: state
+          state: "on"
+          entity_id: !input light
+        then:
+          - service: fan.turn_on
+            entity_id: !input fan
+          - service: input_boolean.turn_on
+            entity_id: !input helper
+        else:
+          - service: fan.turn_off
+            entity_id: !input fan
+          - service: input_boolean.turn_off
+            entity_id: !input helper
+    else:
+      - if:
+        # not on occupancy mode
+        - condition: state
+          entity_id: !input helper
+          state: "off"
+        then:
+          - if:
+            # not sleeping, toggle every five minutes
+            - condition: state
+              entity_id: input_boolean.sleeping
+              state: "off"
+            then:
+              - service: fan.toggle
+                entity_id: !input fan
+            # don't off for the night
+            else:
+              - service: fan.turn_off
+                entity_id: !input fan
