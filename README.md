@@ -9,12 +9,10 @@ One of the main targets is to use devices which don't rely on cloud services whe
 
 ### NUC
 
-NUC7I5BNK with Core i5 7260U, 16GB RAM and 500GB Samsung 970 EVO Plus M2 SSD.  
+NUC7I5BNK with Core i5 7260U, 16GB RAM and 500GB Samsung 970 EVO Plus M2 SSD running Home Assistant OS.  
 This machine is called "ship".
 
 ### Home Assistant environment
-
-Home Assistant itself is run supervised on Debian 10, check the instructions [here](https://github.com/home-assistant/architecture/blob/master/adr/0014-home-assistant-supervised.md).
 
 Official addons in use:
 * Config check  
@@ -31,7 +29,6 @@ Custom supervisor addons in use:
   * FTP
   * Glances
   * Network UPS Tools
-  * Portainer
   * Node Red
   * Visual Studio Code
   * WireGuard VPN
