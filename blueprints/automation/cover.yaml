@@ -1,0 +1,875 @@
+blueprint:
+  name: Rollladensteuerung
+  description: Automatisierte Steuerung eines Rollladen
+  domain: automation
+  input:
+    cover:
+      name: Rollladen
+      selector:
+        entity:
+          domain: cover
+    contact_sensor:
+      name: (Optionaler) Kontaktsensor
+      default: []
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: opening
+    sun_protection:
+      name: Sonnenschutz
+      default: []
+      selector:
+        entity:
+          domain: input_boolean
+    script_ajar:
+      name: Skript für Spalt
+      selector:
+        entity:
+          domain: script
+    script_cat:
+      name: Skript für Katzenposition
+      default: []
+      selector:
+        entity:
+          domain: script
+    close_on_shutdown:
+      name: Bei Shutdown schließen
+      description: Der Rollladen soll beim Shutdown geschlossen werden
+      default: true
+      selector:
+        boolean:
+    open_on_return:
+      name: Bei Heimkehr öffnen
+      description: Der Rollladen soll bei Heimkehr wieder geöffnet werden, damit z.B. der Zugang zur Terrasse möglich ist.
+      default: false
+      selector:
+        boolean:
+    wakeup:
+      name: Beim Aufstehen langsam öffnen
+      description: Der Rollladen soll beim Aufstehen in mehreren Intervallen geöffnet werden, um langsam Licht in den Raum zu lassen.
+      default: false
+      selector:
+        boolean:
+    can_open_when_dark:
+      name: Bei Dunkelheit vollständig öffnen
+      description: Der Rolladen soll auch bei Dunkelheit vollständig geöffnet werden, wenn der Kontakt offen ist.
+      default: false
+      selector:
+        boolean:
+    keep_open_when_dark:
+      name: Bei Dunkelheit geöffnet halten
+      description: Der Rolladen soll auch bei Dunkelheit vollständig geöffnet bleiben, wenn wir anwesend sind.
+      default: false
+      selector:
+        boolean:
+
+mode: single
+max_exceeded: silent
+
+variables:
+  cover: !input cover
+  contact_sensor: !input contact_sensor
+  contact_sensor_present: "{{ contact_sensor|length > 0 and is_state(contact_sensor, ['on', 'off']) }}"
+  sun_protection: !input sun_protection
+  sun_protection_requested: "{{ sun_protection|length > 0 and is_state(sun_protection, ['on', 'off']) }}"
+  script_ajar: !input script_ajar
+  script_cat: !input script_cat
+  script_cat_requested: "{{ script_cat|length > 0 and is_state(script_cat, ['on', 'off']) }}"
+  close_on_shutdown: !input close_on_shutdown
+  open_on_return: !input open_on_return
+  wakeup: !input wakeup
+  can_open_when_dark: !input can_open_when_dark
+  keep_open_when_dark: !input keep_open_when_dark
+
+trigger_variables:
+  contact_sensor: !input contact_sensor
+  sun_protection: !input sun_protection
+
+trigger:
+  - platform: template
+    value_template: "{{ is_state(contact_sensor , 'on') }}"
+    id: contact_opened
+  - platform: template
+    value_template: "{{ is_state(contact_sensor , 'off') }}"
+    id: contact_closed
+  - platform: template
+    value_template: "{{ is_state(sun_protection , 'on') }}"
+    id: sun_protection_started
+  - platform: template
+    value_template: "{{ is_state(sun_protection , 'off') }}"
+    id: sun_protection_stopped
+  - platform: state
+    entity_id: input_boolean.sleeping
+  - platform: state
+    entity_id: input_boolean.presence
+  - platform: state
+    entity_id: input_boolean.rolladen_dunkelheit
+  - platform: state
+    entity_id: input_boolean.rolladen_shutdown
+
+action:
+  - choose:
+    # DONE - contact sensor state change triggered
+    # ------------------------
+    # kontakt wurde geoeffnet
+    #   am schlafen
+    #     -> auf spalt
+    #   wach
+    #     es ist dunkel
+    #       mann ist daheim
+    #         -> oeffnen
+    #       mann ist nicht daheim
+    #         -> auf spalt
+    #     es ist hell
+    #       sonnenschutz angefordert und aktiv
+    #         -> auf spalt
+    #       ansonsten
+    #          -> oeffnen
+    # kontakt wurde geschlossen
+    #   am schlafen
+    #     -> schliessen
+    #   wach
+    #     es ist dunkel
+    #       es ist shutdown
+    #         -> schliessen
+    #       es ist kein shutdown
+    #         -> auf spalt
+    #     es ist hell
+    #       sonnenschutz aktiv
+    #         -> auf spalt
+    #       sonnenschutz inaktiv
+    #          -> oeffnen
+    # ------------------------
+    - conditions:
+      # contact sensor defined
+      - condition: template
+        alias: "Kontaktsensor vorhanden"
+        value_template: "{{ contact_sensor_present }}"
+      # trigger was a state change on the contact sensor
+      - condition: template
+        alias: "Kontaktsensor wurde verändert"
+        value_template: "{{ trigger.id == 'contact_opened' or trigger.id == 'contact_closed' }}"
+      sequence:
+        - choose:
+          - conditions:
+            # contact opened
+            - condition: template
+              alias: "Kontakt wurde geöffnet"
+              value_template: "{{ trigger.id == 'contact_opened' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  # we're sleeping
+                  - condition: state
+                    alias: "Wir sind am Schlafen"
+                    entity_id: input_boolean.sleeping
+                    state: "on"
+                  sequence:
+                    - service: script.turn_on
+                      alias: "Rollladen auf Spalt"
+                      target:
+                        entity_id: "{{ script_ajar }}"
+                # we're awake
+                default:
+                  - choose:
+                    - conditions:
+                      # it's dark
+                      - condition: state
+                        alias: "Es ist dunkel"
+                        entity_id: input_boolean.rolladen_dunkelheit
+                        state: "on"
+                      sequence:
+                        - choose:
+                          - conditions:
+                            - or:
+                              # jens is at home
+                              - condition: state
+                                alias: "Jens ist zuhause"
+                                entity_id: person.jens
+                                state: "home"
+                              # can be opened when dark
+                              - condition: template
+                                alias: "Darf bei Dunkelheit vollständig geöffnet sein"
+                                value_template: "{{ can_open_when_dark is true }}"
+                            sequence:
+                              - choose:
+                                - conditions:
+                                  # not yet fully open
+                                  - condition: template
+                                    alias: "Nicht bereits geöffnet"
+                                    value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                                  sequence:
+                                    - service: cover.open_cover
+                                      alias: "Rollladen öffnen"
+                                      target:
+                                        entity_id: "{{ cover }}"
+                          # jens is not home and cover is not allowed to be opened when dark
+                          default:
+                            - choose:
+                              - conditions:
+                                # cover should not stay open when dark
+                                - condition: template
+                                  value_template: "{{ not keep_open_when_dark }}"
+                                sequence:
+                                  - service: script.turn_on
+                                    alias: "Rollladen auf Spalt"
+                                    target:
+                                      entity_id: "{{ script_ajar }}"
+                    # it's not dark
+                    default:
+                      - choose:
+                        - conditions:
+                          # sunprotection requested
+                          - condition: template
+                            alias: "Sonnenschutz angefordert"
+                            value_template: "{{ sun_protection_requested }}"
+                          # sunprotection active
+                          - condition: template
+                            alias: "Sonnenschutz aktiv"
+                            value_template: "{{ is_state(sun_protection, 'on') }}"
+                          sequence:
+                            - service: script.turn_on
+                              alias: "Rollladen auf Spalt"
+                              target:
+                                entity_id: "{{ script_ajar }}"
+                        # no sunprotection
+                        default:
+                          - choose:
+                            - conditions:
+                              # not yet fully open
+                              - condition: template
+                                alias: "Nicht bereits geöffnet"
+                                value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                              sequence:
+                                - service: cover.open_cover
+                                  alias: "Rollladen öffnen"
+                                  target:
+                                    entity_id: "{{ cover }}"
+          - conditions:
+            # contact closed
+            - condition: template
+              alias: "Kontakt wurde geschlossen"
+              value_template: "{{ trigger.id == 'contact_closed' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  # we're sleeping
+                  - condition: state
+                    alias: "Wir sind am Schlafen"
+                    entity_id: input_boolean.sleeping
+                    state: "on"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # not yet fully closed
+                        - condition: template
+                          alias: "Nicht bereits geschlossen"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
+                        # not fully open after sleeping for more than 30 minutes - as it must have been opened manually then
+                        - and:
+                          - condition: template
+                            alias: "Nicht vollständig geöffnet"
+                            value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                          - condition: state
+                            alias: "Schon länger wie 30 Minuten am Schlafen"
+                            entity_id: input_boolean.sleeping
+                            state: "on"
+                            for: "00:30:00"
+                        sequence:
+                          - service: cover.close_cover
+                            alias: "Rollladen schließen"
+                            target:
+                              entity_id: "{{ cover }}"
+                # we're awake
+                default:
+                  - choose:
+                    - conditions:
+                      # it's dark
+                      - condition: state
+                        alias: "Es ist dunkel"
+                        entity_id: input_boolean.rolladen_dunkelheit
+                        state: "on"
+                      sequence:
+                        - choose:
+                          - conditions:
+                            # it's shutdown
+                            - condition: state
+                              alias: "Shutdown ist aktiv"
+                              entity_id: input_boolean.rolladen_shutdown
+                              state: "on"
+                            sequence:
+                              - choose:
+                                - conditions:
+                                  # not yet fully closed
+                                  - condition: template
+                                    alias: "Nicht bereits geschlossen"
+                                    value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
+                                  sequence:
+                                  - service: cover.close_cover
+                                    alias: "Rollladen schließen"
+                                    target:
+                                      entity_id: "{{ cover }}"
+                          # no shutdown
+                          default:
+                            - choose:
+                              - conditions:
+                                # keep open when dark
+                                - condition: template
+                                  value_template: "{{ not keep_open_when_dark }}"
+                                sequence:
+                                  - service: script.turn_on
+                                    alias: "Rollladen auf Spalt"
+                                    target:
+                                      entity_id: "{{ script_ajar }}"
+                    # it's not dark
+                    default:
+                      - choose:
+                        - conditions:
+                          # sunprotection requested
+                          - condition: template
+                            alias: "Sonnenschutz angefordert"
+                            value_template: "{{ sun_protection_requested }}"
+                          # sunprotection active
+                          - condition: template
+                            alias: "Sonnenschutz aktiv"
+                            value_template: "{{ is_state(sun_protection, 'on') }}"
+                          sequence:
+                            - service: script.turn_on
+                              alias: "Rollladen auf Spalt"
+                              target:
+                                entity_id: "{{ script_ajar }}"
+                        # no sunprotection
+                        default:
+                          - choose:
+                            - conditions:
+                              # not yet fully open
+                              - condition: template
+                                alias: "Nicht bereits geöffnet"
+                                value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                              sequence:
+                                - service: cover.open_cover
+                                  alias: "Rollladen öffnen"
+                                  target:
+                                    entity_id: "{{ cover }}"
+
+    # DONE - sun protection state change triggered
+    # ------------------------
+    # sonnenschutz angefordert
+    # ausloeser war aenderung des sonnenschutzes
+    #   sonnenschutz aktiviert
+    #     -> auf spalt
+    #   sonnenschutz deaktiviert
+    #     es it hell
+    #       -> rollladen oeffnen
+    # ------------------------
+    - conditions:
+      # sun protection sensor is set
+      - condition: template
+        alias: "Sonnenschutz ist angefordert"
+        value_template: "{{ sun_protection_requested }}"
+      # trigger was a state change on the sun protection sensor
+      - condition: template
+        alias: "Sonnenschutz wurde verändert"
+        value_template: "{{ trigger.id == 'sun_protection_started' or trigger.id == 'sun_protection_stopped' }}"
+      sequence:
+        - choose:
+          - conditions:
+            # sun protection started
+            - condition: template
+              alias: "Sonnenschutz wurde aktiviert"
+              value_template: "{{ trigger.id == 'sun_protection_started' }}"
+            sequence:
+              - service: script.turn_on
+                alias: "Rollladen auf Spalt"
+                target:
+                  entity_id: "{{ script_ajar }}"
+          - conditions:
+            # sun protection ended
+            - condition: template
+              alias: "Sonnenschutz wurde deaktiviert"
+              value_template: "{{ trigger.id == 'sun_protection_stopped' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  # it's not dark yet
+                  - condition: template
+                    alias: "Es ist hell"
+                    value_template: "{{ is_state('input_boolean.rolladen_dunkelheit', 'off') }}"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # not yet fully open
+                        - condition: template
+                          alias: "Nicht bereits geöffnet"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                        sequence:
+                          - service: cover.open_cover
+                            alias: "Rollladen öffnen"
+                            target:
+                              entity_id: "{{ cover }}"
+
+    # DONE - sleeping state change triggered
+    # ------------------------
+    # ausloeser war aenderung des schlafzustandes
+    #   schlafen aktiviert
+    #     kein kontaktsensor ODER kontakt geschlossen
+    #       -> rolladen schliessen
+    #     ansonsten
+    #       -> aus spalt
+    #   schlafen deaktiviert
+    #   rolladen ist geschlossen
+    #     temperatur <= 0 grad
+    #       -> auf spalt
+    #     ansonsten
+    #       bei dunkelheit
+    #         -> auf spalt
+    #       ansonsten
+    #         wakeup angefordert
+    #           -> wakeup zyklus
+    #         ansonsten
+    #           -> oeffnen
+    # ------------------------
+    - conditions:
+      # trigger was a state change on the sleeping sensor
+      - condition: template
+        alias: "Schlafen verändert"
+        value_template: "{{ trigger.entity_id == 'input_boolean.sleeping' }}"
+      sequence:
+        - choose:
+          - conditions:
+            # sleeping started
+            - condition: template
+              alias: "Schlafen aktiviert"
+              value_template: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  - or:
+                    # no contact sensor is defined
+                    - condition: template
+                      alias: "Kein Kontaktsensor"
+                      value_template: "{{ not contact_sensor_present }}"
+                    # the contact is closed
+                    - condition: template
+                      alias: "Kontakt geschlossen"
+                      value_template: "{{ is_state(contact_sensor, 'off') }}"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # not yet fully closed
+                        - condition: template
+                          alias: "Nicht bereits geschlossen"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
+                        sequence:
+                          - service: cover.close_cover
+                            alias: "Rollladen schließen"
+                            target:
+                              entity_id: "{{ cover }}"
+                # contact is open
+                default:
+                  - service: script.turn_on
+                    alias: "Rollladen auf Spalt"
+                    target:
+                      entity_id: "{{ script_ajar }}"
+          - conditions:
+            # sleeping ended
+            - condition: template
+              alias: "Schlafen deaktiviert"
+              value_template: "{{ trigger.to_state.state == 'off' }}"
+            # cover is still closed
+            - condition: template
+              alias: "Rollladen ist geschlossen"
+              value_template: "{{ state_attr(cover, 'current_position') == 0 }}"
+            sequence:
+              - choose:
+                - conditions:
+                  # it's freezing
+                  - condition: template
+                    alias: "Außentemperatur am Gefrierpunkt"
+                    value_template: "{{ state_attr('weather.schonaich', 'temperature') <= 0 }}"
+                  sequence:
+                    - service: script.turn_on
+                      alias: "Rollladen auf Spalt"
+                      target:
+                        entity_id: "{{ script_ajar }}"
+                # it's above freezing
+                default:
+                  - choose:
+                    - conditions:
+                      # it's still dark outside
+                      - condition: state
+                        alias: "Es ist dunkel"
+                        entity_id: input_boolean.rolladen_dunkelheit
+                        state: "on"
+                      sequence:
+                        - service: script.turn_on
+                          alias: "Rollladen auf Spalt"
+                          target:
+                            entity_id: "{{ script_ajar }}"
+                    # it's not dark outside
+                    default:
+                      - choose:
+                        - conditions:
+                          # a slow wakeup opening is requested
+                          - condition: template
+                            alias: "Langsames Öffnen zum Aufwachen angefordert"
+                            value_template: "{{ wakeup is true }}"
+                          sequence:
+                            - service: script.turn_on
+                              alias: "Rollladen auf Spalt"
+                              target:
+                                entity_id: "{{ script_ajar }}"
+                            - delay: 30
+                            - service: cover.set_cover_position
+                              alias: "Rollladen auf 40%"
+                              target:
+                                entity_id: "{{ cover }}"
+                              data:
+                                position: 40
+                            - delay: 30
+                            - service: cover.set_cover_position
+                              alias: "Rollladen auf 60%"
+                              target:
+                                entity_id: "{{ cover }}"
+                              data:
+                                position: 60
+                            - delay: 30
+                            - service: cover.open_cover
+                              alias: "Rollladen öffnen"
+                              target:
+                                entity_id: "{{ cover }}"
+                        # no wakeup opening is requested, just open regularly
+                        default:
+                          - choose:
+                            - conditions:
+                              # not yet fully open
+                              - condition: template
+                                alias: "Nicht bereits geöffnet"
+                                value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                              sequence:
+                                - service: cover.open_cover
+                                  alias: "Rollladen öffnen"
+                                  target:
+                                    entity_id: "{{ cover }}"
+
+    # DONE - presence state change triggered
+    # ------------------------
+    # ausloeser war aenderung der praesenz
+    #   beim heimkehren
+    #     oeffnen bei heimkehr angefordert
+    #       -> oeffnen
+    #   beim verlassen
+    #     es ist dunkel
+    #       shutdown aktiv
+    #         -> schliessen
+    #       shutdown inaktiv
+    #         katzenposition definiert
+    #           -> auf katzenposition fahren
+    #         ansonsten
+    #           -> auf spalt
+    #     es ist hell
+    #       kontaktsensor vorhanden und kontakt nicht geschlossen
+    #         -> auf spalt
+    # ------------------------
+    - conditions:
+      # trigger was a state change on the presence sensor
+      - condition: template
+        alias: "Präsenz verändert"
+        value_template: "{{ trigger.entity_id == 'input_boolean.presence' }}"
+      sequence:
+        - choose:
+          - conditions:
+            # presence started
+            - condition: template
+              alias: "Status zu anwesend gewechselt"
+              value_template: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  # open on return is activated
+                  - condition: template
+                    alias: "Öffnen bei Rückkehr nach Hause angefordert"
+                    value_template: "{{ open_on_return is true }}"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # not yet fully open
+                        - condition: template
+                          alias: "Nicht bereits geöffnet"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                        sequence:
+                          - service: cover.open_cover
+                            alias: "Rollladen öffnen"
+                            target:
+                              entity_id: "{{ cover }}"
+          - conditions:
+            # presence ended
+            - condition: template
+              alias: "Status zu abwesend gewechselt"
+              value_template: "{{ trigger.to_state.state == 'off' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  # it's dark
+                  - condition: state
+                    alias: "Es ist dunkel"
+                    entity_id: input_boolean.rolladen_dunkelheit
+                    state: "on"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # shutdown is active
+                        - condition: state
+                          alias: "Shutdown ist aktiv"
+                          entity_id: input_boolean.rolladen_shutdown
+                          state: "on"
+                        sequence:
+                          - choose:
+                            - conditions:
+                              # not yet fully closed
+                              - condition: template
+                                alias: "Nicht bereits geschlossen"
+                                value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
+                              sequence:
+                                - service: cover.close_cover
+                                  alias: "Rollladen schließen"
+                                  target:
+                                    entity_id: "{{ cover }}"
+                      - conditions:
+                        # shutdown is not active
+                        - condition: state
+                          alias: "Shutdown ist nicht aktiv"
+                          entity_id: input_boolean.rolladen_shutdown
+                          state: "off"
+                        sequence:
+                          - choose:
+                            - conditions:
+                              # cat position is defined
+                              - condition: template
+                                alias: "Eine Katzenposition ist definiert"
+                                value_template: "{{ script_cat_requested }}"
+                              sequence:
+                                - service: script.turn_on
+                                  alias: "Rollladen auf Katzenposition"
+                                  target:
+                                    entity_id: "{{ script_cat }}"
+                            default:
+                              - service: script.turn_on
+                                alias: "Rollladen auf Spalt"
+                                target:
+                                  entity_id: "{{ script_ajar }}"
+                - conditions:
+                  # it's not dark
+                  - condition: state
+                    alias: "Es ist hell"
+                    entity_id: input_boolean.rolladen_dunkelheit
+                    state: "off"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # a contact sensor is defined
+                        - condition: template
+                          alias: "Kontaktsensor vorhanden"
+                          value_template: "{{ contact_sensor_present }}"
+                        # the contact sensor is not closed (or unavailable)
+                        - condition: template
+                          alias: "Kontakt nicht geschlossen"
+                          value_template: "{{ not is_state(contact_sensor, 'off') }}"
+                        sequence:
+                          - service: script.turn_on
+                            alias: "Rollladen auf Spalt"
+                            target:
+                              entity_id: "{{ script_ajar }}"
+
+    # DONE - darkness state change triggered
+    # ------------------------
+    # ausloeser war aenderung der dunkelheit
+    #   es ist dunkel geworden
+    #     kein kontaktsensor ODER (kontakt geschlossen UND darf nicht oben bleiben) ODER (kontakt offen UND darf im dunkel nicht oeffnen)
+    #       katzenposition definiert
+    #         -> auf katzenposition fahren
+    #       ansonsten
+    #         -> auf spalt
+    #   es ist hell geworden
+    #     wir sind wach
+    #       -> oeffnen
+    # ------------------------
+    - conditions:
+      # trigger was a state change on the darkness sensor
+      - condition: template
+        alias: "Dunkelheit verändert"
+        value_template: "{{ trigger.entity_id == 'input_boolean.rolladen_dunkelheit' }}"
+      sequence:
+        - choose:
+          - conditions:
+            # darkness started
+            - condition: template
+              alias: "Status zu dunkel gewechselt"
+              value_template: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  - or:
+                    # no contact sensor is defined
+                    - condition: template
+                      alias: "Kein Kontaktsensor vorhanden"
+                      value_template: "{{ not contact_sensor_present }}"
+                    # contact is closed and must not be kept up
+                    - and:
+                      - condition: template
+                        alias: "Kontakt geschlossen"
+                        value_template: "{{ is_state(contact_sensor, 'off')}}"
+                      - condition: template
+                        alias: "Soll nicht oben bleiben"
+                        value_template: "{{ not keep_open_when_dark }}"
+                    # contact open and cannot stay up when dark
+                    - and:
+                      - condition: template
+                        alias: "Kontakt offen"
+                        value_template: "{{ is_state(contact_sensor, 'on') }}"
+                      - condition: template
+                        alias: "Darf auch im dunkeln oben bleiben"
+                        value_template: "{{ not can_open_when_dark }}"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # cat position is defined
+                        - condition: template
+                          alias: "Eine Katzenposition ist definiert"
+                          value_template: "{{ script_cat_requested }}"
+                        sequence:
+                          - service: script.turn_on
+                            alias: "Rollladen auf Katzenposition"
+                            target:
+                              entity_id: "{{ script_cat }}"
+                      default:
+                        - service: script.turn_on
+                          alias: "Rollladen auf Spalt"
+                          target:
+                            entity_id: "{{ script_ajar }}"
+          - conditions:
+            # darkness ended
+            - condition: template
+              alias: "Status zu hell gewechselt"
+              value_template: "{{ trigger.to_state.state == 'off' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  # not sleeping
+                  - condition: template
+                    alias: "Wir sind wach"
+                    value_template: "{{ is_state('input_boolean.sleeping', 'off') }}"
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # not yet fully open
+                        - condition: template
+                          alias: "Nicht bereits geöffnet"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                        sequence:
+                          - service: cover.open_cover
+                            alias: "Rollladen öffnen"
+                            target:
+                              entity_id: "{{ cover }}"
+
+    # DONE - shutdown state change triggered
+    # ------------------------
+    # ausloeser war aenderung des shutdown
+    #   shutdown aktiviert
+    #     kein kontaktsensor ODER kontakt nicht geoeffnet
+    #     schliessen bei shutdown angefragt
+    #       -> schliessen
+    # ------------------------
+    - conditions:
+      # trigger was a state change on the shutdown sensor
+      - condition: template
+        alias: "Shutdown verändert"
+        value_template: "{{ trigger.entity_id == 'input_boolean.rolladen_shutdown' }}"
+      sequence:
+        - choose:
+          - conditions:
+            # shutdown started
+            - condition: template
+              alias: "Shutdown wurde aktiviert"
+              value_template: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - choose:
+                - conditions:
+                  - or:
+                    # no contact sensor defined
+                    - condition: template
+                      alias: "Kein Kontaktsensor"
+                      value_template: "{{ not contact_sensor_present }}"
+                    # contact not opened
+                    - condition: template
+                      alias: "Kontakt nicht geöffnet"
+                      value_template: "{{ not is_state(contact_sensor, 'on') }}"
+                  - or:
+                    # close on shutdown requested
+                    - condition: template
+                      alias: "Schließen bei Shutdown angefragt"
+                      value_template: "{{ close_on_shutdown is true }}"
+                    # not at home
+                    - condition: template
+                      alias: "Nicht anwesend"
+                      value_template: "{{ is_state('input_boolean.presence', 'off') }}"
+                  # close cover
+                  sequence:
+                    - choose:
+                      - conditions:
+                        # not yet fully closed
+                        - condition: template
+                          alias: "Nicht bereits geschlossen"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
+                        sequence:
+                          - service: cover.close_cover
+                            alias: "Rollladen schließen"
+                            target:
+                              entity_id: "{{ cover }}"
+          - conditions:
+            # shutdown ended
+            - condition: template
+              alias: "Shutdown wurde deaktiviert"
+              value_template: "{{ trigger.to_state.state == 'off' }}"
+            sequence:
+              - stop: ""
+
+
+# geschlossen oder kein sensor
+#   anwesend
+#     wach
+#       hell
+#         sonnenschutz
+#         kein sonnenschutz
+#       dunkel
+#         shutdown
+#         kein shutdown
+#     schlafen
+#       dunkel
+#       hell - eine stunde vorher
+#   abwesend
+#     hell
+#       sonnenschutz
+#       kein sonnenschutz
+#     dunkel
+#       shutdown
+#       kein shutdown
+# offen
+#   anwesend
+#     wach
+#       hell
+#         sonnenschutz
+#         kein sonnenschutz
+#       dunkel
+#         shutdown
+#         kein shutdown
+#     schlafen
+#       dunkel
+#       hell - eine stunde vorher
+#   abwesend
+#     hell
+#       sonnenschutz
+#       kein sonnenschutz
+#     dunkel
+#       shutdown
+#       kein shutdown

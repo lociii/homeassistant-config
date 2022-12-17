@@ -3,3 +3,44 @@ fan:
     host: !secret air_purifier_hallway_ip
     model: ac3033
     name: Luftreiniger Flur
+
+template:
+  - sensor:
+
+    # ≤ 12 Blau
+    # 13 bis 35 Blau-Violett
+    # 36 bis 55 Violett-Rot
+    # > 55 Rot
+    - name: Luftreiniger Flur PM2.5
+      unit_of_measurement: "µg/m3"
+      state: "{{ states.fan.luftreiniger_flur.attributes.pm25 }}"
+
+    # ???????
+    # Blau Gut
+    # Blau-Violett Mittelmäßig
+    # Violett-Rot Schlecht
+    # Rot Sehr schlecht
+    - name: Luftreiniger Flur Luftqualität-Index
+      state: "{{ states.fan.luftreiniger_flur.attributes.air_quality_index }}"
+
+    # 1 bis 3 Blau
+    # 4 bis 6 Blau-Violett
+    # 7 bis 9 Violett-Rot
+    # 10 bis 12 Rot
+    - name: Luftreiniger Flur Allergen-Index
+      state: "{{ states.fan.luftreiniger_flur.attributes.indoor_allergen_index }}"
+    
+    # L1 Blau
+    # L2 Blau-Violett
+    # L3 Violett-Rot
+    # L4 Rot
+    - name: Luftreiniger Flur Flüchtige organische Verbindungen
+      state: "{{ states.fan.luftreiniger_flur.attributes.total_volatile_organic_compounds }}"
+
+    - name: Luftreiniger Flur Vorfilter
+      unit_of_measurement: "hours"
+      state: "{{ states.fan.luftreiniger_flur.attributes.filter_pre_remaining_raw }}"
+    
+    - name: Luftreiniger Flur HEPA-Filter
+      unit_of_measurement: "hours"
+      state: "{{ states.fan.luftreiniger_flur.attributes.filter_hepa_remaining_raw }}"

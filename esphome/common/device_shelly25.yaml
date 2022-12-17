@@ -21,12 +21,6 @@ i2c:
   scan: False
 
 binary_sensor:
-  # keep device from overheatimg
-  # see https://savjee.be/2020/11/shelly25-esphome-potential-fire-hazard-fix/
-  - platform: gpio
-    pin: GPIO16
-    name: "ade7953 IRQ pin"
-    internal: true
   # binary sensor for the button A press
   - platform: gpio
     id: "${id}_sensor_a"
@@ -45,6 +39,9 @@ binary_sensor:
 sensor:
   # power measurement
   - platform: ade7953
+    # prevents device from overheating
+    # see https://esphome.io/components/sensor/ade7953.html#use-with-shelly-2-5
+    irq_pin: GPIO16
     address: 0x38
     update_interval: 1s
     voltage:

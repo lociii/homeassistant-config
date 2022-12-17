@@ -1,0 +1,12 @@
+substitutions:
+  id: sensor_guestroom_desk
+  update_throttle: 30s
+
+  name: Gästezimmer Schreibtisch
+  name_up: Hoch
+  name_down: Runter
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_wemos_d1m.yaml
+  template: !include common/template_desk_control.yaml

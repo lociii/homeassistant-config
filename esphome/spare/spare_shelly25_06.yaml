@@ -1,8 +1,8 @@
 # shelly 2.5
-# 23
+# 06
 
 substitutions:
-  id: shelly25_spare_23
+  id: shelly25_spare_06
   update_throttle: 30s
 
 packages:

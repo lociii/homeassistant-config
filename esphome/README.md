@@ -31,7 +31,10 @@ Single plug with power measurement
 * [Tasmota template v1.1](https://templates.blakadder.com/gosund_SP111_v2.html)
 * [Tasmota template v1.4](https://templates.blakadder.com/gosund_SP111_v1_4.html)
 
-[Device type template](common/device_sp111.yaml)
+As I only own v1.1 and v1.4 devices:
+
+* [Device type template v1.1](common/device_sp111_v11.yaml)
+* [Device type template v1.4](common/device_sp111_v14.yaml)
 
 Device differences
 

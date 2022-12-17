@@ -6,6 +6,7 @@ substitutions:
   update_throttle: 30s
 
   name_a: Shaun
+  restore_mode_a: RESTORE_DEFAULT_OFF
 
   cf1_pin: GPIO04
   state_led_pin: GPIO02
@@ -14,5 +15,5 @@ substitutions:
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
-  device: !include common/device_sp111.yaml
-  template_a: !include common/template_output_a_switch.yaml
+  device: !include common/device_sp111_v11.yaml
+  template: !include common/template_switch_gpio_a.yaml

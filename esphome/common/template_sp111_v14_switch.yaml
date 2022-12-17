@@ -1,5 +1,5 @@
 packages:
-  defaults: !include device_sp111.yaml
+  defaults: !include device_sp111_v14.yaml
 
 switch:
   - platform: gpio

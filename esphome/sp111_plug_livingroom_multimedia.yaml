@@ -1,0 +1,19 @@
+# gosund sp111 v1.1
+# 22
+
+substitutions:
+  id: plug_livingroom_multimedia
+  update_throttle: 30s
+
+  name_a: Wohnzimmer Multimedia Mehrfachsteckdose
+  restore_mode_a: RESTORE_DEFAULT_OFF
+
+  cf1_pin: GPIO04
+  state_led_pin: GPIO02
+  status_led_pin: GPIO00
+  actor_pin: GPIO15
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_sp111_v11.yaml
+  template: !include common/template_switch_gpio_a.yaml

@@ -10,4 +10,4 @@ substitutions:
 packages:
   wifi: !include common/wifi_basement.yaml
   device: !include common/device_shelly25.yaml
-  template_b: !include common/template_output_b_light.yaml
+  template_b: !include common/template_light_output_b.yaml

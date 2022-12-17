@@ -5,12 +5,3 @@ binary_sensor:
         device_class: presence
         value_template: >
           {{ is_state('person.eva', 'home') or is_state('person.jens', 'home') }}
-
-device_tracker:
-  - platform: mqtt
-    devices:
-      miband_jens: !secret miband_jens_topic
-      miband_eva: !secret miband_eva_topic
-    payload_home: 'true'
-    payload_not_home: 'false'
-    source_type: bluetooth

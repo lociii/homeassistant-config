@@ -1,4 +1,38 @@
 sensor:
+  # expose climate control temperature as stand-alone sensors
+  - platform: template
+    sensors:
+      livingroom_thermostat_current_temperature:
+        friendly_name: Temperatur Wohnzimmer
+        unit_of_measurement: °C
+        device_class: temperature
+        value_template: "{{ state_attr('climate.livingroom_thermostat', 'current_temperature') }}"
+      guestroom_thermostat_current_temperature:
+        friendly_name: Temperatur Gästezimmer
+        unit_of_measurement: °C
+        device_class: temperature
+        value_template: "{{ state_attr('climate.guestroom_thermostat', 'current_temperature') }}"
+      bedroom_thermostat_current_temperature:
+        friendly_name: Temperatur Schlafzimmer
+        unit_of_measurement: °C
+        device_class: temperature
+        value_template: "{{ state_attr('climate.bedroom_thermostat', 'current_temperature') }}"
+      office_thermostat_current_temperature:
+        friendly_name: Temperatur Büro
+        unit_of_measurement: °C
+        device_class: temperature
+        value_template: "{{ state_attr('climate.office_thermostat', 'current_temperature') }}"
+      bathroom_thermostat_current_temperature:
+        friendly_name: Temperatur Bad
+        unit_of_measurement: °C
+        device_class: temperature
+        value_template: "{{ state_attr('climate.bathroom_thermostat', 'current_temperature') }}"
+      shower_thermostat_current_temperature:
+        friendly_name: Temperatur Dusche
+        unit_of_measurement: °C
+        device_class: temperature
+        value_template: "{{ state_attr('climate.shower_thermostat', 'current_temperature') }}"
+
   # average temperature
   # custom component https://github.com/Limych/ha-average
   - platform: average
@@ -52,3 +86,19 @@ sensor:
         friendly_name: "Azimut"
         unit_of_measurement: '°'
         value_template: "{{ state_attr('sun.sun', 'azimuth') }}"
+
+  # average inside temperatures
+  - platform: average
+    name: Innentemperatur Sued
+    duration:
+      minutes: 15
+    entities:
+      - sensor.environment_inside_temperature
+      - sensor.livingroom_thermostat_current_temperature
+  - platform: average
+    name: Innentemperatur West
+    duration:
+      minutes: 15
+    entities:
+      - sensor.guestroom_thermostat_current_temperature
+      - sensor.bedroom_thermostat_current_temperature

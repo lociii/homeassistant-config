@@ -1,0 +1,19 @@
+# gosund sp111 v1.1
+# 28
+
+substitutions:
+  id: plug_basement_washer_karat
+  update_throttle: 30s
+
+  name_a: Waschmaschine Karat
+  restore_mode_a: RESTORE_DEFAULT_ON
+
+  cf1_pin: GPIO04
+  state_led_pin: GPIO02
+  status_led_pin: GPIO00
+  actor_pin: GPIO15
+
+packages:
+  wifi: !include common/wifi_basement.yaml
+  device: !include common/device_sp111_v11.yaml
+  template: !include common/template_switch_gpio_a.yaml

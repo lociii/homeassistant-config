@@ -6,6 +6,7 @@ substitutions:
   update_throttle: 30s
 
   name_a: Leselampe
+  restore_mode_a: RESTORE_DEFAULT_OFF
 
   cf1_pin: GPIO14
   state_led_pin: GPIO00
@@ -14,4 +15,5 @@ substitutions:
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
-  template: !include common/template_sp111_light.yaml
+  device: !include common/device_sp111_v14.yaml
+  template: !include common/template_light_binary_a.yaml

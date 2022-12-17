@@ -1,0 +1,51 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp8285.yaml
+
+sensor:
+  # total daily energy sensor
+  - platform: total_daily_energy
+    name: "${id} daily energy usage"
+    power_id: "${id}_power_usage"
+    filters:
+      # multiplication factor from W to kW is 0.001
+      - multiply: 0.001
+    unit_of_measurement: kWh
+
+binary_sensor:
+  # binary sensor for the button press
+  - platform: gpio
+    id: "${id}_sensor"
+    name: "${id} sensor"
+    pin:
+      number: GPIO13
+      inverted: true
+
+switch:
+  # switch to restart the plug
+  - platform: restart
+    name: "${id} restart"
+
+output:
+  # relay state led
+  - platform: esp8266_pwm
+    id: "${id}_state_led"
+    pin:
+      number: ${state_led_pin}
+      inverted: true
+  # switched output
+  - platform: gpio
+    pin: ${actor_pin}
+    id: "${id}_actor_a"
+
+light:
+  # relay state light
+  - platform: monochromatic
+    output: "${id}_state_led"
+    id: "${id}_relay_state_light"
+
+# uses the red led as a status indicator
+status_led:
+  pin:
+    number: ${status_led_pin}
+    inverted: true

@@ -15,4 +15,4 @@ substitutions:
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
-  template: !include common/template_sp111_switch.yaml
+  template: !include common/template_sp111_v14_switch.yaml

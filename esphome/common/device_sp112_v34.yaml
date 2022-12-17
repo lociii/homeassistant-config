@@ -1,5 +1,5 @@
 packages:
-  device: !include device_sp111.yaml
+  device: !include device_sp111_v14.yaml
 
 # v3.4 is the same as a sp111 v1.4 but with two relays
 # we'll just add a second output for the USB ports

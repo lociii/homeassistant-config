@@ -1,0 +1,155 @@
+blueprint:
+  name: Video senden, wenn Kontaktsensor geöffnet wurde
+  domain: automation
+  input:
+    contact_sensor:
+      name: Kontaktsensor
+      description: Kontaktsensor, der die Erstellung der Aufnahme auslöst
+      selector:
+          entity:
+            domain: binary_sensor
+            device_class: opening
+
+    camera:
+      name: Kamera
+      description: Die Kamera, welche die Aufnahme erzeugen soll
+      selector:
+        entity:
+          domain: camera
+
+    notify_device:
+      name: Benachrichtigung an
+      description: Gerät, welches die HomeAsisstant App nutzt und benachrichtigt werden soll
+      selector:
+        device:
+          integration: mobile_app
+
+    notification_title:
+      name: Titel der Benachrichtigung (optional)
+      default: "Kontakt geöffnet!"
+
+    notification_message:
+      name: Inhalt der Benachrichtigung
+      default: "{{ contact_sensor_name }} wurde geöffnet!"
+      
+    notification_icon:
+      name: Icon der Benachrichtigung
+      default: ""
+      selector:
+        icon:
+
+    notification_channel:
+      name: Channel der Benachrichtigung
+      default: "General"
+
+    notification_timeout:
+      name: Timeout der Benachrichtigung
+      default: "0"
+
+    snapshot_url:
+      name: Snapshot URL
+      default: ""
+
+    delay:
+      name: Verzögerung (optional)
+      description: Wartezeit bis zur Aufnahme (in ms)
+      default: ""
+      selector:
+        number:
+            min: 0
+            max: 5000
+            unit_of_measurement: ms
+
+    duration:
+      name: Länge der Aufnahme
+      description: Wie lange soll das Video sein (in Sekunden)
+      default: ""
+      selector:
+        number:
+            min: 0
+            max: 60
+            unit_of_measurement: seconds
+            mode: slider
+
+    lookback:
+      name: Zeitreise
+      description: Wie weit in der Vergangenheit soll das Video starten (in Sekunden)
+      default: ""
+      selector:
+        number:
+            min: 0
+            max: 60
+            unit_of_measurement: seconds
+            mode: slider
+
+trigger:
+  platform: state
+  entity_id: !input contact_sensor
+  from: "off"
+  to: "on"
+
+variables:
+  contact_sensor: !input contact_sensor
+  contact_sensor_name: "{{ states[contact_sensor].name }}"
+  camera: !input camera
+  notification_title: !input notification_title
+  notification_message: !input notification_message
+  notification_icon: !input notification_icon
+  notification_channel: !input notification_channel
+  notification_timeout: !input notification_timeout
+  snapshot_url: !input snapshot_url
+  delay: !input delay
+  duration: !input duration
+  lookback: !input lookback
+  snapshot_create_file_path: "/media/catdoor/snapshot"
+  snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/media/','/media/local/') }}"
+
+action:
+  - delay:
+      milliseconds: "{{ delay }}"
+
+  - service: camera.snapshot
+    entity_id: !input camera
+    data:
+      filename: "{{ snapshot_create_file_path }}.jpg"
+
+  - service: camera.record
+    entity_id: !input camera
+    data:
+      filename: "{{ snapshot_create_file_path }}.mp4"
+      duration: "{{ duration }}"
+      lookback: "{{ lookback }}"
+
+  - device_id: !input notify_device
+    domain: mobile_app
+    type: notify
+    title: "{{ notification_title }}"
+    message: "{{ notification_message }}"
+    data:
+      timeout: "{{ notification_timeout }}"
+      image: "{{ snapshot_access_file_path }}.jpg"
+      notification_icon: "{{ notification_icon }}"
+      channel: "{{ notification_channel }}"
+      actions:
+        - action: "URI"
+          title: "Livebild"
+          uri: "entityId:{{ camera }}"
+        - action: "URI"
+          title: "Snapshot"
+          uri: "{{ snapshot_url }}"
+
+  # - service: notify.mobile_app_pixel_6
+  #   data:
+  #     message: help
+  #     data:
+  #       timeout: 600
+  #       image: /api/camera_proxy/camera.catdoor
+  #       notification_icon: "mdi:cat"
+  #       channel: "Catdoor"
+  #       actions:
+  #         - action: "URI"
+  #           title: "Livebild"
+  #           uri: "entityId:camera.catdoor"
+  #         - action: "URI"
+  #           title: "Snapshot"
+  #           uri: "/media-browser/browser/app%2Cmedia-source%3A%2F%2Fmedia_source/%2Cmedia-source%3A%2F%2Fmedia_source%2Flocal%2Ftmp"

@@ -11,5 +11,3 @@ substitutions:
 packages:
   wifi: !include common/wifi_mainfloor.yaml
   device: !include common/device_sp112_v28.yaml
-  template_a: !include common/template_output_a_switch.yaml
-  template_b: !include common/template_output_b_switch.yaml

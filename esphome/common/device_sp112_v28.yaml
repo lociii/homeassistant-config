@@ -10,18 +10,6 @@ uart:
   baud_rate: 4800
 
 sensor:
-  # uptime sensor
-  - platform: uptime
-    name: "${id}_uptime"
-    unit_of_measurement: seconds
-    update_interval: 10min
-  # wifi signal sensor
-  - platform: wifi_signal
-    name: "${id}_wifi_signal"
-    filters:
-      - or:
-        - heartbeat: 1h
-        - delta: 5
   # power sensor
   - platform: cse7766
     current:

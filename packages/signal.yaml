@@ -19,3 +19,15 @@ notify:
     number: !secret signal_sender
     recipients:
       - !secret signal_receiver_eva
+  - name: signal_tanja
+    platform: signal_messenger
+    url: !secret signal_api_server_url
+    number: !secret signal_sender
+    recipients:
+      - !secret signal_receiver_tanja
+  - name: signal_armin
+    platform: signal_messenger
+    url: !secret signal_api_server_url
+    number: !secret signal_sender
+    recipients:
+      - !secret signal_receiver_armin

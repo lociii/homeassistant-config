@@ -5,6 +5,7 @@ zha:
       ledvance_provider: true
     network:
       channel: !secret zha_channel
-      channels: !secret zha_channels
+      channels:
+        - !secret zha_channel
       pan_id: !secret zha_pan_id
       extended_pan_id: !secret zha_extended_pan_id

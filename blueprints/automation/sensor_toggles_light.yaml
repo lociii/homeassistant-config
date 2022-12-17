@@ -1,0 +1,29 @@
+blueprint:
+  name: Sensor schaltet Licht
+  description: Betätigung eines Sensors schaltet eines oder mehrere Lichter an/aus
+  domain: automation
+  input:
+    sensor:
+      name: Sensor
+      selector:
+        entity:
+          domain: binary_sensor
+    target:
+      name: Ziel
+      selector:
+        target:
+          entity:
+            domain: light
+
+mode: single
+max_exceeded: silent
+
+trigger:
+  platform: state
+  entity_id: !input sensor
+  from: "off"
+  to: "on"
+
+action:
+  - service: light.toggle
+    target: !input target

@@ -1,0 +1,10 @@
+# shelly 2.5
+# 21
+
+substitutions:
+  id: shelly25_spare_21
+  update_throttle: 30s
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_shelly25.yaml

@@ -1,0 +1,12 @@
+switch:
+  - platform: gpio
+    pin: ${actor_pin}
+
+    id: ${id}_switch_a
+    name: ${name_a}
+    restore_mode: ${restore_mode_a}
+
+    on_turn_on:
+      - light.turn_on: ${id}_relay_state_light
+    on_turn_off:
+      - light.turn_off: ${id}_relay_state_light

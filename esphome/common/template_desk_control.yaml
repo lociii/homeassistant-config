@@ -1,0 +1,21 @@
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: 2
+      inverted: true
+    name: "${name} ${name_up}"
+    device_class: moving
+  - platform: gpio
+    pin:
+      number: 14
+      inverted: true
+    name: "${name} ${name_down}"
+    device_class: moving
+
+switch:
+  - platform: gpio
+    pin: 4
+    name: "${name} ${name_up}"
+  - platform: gpio
+    pin: 0
+    name: "${name} ${name_down}"

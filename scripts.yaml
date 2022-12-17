@@ -57,59 +57,15 @@ gaestezimmer_stehlampe_warmweiss:
   alias: Gaestezimmer - Stehlampe - Warmweiss
   sequence:
   - data:
-      xy_color:
-      - 0.45989990234
-      - 0.41059875488
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-gaestezimmer_stehlampe_alarm_rot:
-  alias: Gaestezimmer - Stehlampe - Alarm Rot
-  sequence:
-  - data:
+      brightness_pct: 70
       rgb_color:
       - 255
-      - 0
-      - 0
-      transition: 1
-    entity_id: light.guestroom_standinglight
+      - 237
+      - 172
     service: light.turn_on
-  - delay: '1'
-  - data:
-      flash: short
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-  - delay: '3'
-  - data:
-      transition: 2
-      xy_color:
-      - 0.45989990234
-      - 0.41059875488
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-gaestezimmer_stehlampe_alarm_blau:
-  alias: Gaestezimmer - Stehlampe - Alarm Blau
-  sequence:
-  - data:
-      rgb_color:
-      - 0
-      - 0
-      - 255
-      transition: 1
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-  - delay: '1'
-  - data:
-      flash: short
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-  - delay: '3'
-  - data:
-      transition: 2
-      xy_color:
-      - 0.45989990234
-      - 0.41059875488
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
+    target:
+      entity_id: light.guestroom_standinglight
+  mode: single
 wohnzimmer_stehlampe_warmweiss:
   alias: Wohnzimmer - Stehlampe - Warmweiss
   sequence:
@@ -168,198 +124,79 @@ wohnzimmer_stehlampe_alarm_rot:
     entity_id: light.livingroom_standinglight
     service: light.turn_on
 staubsauger_zone_kueche:
-  alias: Staubsauger - Kueche
+  alias: Staubsauger - Küche
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - kueche
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
+  - service: mqtt.publish
+    data:
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+      payload: '{"segment_ids": ["20"], "iterations": 2, "customOrder": true}'
+  mode: single
+  icon: mdi:robot-vacuum
 staubsauger_zone_bad:
   alias: Staubsauger - Bad
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - bad
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
+  - service: mqtt.publish
+    data:
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+      payload: '{"segment_ids": ["22"], "iterations": 2, "customOrder": true}'
+  mode: single
+  icon: mdi:robot-vacuum
 staubsauger_zone_buero:
-  alias: Staubsauger - Buero
+  alias: Staubsauger - Eva
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - buero
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
+  - service: mqtt.publish
+    data:
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+      payload: '{"segment_ids": ["24"], "iterations": 2, "customOrder": true}'
+  mode: single
+  icon: mdi:robot-vacuum
 staubsauger_zone_dusche:
   alias: Staubsauger - Dusche
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - dusche
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
+  - service: mqtt.publish
+    data:
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+      payload: '{"segment_ids": ["16"], "iterations": 2, "customOrder": true}'
+  mode: single
+  icon: mdi:robot-vacuum
 staubsauger_zone_flur:
   alias: Staubsauger - Flur
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - flur
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
+  - service: mqtt.publish
+    data:
+      payload: '{"segment_ids": ["21"], "iterations": 2, "customOrder": true}'
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+  mode: single
+  icon: mdi:robot-vacuum
 staubsauger_zone_gaestezimmer:
-  alias: Staubsauger - Gaestezimmer
+  alias: Staubsauger - Jens
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - gaestezimmer
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
+  - service: mqtt.publish
+    data:
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+      payload: '{"segment_ids": ["17"], "iterations": 2, "customOrder": true}'
+  mode: single
+  icon: mdi:robot-vacuum
 staubsauger_zone_schlafzimmer:
   alias: Staubsauger - Schlafzimmer
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - schlafzimmer
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
+  - service: mqtt.publish
+    data:
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+      payload: '{"segment_ids": ["18"], "iterations": 2, "customOrder": true}'
+  mode: single
+  icon: mdi:robot-vacuum
 staubsauger_zone_wohnzimmer:
   alias: Staubsauger - Wohnzimmer
   sequence:
-  - data:
-      command: zoned_cleanup
-      entity_id: vacuum.valetudo_rockrobo
-      params:
-        zone_ids:
-        - wohnzimmer
-    entity_id: vacuum.valetudo_rockrobo
-    service: vacuum.send_command
-csgo_freezetime_stehlampe:
-  alias: CSGO - Freezetime - Stehlampe
-  sequence:
-  - data:
-      entity_id:
-      - script.csgo_flashloop1_stehlampe
-      - script.csgo_flashloop2_stehlampe
-    service: script.turn_off
-  - data:
-      rgb_color:
-      - 83
-      - 52
-      - 235
-      transition: 0.5
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-csgo_rundenstart_spielende_stehlampe:
-  alias: CSGO - Rundenstart/Spielende - Stehlampe
-  sequence:
-  - data:
-      entity_id:
-      - script.csgo_flashloop1_stehlampe
-      - script.csgo_flashloop2_stehlampe
-    service: script.turn_off
-  - data:
-      transition: 1
-      xy_color:
-      - 0.45989990234
-      - 0.41059875488
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-csgo_bombegelegt_stehlampe:
-  alias: CSGO - Bombe gelegt - Stehlampe
-  sequence:
-  - data:
-      rgb_color:
-      - 255
-      - 190
-      - 0
-      transition: 0.5
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-  - delay: '1'
-  - service: script.csgo_flashloop1_stehlampe
-csgo_bombeentschaeft_stehlampe:
-  alias: CSGO - Bombe entschaerft - Stehlampe
-  sequence:
-  - data:
-      entity_id:
-      - script.csgo_flashloop1_stehlampe
-      - script.csgo_flashloop2_stehlampe
-    service: script.turn_off
-  - data:
-      rgb_color:
-      - 0
-      - 255
-      - 0
-      transition: 0.5
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-csgo_bombeexplodiert_stehlampe:
-  alias: CSGO - Bombe explodiert - Stehlampe
-  sequence:
-  - data:
-      entity_id:
-      - script.csgo_flashloop1_stehlampe
-      - script.csgo_flashloop2_stehlampe
-    service: script.turn_off
-  - data:
-      rgb_color:
-      - 255
-      - 0
-      - 0
-      transition: 0.5
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-csgo_flashloop1_stehlampe:
-  alias: CSGO - Flashloop 1 - Stehlampe
-  sequence:
-  - data: {}
-    entity_id: script.csgo_flashloop2_stehlampe
-    service: script.turn_off
-  - service: script.csgo_flashloop2_stehlampe
-  - data:
-      flash: long
-    entity_id: light.guestroom_standinglight
-    service: light.turn_on
-  - delay: '10'
-csgo_flashloop2_stehlampe:
-  alias: CSGO - Flashloop 2 - Stehlampe
-  sequence:
-  - delay: '1'
-  - timeout: 00:00:15
-    wait_template: '{{ states.script.csgo_flashloop1_stehlampe.state == "off" }}'
-  - service: script.csgo_flashloop1_stehlampe
-csgo_rundenende_stehlampe:
-  alias: CSGO - Rundenende - Stehlampe
-  sequence:
-  - data:
-      entity_id:
-      - script.csgo_flashloop1_stehlampe
-      - script.csgo_flashloop2_stehlampe
-    service: script.turn_off
+  - service: mqtt.publish
+    data:
+      payload: '{"segment_ids": ["19"], "iterations": 2, "customOrder": true}'
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+  mode: single
+  icon: mdi:robot-vacuum
 bewaesserung_kurz:
-  alias: Bewässerung kurz
+  alias: Garten - Bewässerung kurz
   sequence:
   - data: {}
     entity_id: switch.garden_sprinklers
@@ -384,8 +221,9 @@ bewaesserung_kurz:
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_off
+  mode: single
 bewaesserung_lang:
-  alias: Bewässerung lang
+  alias: Garten - Bewässerung lang
   sequence:
   - data: {}
     entity_id: switch.garden_sprinklers
@@ -410,20 +248,7 @@ bewaesserung_lang:
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_off
-cover_guestroom_ajar:
-  alias: Rolladen - Gästezimmer - Spalt
   mode: single
-  sequence:
-  - service: cover.close_cover
-    target:
-      entity_id: cover.guestroom
-  - wait_template: '{{ state_attr("cover.guestroom", "current_position") == 0 }}'
-    timeout: '60'
-  - data:
-      position: 12
-    service: cover.set_cover_position
-    target:
-      entity_id: cover.guestroom
 cover_bedroom_ajar:
   alias: Rolladen - Schlafzimmer - Spalt
   mode: single
@@ -438,20 +263,24 @@ cover_bedroom_ajar:
     entity_id: cover.bedroom
     service: cover.set_cover_position
 cover_dining_cat:
-  alias: Rolladen - Wohnzimmer - Esstisch - Katzenposition
-  mode: single
+  alias: Rollladen - Esstisch - Katzenposition
+  mode: restart
   sequence:
   - data:
       position: 40
-    entity_id: cover.dining
     service: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.rollladen_esstisch
+    alias: Auf Position fahren
 cover_office_ajar:
-  alias: Rolladen - Buero - Spalt
+  alias: Rolladen - Büro - Spalt
   sequence:
   - service: cover.close_cover
     target:
       entity_id:
       - cover.office
+    data: {}
   - wait_template: '{{ state_attr("cover.office", "current_position") == 0 }}'
     timeout: '60'
   - data:
@@ -461,76 +290,393 @@ cover_office_ajar:
       entity_id:
       - cover.office
   mode: single
-cover_couch_ajar:
-  alias: Rolladen - Wohnzimmer - Couch - Spalt
-  sequence:
-  - service: cover.close_cover
-    target:
-      entity_id:
-      - cover.couch
-  - wait_template: '{{ state_attr("cover.couch", "current_position") == 0 }}'
-    timeout: '60'
-  - data:
-      position: 13
-    service: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.couch
-  mode: single
-cover_patio_ajar:
-  alias: Rolladen - Wohnzimmer - Terrasse - Spalt
-  sequence:
-  - service: cover.close_cover
-    target:
-      entity_id:
-      - cover.patio
-  - wait_template: '{{ state_attr("cover.patio", "current_position") == 0 }}'
-    timeout: '60'
-  - data:
-      position: 15
-    service: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.patio
-  mode: single
-cover_dining_ajar:
-  alias: Rolladen - Wohnzimmer - Esstisch - Spalt
-  sequence:
-  - service: cover.close_cover
-    target:
-      entity_id:
-      - cover.dining
-  - wait_template: '{{ state_attr("cover.dining", "current_position") == 0 }}'
-    timeout: '60'
-  - data:
-      position: 10
-    service: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.dining
-  mode: single
-cover_kitchen_ajar:
-  alias: Rolladen - Kueche - Spalt
-  sequence:
-  - service: cover.close_cover
-    target:
-      entity_id:
-      - cover.kitchen
-  - wait_template: '{{ state_attr("cover.kitchen", "current_position") == 0 }}'
-    timeout: '60'
-  - data:
-      position: 10
-    service: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.kitchen
-  mode: single
 cover_couch_cat:
-  alias: Rolladen - Wohnzimmer - Couch - Katzenposition
+  alias: Rolladen - Couch - Katzenposition
   sequence:
-  - device_id: 0925ca80824b47f894baf44301a5757c
-    domain: cover
-    entity_id: cover.couch
-    type: set_position
-    position: 40
+  - service: cover.set_cover_position
+    data:
+      position: 45
+    target:
+      entity_id: cover.rollladen_couch
+    alias: Auf Position fahren
+  mode: restart
+vacuum_clean_all:
+  alias: Staubsauger - Ganze Wohnung reinigen
+  sequence:
+  - service: mqtt.publish
+    data:
+      payload: '{"segment_ids": ["21", "20", "19", "17", "18", "24", "22", "16"],
+        "iterations": 2, "customOrder": true}'
+      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
+  mode: single
+  icon: mdi:robot-vacuum
+cover_couch_orchids:
+  alias: Rolladen - Couch - Orchideenschutz
+  sequence:
+  - service: cover.set_cover_position
+    data:
+      position: 55
+    target:
+      entity_id: cover.rollladen_couch
+    alias: Auf Position fahren
+  mode: restart
+cover_kitchen_sunprotection:
+  alias: Rolladen - Küche - Sonnenschutz
+  sequence:
+  - data:
+      position: 50
+    service: cover.set_cover_position
+    target:
+      entity_id:
+      - cover.kitchen
+  mode: single
+  icon: mdi:window-open
+gaestezimmer_stehlampe_alarm_blau:
+  alias: Gaestezimmer - Alarm Blau
+  sequence:
+  - service: scene.create
+    data:
+      scene_id: guestroom_light_snapshot
+      snapshot_entities:
+      - light.guestroom_standinglight
+      - light.guestroom_desk_alarm_left
+      - light.guestroom_desk_alarm_right
+    alias: Lichtstatus speichern
+  - data:
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      transition: 1
+      brightness_pct: 90
+    service: light.turn_on
+    alias: Licht auf blau
+    target:
+      entity_id:
+      - light.guestroom_standinglight
+      - light.guestroom_desk_alarm_left
+      - light.guestroom_desk_alarm_right
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - data:
+      flash: long
+    service: light.turn_on
+    alias: Flash
+    target:
+      entity_id:
+      - light.guestroom_standinglight
+      - light.guestroom_desk_alarm_left
+      - light.guestroom_desk_alarm_right
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: scene.turn_on
+    data:
+      transition: 1
+    target:
+      entity_id: scene.guestroom_light_snapshot
+    alias: Lichtstatus wiederherstellen
+  mode: single
+  icon: mdi:alarm-light
+gaestezimmer_stehlampe_alarm_rot:
+  alias: Gaestezimmer - Alarm Rot
+  sequence:
+  - service: scene.create
+    data:
+      scene_id: guestroom_light_snapshot
+      snapshot_entities:
+      - light.guestroom_standinglight
+      - light.guestroom_desk_alarm_left
+      - light.guestroom_desk_alarm_right
+    alias: Lichtstatus speichern
+  - data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      transition: 1
+      brightness_pct: 90
+    service: light.turn_on
+    alias: Licht auf rot
+    target:
+      entity_id:
+      - light.guestroom_standinglight
+      - light.guestroom_desk_alarm_left
+      - light.guestroom_desk_alarm_right
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - data:
+      flash: long
+    service: light.turn_on
+    alias: Flash
+    target:
+      entity_id:
+      - light.guestroom_standinglight
+      - light.guestroom_desk_alarm_left
+      - light.guestroom_desk_alarm_right
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: scene.turn_on
+    data:
+      transition: 1
+    target:
+      entity_id: scene.guestroom_light_snapshot
+    alias: Lichtstatus wiederherstellen
+  mode: single
+  icon: mdi:alarm-light
+gaestezimmer_alarm_regenbogen:
+  alias: Gaestezimmer - Alarm Regenbogen
+  sequence:
+  - service: scene.create
+    data:
+      scene_id: guestroom_light_snapshot
+      snapshot_entities:
+      - light.guestroom_standinglight
+      - light.guestroom_desk_alarm_left
+      - light.guestroom_desk_alarm_right
+    alias: Lichtstatus speichern
+  - repeat:
+      count: '2'
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id:
+          - light.guestroom_desk_alarm_left
+          - light.guestroom_desk_alarm_right
+          - light.guestroom_standinglight
+        data:
+          brightness_pct: 80
+          rgb_color:
+          - 255
+          - 0
+          - 0
+        alias: Rot
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - alias: Orange
+        service: light.turn_on
+        target:
+          entity_id:
+          - light.guestroom_desk_alarm_left
+          - light.guestroom_desk_alarm_right
+          - light.guestroom_standinglight
+        data:
+          brightness_pct: 80
+          rgb_color:
+          - 255
+          - 127
+          - 0
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - alias: Gelb
+        service: light.turn_on
+        target:
+          entity_id:
+          - light.guestroom_desk_alarm_left
+          - light.guestroom_desk_alarm_right
+          - light.guestroom_standinglight
+        data:
+          brightness_pct: 80
+          rgb_color:
+          - 255
+          - 255
+          - 72
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - alias: Gruen
+        service: light.turn_on
+        target:
+          entity_id:
+          - light.guestroom_desk_alarm_left
+          - light.guestroom_desk_alarm_right
+          - light.guestroom_standinglight
+        data:
+          brightness_pct: 80
+          rgb_color:
+          - 0
+          - 255
+          - 0
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - alias: Blau
+        service: light.turn_on
+        target:
+          entity_id:
+          - light.guestroom_desk_alarm_left
+          - light.guestroom_desk_alarm_right
+          - light.guestroom_standinglight
+        data:
+          brightness_pct: 80
+          rgb_color:
+          - 0
+          - 0
+          - 255
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - alias: Lila
+        service: light.turn_on
+        target:
+          entity_id:
+          - light.guestroom_desk_alarm_left
+          - light.guestroom_desk_alarm_right
+          - light.guestroom_standinglight
+        data:
+          brightness_pct: 80
+          rgb_color:
+          - 127
+          - 0
+          - 255
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+      - alias: Pink
+        service: light.turn_on
+        target:
+          entity_id:
+          - light.guestroom_desk_alarm_left
+          - light.guestroom_desk_alarm_right
+          - light.guestroom_standinglight
+        data:
+          brightness_pct: 80
+          rgb_color:
+          - 255
+          - 0
+          - 255
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 1
+          milliseconds: 0
+    alias: Regenbogen
+  - service: scene.turn_on
+    data:
+      transition: 1
+    target:
+      entity_id: scene.guestroom_light_snapshot
+    alias: Lichtstatus wiederherstellen
+  mode: single
+  icon: mdi:alarm-light
+rollladen_buro_jens_spalt:
+  alias: Rollladen - Büro Jens - Spalt
+  use_blueprint:
+    path: cover_ajar.yaml
+    input:
+      from_opened: 20
+      from_closed: 14
+      cover: cover.rollladen_buro_jens
+  mode: single
+rollladenpositionierung_buro_jens:
+  alias: Rollladenpositionierung - Büro Jens
+  use_blueprint:
+    path: cover_state.yaml
+    input:
+      cover: cover.rollladen_buro_jens
+      contact_sensor: binary_sensor.magnet_window_guestroom_contact
+      sun_protection: input_boolean.sonnenschutz_west
+      script_ajar: script.rollladen_buro_jens_spalt
+      can_open_when_dark: true
+      script_cat: '[]'
+  icon: mdi:window-shutter-open
+  mode: single
+rollladen_couch_spalt:
+  alias: Rollladen - Couch - Spalt
+  use_blueprint:
+    path: cover_ajar.yaml
+    input:
+      from_opened: 14
+      from_closed: 12
+      cover: cover.rollladen_couch
+  mode: single
+rollladen_esstisch_spalt:
+  alias: Rollladen - Esstisch - Spalt
+  use_blueprint:
+    path: cover_ajar.yaml
+    input:
+      from_opened: 11
+      from_closed: 9
+      cover: cover.rollladen_esstisch
+  mode: single
+rollladen_kuche_spalt:
+  alias: Rollladen - Küche - Spalt
+  use_blueprint:
+    path: cover_ajar.yaml
+    input:
+      from_opened: 9
+      from_closed: 7
+      cover: cover.rollladen_kuche
+  mode: single
+rollladen_terrasse_spalt:
+  alias: Rollladen - Terrasse - Spalt
+  use_blueprint:
+    path: cover_ajar.yaml
+    input:
+      cover: cover.rollladen_terrasse
+      from_opened: 11
+      from_closed: 15
+  mode: single
+announcement:
+  alias: Announcement
+  sequence:
+  - service: scene.create
+    data:
+      scene_id: m{{ media_player | replace('.', '_') }}_snapshot
+      snapshot_entities:
+      - '{{ media_player }}'
+    alias: Aktuellen Zustand speichern
+  - service: media_player.volume_set
+    data:
+      volume_level: '{{ volume }}'
+    target:
+      entity_id: '{{ media_player }}'
+    alias: Lautstärke setzen
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+    alias: Warten bis Bereit
+  - service: notify.alexa_media
+    data:
+      message: '{{ message }}'
+      target:
+      - '{{ media_player }}'
+    alias: Nachricht vorlesen
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+    alias: 10s warten
+  - service: scene.turn_on
+    target:
+      entity_id: media_player_{{ media_player | replace('.', '_') }}_snapshot
+    alias: Vorherigen Zustand wiederherstellen
   mode: single

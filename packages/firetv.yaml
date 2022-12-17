@@ -1,9 +1,0 @@
-media_player:
-  - platform: androidtv
-    name: firetv_bedroom
-    host: !secret firetv_bedroom_ip
-    adbkey: !secret firetv_adbkey_path
-  - platform: androidtv
-    name: firetv_living_room
-    host: !secret firetv_living_room_ip
-    adbkey: !secret firetv_adbkey_path

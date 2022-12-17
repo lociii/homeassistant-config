@@ -1,0 +1,85 @@
+blueprint:
+  name: Rollladen auf Spalt
+  domain: script
+
+  input:
+    cover:
+      name: Rollladen
+      selector:
+        entity:
+          domain: cover
+    from_opened:
+      name: Von offen
+      selector:
+        number:
+          min: 0
+          max: 100
+    from_closed:
+      name: Von geschlossen
+      selector:
+        number:
+          min: 0
+          max: 100
+
+mode: restart
+
+variables:
+  cover: !input cover
+  from_opened: !input from_opened
+  from_closed: !input from_closed
+
+sequence:
+  - service: cover.stop_cover
+    alias: Rollladen stoppen
+    target:
+      entity_id: "{{ cover }}"
+  - choose:
+    - conditions:
+      - condition: template
+        alias: Aktuell geschlossen
+        value_template: "{{ state_attr(cover, 'current_position') == 0 }}"
+      sequence:
+      - service: cover.set_cover_position
+        alias: Von geschlossen auf Spalt fahren
+        data:
+          position: "{{ from_closed }}"
+        target:
+          entity_id: "{{ cover }}"
+    - conditions:
+      - condition: template
+        alias: Aktuell geöffnet
+        value_template: "{{ state_attr(cover, 'current_position') == 100 }}"
+      sequence:
+      - service: cover.set_cover_position
+        alias: Von geöffnet auf Spalt fahren
+        data:
+          position: "{{ from_opened }}"
+        target:
+          entity_id: "{{ cover }}"
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: template
+          alias: War vorher geschlossen
+          value_template: "{{ state_attr(cover, 'current_position') == from_closed }}"
+        - condition: template
+          alias: War vorher geöffnet
+          value_template: "{{ state_attr(cover, 'current_position') == from_opened }}"
+      sequence:
+      - stop: Bereits in Position
+        alias: Nichts machen
+    default:
+    - service: cover.close_cover
+      alias: Schließen
+      target:
+        entity_id: "{{ cover }}"
+    - wait_template: "{{ state_attr(cover, 'current_position') == 0 }}"
+      alias: Warten bis geschlossen
+      continue_on_timeout: true
+      timeout: '60'
+    - service: cover.set_cover_position
+      alias: Von geschlossen auf Spalt fahren
+      data:
+        position: "{{ from_closed }}"
+      target:
+        entity_id: "{{ cover }}"

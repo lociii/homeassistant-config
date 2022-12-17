@@ -1,0 +1,64 @@
+packages:
+  base: !include device_sp111_base.yaml
+
+sensor:
+  # power sensor
+  - platform: hlw8012
+    sel_pin:
+      number: GPIO12
+      inverted: true
+    cf_pin: GPIO05
+    cf1_pin: ${cf1_pin}
+    change_mode_every: 3
+    update_interval: 1s
+    # current sensor
+    current:
+      name: "${id} current"
+      unit_of_measurement: A
+      accuracy_decimals: 2
+      filters:
+        # map from sensor -> measured value
+        - calibrate_linear:
+            - 0.29 -> 0.04        # LED test lamp
+            - 1.16 -> 0.78        # hairdryer 1/1
+            - 3.67 -> 2.58        # hairdryer 2/1
+            - 11.27 -> 7.96       # hairdryer 3/2
+        # make everything below 0.1A appear as just 0A
+        # furthermore it corrects 0.013A for the power usage of the plug
+        - lambda: if (x < 0.1 return 0; else return (x - 0.013);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 0.03
+    # voltage sensor
+    voltage:
+      name: "${id} voltage"
+      unit_of_measurement: V
+      accuracy_decimals: 1
+      filters:
+        # map from sensor -> measured value
+        - calibrate_linear:
+            - 592 -> 235
+            - 596 -> 236
+        - delta: 3
+        - throttle: ${update_throttle}
+    # power sensor
+    power:
+      id: "${id}_power_usage"
+      name: "${id} power usage"
+      unit_of_measurement: W
+      icon: mdi:flash-circle
+      accuracy_decimals: 0
+      filters:
+        # map from sensor -> measured value
+        - calibrate_linear:
+            - 0 -> 1.14
+            - 46 -> 6.5        # LED test lamp
+            - 1135 -> 167.5    # hairdryer 1/1
+            - 3700 -> 543      # hairdryer 2/1
+            - 12350 -> 1800    # hairdryer 3/2
+        # make everything below 2W appear as just 0W
+        # furthermore it corrects 1.14W for the power usage of the plug
+        - lambda: if (x < 2 return 0; else return (x - 1.14);
+        - or:
+          - throttle: ${update_throttle}
+          - delta: 3

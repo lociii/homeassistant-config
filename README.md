@@ -46,9 +46,9 @@ Custom supervisor addons in use:
 
 ## Automations
 
-Most of my automations are defined in [Node RED](https://nodered.org/) using [Frenck's](https://github.com/frenck) awesome [addon](https://github.com/hassio-addons/addon-node-red).
+Automations are mostly build in the Home Assistant [automation editor](automations.yaml). Some are still in [Node RED](https://nodered.org/) but they're getting migrated too.
 
-Some are still defined with the [automations editor](automations.yaml) but I'm on my way of migrating them too.
+I'm trying to build most repetitive automations in blueprints - sometimes it's a hustle as e.g. shutter automations vary by little but important details.
 
 ## Custom components - HACS
 
@@ -98,24 +98,34 @@ Controller is a [Texas Instruments LAUNCHXL-CC26X2R1](http://www.ti.com/tool/LAU
 
 ## Ecosystem
 
+## ESPHome
+
 I'm heavily relying on ESP based actors and sensors. Please see my [ESPHome README](esphome/) for more details.
 
-### Wall switches
+#### Wall switches
 
-* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/) running [ESPHome](esphome/common/device_shelly25.yaml)
+* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/)
 
-### Lights
+#### Lights
 
-* [Shelly 1](https://shelly.cloud/products/shelly-1-smart-home-automation-relay/) running [ESPHome](esphome/common/device_shelly1.yaml)
-* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/) running [ESPHome](esphome/common/device_shelly25.yaml)
-* [MagicHome RGB LED controller](https://tasmota.github.io/docs/devices/MagicHome-LED-strip-controller/) running [ESPHome](esphome/common/device_magichome.yaml)
+* [Shelly 1](https://shelly.cloud/products/shelly-1-smart-home-automation-relay/)
+* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/)
+* [MagicHome RGB LED controller](https://tasmota.github.io/docs/devices/MagicHome-LED-strip-controller/)
 * Trådfri light bulbs (zigbee)
 * Ledvance Smart+ light bulbs (zigbee)
 * Philips Hue light strip plus (zigbee)
 
-### Shutters
+#### Shutters
 
-* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/) running [ESPHome](esphome/common/template_cover_timebased.yaml)
+* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/)
+* [Shelly Plus 2PM](https://www.shelly.cloud/en/products/shop/shelly-plus-2-pm)
+
+#### Power plugs
+
+* Lots of ESP8266 based plugs running on ESPHome
+  + [Gosund SP111 single plugs](https://templates.blakadder.com/gosund_SP111.html)
+  + [Gosund SP112 single plugs with USB](https://templates.blakadder.com/gosund_SP112.html)
+  + [AOFO 4AC + 4USB](https://templates.blakadder.com/aofo_4AC4USB.html)
 
 ### Media
 
@@ -142,13 +152,6 @@ I'm heavily relying on ESP based actors and sensors. Please see my [ESPHome READ
 * Xiaomi Aqara water leakage sensors (zigbee)
 * Xiaomi Aqara occupancy sensors (zigbee)
 * Bitron AV2010/32 wall thermostat to control the underfloor heating
-
-### Power plugs
-
-* Lots of ESP8266 based plugs running on ESPHome - see my [ESPHome config for details](esphome/)
-  + [Gosund SP111 single plugs](https://templates.blakadder.com/gosund_SP111.html) running [ESPHome](esphome/common/device_sp111.yaml)
-  + [Gosund SP112 single plugs with USB](https://templates.blakadder.com/gosund_SP112.html) running [ESPHome](esphome/common/device_sp112_v28.yaml)
-  + [AOFO 4AC + 4USB](https://templates.blakadder.com/aofo_4AC4USB.html) running [ESPHome](esphome/common/device_aofo_4ac4usb.yaml)
 
 ### UPS
 

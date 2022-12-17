@@ -1,31 +1,55 @@
 - id: '1577032817472'
-  name: Gameboy an - Hell
+  name: Shaun an - Hell
   entities:
     switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
       state: 'on'
-    switch.plug_guestroom_computer:
-      friendly_name: Gameboy
+    switch.shaun:
+      friendly_name: Shaun
       state: 'on'
-    light.guestroom_standinglight:
-      friendly_name: Stehlampe
-      state: 'off'
+  metadata:
+    switch.plug_guestroom_desk:
+      entity_only: true
+    switch.shaun:
+      entity_only: true
 - id: '1577032840793'
-  name: Gameboy an - Dunkel
+  name: Shaun an - Dunkel
   entities:
     switch.plug_guestroom_desk:
       friendly_name: Schreibtisch
-      icon: ''
       state: 'on'
-    switch.plug_guestroom_computer:
-      friendly_name: Gameboy
-      icon: mdi:desktop-classic
+    switch.shaun:
+      friendly_name: Shaun
       state: 'on'
     light.guestroom_standinglight:
+      effect_list:
+      - colorloop
+      supported_color_modes:
+      - xy
+      color_mode: xy
       brightness: 254
+      hs_color:
+      - 37.778
+      - 52.941
+      rgb_color:
+      - 255
+      - 205
+      - 120
+      xy_color:
+      - 0.458991
+      - 0.407996
+      off_with_transition: false
+      off_brightness:
       friendly_name: Stehlampe Gästezimmer
-      supported_features: 57
+      supported_features: 44
       state: 'on'
+  metadata:
+    switch.plug_guestroom_desk:
+      entity_only: true
+    switch.shaun:
+      entity_only: true
+    light.guestroom_standinglight:
+      entity_only: true
 - id: '1577033397830'
   name: Gameboy - Aus
   entities:
@@ -38,3 +62,269 @@
     light.guestroom_standinglight:
       friendly_name: Stehlampe
       state: 'off'
+- id: '1654347722549'
+  name: Sonnenschutz - Gästezimmer (am Schreibtisch)
+  entities:
+    light.guestroom_standinglight:
+      effect_list:
+      - colorloop
+      supported_color_modes:
+      - xy
+      color_mode: xy
+      brightness: 254
+      hs_color:
+      - 37.778
+      - 52.941
+      rgb_color:
+      - 255
+      - 205
+      - 120
+      xy_color:
+      - 0.459
+      - 0.408
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Stehlampe Gästezimmer
+      supported_features: 44
+      state: 'on'
+  icon: mdi:weather-sunny
+  metadata:
+    light.guestroom_standinglight:
+      entity_only: true
+- id: '1654347754470'
+  name: Sonnenschutz - Wohnzimmer (Süd)
+  entities:
+    cover.dining:
+      current_position: 40
+      assumed_state: true
+      friendly_name: Rolladen Esstisch
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunny
+  metadata:
+    cover.dining:
+      entity_only: true
+- id: '1654347785882'
+  name: Sonnenschutz - Küche
+  entities:
+    cover.kitchen:
+      current_position: 50
+      assumed_state: true
+      friendly_name: Rolladen Küche
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunny
+  metadata:
+    cover.kitchen:
+      entity_only: true
+- id: '1654347817751'
+  name: Sonnenschutz - Schlafzimmer
+  entities:
+    cover.bedroom:
+      current_position: 16
+      assumed_state: true
+      friendly_name: Rolladen Schlafzimmer
+      supported_features: 15
+      state: open
+  metadata:
+    cover.bedroom:
+      entity_only: true
+  icon: mdi:weather-sunny
+- id: '1654347893601'
+  name: Sonnenschutz - Wohnzimmer (West)
+  entities:
+    cover.couch:
+      current_position: 40
+      assumed_state: true
+      friendly_name: Rolladen Couch
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunny
+  metadata:
+    cover.couch:
+      entity_only: true
+- id: '1654347980001'
+  name: Tag - Küche
+  entities:
+    cover.kitchen:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Küche
+      supported_features: 15
+      state: open
+  metadata:
+    cover.kitchen:
+      entity_only: true
+  icon: mdi:weather-sunset-up
+- id: '1654348039076'
+  name: Tag - Wohnzimmer (Süd)
+  entities:
+    cover.dining:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Esstisch
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-up
+  metadata:
+    cover.dining:
+      entity_only: true
+- id: '1654348080148'
+  name: Tag - Wohnzimmer (West)
+  entities:
+    cover.patio:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Terrasse
+      supported_features: 15
+      state: open
+    cover.couch:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Couch
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-up
+  metadata:
+    cover.couch:
+      entity_only: true
+    cover.patio:
+      entity_only: true
+- id: '1654348109493'
+  name: Tag - Gästezimmer
+  entities:
+    cover.guestroom:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Gästezimmer
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-up
+  metadata:
+    cover.guestroom:
+      entity_only: true
+- id: '1654348148604'
+  name: Tag - Schlafzimmer
+  entities:
+    cover.bedroom:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Schlafzimmer
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-up
+  metadata:
+    cover.bedroom:
+      entity_only: true
+- id: '1654348548736'
+  name: Nacht - Wohnzimmer
+  entities:
+    cover.dining:
+      current_position: 40
+      assumed_state: true
+      friendly_name: Rolladen Esstisch
+      supported_features: 15
+      state: open
+    cover.couch:
+      current_position: 40
+      assumed_state: true
+      friendly_name: Rolladen Couch
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-down
+  metadata:
+    cover.couch:
+      entity_only: true
+    cover.dining:
+      entity_only: true
+- id: '1654348572873'
+  name: Nacht - Küche
+  entities:
+    cover.kitchen:
+      current_position: 50
+      assumed_state: true
+      friendly_name: Rolladen Küche
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-down
+  metadata:
+    cover.kitchen:
+      entity_only: true
+- id: '1654348649195'
+  name: Nacht - Gästezimmer
+  entities:
+    cover.guestroom:
+      current_position: 20
+      assumed_state: true
+      friendly_name: Rolladen Gästezimmer
+      supported_features: 15
+      state: open
+  metadata:
+    cover.guestroom:
+      entity_only: true
+  icon: mdi:weather-sunset-down
+- id: '1654348679860'
+  name: Nacht - Schlafzimmer
+  entities:
+    cover.bedroom:
+      current_position: 16
+      assumed_state: true
+      friendly_name: Rolladen Schlafzimmer
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-down
+  metadata:
+    cover.bedroom:
+      entity_only: true
+- id: '1654348717716'
+  name: Nacht - Büro
+  entities:
+    cover.office:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Büro
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-down
+  metadata:
+    cover.office:
+      entity_only: true
+- id: '1654349334462'
+  name: Sonnenschutz - Wohnzimmer (Terrasse)
+  entities:
+    cover.patio:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Terrasse
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunny
+  metadata:
+    cover.patio:
+      entity_only: true
+- id: '1654349565863'
+  name: Tag - Wohnzimmer (Terrasse)
+  entities:
+    cover.patio:
+      current_position: 100
+      assumed_state: true
+      friendly_name: Rolladen Terrasse
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunset-up
+  metadata:
+    cover.patio:
+      entity_only: true
+- id: '1654349733355'
+  name: Sonnenschutz - Wohnzimmer (West, Orchideen)
+  entities:
+    cover.couch:
+      current_position: 55
+      assumed_state: true
+      friendly_name: Rolladen Couch
+      supported_features: 15
+      state: open
+  icon: mdi:weather-sunny
+  metadata:
+    cover.couch:
+      entity_only: true

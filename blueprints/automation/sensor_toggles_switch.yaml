@@ -1,0 +1,29 @@
+blueprint:
+  name: Sensor schaltet Schalter
+  description: Betätigung eines Sensors schaltet einen oder mehrere Schalter an/aus
+  domain: automation
+  input:
+    sensor:
+      name: Sensor
+      selector:
+        entity:
+          domain: binary_sensor
+    target:
+      name: Ziel
+      selector:
+        target:
+          entity:
+            domain: switch
+
+mode: single
+max_exceeded: silent
+
+trigger:
+  platform: state
+  entity_id: !input sensor
+  from: "off"
+  to: "on"
+
+action:
+  - service: switch.toggle
+    target: !input target

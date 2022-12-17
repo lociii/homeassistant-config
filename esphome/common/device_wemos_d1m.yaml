@@ -1,12 +1,3 @@
 packages:
   defaults: !include defaults.yaml
   esp: !include board_wemos_d1m.yaml
-
-sensor:
-  # wifi signal sensor
-  - platform: wifi_signal
-    name: "${id} wifi signal"
-    filters:
-      - or:
-        - heartbeat: 1h
-        - delta: 5
