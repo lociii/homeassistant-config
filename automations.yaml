@@ -7,15 +7,28 @@
     platform: state
     to: 'on'
     alias: Wenn es dunkel wird
+  - platform: state
+    entity_id:
+    - input_boolean.sonnenschutz_west
+    from: 'off'
+    to: 'on'
+    alias: Sonnenschutz West aktiviert
   condition:
   - condition: state
     entity_id: switch.shaun
     state: 'on'
     alias: Shaun ist an
   action:
-  - data: {}
-    entity_id: scene.gameboy_an_dunkel
-    service: scene.turn_on
+  - service: light.turn_on
+    data:
+      brightness_pct: 80
+      rgb_color:
+      - 255
+      - 227
+      - 145
+    target:
+      entity_id: light.guestroom_standinglight
+    alias: Stehlampe an
   mode: single
 - id: '1575655704902'
   alias: Präsenz - Ankommen - Eva komme nach Hause und Jens sitzt am Schreibtisch
