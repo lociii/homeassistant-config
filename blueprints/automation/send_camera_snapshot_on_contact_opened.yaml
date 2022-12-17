@@ -1,5 +1,6 @@
 blueprint:
   name: Video senden, wenn Kontaktsensor geöffnet wurde
+  source_url: https://github.com/lociii/homeassistant-config/blob/master/blueprints/automation/send_camera_snapshot_on_contact_opened.yaml
   domain: automation
   input:
     contact_sensor:
