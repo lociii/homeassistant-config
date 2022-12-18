@@ -647,7 +647,7 @@ announcement:
     alias: 10s warten
   - service: scene.turn_on
     target:
-      entity_id: '{{ media_player | replace(".", "_") }}_snapshot'
+      entity_id: 'scene.{{ media_player | replace(".", "_") }}_snapshot'
     alias: Vorherigen Zustand wiederherstellen
   mode: single
 rollladen_schlafzimmer_spalt:
