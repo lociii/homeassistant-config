@@ -3122,3 +3122,47 @@
       script_cat: '[]'
       wakeup: true
       can_open_when_dark: true
+- id: '1671376537710'
+  alias: Fehler - Sensor nicht verfügbar
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.magnet_window_kitchen_contact
+    - binary_sensor.magnet_door_patio_contact
+    - binary_sensor.magnet_door_cats_contact
+    - binary_sensor.magnet_window_guestroom_contact
+    - binary_sensor.magnet_window_bedroom_contact
+    - binary_sensor.magnet_window_bedroom_panic_contact
+    - binary_sensor.magnet_window_office_contact
+    - binary_sensor.magnet_door_entrance_contact
+    - sensor.environment_inside_temperature
+    - sensor.environment_outside_temperature
+    - sensor.environment_garden_west_temperature
+    - sensor.environment_garden_south_temperature
+    to: unavailable
+    alias: Ein Sensor ist nicht mehr verfügbar
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_6
+    data:
+      message: 'Ein Sensor ist nicht mehr verfügbar: {{ trigger.entity_id }}'
+    alias: Nachricht
+  mode: single
+- id: '1671376717113'
+  alias: Fehler - Batterie Nuki
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.nuki_haustur_battery_critical
+    - binary_sensor.nuki_wohnungstur_battery_critical
+    to: 'on'
+    alias: Nuki Batterie kritisch
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_6
+    data:
+      message: 'Nuki Batterie kritisch: {{ trigger.entity_id }}'
+    alias: Nachricht
+  mode: single
