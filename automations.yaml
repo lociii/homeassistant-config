@@ -3182,3 +3182,27 @@
       light:
       - light.shower_ceiling
       - light.shower_mirror
+- id: '1671376198796'
+  alias: Rollladen - Büro Eva
+  description: ''
+  use_blueprint:
+    path: cover.yaml
+    input:
+      cover: cover.rollladen_eva
+      contact_sensor: binary_sensor.magnet_window_office_contact
+      sun_protection: '[]'
+      script_ajar: script.rollladen_buro_eva_spalt
+      script_cat: '[]'
+- id: '1671376250453'
+  alias: Rollladen - Schlafzimmer
+  description: ''
+  use_blueprint:
+    path: cover.yaml
+    input:
+      cover: cover.rollladen_schlafzimmer
+      contact_sensor: binary_sensor.magnet_window_bedroom_contact
+      sun_protection: input_boolean.sonnenschutz_west
+      script_ajar: script.rollladen_schlafzimmer_spalt
+      script_cat: '[]'
+      wakeup: true
+      can_open_when_dark: true

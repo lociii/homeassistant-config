@@ -249,19 +249,6 @@ bewaesserung_lang:
     entity_id: switch.garden_hedge
     service: switch.turn_off
   mode: single
-cover_bedroom_ajar:
-  alias: Rolladen - Schlafzimmer - Spalt
-  mode: single
-  sequence:
-  - data: {}
-    entity_id: cover.bedroom
-    service: cover.close_cover
-  - timeout: '60'
-    wait_template: '{{ state_attr("cover.bedroom", "current_position") == 0 }}'
-  - data:
-      position: 12
-    entity_id: cover.bedroom
-    service: cover.set_cover_position
 cover_dining_cat:
   alias: Rollladen - Esstisch - Katzenposition
   mode: restart
@@ -273,23 +260,6 @@ cover_dining_cat:
       entity_id:
       - cover.rollladen_esstisch
     alias: Auf Position fahren
-cover_office_ajar:
-  alias: Rolladen - Büro - Spalt
-  sequence:
-  - service: cover.close_cover
-    target:
-      entity_id:
-      - cover.office
-    data: {}
-  - wait_template: '{{ state_attr("cover.office", "current_position") == 0 }}'
-    timeout: '60'
-  - data:
-      position: 16
-    service: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.office
-  mode: single
 cover_couch_cat:
   alias: Rolladen - Couch - Katzenposition
   sequence:
@@ -679,4 +649,22 @@ announcement:
     target:
       entity_id: "{{ media_player | replace('.', '_') }}_snapshot"
     alias: Vorherigen Zustand wiederherstellen
+  mode: single
+rollladen_schlafzimmer_spalt:
+  alias: Rollladen - Schlafzimmer - Spalt
+  use_blueprint:
+    path: cover_ajar.yaml
+    input:
+      cover: cover.rollladen_schlafzimmer
+      from_opened: 15
+      from_closed: 14
+  mode: single
+rollladen_buro_eva_spalt:
+  alias: Rollladen - Büro Eva - Spalt
+  use_blueprint:
+    path: cover_ajar.yaml
+    input:
+      cover: cover.rollladen_eva
+      from_opened: 14
+      from_closed: 12
   mode: single
