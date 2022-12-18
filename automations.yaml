@@ -100,83 +100,6 @@
   - data:
       addon: a0d7b954_sonweb
     service: hassio.addon_restart
-- id: '1576324741125'
-  alias: Katzenklo - Büro
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.motion_catlitter_office_occupancy
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: template
-    value_template: '{{ now().timestamp() | int - states.input_datetime.last_usage_catlitter_office.attributes.timestamp
-      | int > 300 }}'
-  action:
-  - entity_id: input_number.count_usage_catlitter
-    service: input_number.increment
-  - entity_id: input_number.count_usage_catlitter_office
-    service: input_number.increment
-  - data_template:
-      datetime: '{{ as_timestamp(now()) | timestamp_custom("%Y-%m-%d %H:%M:%S", true)
-        }}
-
-        '
-    entity_id: input_datetime.last_usage_catlitter_office
-    service: input_datetime.set_datetime
-- id: '1576324905167'
-  alias: Katzenklo - Flur
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.motion_catlitter_hallway_occupancy
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: template
-    value_template: '{{ now().timestamp() | int - states.input_datetime.last_usage_catlitter_hallway.attributes.timestamp
-      | int > 300 }}'
-  action:
-  - entity_id: input_number.count_usage_catlitter
-    service: input_number.increment
-  - entity_id: input_number.count_usage_catlitter_hallway
-    service: input_number.increment
-  - data_template:
-      datetime: '{{ as_timestamp(now()) | timestamp_custom("%Y-%m-%d %H:%M:%S", true)
-        }}
-
-        '
-    entity_id: input_datetime.last_usage_catlitter_hallway
-    service: input_datetime.set_datetime
-- id: '1576325083638'
-  alias: Katzenklo - Büro Jens
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.motion_catlitter_guestroom_occupancy
-    from: 'off'
-    platform: state
-    to: 'on'
-    alias: Katzenklo Büro Jens Bewegung erkannt
-  condition:
-  - condition: template
-    value_template: '{{ now().timestamp() | int - states.input_datetime.last_usage_catlitter_guestroom.attributes.timestamp
-      | int > 300 }}'
-    alias: Letzte Benutzung mehr als 5 Minuten her
-  action:
-  - entity_id: input_number.count_usage_catlitter
-    service: input_number.increment
-    alias: Anzahl Nutzungen erhöhen
-  - entity_id: input_number.count_usage_catlitter_guestroom
-    service: input_number.increment
-    alias: Anzahl Nutzungen Büro Jens erhöhen
-  - data_template:
-      datetime: '{{ as_timestamp(now()) | timestamp_custom("%Y-%m-%d %H:%M:%S", true)
-        }}
-
-        '
-    entity_id: input_datetime.last_usage_catlitter_guestroom
-    service: input_datetime.set_datetime
-    alias: Zeitpunkt letzte Benutzung aktualisieren
 - id: '1577789351489'
   alias: Wecker - Wake up light
   description: ''
@@ -3019,6 +2942,14 @@
     entity_id: input_boolean.sleeping
     state: 'off'
     alias: Nicht am Schlafen
+  - condition: state
+    entity_id: light.shower_ceiling
+    state: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    alias: Licht ist seit mindestens 10 Sekunden aus
   action:
   - service: light.turn_on
     data: {}
