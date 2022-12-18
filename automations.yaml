@@ -889,36 +889,12 @@
     alias: Beim Verlassen
   condition: []
   action:
-  - service: media_player.volume_set
+  - service: script.announcement
     data:
-      volume_level: 0.5
-    target:
-      entity_id:
-      - media_player.jens_echo
-    alias: Sprachassistent Gästezimmer Lautstärke hoch
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 1
-      milliseconds: 0
-    alias: 1s warten
-  - service: notify.alexa_media_jens_echo
-    data:
+      media_player: media_player.jens_echo
+      volume: 0.4
       message: Komm gesund wieder. Ich halte hier die Stellung!
-    alias: Nachricht sprechen
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-    alias: 10s warten
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.25
-    target:
-      entity_id:
-      - media_player.jens_echo
-    alias: Sprachassistent Gästezimmer Lautstärke runter
+    alias: Ansage
   mode: single
 - id: '1670088156629'
   alias: Präsenz - Verlassen - Wohnungstür absperren
@@ -994,36 +970,12 @@
     alias: Beim Ankommen
   condition: []
   action:
-  - service: media_player.volume_set
+  - service: script.announcement
     data:
-      volume_level: 0.5
-    target:
-      entity_id:
-      - media_player.jens_echo
-    alias: Sprachassistent Gästezimmer Lautstärke hoch
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 200
-    alias: 200ms warten
-  - service: notify.alexa_media_jens_echo
-    data:
+      media_player: media_player.jens_echo
+      volume: 0.4
       message: Willkommen zurück. Schön, dass du wieder da bist.
-    alias: Nachricht sprechen
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-    alias: 10s warten
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.25
-    target:
-      entity_id:
-      - media_player.jens_echo
-    alias: Sprachassistent Gästezimmer Lautstärke runter
+    alias: Ansage
   mode: single
 - id: '1670096126996'
   alias: Präsenz - Ankommen
@@ -1871,21 +1823,10 @@
     alias: Beim Einschlafen
   condition: []
   action:
-  - service: media_player.volume_set
+  - service: script.announcement
     data:
-      volume_level: 0.4
-    target:
-      entity_id:
-      - media_player.schlafzimmer_alexa
-    alias: Sprachassistent Schlafzimmer Lautstärke hoch
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 200
-    alias: 200ms warten
-  - service: notify.alexa_media_schlafzimmer_alexa
-    data:
+      media_player: media_player.schlafzimmer_alexa
+      volume: 0.14
       message: Schlaf gut und träum süß.
     alias: Ansage
   - delay:
@@ -1896,11 +1837,10 @@
     alias: 10s warten
   - service: media_player.volume_set
     data:
-      volume_level: 0.1
+      volume_level: 0.03
     target:
-      entity_id:
-      - media_player.schlafzimmer_alexa
-    alias: Sprachassistent Schlafzimmer Lautstärke runter
+      entity_id: media_player.bedroom
+    alias: Lautstärke runter
   - service: media_player.play_media
     data:
       media_content_type: music
@@ -1921,37 +1861,13 @@
     alias: Beim Aufstehen
   condition: []
   action:
-  - service: media_player.volume_set
+  - service: script.announcement
     data:
-      volume_level: 0.4
-    target:
-      entity_id:
-      - media_player.schlafzimmer_alexa
-    alias: Sprachassistent Schlafzimmer Lautstärke hoch
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 200
-    alias: 200ms warten
-  - service: notify.alexa_media_schlafzimmer_alexa
-    data:
+      media_player: media_player.schlafzimmer_alexa
+      volume: 0.14
       message: Ich wünsche einen wunderschönen guten Morgen. Ich hoffe Du hast gut
         geschlafen.
     alias: Ansage
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-    alias: 10s warten
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.25
-    target:
-      entity_id:
-      - media_player.schlafzimmer_alexa
-    alias: Sprachassistent Schlafzimmer Lautstärke runter
   mode: single
 - id: '1670609221198'
   alias: Schlafen - Aufstehen - Bei Dunkelheit

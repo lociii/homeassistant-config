@@ -617,7 +617,7 @@ announcement:
   sequence:
   - service: scene.create
     data:
-      scene_id: "{{ media_player | replace('.', '_') }}_snapshot"
+      scene_id: '{{ media_player | replace(".", "_") }}_snapshot'
       snapshot_entities:
       - '{{ media_player }}'
     alias: Aktuellen Zustand speichern
@@ -647,7 +647,7 @@ announcement:
     alias: 10s warten
   - service: scene.turn_on
     target:
-      entity_id: "{{ media_player | replace('.', '_') }}_snapshot"
+      entity_id: '{{ media_player | replace(".", "_") }}_snapshot'
     alias: Vorherigen Zustand wiederherstellen
   mode: single
 rollladen_schlafzimmer_spalt:
