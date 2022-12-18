@@ -3185,3 +3185,31 @@
         - sensor.shower_thermostat_power
         - sensor.bedroom_thermostat_power
         - sensor.livingroom_thermostat_power
+- id: '1671385465971'
+  alias: Wäsche - Trockner
+  description: ''
+  use_blueprint:
+    path: leofabri/appliance-status-monitor.yaml
+    input:
+      appliance_socket: switch.basement_dryer
+      appliance_power_sensor: sensor.basement_dryer_power_usage
+      appliance_starting_power_threshold: 30
+      appliance_finishing_power_threshold: 25
+      appliance_suspended_sensor: []
+      appliance_state_machine: input_select.trockner_state_machine
+      appliance_job_cycle: input_boolean.trockner_job_cycle
+      delayed_job_completion_timer: timer.trockner_delayed_job_completion_timer
+      automation_self_trigger: input_boolean.trockner_automation_self_trigger
+      delayed_job_completion_duration: 300
+      actions_new_job_cycle_begins:
+      - service: notify.mobile_app_pixel_6
+        data:
+          message: Trockner wurde gestartet
+      actions_job_cycle_resumes:
+      - service: notify.mobile_app_pixel_6
+        data:
+          message: Trockner wurde fortgesetzt
+      actions_job_cycle_ends:
+      - service: notify.mobile_app_pixel_6
+        data:
+          message: Trockner ist fertig
