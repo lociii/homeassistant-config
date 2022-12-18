@@ -3166,3 +3166,22 @@
       message: 'Nuki Batterie kritisch: {{ trigger.entity_id }}'
     alias: Nachricht
   mode: single
+- id: '1671384640162'
+  alias: Fehler - Batteriestand in Sensor
+  description: ''
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      day: 6
+      actions:
+      - service: notify.mobile_app_pixel_6
+        data:
+          message: 'Batterie ist niedrig in folgenden Sensoren: {{ sensors }}'
+      exclude:
+        entity_id:
+        - sensor.bathroom_thermostat_power
+        - sensor.office_thermostat_power
+        - sensor.guestroom_thermostat_power
+        - sensor.shower_thermostat_power
+        - sensor.bedroom_thermostat_power
+        - sensor.livingroom_thermostat_power
