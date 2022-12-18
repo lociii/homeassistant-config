@@ -563,19 +563,6 @@ rollladen_buro_jens_spalt:
       from_closed: 14
       cover: cover.rollladen_buro_jens
   mode: single
-rollladenpositionierung_buro_jens:
-  alias: Rollladenpositionierung - Büro Jens
-  use_blueprint:
-    path: cover_state.yaml
-    input:
-      cover: cover.rollladen_buro_jens
-      contact_sensor: binary_sensor.magnet_window_guestroom_contact
-      sun_protection: input_boolean.sonnenschutz_west
-      script_ajar: script.rollladen_buro_jens_spalt
-      can_open_when_dark: true
-      script_cat: '[]'
-  icon: mdi:window-shutter-open
-  mode: single
 rollladen_couch_spalt:
   alias: Rollladen - Couch - Spalt
   use_blueprint:
