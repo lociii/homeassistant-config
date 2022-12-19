@@ -819,6 +819,7 @@
       media_player: media_player.jens_echo
       volume: 0.4
       message: Komm gesund wieder. Ich halte hier die Stellung!
+      scene_name: snapshot_jens_echo
     alias: Ansage
   mode: single
 - id: '1670088156629'
@@ -900,6 +901,7 @@
       media_player: media_player.jens_echo
       volume: 0.4
       message: Willkommen zurück. Schön, dass du wieder da bist.
+      scene_name: snapshot_jens_echo
     alias: Ansage
   mode: single
 - id: '1670096126996'
@@ -1753,6 +1755,7 @@
       media_player: media_player.schlafzimmer_alexa
       volume: 0.14
       message: Schlaf gut und träum süß.
+      scene_name: snapshot_schlafzimmer_alexa
     alias: Ansage
   - delay:
       hours: 0
@@ -1792,6 +1795,7 @@
       volume: 0.14
       message: Ich wünsche einen wunderschönen guten Morgen. Ich hoffe Du hast gut
         geschlafen.
+      scene_name: snapshot_schlafzimmer_alexa
     alias: Ansage
   mode: single
 - id: '1670609221198'
@@ -2722,6 +2726,7 @@
       media_player: media_player.wohnzimmer_alexa
       volume: 0.5
       message: Draußen wird's warm, mach schnell die Fenster zu!
+      scene_name: snapshot_wohnzimmer_alexa
     alias: Ansage
   mode: single
 - id: '1670948815509'
@@ -3007,6 +3012,7 @@
       media_player: media_player.wohnzimmer_alexa
       volume: 0.5
       message: Draußen wird's kühl, mach die Fenster auf.
+      scene_name: snapshot_wohnzimmer_alexa
     alias: Ansage
   mode: single
 - id: '1671312600429'
