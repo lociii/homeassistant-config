@@ -256,12 +256,13 @@
     entity_id: switch.shaun
     state: 'on'
   action:
-  - service: notify.alexa_media
+  - service: script.announcement
     data:
       message: Dein nächster Termin beginnt in einer Minute!
-      data:
-        type: tts
-      target: media_player.guestroom_alexa_echo
+      media_player: media_player.jens_echo
+      volume: 0.3
+      scene_name: snapshot_jens_echo
+    alias: Ansage
   - service: script.gaestezimmer_stehlampe_alarm_rot
     data: {}
   mode: single
@@ -278,12 +279,13 @@
     entity_id: switch.shaun
     state: 'on'
   action:
-  - service: notify.alexa_media
+  - service: script.announcement
     data:
       message: Dein nächster Termin beginnt in fünf Minuten!
-      data:
-        type: tts
-      target: media_player.guestroom_alexa_echo
+      media_player: media_player.jens_echo
+      volume: 0.3
+      scene_name: snapshot_jens_echo
+    alias: Ansage
   - service: script.gaestezimmer_stehlampe_alarm_blau
     data: {}
   mode: single
