@@ -1,0 +1,155 @@
+blueprint:
+  name: Philips Hue Dimmer RWL022
+  description: "Control lights with a Philips Hue Dimmer Switch (v2).\n\n Blueprint
+    Version: 2"
+  domain: automation
+  input:
+    remote:
+      name: Philips Hue Dimmer Switch
+      description: Pick a RWL022 Dimmer Switch
+      selector:
+        device:
+          integration: zha
+          entity:
+            domain: sensor
+            device_class: battery
+          multiple: false
+    power_light:
+      name: The main light entity to control.
+      description: The light entity which the top button will control. (Power button).
+      selector:
+        entity:
+          domain: light
+          multiple: false
+    hue_light:
+      name: The secondary light entity to control.
+      description: The light entity which the bottom button will control. (hue button).
+      selector:
+        entity:
+          domain: light
+          multiple: false
+    brightness_steps:
+      name: Percentage to increase or decrease brightness.
+      description: The Percentagem to increase or decrease brightness when the button
+        is pressed or hold.
+      selector:
+        number:
+          min: 1.0
+          max: 25.0
+          unit_of_measurement: '%'
+          step: 1.0
+          mode: slider
+  source_url: https://gist.github.com/brodock/0c85f4882b885d4d5499cd88d155c38c
+mode: restart
+max_exceeded: silent
+variables:
+  power_light: !input power_light
+  hue_light: !input hue_light
+  brightness_steps: !input brightness_steps
+trigger:
+- platform: event
+  event_type: zha_event
+  event_data:
+    device_id: !input remote
+    cluster_id: 64512
+action:
+- variables:
+    command: '{{ trigger.event.data.command }}'
+    power_light_on: '{{ states(power_light) == ''on'' }}'
+    hue_light_on: '{{ states(hue_light) == ''on'' }}'
+- choose:
+  - conditions: '{{ command == ''on_press'' }}'
+    sequence:
+      service: light.toggle
+      data:
+        entity_id: !input power_light
+        transition: 0.5
+  - conditions: '{{ command == ''off_press'' }}'
+    sequence:
+      service: light.toggle
+      data:
+        entity_id: !input hue_light
+        transition: 0.5
+  - conditions:
+    - condition: or
+      conditions:
+      - '{{ command == ''up_press'' }}'
+      - '{{ command == ''up_hold'' }}'
+    sequence:
+    - choose:
+      - conditions:
+        - '{{ power_light_on == false }}'
+        - '{{ hue_light_on == false }}'
+        sequence:
+          service: light.turn_on
+          data:
+            entity_id:
+            - !input power_light
+            - !input hue_light
+            transition: 0.5
+            brightness_pct: '{{ brightness_steps }}'
+      - conditions:
+        - '{{ power_light_on == true }}'
+        - '{{ hue_light_on == true }}'
+        sequence:
+          service: light.turn_on
+          data:
+            entity_id:
+            - !input power_light
+            - !input hue_light
+            transition: 0.5
+            brightness_step_pct: '{{ brightness_steps }}'
+      - conditions:
+        - '{{ power_light_on == true }}'
+        sequence:
+          service: light.turn_on
+          data:
+            entity_id:
+            - !input power_light
+            transition: 0.5
+            brightness_step_pct: '{{ brightness_steps }}'
+      - conditions:
+        - '{{ hue_light_on == true }}'
+        sequence:
+          service: light.turn_on
+          data:
+            entity_id:
+            - !input hue_light
+            transition: 0.5
+            brightness_step_pct: '{{ brightness_steps }}'
+  - conditions:
+    - condition: or
+      conditions:
+      - '{{ command == ''down_press'' }}'
+      - '{{ command == ''down_hold'' }}'
+    sequence:
+    - choose:
+      - conditions:
+        - '{{ power_light_on == true }}'
+        - '{{ hue_light_on == true }}'
+        sequence:
+          service: light.turn_on
+          data:
+            entity_id:
+            - !input power_light
+            - !input hue_light
+            transition: 0.5
+            brightness_step_pct: '{{ brightness_steps*-1 }}'
+      - conditions:
+        - '{{ power_light_on == true }}'
+        sequence:
+          service: light.turn_on
+          data:
+            entity_id:
+            - !input power_light
+            transition: 0.5
+            brightness_step_pct: '{{ brightness_steps*-1 }}'
+      - conditions:
+        - '{{ hue_light_on == true }}'
+        sequence:
+          service: light.turn_on
+          data:
+            entity_id:
+            - !input hue_light
+            transition: 0.5
+            brightness_step_pct: '{{ brightness_steps*-1 }}'

@@ -166,10 +166,17 @@ action:
                     entity_id: input_boolean.sleeping
                     state: "on"
                   sequence:
-                    - service: script.turn_on
-                      alias: "Rollladen auf Spalt"
-                      target:
-                        entity_id: "{{ script_ajar }}"
+                    - choose:
+                      - conditions:
+                        # not fully open - must have been opened manually
+                        - condition: template
+                          alias: "Nicht bereits geöffnet"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                        sequence:
+                          - service: script.turn_on
+                            alias: "Rollladen auf Spalt"
+                            target:
+                              entity_id: "{{ script_ajar }}"
                 # we're awake
                 default:
                   - choose:
@@ -266,16 +273,10 @@ action:
                         - condition: template
                           alias: "Nicht bereits geschlossen"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
-                        # not fully open after sleeping for more than 30 minutes - as it must have been opened manually then
-                        - and:
-                          - condition: template
-                            alias: "Nicht vollständig geöffnet"
-                            value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
-                          - condition: state
-                            alias: "Schon länger wie 30 Minuten am Schlafen"
-                            entity_id: input_boolean.sleeping
-                            state: "on"
-                            for: "00:30:00"
+                        # not fully open as it must have been opened manually then
+                        - condition: template
+                          alias: "Nicht vollständig geöffnet"
+                          value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                         sequence:
                           - service: cover.close_cover
                             alias: "Rollladen schließen"
@@ -298,6 +299,9 @@ action:
                               alias: "Shutdown ist aktiv"
                               entity_id: input_boolean.rolladen_shutdown
                               state: "on"
+                            # not keep open when dark
+                            - condition: template
+                              value_template: "{{ not keep_open_when_dark }}"
                             sequence:
                               - choose:
                                 - conditions:
@@ -314,7 +318,7 @@ action:
                           default:
                             - choose:
                               - conditions:
-                                # keep open when dark
+                                # not keep open when dark
                                 - condition: template
                                   value_template: "{{ not keep_open_when_dark }}"
                                 sequence:

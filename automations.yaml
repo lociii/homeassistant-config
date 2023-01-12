@@ -194,16 +194,16 @@
   action:
   - service: cover.close_cover
     data: {}
+    alias: Alle Rollläden schließen
     target:
       entity_id:
-      - cover.office
-      - cover.guestroom
-      - cover.couch
-      - cover.dining
-      - cover.kitchen
-      - cover.bedroom
-      - cover.patio
-    alias: Alle Rollläden schließen
+      - cover.rollladen_buro_jens
+      - cover.rollladen_couch
+      - cover.rollladen_esstisch
+      - cover.rollladen_eva
+      - cover.rollladen_kuche
+      - cover.rollladen_schlafzimmer
+      - cover.rollladen_terrasse
 - id: '1589820839263'
   alias: Wiegen Jens - Erinnerung senden
   description: ''
@@ -251,20 +251,28 @@
     event: start
     entity_id: calendar.jens_work
     offset: -0:1:0
+    alias: Termin in 1 Minute
   condition:
   - condition: state
     entity_id: switch.shaun
     state: 'on'
+    alias: Computer ist an
+  - condition: state
+    entity_id: input_boolean.jens_im_urlaub
+    state: 'off'
+    alias: Jens ist nicht im Urlaub
   action:
-  - service: script.announcement
-    data:
-      message: Dein nächster Termin beginnt in einer Minute!
-      media_player: media_player.jens_echo
-      volume: 0.3
-      scene_name: snapshot_jens_echo
-    alias: Ansage
-  - service: script.gaestezimmer_stehlampe_alarm_rot
-    data: {}
+  - parallel:
+    - service: script.gaestezimmer_stehlampe_alarm_rot
+      data: {}
+      alias: Roter Alarm
+    - service: script.announcement
+      data:
+        message: Dein nächster Termin beginnt in einer Minute!
+        media_player: media_player.jens_echo
+        volume: 0.3
+        scene_name: snapshot_jens_echo
+      alias: Ansage
   mode: single
 - id: '1657609465015'
   alias: Jens Arbeit - nächster Termin beginnt (5 Minuten)
@@ -274,20 +282,28 @@
     event: start
     entity_id: calendar.jens_work
     offset: -0:5:0
+    alias: Termin in 5 Minuten
   condition:
   - condition: state
     entity_id: switch.shaun
     state: 'on'
+    alias: Computer ist an
+  - condition: state
+    entity_id: input_boolean.jens_im_urlaub
+    state: 'off'
+    alias: Jens ist nicht im Urlaub
   action:
-  - service: script.announcement
-    data:
-      message: Dein nächster Termin beginnt in fünf Minuten!
-      media_player: media_player.jens_echo
-      volume: 0.3
-      scene_name: snapshot_jens_echo
-    alias: Ansage
-  - service: script.gaestezimmer_stehlampe_alarm_blau
-    data: {}
+  - parallel:
+    - service: script.gaestezimmer_stehlampe_alarm_blau
+      data: {}
+      alias: Blauer Alarm
+    - service: script.announcement
+      data:
+        message: Dein nächster Termin beginnt in fünf Minuten!
+        media_player: media_player.jens_echo
+        volume: 0.3
+        scene_name: snapshot_jens_echo
+      alias: Ansage
   mode: single
 - id: '1668286009212'
   alias: Büro Jens - Haustür klingelt
@@ -391,7 +407,7 @@
     data: {}
     target:
       entity_id: lock.keba_p30_authentication
-    alias: Ladestation freischalten
+    alias: Ladestation entsperren
   mode: single
 - id: '1668351371197'
   alias: Garage - Wallbox - Stop
@@ -417,8 +433,7 @@
   trigger:
   - platform: sun
     event: sunset
-    offset: -01:00:00
-    alias: Sonne geht in einer Stunde unter
+    alias: Sonne geht unter
   condition:
   - condition: state
     entity_id: lock.keba_p30_authentication
@@ -789,17 +804,15 @@
     data: {}
     target:
       entity_id:
-      - switch.plug_livingroom_tv
       - switch.steckdose_google_home_mini_buro
       - switch.steckdose_sprachassistent_dusche
       - switch.steckdose_kaffeemaschine
       - switch.steckdose_fernseher_schlafzimmer
       - switch.steckdose_drucker
       - switch.steckdose_sprachassistent_bad
-      - switch.plug_livingroom_tv
-      - switch.sonos_playbase
       - switch.steckdose_schreibtisch_jens
       - switch.steckdose_schreibtisch_eva
+      - switch.wohnzimmer_multimedia_mehrfachsteckdose
     alias: Geräte aus
   mode: single
 - id: '1670087091881'
@@ -920,11 +933,10 @@
     data: {}
     target:
       entity_id:
-      - switch.plug_livingroom_tv
       - switch.steckdose_sprachassistent_bad
       - switch.steckdose_sprachassistent_dusche
-      - switch.sonos_playbase
       - switch.steckdose_google_home_mini_buro
+      - switch.wohnzimmer_multimedia_mehrfachsteckdose
     alias: Geräte an
   - service: cover.open_cover
     data: {}
@@ -1326,9 +1338,13 @@
       - switch.steckdose_schreibtisch_eva
       - switch.steckdose_google_home_mini_buro
       - switch.steckdose_drucker
-      - switch.plug_livingroom_tv
       - switch.steckdose_kaffeemaschine
-      - switch.sonos_playbase
+      - switch.wohnzimmer_multimedia_mehrfachsteckdose
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.schlafzimmer_ladestation_usb
+    alias: Ladestation Schlafzimmer Jens an
   mode: single
 - id: '1670605059714'
   alias: Sensor - Büro Jens - Licht
@@ -1561,7 +1577,7 @@
     alias: Verbrauch unter 5W für 15 Minuten
   condition: []
   action:
-  - service: switch.toggle
+  - service: switch.turn_off
     data: {}
     target:
       entity_id: switch.steckdose_ladestation_mobilgerate
@@ -1608,7 +1624,7 @@
         - light.garden_ball_lamps
         - light.garden_lantern
 - id: '1670607495777'
-  alias: Sensor - Küche - Unten links (Leselampe Wohnzimmer)
+  alias: Sensor - Küche - Unten rechts (Leselampe Wohnzimmer)
   description: ''
   use_blueprint:
     path: sensor_toggles_light.yaml
@@ -1750,6 +1766,12 @@
     alias: Beim Einschlafen
   condition: []
   action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+    alias: 30 Sekunden warten
   - service: script.announcement
     data:
       media_player: media_player.schlafzimmer_alexa
@@ -1765,17 +1787,17 @@
     alias: 10s warten
   - service: media_player.volume_set
     data:
-      volume_level: 0.03
-    target:
-      entity_id: media_player.bedroom
+      volume_level: 0.02
     alias: Lautstärke runter
+    target:
+      entity_id: media_player.sonos_schlafzimmer
   - service: media_player.play_media
     data:
       media_content_type: music
       media_content_id: /media/local/music/schlafmusik.mp3
+    alias: Schlafmusik spielen
     target:
       entity_id: media_player.bedroom
-    alias: Schlafmusik spielen
   mode: single
 - id: '1670609106606'
   alias: Schlafen - Aufstehen - Gruß
@@ -1847,11 +1869,28 @@
     target:
       entity_id: script.wakeup_light
     alias: Wakeup light beenden
+  - service: light.turn_on
+    data:
+      color_temp: 480
+      brightness_pct: 40
+    target:
+      entity_id: light.ambiente
+    alias: Ambientebeleuchtung zurück auf Normal
+  - service: light.turn_on
+    data:
+      color_temp: 440
+      brightness_pct: 70
+    target:
+      entity_id:
+      - light.bedroom_bed
+    alias: Bettlicht zurück auf Normal
   - service: light.turn_off
     data: {}
     target:
-      entity_id: light.bedroom_bed
-    alias: Bettlicht aus
+      entity_id:
+      - light.bedroom_bed
+      - light.ambiente
+    alias: Lichter aus
   mode: single
 - id: '1670609487307'
   alias: Schlafen - Aufstehen
@@ -1870,11 +1909,10 @@
     target:
       entity_id:
       - switch.steckdose_kaffeemaschine
-      - switch.sonos_playbase
-      - switch.plug_livingroom_tv
       - switch.steckdose_sprachassistent_bad
       - switch.steckdose_sprachassistent_dusche
       - switch.steckdose_google_home_mini_buro
+      - switch.wohnzimmer_multimedia_mehrfachsteckdose
     alias: Geräte an
   - service: fan.turn_off
     data: {}
@@ -1883,6 +1921,11 @@
       - fan.bathroom
       - fan.shower
     alias: Lüfter aus
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.schlafzimmer_ladestation_usb
+    alias: Ladestation Schlafzimmer Jens aus
   mode: single
 - id: '1670609601945'
   alias: Sonnenstand - Untergang - Licht außen
@@ -2099,10 +2142,10 @@
     data: {}
     target:
       entity_id:
-      - switch.plug_livingroom_telephone
       - switch.steckdose_telefon_kuche
       - switch.steckdose_telefon_buro
       - switch.steckdose_zahnburste_bad
+      - switch.steckdose_telefon_wohnzimmer
     alias: Steckdosen zum Laden einschalten
   - delay:
       hours: 2
@@ -2114,53 +2157,11 @@
     data: {}
     target:
       entity_id:
-      - switch.plug_livingroom_telephone
       - switch.steckdose_telefon_kuche
       - switch.steckdose_telefon_buro
       - switch.steckdose_zahnburste_bad
+      - switch.steckdose_telefon_wohnzimmer
     alias: Steckdosen ausschalten
-  mode: single
-- id: '1670611599085'
-  alias: Wohnzimmer - Multimedia - Playbase an
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.sonos_playbase
-    from: 'off'
-    to: 'on'
-    alias: Playbase angeschaltet
-  condition: []
-  action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id:
-      - switch.plug_livingroom_sonos_sub
-      - switch.plug_livingroom_sonos_rear_left
-      - switch.plug_livingroom_sonos_rear_right
-    alias: Sub und Surround anschalten
-  mode: single
-- id: '1670611617061'
-  alias: Wohnzimmer - Multimedia - Playbase aus
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - switch.sonos_playbase
-    from: 'on'
-    to: 'off'
-    alias: Playbase ausgeschaltet
-  condition: []
-  action:
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id:
-      - switch.plug_livingroom_sonos_sub
-      - switch.plug_livingroom_sonos_rear_left
-      - switch.plug_livingroom_sonos_rear_right
-    alias: Sub und Surround aus
   mode: single
 - id: '1670612071294'
   alias: NFC - Haustür
@@ -2837,7 +2838,7 @@
         - action: '{{ action_cancel }}'
           title: Ignorieren
   - alias: Benachrichtigung an Eva
-    service: notify.mobile_app_ipad_pro
+    service: notify.mobile_app_mi_10
     data:
       title: EV geladen
       message: Ein Auto wurde von der Wallbox getrennt. Wem soll der Verbrauch zugerechnet
@@ -2879,7 +2880,7 @@
           data:
             tag: garage-wallbox-disconnected
         alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_ipad_pro
+      - service: notify.mobile_app_mi_10
         data:
           message: clear_notification
           data:
@@ -2901,7 +2902,7 @@
           data:
             tag: garage-wallbox-disconnected
         alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_ipad_pro
+      - service: notify.mobile_app_mi_10
         data:
           message: clear_notification
           data:
@@ -3152,3 +3153,195 @@
       - service: notify.mobile_app_pixel_6
         data:
           message: Trockner ist fertig
+- id: '1671981668484'
+  alias: PUBG - Schaden verursacht
+  description: ''
+  trigger:
+  - platform: event
+    event_type: overwolf_game_event
+    alias: Overwolf PUBG event
+    event_data:
+      data:
+        gameId: 10906
+  condition:
+  - condition: template
+    value_template: '{{ trigger.event.data.data.events.0.name == "damage_dealt" }}'
+    alias: Wert verändert
+  action:
+  - service: input_number.set_value
+    data_template:
+      value: '{{ states(''input_number.pubg_damage_dealt'')|float + trigger.event.data.data.events.0.data|float
+        }}'
+    target:
+      entity_id: input_number.pubg_damage_dealt
+    alias: Wert setzen
+  mode: single
+- id: '1671984163683'
+  alias: PUBG - Headshot
+  description: ''
+  trigger:
+  - platform: event
+    event_type: overwolf_game_event
+    alias: Overwolf PUBG event
+    event_data:
+      data:
+        gameId: 10906
+  condition:
+  - condition: template
+    value_template: '{{ trigger.event.data.data.events.0.name == "headshot" }}'
+    alias: Wert verändert
+  action:
+  - service: input_number.increment
+    data: {}
+    target:
+      entity_id: input_number.pubg_headshots
+    alias: Anzahl erhöhen
+  mode: single
+- id: '1671984211526'
+  alias: PUBG - Neues Match
+  description: ''
+  trigger:
+  - platform: event
+    event_type: overwolf_game_event
+    alias: Overwolf PUBG event
+    event_data:
+      data:
+        gameId: 10906
+  condition:
+  - condition: template
+    value_template: '{{ trigger.event.data.data.events.0.name == "matchStart" }}'
+    alias: Neues Match
+  action:
+  - service: input_number.set_value
+    data:
+      value: 0
+    target:
+      entity_id: input_number.pubg_headshots
+    alias: Headshots zurücksetzen
+  - service: input_number.set_value
+    data:
+      value: 0
+    target:
+      entity_id: input_number.pubg_damage_dealt
+    alias: Schaden zurücksetzen
+  - service: input_number.set_value
+    data:
+      value: 0
+    target:
+      entity_id:
+      - input_number.pubg_kills
+    alias: Kills zurücksetzen
+  mode: single
+- id: '1671984563159'
+  alias: PUBG - Kill
+  description: ''
+  trigger:
+  - platform: event
+    event_type: overwolf_game_event
+    alias: Overwolf PUBG event
+    event_data:
+      data:
+        gameId: 10906
+  condition:
+  - condition: template
+    value_template: '{{ trigger.event.data.data.events.0.name == "kill" }}'
+    alias: Wert verändert
+  action:
+  - service: input_number.increment
+    data: {}
+    alias: Anzahl erhöhen
+    target:
+      entity_id:
+      - input_number.pubg_kills
+  - service: script.jens_alarm_flash_rot
+    data: {}
+    alias: Lampe rot aufblitzen
+  mode: single
+- id: '1672162175763'
+  alias: CSGO - Kill
+  description: ''
+  trigger:
+  - platform: event
+    event_type: overwolf_game_event
+    event_data:
+      data:
+        gameId: 7764
+    alias: Received an Overwolf CS:GO event
+  condition:
+  - condition: template
+    value_template: '{{ trigger.event.data.data.events.0.name == "kill" }}'
+    alias: Kill event
+  action:
+  - service: light.turn_on
+    data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      brightness_pct: 100
+    target:
+      entity_id: light.guestroom_desk_alarm_left
+    alias: Turn light on in red
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+    alias: Wait a second
+  - service: light.turn_off
+    data:
+      transition: 0.5
+    target:
+      entity_id: light.guestroom_desk_alarm_left
+    alias: Turn light off
+  mode: single
+- id: '1672495868959'
+  alias: Wohnzimmer - Multimedia - An
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.wohnzimmer_multimedia_mehrfachsteckdose
+    from: 'off'
+    to: 'on'
+    alias: Wohnzimmer Multimedia angeschaltet
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+      - switch.plug_livingroom_sonos_rear_left
+      - switch.plug_livingroom_sonos_rear_right
+    alias: Sonos Surrounds anschalten
+  mode: single
+- id: '1672495916881'
+  alias: Wohnzimmer - Multimedia - Aus
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.wohnzimmer_multimedia_mehrfachsteckdose
+    from: 'on'
+    to: 'off'
+    alias: Wohnzimmer Multimedia ausgeschaltet
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.plug_livingroom_sonos_rear_left
+      - switch.plug_livingroom_sonos_rear_right
+    alias: Sonos Surrounds ausschalten
+  mode: single
+- id: '1673339054969'
+  alias: Sensor - Büro Jens - Hue Dimmer
+  description: ''
+  use_blueprint:
+    path: brodock/HueDimmer_RWL022.yaml
+    input:
+      remote: 7f5199221eb6c9aee9d1fbd79ef419a5
+      power_light: light.guestroom_standinglight
+      hue_light: light.videolicht
+      brightness_steps: 10

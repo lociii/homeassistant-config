@@ -3,6 +3,9 @@ zha:
     ota:
       ikea_provider: true
       ledvance_provider: true
+      salus_provider: true
+      inovelli_provider: true
+
     network:
       channel: !secret zha_channel
       channels:

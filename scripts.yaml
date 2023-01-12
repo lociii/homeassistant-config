@@ -1,63 +1,92 @@
-katzenklo_reset:
-  alias: Katzenklo - Zuruecksetzen
-  sequence:
-  - data:
-      value: 0
-    entity_id: input_number.count_usage_catlitter
-    service: input_number.set_value
-  - data:
-      value: 0
-    entity_id: input_number.count_usage_catlitter_office
-    service: input_number.set_value
-  - data:
-      datetime: '1970-01-01 00:00:00'
-    entity_id: input_datetime.last_usage_catlitter_office
-    service: input_datetime.set_datetime
-  - data:
-      value: 0
-    entity_id: input_number.count_usage_catlitter_hallway
-    service: input_number.set_value
-  - data:
-      datetime: '1970-01-01 00:00:00'
-    entity_id: input_datetime.last_usage_catlitter_hallway
-    service: input_datetime.set_datetime
-  - data:
-      value: 0
-    entity_id: input_number.count_usage_catlitter_guestroom
-    service: input_number.set_value
-  - data:
-      datetime: '1970-01-01 00:00:00'
-    entity_id: input_datetime.last_usage_catlitter_guestroom
-    service: input_datetime.set_datetime
 wakeup_light:
   alias: Wakeup light
   sequence:
   - data:
-      brightness: 10
       color_temp: 440
       transition: 1
-    entity_id: light.bedroom_bed
+      brightness_pct: 2
     service: light.turn_on
+    target:
+      entity_id:
+      - light.bedroom_bed
+      - light.ambiente
+    alias: Einfaden
   - delay: 00:00:05
-  - data:
-      brightness: 80
-      color_temp: 440
-      transition: 600
-    entity_id: light.bedroom_bed
-    service: light.turn_on
+    alias: 5 Sekunden Pause
+  - parallel:
+    - data:
+        color_temp: 440
+        transition: 600
+        brightness_pct: 30
+      service: light.turn_on
+      target:
+        entity_id:
+        - light.bedroom_bed
+      alias: Bettlicht auf 30% in 10 Minuten
+    - data:
+        color_temp: 480
+        transition: 600
+        brightness_pct: 10
+      service: light.turn_on
+      target:
+        entity_id:
+        - light.ambiente
+      alias: Ambiente auf 10% in 10 Minuten
+    alias: Schlummern
   - delay: 00:10:05
-  - data:
-      brightness: 164
-      color_temp: 440
-      transition: 300
-    entity_id: light.bedroom_bed
-    service: light.turn_on
+    alias: 10 Minuten Pause
+  - parallel:
+    - data:
+        color_temp: 440
+        transition: 300
+        brightness_pct: 70
+      service: light.turn_on
+      target:
+        entity_id:
+        - light.bedroom_bed
+      alias: Bettlicht auf 70% in 5 Minuten
+    - data:
+        color_temp: 480
+        transition: 300
+        brightness_pct: 50
+      service: light.turn_on
+      target:
+        entity_id:
+        - light.ambiente
+      alias: Ambiente auf 50% in 5 Minuten
+    alias: Aufwachen
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 5
+      milliseconds: 0
+    alias: 5 Minuten Pause
+  - parallel:
+    - data:
+        color_temp: 180
+        transition: 60
+        brightness_pct: 80
+      service: light.turn_on
+      target:
+        entity_id:
+        - light.bedroom_bed
+      alias: Bettlicht auf 80% Kaltweiss in 1 Minute
+    - data:
+        color_temp: 200
+        transition: 60
+        brightness_pct: 80
+      service: light.turn_on
+      target:
+        entity_id:
+        - light.ambiente
+      alias: Ambiente auf 80% Kaltweiss in 1 Minute
+    alias: Aufstehen
   mode: single
 gaestezimmer_stehlampe_warmweiss:
-  alias: Gaestezimmer - Stehlampe - Warmweiss
+  alias: Gästezimmer - Stehlampe - Warmweiß
   sequence:
   - data:
-      brightness_pct: 70
+      brightness_pct: 80
       rgb_color:
       - 255
       - 237
@@ -65,64 +94,8 @@ gaestezimmer_stehlampe_warmweiss:
     service: light.turn_on
     target:
       entity_id: light.guestroom_standinglight
+    alias: Stehlampe an
   mode: single
-wohnzimmer_stehlampe_warmweiss:
-  alias: Wohnzimmer - Stehlampe - Warmweiss
-  sequence:
-  - data:
-      xy_color:
-      - 0.45989990234
-      - 0.41059875488
-    entity_id: light.livingroom_standinglight
-    service: light.turn_on
-wohnzimmer_stehlampe_alarm_blau:
-  alias: Wohnzimmer - Stehlampe - Alarm Blau
-  sequence:
-  - data:
-      rgb_color:
-      - 0
-      - 0
-      - 255
-      transition: 1
-    entity_id: light.livingroom_standinglight
-    service: light.turn_on
-  - delay: '1'
-  - data:
-      flash: short
-    entity_id: light.livingroom_standinglight
-    service: light.turn_on
-  - delay: '3'
-  - data:
-      transition: 2
-      xy_color:
-      - 0.45989990234
-      - 0.41059875488
-    entity_id: light.livingroom_standinglight
-    service: light.turn_on
-wohnzimmer_stehlampe_alarm_rot:
-  alias: Wohnzimmer - Stehlampe - Alarm Rot
-  sequence:
-  - data:
-      rgb_color:
-      - 255
-      - 0
-      - 0
-      transition: 1
-    entity_id: light.livingroom_standinglight
-    service: light.turn_on
-  - delay: '1'
-  - data:
-      flash: short
-    entity_id: light.livingroom_standinglight
-    service: light.turn_on
-  - delay: '3'
-  - data:
-      transition: 2
-      xy_color:
-      - 0.45989990234
-      - 0.41059875488
-    entity_id: light.livingroom_standinglight
-    service: light.turn_on
 staubsauger_zone_kueche:
   alias: Staubsauger - Küche
   sequence:
@@ -302,16 +275,21 @@ cover_kitchen_sunprotection:
   mode: single
   icon: mdi:window-open
 gaestezimmer_stehlampe_alarm_blau:
-  alias: Gaestezimmer - Alarm Blau
+  alias: Gästezimmer - Alarm Blau
   sequence:
   - service: scene.create
     data:
       scene_id: guestroom_light_snapshot
       snapshot_entities:
-      - light.guestroom_standinglight
       - light.guestroom_desk_alarm_left
       - light.guestroom_desk_alarm_right
     alias: Lichtstatus speichern
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+    alias: 1 Sekunde Pause
   - data:
       rgb_color:
       - 0
@@ -323,7 +301,6 @@ gaestezimmer_stehlampe_alarm_blau:
     alias: Licht auf blau
     target:
       entity_id:
-      - light.guestroom_standinglight
       - light.guestroom_desk_alarm_left
       - light.guestroom_desk_alarm_right
   - delay:
@@ -331,13 +308,13 @@ gaestezimmer_stehlampe_alarm_blau:
       minutes: 0
       seconds: 1
       milliseconds: 0
+    alias: 1 Sekunde Pause
   - data:
       flash: long
     service: light.turn_on
     alias: Flash
     target:
       entity_id:
-      - light.guestroom_standinglight
       - light.guestroom_desk_alarm_left
       - light.guestroom_desk_alarm_right
   - delay:
@@ -345,25 +322,31 @@ gaestezimmer_stehlampe_alarm_blau:
       minutes: 0
       seconds: 10
       milliseconds: 0
+    alias: 10 Sekunden Pause
   - service: scene.turn_on
     data:
-      transition: 1
+      transition: 0
     target:
       entity_id: scene.guestroom_light_snapshot
     alias: Lichtstatus wiederherstellen
   mode: single
   icon: mdi:alarm-light
 gaestezimmer_stehlampe_alarm_rot:
-  alias: Gaestezimmer - Alarm Rot
+  alias: Gästezimmer - Alarm Rot
   sequence:
   - service: scene.create
     data:
       scene_id: guestroom_light_snapshot
       snapshot_entities:
-      - light.guestroom_standinglight
       - light.guestroom_desk_alarm_left
       - light.guestroom_desk_alarm_right
     alias: Lichtstatus speichern
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+    alias: 1 Sekunde Pause
   - data:
       rgb_color:
       - 255
@@ -375,7 +358,6 @@ gaestezimmer_stehlampe_alarm_rot:
     alias: Licht auf rot
     target:
       entity_id:
-      - light.guestroom_standinglight
       - light.guestroom_desk_alarm_left
       - light.guestroom_desk_alarm_right
   - delay:
@@ -383,13 +365,13 @@ gaestezimmer_stehlampe_alarm_rot:
       minutes: 0
       seconds: 1
       milliseconds: 0
+    alias: 1 Sekunde Pause
   - data:
       flash: long
     service: light.turn_on
     alias: Flash
     target:
       entity_id:
-      - light.guestroom_standinglight
       - light.guestroom_desk_alarm_left
       - light.guestroom_desk_alarm_right
   - delay:
@@ -397,6 +379,7 @@ gaestezimmer_stehlampe_alarm_rot:
       minutes: 0
       seconds: 10
       milliseconds: 0
+    alias: 10 Sekunden Pause
   - service: scene.turn_on
     data:
       transition: 1
@@ -406,16 +389,21 @@ gaestezimmer_stehlampe_alarm_rot:
   mode: single
   icon: mdi:alarm-light
 gaestezimmer_alarm_regenbogen:
-  alias: Gaestezimmer - Alarm Regenbogen
+  alias: Gästezimmer - Alarm Regenbogen
   sequence:
   - service: scene.create
     data:
       scene_id: guestroom_light_snapshot
       snapshot_entities:
-      - light.guestroom_standinglight
       - light.guestroom_desk_alarm_left
       - light.guestroom_desk_alarm_right
     alias: Lichtstatus speichern
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+    alias: 1 Sekunde Pause
   - repeat:
       count: '2'
       sequence:
@@ -424,7 +412,6 @@ gaestezimmer_alarm_regenbogen:
           entity_id:
           - light.guestroom_desk_alarm_left
           - light.guestroom_desk_alarm_right
-          - light.guestroom_standinglight
         data:
           brightness_pct: 80
           rgb_color:
@@ -443,7 +430,6 @@ gaestezimmer_alarm_regenbogen:
           entity_id:
           - light.guestroom_desk_alarm_left
           - light.guestroom_desk_alarm_right
-          - light.guestroom_standinglight
         data:
           brightness_pct: 80
           rgb_color:
@@ -461,7 +447,6 @@ gaestezimmer_alarm_regenbogen:
           entity_id:
           - light.guestroom_desk_alarm_left
           - light.guestroom_desk_alarm_right
-          - light.guestroom_standinglight
         data:
           brightness_pct: 80
           rgb_color:
@@ -473,13 +458,12 @@ gaestezimmer_alarm_regenbogen:
           minutes: 0
           seconds: 1
           milliseconds: 0
-      - alias: Gruen
+      - alias: Grün
         service: light.turn_on
         target:
           entity_id:
           - light.guestroom_desk_alarm_left
           - light.guestroom_desk_alarm_right
-          - light.guestroom_standinglight
         data:
           brightness_pct: 80
           rgb_color:
@@ -497,7 +481,6 @@ gaestezimmer_alarm_regenbogen:
           entity_id:
           - light.guestroom_desk_alarm_left
           - light.guestroom_desk_alarm_right
-          - light.guestroom_standinglight
         data:
           brightness_pct: 80
           rgb_color:
@@ -515,7 +498,6 @@ gaestezimmer_alarm_regenbogen:
           entity_id:
           - light.guestroom_desk_alarm_left
           - light.guestroom_desk_alarm_right
-          - light.guestroom_standinglight
         data:
           brightness_pct: 80
           rgb_color:
@@ -533,7 +515,6 @@ gaestezimmer_alarm_regenbogen:
           entity_id:
           - light.guestroom_desk_alarm_left
           - light.guestroom_desk_alarm_right
-          - light.guestroom_standinglight
         data:
           brightness_pct: 80
           rgb_color:
@@ -634,7 +615,7 @@ announcement:
     alias: 10s warten
   - service: scene.turn_on
     target:
-      entity_id: 'scene.{{ media_player | replace(".", "_") }}_snapshot'
+      entity_id: scene.{{ media_player | replace(".", "_") }}_snapshot
     alias: Vorherigen Zustand wiederherstellen
   mode: single
 rollladen_schlafzimmer_spalt:
@@ -654,4 +635,29 @@ rollladen_buro_eva_spalt:
       cover: cover.rollladen_eva
       from_opened: 14
       from_closed: 12
+  mode: single
+jens_alarm_flash_rot:
+  alias: Jens - Alarm - Flash - Rot
+  sequence:
+  - service: light.turn_on
+    data:
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      brightness_pct: 100
+    target:
+      entity_id: light.guestroom_desk_alarm_left
+    alias: Turn light on in red
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+    alias: Wait a second
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.guestroom_desk_alarm_left
+    alias: Turn light off
   mode: single

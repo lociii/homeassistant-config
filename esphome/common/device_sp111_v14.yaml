@@ -25,7 +25,7 @@ sensor:
             - 11.27 -> 7.96       # hairdryer 3/2
         # make everything below 0.1A appear as just 0A
         # furthermore it corrects 0.013A for the power usage of the plug
-        - lambda: if (x < 0.1 return 0; else return (x - 0.013);
+        - lambda: if (x < (0.01 - 0.013)) return 0; else return (x - 0.013);
         - or:
           - throttle: ${update_throttle}
           - delta: 0.03
@@ -58,7 +58,7 @@ sensor:
             - 12350 -> 1800    # hairdryer 3/2
         # make everything below 2W appear as just 0W
         # furthermore it corrects 1.14W for the power usage of the plug
-        - lambda: if (x < 2 return 0; else return (x - 1.14);
+        - lambda: if (x < (2 + 1.14)) return 0; else return (x - 1.14);
         - or:
           - throttle: ${update_throttle}
           - delta: 3
