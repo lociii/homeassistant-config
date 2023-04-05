@@ -772,10 +772,22 @@ action:
                           alias: "Nicht bereits geöffnet"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                         sequence:
-                          - service: cover.open_cover
-                            alias: "Rollladen öffnen"
-                            target:
-                              entity_id: "{{ cover }}"
+                          - choose:
+                            - conditions:
+                              # it's freezing
+                              - condition: template
+                                alias: "Außentemperatur am Gefrierpunkt"
+                                value_template: "{{ state_attr('weather.schonaich', 'temperature') <= 0 }}"
+                              sequence:
+                                - service: script.turn_on
+                                  alias: "Rollladen auf Spalt"
+                                  target:
+                                    entity_id: "{{ script_ajar }}"
+                            default:
+                              - service: cover.open_cover
+                                alias: "Rollladen öffnen"
+                                target:
+                                  entity_id: "{{ cover }}"
 
     # DONE - shutdown state change triggered
     # ------------------------
