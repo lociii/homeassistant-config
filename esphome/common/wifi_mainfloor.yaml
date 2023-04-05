@@ -3,4 +3,4 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   domain: !secret wifi_domain
-  reboot_timeout: 5min
+  reboot_timeout: 15min
