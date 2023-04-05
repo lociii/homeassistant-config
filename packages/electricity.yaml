@@ -1,3 +1,0 @@
-sensor:
-  - platform: edl21
-    serial_port: /dev/ttyUSB0
