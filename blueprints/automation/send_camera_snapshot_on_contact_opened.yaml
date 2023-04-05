@@ -138,19 +138,3 @@ action:
         - action: "URI"
           title: "Snapshot"
           uri: "{{ snapshot_url }}"
-
-  # - service: notify.mobile_app_pixel_6
-  #   data:
-  #     message: help
-  #     data:
-  #       timeout: 600
-  #       image: /api/camera_proxy/camera.catdoor
-  #       notification_icon: "mdi:cat"
-  #       channel: "Catdoor"
-  #       actions:
-  #         - action: "URI"
-  #           title: "Livebild"
-  #           uri: "entityId:camera.catdoor"
-  #         - action: "URI"
-  #           title: "Snapshot"
-  #           uri: "/media-browser/browser/app%2Cmedia-source%3A%2F%2Fmedia_source/%2Cmedia-source%3A%2F%2Fmedia_source%2Flocal%2Ftmp"
