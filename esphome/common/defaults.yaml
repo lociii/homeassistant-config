@@ -3,7 +3,8 @@ logger:
 
 # enable api
 api:
-  password: !secret esphome_api_password
+  encryption:
+    key: !secret esphome_api_key
 
 # enable over-the-air updates
 ota:
