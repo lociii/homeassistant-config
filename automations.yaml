@@ -180,8 +180,10 @@
     state: 'on'
   action:
   - data: {}
-    entity_id: script.cover_bedroom_ajar
     service: script.turn_on
+    target:
+      entity_id:
+      - script.rollladen_schlafzimmer_spalt
 - id: '1589642700574'
   alias: Schlafen - Lichtschutz
   description: ''
@@ -254,9 +256,9 @@
     alias: Termin in 1 Minute
   condition:
   - condition: state
-    entity_id: switch.shaun
+    entity_id: switch.steckdose_schreibtisch_jens
     state: 'on'
-    alias: Computer ist an
+    alias: Schreibtisch Jens ist an
   - condition: state
     entity_id: input_boolean.jens_im_urlaub
     state: 'off'
@@ -269,8 +271,8 @@
     - service: script.announcement
       data:
         message: Dein nächster Termin beginnt in einer Minute!
-        media_player: media_player.jens_echo
-        volume: 0.3
+        media_player: media_player.guestroom_alexa_beam
+        volume: 0.1
         scene_name: snapshot_jens_echo
       alias: Ansage
   mode: single
@@ -285,9 +287,9 @@
     alias: Termin in 5 Minuten
   condition:
   - condition: state
-    entity_id: switch.shaun
+    entity_id: switch.steckdose_schreibtisch_jens
     state: 'on'
-    alias: Computer ist an
+    alias: Schreibtisch Jens ist an
   - condition: state
     entity_id: input_boolean.jens_im_urlaub
     state: 'off'
@@ -300,8 +302,8 @@
     - service: script.announcement
       data:
         message: Dein nächster Termin beginnt in fünf Minuten!
-        media_player: media_player.jens_echo
-        volume: 0.3
+        media_player: media_player.guestroom_alexa_beam
+        volume: 0.1
         scene_name: snapshot_jens_echo
       alias: Ansage
   mode: single
@@ -1766,12 +1768,6 @@
     alias: Beim Einschlafen
   condition: []
   action:
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 30
-      milliseconds: 0
-    alias: 30 Sekunden warten
   - service: script.announcement
     data:
       media_player: media_player.schlafzimmer_alexa
@@ -1790,14 +1786,15 @@
       volume_level: 0.02
     alias: Lautstärke runter
     target:
-      entity_id: media_player.sonos_schlafzimmer
+      entity_id: media_player.sonos_bedroom
   - service: media_player.play_media
-    data:
-      media_content_type: music
-      media_content_id: /media/local/music/schlafmusik.mp3
     alias: Schlafmusik spielen
+    data:
+      media_content_id: /media/local/music/schlafmusik.mp3
+      media_content_type: music
+      enqueue: play
     target:
-      entity_id: media_player.bedroom
+      entity_id: media_player.sonos_bedroom
   mode: single
 - id: '1670609106606'
   alias: Schlafen - Aufstehen - Gruß
@@ -1860,10 +1857,10 @@
   action:
   - delay:
       hours: 0
-      minutes: 1
+      minutes: 5
       seconds: 0
       milliseconds: 0
-    alias: Nach 1 Minute
+    alias: Nach 5 Minuten
   - service: script.turn_off
     data: {}
     target:
@@ -2805,118 +2802,6 @@
       notification_channel: Catdoor
       notification_timeout: '600'
       snapshot_url: /media-browser/browser/app%2Cmedia-source%3A%2F%2Fmedia_source/%2Cmedia-source%3A%2F%2Fmedia_source%2Flocal%2Fcatdoor
-- id: '1671288315693'
-  alias: Notification Test
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.keba_p30_plug
-    from: 'on'
-    to: 'off'
-    alias: Fahrzeug getrennt
-  condition: []
-  action:
-  - alias: Variablen setzen
-    variables:
-      action_tesla: '{{ ''TESLA_'' ~ context.id }}'
-      action_fiat: '{{ ''FIAT_'' ~ context.id }}'
-      action_cancel: '{{ ''CANCEL_'' ~ context.id }}'
-  - alias: Benachrichtigung an Jens
-    service: notify.mobile_app_pixel_6
-    data:
-      title: EV geladen
-      message: Ein Auto wurde von der Wallbox getrennt. Wem soll der Verbrauch zugerechnet
-        werden?
-      data:
-        tag: garage-wallbox-disconnected
-        actions:
-        - action: '{{ action_tesla }}'
-          title: Tesla
-        - action: '{{ action_fiat }}'
-          title: Fiat
-        - action: '{{ action_cancel }}'
-          title: Ignorieren
-  - alias: Benachrichtigung an Eva
-    service: notify.mobile_app_mi_10
-    data:
-      title: EV geladen
-      message: Ein Auto wurde von der Wallbox getrennt. Wem soll der Verbrauch zugerechnet
-        werden?
-      data:
-        tag: garage-wallbox-disconnected
-        actions:
-        - action: '{{ action_tesla }}'
-          title: Tesla
-        - action: '{{ action_fiat }}'
-          title: Fiat
-        - action: '{{ action_cancel }}'
-          title: Ignorieren
-  - alias: Auf Antwort warten
-    wait_for_trigger:
-    - platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: '{{ action_tesla }}'
-      alias: Tesla ausgewählt
-    - platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: '{{ action_fiat }}'
-      alias: Fiat ausgewählt
-    - platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: '{{ action_cancel }}'
-      alias: Ignorieren ausgewählt
-    continue_on_timeout: false
-  - alias: Aktion ausfuehren
-    choose:
-    - conditions: '{{ wait.trigger.event.data.action == action_tesla }}'
-      sequence:
-      - service: notify.mobile_app_pixel_6
-        data:
-          message: clear_notification
-          data:
-            tag: garage-wallbox-disconnected
-        alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_mi_10
-        data:
-          message: clear_notification
-          data:
-            tag: garage-wallbox-disconnected
-        alias: Benachrichtigung Eva löschen
-      - service: light.turn_on
-        data:
-          rgb_color:
-          - 0
-          - 29
-          - 250
-        target:
-          entity_id: light.guestroom_desk_alarm_left
-    - conditions: '{{ wait.trigger.event.data.action == action_fiat }}'
-      sequence:
-      - service: notify.mobile_app_pixel_6
-        data:
-          message: clear_notification
-          data:
-            tag: garage-wallbox-disconnected
-        alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_mi_10
-        data:
-          message: clear_notification
-          data:
-            tag: garage-wallbox-disconnected
-        alias: Benachrichtigung Eva löschen
-      - service: light.turn_on
-        data:
-          rgb_color:
-          - 55
-          - 138
-          - 0
-        target:
-          entity_id: light.guestroom_desk_alarm_left
-  mode: single
 - id: '1671291426383'
   alias: Garage - Wallbox - Auto getrent - Abschalten
   description: ''
@@ -3132,19 +3017,16 @@
     path: leofabri/appliance-status-monitor.yaml
     input:
       appliance_socket: switch.basement_dryer
-      appliance_power_sensor: sensor.basement_dryer_power_usage
+      appliance_power_sensor: sensor.verbrauch_trockner_5_minuten
       appliance_starting_power_threshold: 30
-      appliance_finishing_power_threshold: 25
+      appliance_finishing_power_threshold: 50
       appliance_suspended_sensor: []
       appliance_state_machine: input_select.trockner_state_machine
       appliance_job_cycle: input_boolean.trockner_job_cycle
       delayed_job_completion_timer: timer.trockner_delayed_job_completion_timer
       automation_self_trigger: input_boolean.trockner_automation_self_trigger
-      delayed_job_completion_duration: 300
-      actions_new_job_cycle_begins:
-      - service: notify.mobile_app_pixel_6
-        data:
-          message: Trockner wurde gestartet
+      delayed_job_completion_duration: 0
+      actions_new_job_cycle_begins: []
       actions_job_cycle_resumes:
       - service: notify.mobile_app_pixel_6
         data:
@@ -3153,6 +3035,11 @@
       - service: notify.mobile_app_pixel_6
         data:
           message: Trockner ist fertig
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.wohnzimmer_jbl_mobile
+          message: Der Trockner ist fertig
+          language: de-DE
 - id: '1671981668484'
   alias: PUBG - Schaden verursacht
   description: ''
@@ -3231,6 +3118,12 @@
       entity_id:
       - input_number.pubg_kills
     alias: Kills zurücksetzen
+  - service: input_text.set_value
+    data:
+      value: ' '
+    target:
+      entity_id: input_text.pubg_spieleralarm_anzeige
+    alias: Bekannte Spieler zurücksetzen
   mode: single
 - id: '1671984563159'
   alias: PUBG - Kill
@@ -3345,3 +3238,33 @@
       power_light: light.guestroom_standinglight
       hue_light: light.videolicht
       brightness_steps: 10
+- id: '1673803418234'
+  alias: Wäsche - Waschmaschine
+  description: ''
+  use_blueprint:
+    path: leofabri/appliance-status-monitor.yaml
+    input:
+      appliance_socket: switch.basement_washer_human
+      appliance_power_sensor: sensor.basement_washer_human_power_usage
+      appliance_starting_power_threshold: 20
+      appliance_finishing_power_threshold: 20
+      appliance_suspended_sensor: []
+      appliance_state_machine: input_select.waschmaschine_state_machine
+      appliance_job_cycle: input_boolean.waschmaschine_job_cycle
+      delayed_job_completion_timer: timer.trockner_delayed_job_completion_timer
+      automation_self_trigger: input_boolean.waschmaschine_automation_self_trigger
+      delayed_job_completion_duration: 0
+      actions_new_job_cycle_begins: []
+      actions_job_cycle_resumes:
+      - service: notify.mobile_app_pixel_6
+        data:
+          message: Waschmaschine wurde fortgesetzt
+      actions_job_cycle_ends:
+      - service: notify.mobile_app_pixel_6
+        data:
+          message: Waschmaschine ist fertig
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.wohnzimmer_jbl_mobile
+          message: Die Waschmaschine ist fertig
+          language: de-DE
