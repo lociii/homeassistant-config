@@ -1,4 +1,0 @@
-binary_sensor:
-  - platform: workday
-    country: !secret country
-    province: !secret province
