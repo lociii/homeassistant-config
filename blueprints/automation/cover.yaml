@@ -27,6 +27,12 @@ blueprint:
       selector:
         entity:
           domain: script
+    script_sunprotection:
+      name: Skript für Sonnenschutz
+      default: []
+      selector:
+        entity:
+          domain: script
     script_cat:
       name: Skript für Katzenposition
       default: []
@@ -74,6 +80,7 @@ variables:
   sun_protection: !input sun_protection
   sun_protection_requested: "{{ sun_protection|length > 0 and is_state(sun_protection, ['on', 'off']) }}"
   script_ajar: !input script_ajar
+  script_sunprotection: !input script_sunprotection
   script_cat: !input script_cat
   script_cat_requested: "{{ script_cat|length > 0 and is_state(script_cat, ['on', 'off']) }}"
   close_on_shutdown: !input close_on_shutdown
@@ -237,9 +244,9 @@ action:
                             value_template: "{{ is_state(sun_protection, 'on') }}"
                           sequence:
                             - service: script.turn_on
-                              alias: "Rollladen auf Spalt"
+                              alias: "Rollladen auf Sonnenschutz"
                               target:
-                                entity_id: "{{ script_ajar }}"
+                                entity_id: "{{ script_sunprotection }}"
                         # no sunprotection
                         default:
                           - choose:
@@ -340,9 +347,9 @@ action:
                             value_template: "{{ is_state(sun_protection, 'on') }}"
                           sequence:
                             - service: script.turn_on
-                              alias: "Rollladen auf Spalt"
+                              alias: "Rollladen auf Sonnenschutz"
                               target:
-                                entity_id: "{{ script_ajar }}"
+                                entity_id: "{{ script_sunprotection }}"
                         # no sunprotection
                         default:
                           - choose:

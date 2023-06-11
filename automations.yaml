@@ -2459,6 +2459,7 @@
       open_on_return: false
       can_open_when_dark: true
       keep_open_when_dark: false
+      script_sunprotection: script.rollladen_buro_jens_spalt
 - id: '1670928226422'
   alias: Sonnenschutz Süd
   description: ''
@@ -2502,16 +2503,19 @@
         above: 123
         below: 253
         alias: Sonne scheint im Süden
-      - condition: state
-        entity_id: input_boolean.sonnenschutz_sued
-        state: 'off'
-        alias: Sonnenschutz Süd ist aus
       sequence:
-      - service: input_boolean.turn_on
-        data: {}
-        target:
+      - if:
+        - condition: state
           entity_id: input_boolean.sonnenschutz_sued
-        alias: Sonnenschutz Süd anschalten
+          state: 'off'
+          alias: Sonnenschutz Süd ist aus
+        then:
+        - service: input_boolean.turn_on
+          data: {}
+          target:
+            entity_id: input_boolean.sonnenschutz_sued
+          alias: Sonnenschutz Süd anschalten
+        alias: Sonnenschutz Süd anschalten, wenn aus
     default:
     - if:
       - condition: state
@@ -2535,6 +2539,10 @@
     entity_id:
     - input_boolean.sonnenschutz_west_automatisieren
     alias: Automatisierung Sonnenschutz West verändert
+  - platform: state
+    entity_id:
+    - input_boolean.sonnenschutz_orchideen_automatisieren
+    alias: Automatisierung Sonnenschutz Orchideen verändert
   - platform: state
     entity_id:
     - sensor.temperatur_innen_15_minuten
@@ -2590,7 +2598,7 @@
           target:
             entity_id: input_boolean.sonnenschutz_west
           alias: Sonnenschutz West anschalten
-        alias: Sonnenschutz West anschalten prüfen
+        alias: Sonnenschutz West anschalten, wenn aus
       - if:
         - condition: state
           entity_id: input_boolean.sonnenschutz_orchideen_automatisieren
@@ -2607,7 +2615,7 @@
             entity_id:
             - input_boolean.sonnenschutz_orchideen
           alias: Sonnenschutz Orchideen anschalten
-        alias: Sonnenschutz Orchideen anschalten prüfen
+        alias: Sonnenschutz Orchideen anschalten, wenn aus
     default:
     - if:
       - condition: state
@@ -2621,7 +2629,7 @@
           entity_id:
           - input_boolean.sonnenschutz_west
         alias: Sonnenschutz West ausschalten
-      alias: Sonnenschutz West ausschalten prüfen
+      alias: Sonnenschutz West ausschalten, wenn an
     - if:
       - condition: state
         entity_id: input_boolean.sonnenschutz_orchideen
@@ -2634,7 +2642,7 @@
           entity_id:
           - input_boolean.sonnenschutz_orchideen
         alias: Sonnenschutz Orchideen ausschalten
-      alias: Sonnenschutz Orchideen ausschalten prüfen
+      alias: Sonnenschutz Orchideen ausschalten, wenn an
     alias: Sonnenschutz prüfen
   mode: single
 - id: '1670929719385'
@@ -2649,32 +2657,42 @@
   action:
   - if:
     - condition: template
-      value_template: '{{ states(''sensor.environment_outside_temperature'') > states(''sensor.environment_inside_temperature'')
+      value_template: '{{ states(''sensor.temperatur_aussen_15_minuten'') > states(''sensor.temperatur_innen_15_minuten'')
         }}'
       alias: Außen wärmer wie innen
-    - condition: state
-      entity_id: input_select.temperatur_schwelle
-      state: Kalt
-      alias: Letzter Status war kalt
     - condition: numeric_state
       entity_id: sensor.temperatur_aussen_15_minuten
       above: 21
       alias: Außentemperatur über 21 Grad
     then:
-    - service: input_select.select_option
-      data:
-        option: Warm
-      target:
+    - if:
+      - condition: state
         entity_id: input_select.temperatur_schwelle
-      alias: Warm setzen
+        state: Kalt
+        alias: Letzter Status war kalt
+      then:
+      - service: input_select.select_option
+        data:
+          option: Warm
+        target:
+          entity_id: input_select.temperatur_schwelle
+        alias: Warm setzen
+      alias: Warm setzen, wenn kalt war
     alias: Schwellenänderung prüfen
     else:
-    - service: input_select.select_option
-      data:
-        option: Kalt
-      target:
+    - if:
+      - condition: state
         entity_id: input_select.temperatur_schwelle
-      alias: Kalt setzen
+        state: Warm
+        alias: Letzter Status war warm
+      then:
+      - service: input_select.select_option
+        data:
+          option: Kalt
+        target:
+          entity_id: input_select.temperatur_schwelle
+        alias: Kalt setzen
+      alias: Kalt setzen, wenn warm war
   mode: single
 - id: '1670929925124'
   alias: Wärmeschutz - Kalt zu warm
@@ -2695,29 +2713,10 @@
     entity_id: input_boolean.sleeping
     state: 'off'
     alias: Wir schlafen nicht
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: binary_sensor.magnet_window_kitchen_contact
-      state: 'on'
-      alias: Küchenfenster ist offen
-    - condition: state
-      entity_id: binary_sensor.magnet_door_patio_contact
-      state: 'on'
-      alias: Terrassentür ist offen
-    - condition: state
-      entity_id: binary_sensor.magnet_window_guestroom_contact
-      state: 'on'
-      alias: Fenster Büro Jens ist offen
-    - condition: state
-      entity_id: binary_sensor.magnet_window_bedroom_contact
-      state: 'on'
-      alias: Fenster Schlafzimmer ist offen
-    - condition: state
-      entity_id: binary_sensor.magnet_window_office_contact
-      state: 'on'
-      alias: Fenster Büro Eva ist offen
-    alias: Irgendein Fenster/Tür ist offen
+  - condition: state
+    entity_id: binary_sensor.fenster
+    state: 'on'
+    alias: Ein Fenster ist offen
   action:
   - service: script.announcement
     data:
@@ -2741,6 +2740,7 @@
       open_on_return: false
       can_open_when_dark: true
       keep_open_when_dark: false
+      script_sunprotection: script.rollladen_kuche_sonnenschutz
 - id: '1670948881633'
   alias: Rollladen - Esstisch
   description: ''
@@ -2751,10 +2751,11 @@
       contact_sensor: '[]'
       sun_protection: input_boolean.sonnenschutz_sued
       script_ajar: script.rollladen_esstisch_spalt
-      script_cat: script.cover_dining_cat
+      script_cat: script.rollladen_esstisch_katzenposition
       open_on_return: false
       can_open_when_dark: false
       keep_open_when_dark: false
+      script_sunprotection: script.rollladen_esstisch_sonnenschutz
 - id: '1670949797116'
   alias: Rollladen - Couch
   description: ''
@@ -2765,11 +2766,12 @@
       contact_sensor: '[]'
       sun_protection: input_boolean.sonnenschutz_west
       script_ajar: script.rollladen_couch_spalt
-      script_cat: script.cover_couch_cat
+      script_cat: script.rollladen_couch_katzenposition
       close_on_shutdown: true
       open_on_return: false
       can_open_when_dark: false
       keep_open_when_dark: false
+      script_sunprotection: script.rollladen_couch_spalt
 - id: '1670951413392'
   alias: Rollladen - Terrasse
   description: ''
@@ -2785,6 +2787,7 @@
       open_on_return: true
       can_open_when_dark: true
       keep_open_when_dark: true
+      script_sunprotection: '[]'
 - id: '1671111407519'
   alias: Katzentür geöffnet - Benachrichtigung an Eva
   description: ''
@@ -2869,29 +2872,10 @@
     entity_id: input_boolean.sleeping
     state: 'off'
     alias: Wir schlafen nicht
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: binary_sensor.magnet_window_kitchen_contact
-      state: 'off'
-      alias: Küchenfenster ist geschlossen
-    - condition: state
-      entity_id: binary_sensor.magnet_door_patio_contact
-      state: of
-      alias: Terrassentür ist geschlossen
-    - condition: state
-      entity_id: binary_sensor.magnet_window_guestroom_contact
-      state: 'off'
-      alias: Fenster Büro Jens ist geschlossen
-    - condition: state
-      entity_id: binary_sensor.magnet_window_bedroom_contact
-      state: 'off'
-      alias: Fenster Schlafzimmer ist geschlossen
-    - condition: state
-      entity_id: binary_sensor.magnet_window_office_contact
-      state: 'off'
-      alias: Fenster Büro Eva ist geschlossen
-    alias: Irgendein Fenster/Tür nicht offen
+  - condition: state
+    entity_id: binary_sensor.fenster_alle
+    state: 'off'
+    alias: Nicht alle Fenster sind offen
   action:
   - service: script.announcement
     data:
@@ -2934,6 +2918,7 @@
       sun_protection: '[]'
       script_ajar: script.rollladen_buro_eva_spalt
       script_cat: '[]'
+      script_sunprotection: script.rollladen_buro_eva_spalt
 - id: '1671376250453'
   alias: Rollladen - Schlafzimmer
   description: ''
@@ -2947,6 +2932,7 @@
       script_cat: '[]'
       wakeup: true
       can_open_when_dark: true
+      script_sunprotection: script.rollladen_schlafzimmer_spalt
 - id: '1671376537710'
   alias: Fehler - Sensor nicht verfügbar
   description: ''

@@ -1,5 +1,5 @@
 blueprint:
-  name: Rollladen auf Spalt
+  name: Rollladen auf Position fahren
   domain: script
 
   input:

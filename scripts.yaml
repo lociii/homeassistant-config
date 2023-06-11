@@ -222,27 +222,6 @@ bewaesserung_lang:
     entity_id: switch.garden_hedge
     service: switch.turn_off
   mode: single
-cover_dining_cat:
-  alias: Rollladen - Esstisch - Katzenposition
-  mode: restart
-  sequence:
-  - data:
-      position: 40
-    service: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.rollladen_esstisch
-    alias: Auf Position fahren
-cover_couch_cat:
-  alias: Rolladen - Couch - Katzenposition
-  sequence:
-  - service: cover.set_cover_position
-    data:
-      position: 45
-    target:
-      entity_id: cover.rollladen_couch
-    alias: Auf Position fahren
-  mode: restart
 vacuum_clean_all:
   alias: Staubsauger - Ganze Wohnung reinigen
   sequence:
@@ -253,27 +232,6 @@ vacuum_clean_all:
       topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
   mode: single
   icon: mdi:robot-vacuum
-cover_couch_orchids:
-  alias: Rolladen - Couch - Orchideenschutz
-  sequence:
-  - service: cover.set_cover_position
-    data:
-      position: 55
-    target:
-      entity_id: cover.rollladen_couch
-    alias: Auf Position fahren
-  mode: restart
-cover_kitchen_sunprotection:
-  alias: Rolladen - Küche - Sonnenschutz
-  sequence:
-  - data:
-      position: 50
-    service: cover.set_cover_position
-    target:
-      entity_id:
-      - cover.kitchen
-  mode: single
-  icon: mdi:window-open
 gaestezimmer_stehlampe_alarm_blau:
   alias: Gästezimmer - Alarm Blau
   sequence:
@@ -538,7 +496,7 @@ gaestezimmer_alarm_regenbogen:
 rollladen_buro_jens_spalt:
   alias: Rollladen - Büro Jens - Spalt
   use_blueprint:
-    path: cover_ajar.yaml
+    path: cover_position.yaml
     input:
       from_opened: 20
       from_closed: 14
@@ -547,7 +505,7 @@ rollladen_buro_jens_spalt:
 rollladen_couch_spalt:
   alias: Rollladen - Couch - Spalt
   use_blueprint:
-    path: cover_ajar.yaml
+    path: cover_position.yaml
     input:
       from_opened: 14
       from_closed: 12
@@ -556,7 +514,7 @@ rollladen_couch_spalt:
 rollladen_esstisch_spalt:
   alias: Rollladen - Esstisch - Spalt
   use_blueprint:
-    path: cover_ajar.yaml
+    path: cover_position.yaml
     input:
       from_opened: 11
       from_closed: 9
@@ -565,7 +523,7 @@ rollladen_esstisch_spalt:
 rollladen_kuche_spalt:
   alias: Rollladen - Küche - Spalt
   use_blueprint:
-    path: cover_ajar.yaml
+    path: cover_position.yaml
     input:
       from_opened: 9
       from_closed: 7
@@ -574,7 +532,7 @@ rollladen_kuche_spalt:
 rollladen_terrasse_spalt:
   alias: Rollladen - Terrasse - Spalt
   use_blueprint:
-    path: cover_ajar.yaml
+    path: cover_position.yaml
     input:
       cover: cover.rollladen_terrasse
       from_opened: 11
@@ -621,7 +579,7 @@ announcement:
 rollladen_schlafzimmer_spalt:
   alias: Rollladen - Schlafzimmer - Spalt
   use_blueprint:
-    path: cover_ajar.yaml
+    path: cover_position.yaml
     input:
       cover: cover.rollladen_schlafzimmer
       from_opened: 15
@@ -630,7 +588,7 @@ rollladen_schlafzimmer_spalt:
 rollladen_buro_eva_spalt:
   alias: Rollladen - Büro Eva - Spalt
   use_blueprint:
-    path: cover_ajar.yaml
+    path: cover_position.yaml
     input:
       cover: cover.rollladen_eva
       from_opened: 14
@@ -660,4 +618,49 @@ jens_alarm_flash_rot:
     target:
       entity_id: light.guestroom_desk_alarm_left
     alias: Turn light off
+  mode: single
+rollladen_couch_katzenposition:
+  alias: Rollladen - Couch - Katzenposition
+  use_blueprint:
+    path: cover_position.yaml
+    input:
+      cover: cover.rollladen_couch
+      from_opened: 45
+      from_closed: 41
+  mode: single
+rollladen_couch_orchideenschutz:
+  alias: Rollladen - Couch - Orchideenschutz
+  use_blueprint:
+    path: cover_position.yaml
+    input:
+      cover: cover.rollladen_couch
+      from_opened: 55
+      from_closed: 50
+  mode: single
+rollladen_esstisch_katzenposition:
+  alias: Rollladen - Esstisch - Katzenposition
+  use_blueprint:
+    path: cover_position.yaml
+    input:
+      cover: cover.rollladen_esstisch
+      from_opened: 40
+      from_closed: 35
+  mode: single
+rollladen_kuche_sonnenschutz:
+  alias: Rollladen - Küche - Sonnenschutz
+  use_blueprint:
+    path: cover_position.yaml
+    input:
+      cover: cover.rollladen_kuche
+      from_opened: 42
+      from_closed: 40
+  mode: single
+rollladen_esstisch_sonnenschutz:
+  alias: Rollladen - Esstisch - Sonnenschutz
+  use_blueprint:
+    path: cover_position.yaml
+    input:
+      cover: cover.rollladen_esstisch
+      from_opened: 36
+      from_closed: 31
   mode: single
