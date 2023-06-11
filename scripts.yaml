@@ -174,54 +174,150 @@ bewaesserung_kurz:
   - data: {}
     entity_id: switch.garden_sprinklers
     service: switch.turn_on
+    alias: Regner an
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+    alias: 5 Minuten warten
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.garden_sprinklers
+    alias: Regner aus
+  - delay: 00:00:10
+    alias: 10 Sekunden warten
+  - data: {}
+    service: switch.turn_on
+    alias: Raketen an
+    target:
+      entity_id: switch.garden_rockets
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+    alias: 5 Minuten warten
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.garden_rockets
+    alias: Raketen aus
+  - delay: 00:00:10
+    alias: 10 Sekunden warten
+  - data: {}
+    entity_id: switch.garden_sprinklers
+    service: switch.turn_on
+    alias: Regner an
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_short_area_1")|int)}}'
+    alias: (Kurze Bewässerung) warten
   - data: {}
     entity_id: switch.garden_sprinklers
     service: switch.turn_off
+    alias: Regner aus
   - delay: 00:00:10
+    alias: 10 Sekunden warten
   - data: {}
     entity_id: switch.garden_rockets
     service: switch.turn_on
+    alias: Raketen an
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_short_area_2")|int)}}'
+    alias: (Kurze Bewässerung) warten
   - data: {}
     entity_id: switch.garden_rockets
     service: switch.turn_off
+    alias: Raketen aus
   - delay: 00:00:10
+    alias: 10 Sekunden warten
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_on
+    alias: Hecke an
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_short_area_3")|int)}}'
+    alias: (Kurze Bewässerung) warten
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_off
+    alias: Hecke aus
   mode: single
+
 bewaesserung_lang:
   alias: Garten - Bewässerung lang
   sequence:
   - data: {}
     entity_id: switch.garden_sprinklers
     service: switch.turn_on
+    alias: Regner an
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+    alias: 5 Minuten warten
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.garden_sprinklers
+    alias: Regner aus
+  - delay: 00:00:10
+    alias: 10 Sekunden warten
+  - data: {}
+    service: switch.turn_on
+    alias: Raketen an
+    target:
+      entity_id: switch.garden_rockets
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+    alias: 5 Minuten warten
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.garden_rockets
+    alias: Raketen aus
+  - delay: 00:00:10
+    alias: 10 Sekunden warten
+  - data: {}
+    entity_id: switch.garden_sprinklers
+    service: switch.turn_on
+    alias: Regner an
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_long_area_1")|int)}}'
+    alias: (Lange Bewässerung) warten
   - data: {}
     entity_id: switch.garden_sprinklers
     service: switch.turn_off
+    alias: Regner aus
   - delay: 00:00:10
+    alias: 10 Sekunden warten
   - data: {}
     entity_id: switch.garden_rockets
     service: switch.turn_on
+    alias: Raketen an
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_long_area_2")|int)}}'
+    alias: (Lange Bewässerung) warten
   - data: {}
     entity_id: switch.garden_rockets
     service: switch.turn_off
+    alias: Raketen aus
   - delay: 00:00:10
+    alias: 10 Sekunden warten
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_on
+    alias: Hecke an
   - delay: '{{ "00:%02i:00"|format(states("input_number.watering_long_area_3")|int)}}'
+    alias: (Lange Bewässerung) warten
   - data: {}
     entity_id: switch.garden_hedge
     service: switch.turn_off
+    alias: Hecke aus
   mode: single
+
 vacuum_clean_all:
   alias: Staubsauger - Ganze Wohnung reinigen
   sequence:
