@@ -2725,6 +2725,17 @@
       message: Draußen wird's warm, mach schnell die Fenster zu!
       scene_name: snapshot_wohnzimmer_alexa
     alias: Ansage
+  - if:
+    - condition: state
+      entity_id: person.jens
+      state: home
+      alias: Wenn Jens zu Hause
+    then:
+    - service: notify.mobile_app_pixel_6
+      data:
+        message: Draußen wird's warm, mach schnell die Fenster zu!
+      alias: Nachricht senden
+    alias: Nachricht an Jens, wenn daheim
   mode: single
 - id: '1670948815509'
   alias: Rollladen - Küche
@@ -2884,6 +2895,17 @@
       message: Draußen wird's kühl, mach die Fenster auf.
       scene_name: snapshot_wohnzimmer_alexa
     alias: Ansage
+  - if:
+    - condition: state
+      entity_id: person.jens
+      state: home
+      alias: Wenn Jens zu Hause
+    then:
+    - service: notify.mobile_app_pixel_6
+      data:
+        message: Draußen wird's kühl, mach die Fenster auf.
+      alias: Nachricht senden
+    alias: Nachricht an Jens, wenn daheim
   mode: single
 - id: '1671312600429'
   alias: Belüftung - Badezimmer
