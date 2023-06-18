@@ -2376,26 +2376,33 @@
     alias: Bei Rückkehr
   condition:
   - condition: state
-    entity_id: input_boolean.staubsauger_aktiv
-    state: 'on'
-    alias: Gerade am Saugen
+    entity_id: input_boolean.staubsauger_fertig
+    state: 'off'
+    alias: Sauger noch nicht fertig
   action:
   - service: vacuum.pause
     data: {}
     target:
       entity_id: vacuum.valetudo_rockrobo
     alias: Sauger pausieren
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 2
-      milliseconds: 0
-    alias: 2s warten
-  - service: vacuum.return_to_base
-    data: {}
-    target:
-      entity_id: vacuum.valetudo_rockrobo
-    alias: Zur Ladestation fahren
+  - if:
+    - condition: state
+      entity_id: input_boolean.staubsauger_aktiv
+      state: 'on'
+      alias: Gerade am Saugen
+    then:
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 2
+        milliseconds: 0
+      alias: 2s warten
+    - service: vacuum.return_to_base
+      data: {}
+      target:
+        entity_id: vacuum.valetudo_rockrobo
+      alias: Zur Ladestation fahren
+    alias: Zurück zur Ladestation fahren, wenn gerade aktiv
   - service: input_boolean.turn_off
     data: {}
     target:
