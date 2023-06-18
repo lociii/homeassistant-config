@@ -367,6 +367,7 @@ action:
     # DONE - sun protection state change triggered
     # ------------------------
     # sonnenschutz angefordert
+    # wir sind wach
     # ausloeser war aenderung des sonnenschutzes
     #   sonnenschutz aktiviert
     #     -> auf spalt
@@ -383,6 +384,10 @@ action:
       - condition: template
         alias: "Sonnenschutz wurde verändert"
         value_template: "{{ trigger.id == 'sun_protection_started' or trigger.id == 'sun_protection_stopped' }}"
+      # we're not sleeping
+      - condition: template
+        alias: "Wir sind wach"
+        value_template: "{{ is_state('input_boolean.sleeping', 'off') }}"
       sequence:
         - choose:
           - conditions:
