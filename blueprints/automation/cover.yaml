@@ -527,47 +527,63 @@ action:
                     default:
                       - choose:
                         - conditions:
-                          # a slow wakeup opening is requested
+                          # sonnenschutz aktiv?
                           - condition: template
-                            alias: "Langsames Öffnen zum Aufwachen angefordert"
-                            value_template: "{{ wakeup is true }}"
+                            alias: "Sonnenschutz ist angefordert"
+                            value_template: "{{ sun_protection_requested }}"
+                          # sunprotection active
+                          - condition: template
+                            alias: "Sonnenschutz aktiv"
+                            value_template: "{{ is_state(sun_protection, 'on') }}"
                           sequence:
                             - service: script.turn_on
-                              alias: "Rollladen auf Spalt"
+                              alias: "Rollladen auf Sonnenschutz"
                               target:
-                                entity_id: "{{ script_ajar }}"
-                            - delay: 30
-                            - service: cover.set_cover_position
-                              alias: "Rollladen auf 40%"
-                              target:
-                                entity_id: "{{ cover }}"
-                              data:
-                                position: 40
-                            - delay: 30
-                            - service: cover.set_cover_position
-                              alias: "Rollladen auf 60%"
-                              target:
-                                entity_id: "{{ cover }}"
-                              data:
-                                position: 60
-                            - delay: 30
-                            - service: cover.open_cover
-                              alias: "Rollladen öffnen"
-                              target:
-                                entity_id: "{{ cover }}"
-                        # no wakeup opening is requested, just open regularly
+                                entity_id: "{{ script_sunprotection }}"
                         default:
                           - choose:
                             - conditions:
-                              # not yet fully open
+                              # a slow wakeup opening is requested
                               - condition: template
-                                alias: "Nicht bereits geöffnet"
-                                value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                                alias: "Langsames Öffnen zum Aufwachen angefordert"
+                                value_template: "{{ wakeup is true }}"
                               sequence:
+                                - service: script.turn_on
+                                  alias: "Rollladen auf Spalt"
+                                  target:
+                                    entity_id: "{{ script_ajar }}"
+                                - delay: 30
+                                - service: cover.set_cover_position
+                                  alias: "Rollladen auf 40%"
+                                  target:
+                                    entity_id: "{{ cover }}"
+                                  data:
+                                    position: 40
+                                - delay: 30
+                                - service: cover.set_cover_position
+                                  alias: "Rollladen auf 60%"
+                                  target:
+                                    entity_id: "{{ cover }}"
+                                  data:
+                                    position: 60
+                                - delay: 30
                                 - service: cover.open_cover
                                   alias: "Rollladen öffnen"
                                   target:
                                     entity_id: "{{ cover }}"
+                            # no wakeup opening is requested, just open regularly
+                            default:
+                              - choose:
+                                - conditions:
+                                  # not yet fully open
+                                  - condition: template
+                                    alias: "Nicht bereits geöffnet"
+                                    value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
+                                  sequence:
+                                    - service: cover.open_cover
+                                      alias: "Rollladen öffnen"
+                                      target:
+                                        entity_id: "{{ cover }}"
 
     # DONE - presence state change triggered
     # ------------------------
