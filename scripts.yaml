@@ -242,7 +242,6 @@ bewaesserung_kurz:
     service: switch.turn_off
     alias: Hecke aus
   mode: single
-
 bewaesserung_lang:
   alias: Garten - Bewässerung lang
   sequence:
@@ -317,7 +316,6 @@ bewaesserung_lang:
     service: switch.turn_off
     alias: Hecke aus
   mode: single
-
 vacuum_clean_all:
   alias: Staubsauger - Ganze Wohnung reinigen
   sequence:
