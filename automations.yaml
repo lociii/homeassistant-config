@@ -53,6 +53,7 @@
     data: {}
     target:
       entity_id: script.gaestezimmer_alarm_regenbogen
+    alias: Regenbogen Alarm
 - id: '1576323625586'
   alias: Supervisor - Zertifikat erneuern
   description: ''
@@ -168,22 +169,27 @@
   - platform: template
     value_template: '{{ states(''sensor.time'') == states(''input_datetime.alarm_open_shutters'')[0:5]
       }}'
+    alias: Wenn Uhrzeit erreicht
   condition:
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
+    alias: An Arbeitstagen
   - condition: state
     entity_id: input_boolean.sleeping
     state: 'on'
+    alias: Wenn Schlafen aktiv ist
   - condition: state
     entity_id: input_boolean.alarm_enabled
     state: 'on'
+    alias: Wenn der Wecker an ist
   action:
   - data: {}
     service: script.turn_on
     target:
       entity_id:
       - script.rollladen_schlafzimmer_spalt
+    alias: Rollladen auf Spalt
 - id: '1589642700574'
   alias: Schlafen - Lichtschutz
   description: ''
@@ -271,7 +277,7 @@
     - service: script.announcement
       data:
         message: Dein nächster Termin beginnt in einer Minute!
-        media_player: media_player.guestroom_alexa_beam
+        media_player: media_player.jens_beam
         volume: 0.1
         scene_name: snapshot_jens_echo
       alias: Ansage
@@ -302,7 +308,7 @@
     - service: script.announcement
       data:
         message: Dein nächster Termin beginnt in fünf Minuten!
-        media_player: media_player.guestroom_alexa_beam
+        media_player: media_player.jens_beam
         volume: 0.1
         scene_name: snapshot_jens_echo
       alias: Ansage
@@ -631,10 +637,13 @@
       event_data:
         action: '{{ action_cancel }}'
       alias: Ignorieren ausgewählt
-    continue_on_timeout: false
+    timeout:
+      hours: 24
+    continue_on_timeout: true
   - alias: Aktion ausfuehren
     choose:
     - conditions: '{{ wait.trigger.event.data.action == action_tesla }}'
+      alias: Tesla ausgewählt
       sequence:
       - service: google_sheets.append_sheet
         data:
@@ -662,6 +671,7 @@
             tag: garage-wallbox-disconnected
         alias: Benachrichtigung Eva löschen
     - conditions: '{{ wait.trigger.event.data.action == action_fiat }}'
+      alias: Fiat ausgewählt
       sequence:
       - service: google_sheets.append_sheet
         data:
@@ -675,6 +685,34 @@
             session: '{{ states(''input_number.ev_charging_ended_session_usage'')
               }}'
             vehicle: Fiat
+        alias: Google Sheets befüllen
+      - service: notify.mobile_app_pixel_6
+        data:
+          message: clear_notification
+          data:
+            tag: garage-wallbox-disconnected
+        alias: Benachrichtigung Jens löschen
+      - service: notify.mobile_app_mi_10
+        data:
+          message: clear_notification
+          data:
+            tag: garage-wallbox-disconnected
+        alias: Benachrichtigung Eva löschen
+    - conditions: '{{ wait.trigger.event is not defined }}'
+      alias: Nach Timeout nichts ausgewählt
+      sequence:
+      - service: google_sheets.append_sheet
+        data:
+          config_entry: fbb98a7acb25e1b3446eadb6068719ce
+          worksheet: Raw
+          data:
+            begin: '{{ states(''input_datetime.ev_charging_started_time'') }}'
+            begin_value: '{{ states(''input_number.ev_charging_started_usage'') }}'
+            end: '{{ states(''input_datetime.ev_charging_ended_time'') }}'
+            end_value: '{{ states(''input_number.ev_charging_ended_usage'') }}'
+            session: '{{ states(''input_number.ev_charging_ended_session_usage'')
+              }}'
+            vehicle: Unbekannt (Timeout)
         alias: Google Sheets befüllen
       - service: notify.mobile_app_pixel_6
         data:
@@ -991,30 +1029,6 @@
         alias: 1s warten
     alias: Flurlicht Signal
   mode: single
-- id: '1670187198658'
-  alias: Sensor - Dusche - Licht rechts (Spiegellicht)
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.schalter_dusche_sensor_b
-    from: 'off'
-    to: 'on'
-    alias: Schalter Dusche Licht rechts gedrückt
-  condition: []
-  action:
-  - service: light.toggle
-    data:
-      brightness_pct: 100
-      rgb_color:
-      - 255
-      - 64
-      - 64
-    target:
-      entity_id:
-      - light.shower_mirror
-    alias: Spiegellicht Dusche an/aus
-  mode: single
 - id: '1670187850562'
   alias: Sensor - Flur - Präsenz
   description: ''
@@ -1059,66 +1073,16 @@
       entity_id: switch.steckdose_drucker
     alias: Drucker an/aus
   mode: single
-- id: '1670265703443'
-  alias: Sensor - Schlafzimmer - Eingang links (Bettlicht)
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.schalter_schlafzimmer_eingang_sensor_a
-    from: 'off'
-    to: 'on'
-    alias: Schalter Schlafzimmer Eingang links gedrückt
-  condition: []
-  action:
-  - service: script.turn_off
-    data: {}
-    target:
-      entity_id: script.wakeup_light
-    alias: Wakeup Licht beenden
-  - service: light.toggle
-    data:
-      brightness_pct: 50
-    target:
-      entity_id:
-      - light.bedroom_bed
-    alias: Bettlicht an/aus
-  mode: single
-- id: '1670265854276'
-  alias: Sensor - Schlafzimmer - Bett Licht links (Bettlicht)
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.schalter_bett_rechts_sensor_a
-    from: 'off'
-    to: 'on'
-    alias: Schalter Schlafzimmer Bett Licht links gedrückt
-  condition: []
-  action:
-  - service: script.turn_off
-    data: {}
-    target:
-      entity_id: script.wakeup_light
-    alias: Wakeup Licht beenden
-  - service: light.toggle
-    data:
-      brightness_pct: 50
-    target:
-      entity_id:
-      - light.bedroom_bed
-    alias: Bettlicht an/aus
-  mode: single
 - id: '1670266077498'
-  alias: Sensor - Schlafzimmer - Bett links (Schlafmodus)
+  alias: Taster - Schlafzimmer - Bett links (Schlafmodus)
   description: ''
   trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.schalter_bett_links_sensor_a
-    from: 'off'
-    to: 'on'
-    alias: Schalter Schlafzimmer Bett Schlafmodus links gedrückt
+  - platform: device
+    device_id: b42735276cfab1bbf3eab38c95c13e0c
+    domain: shelly
+    type: long_push
+    subtype: button3
+    alias: Taster Bett (links) lange gedrückt
   condition: []
   action:
   - service: input_boolean.toggle
@@ -1348,33 +1312,6 @@
       entity_id: switch.schlafzimmer_ladestation_usb
     alias: Ladestation Schlafzimmer Jens an
   mode: single
-- id: '1670605059714'
-  alias: Sensor - Büro Jens - Licht
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_buro_jens_sensor_a
-      target:
-        entity_id: light.deckenlicht_buro_jens
-- id: '1670605333956'
-  alias: Sensor - Bad - Licht links (Spiegellicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_bad_sensor_a
-      target:
-        entity_id: light.bathroom_mirror
-- id: '1670605447328'
-  alias: Sensor - Bad - Licht rechts (Deckenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_bad_sensor_b
-      target:
-        entity_id: light.bathroom_ceiling
 - id: '1670605505414'
   alias: Sensor - Bad - Steckdose Sprachassistent
   description: ''
@@ -1393,15 +1330,6 @@
       sensor: binary_sensor.steckdose_zahnburste_bad_sensor
       target:
         entity_id: switch.steckdose_zahnburste_bad
-- id: '1670605672675'
-  alias: Sensor - Büro - Licht
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_buro_sensor_a
-      target:
-        entity_id: light.office_ceilinglight
 - id: '1670605758789'
   alias: Sensor - Büro - Steckdose Sprachassistent
   description: ''
@@ -1438,15 +1366,6 @@
       sensor: binary_sensor.plug_guestroom_videolight_right_sensor
       target:
         entity_id: switch.videolicht_rechts
-- id: '1670606063822'
-  alias: Sensor - Dusche - Licht links (Deckenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_dusche_sensor_a
-      target:
-        entity_id: light.shower_ceiling
 - id: '1670606240600'
   alias: Sensor - Dusche - Steckdose Sprachassistent
   description: ''
@@ -1511,42 +1430,6 @@
       sensor: binary_sensor.steckdose_waschmaschine_karat_sensor
       target:
         entity_id: switch.waschmaschine_karat
-- id: '1670606598888'
-  alias: Sensor - Küche - Mitte-Oben links (Thekenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_kuche_mitte_oben_sensor_a
-      target:
-        entity_id: light.kitchen_bar
-- id: '1670606626365'
-  alias: Sensor - Küche - Mitte-Oben rechts (Schranklicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_kuche_mitte_oben_sensor_b
-      target:
-        entity_id: light.kitchen_cabinet
-- id: '1670606658594'
-  alias: Sensor - Küche - Mitte-Unten links (Spülenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      target:
-        entity_id: light.kitchen_sink
-      sensor: binary_sensor.schalter_kuche_mitte_unten_sensor_a
-- id: '1670606750904'
-  alias: Sensor - Küche - Oben (Deckenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_kuche_oben_sensor_a
-      target:
-        entity_id: light.kitchen_ceiling
 - id: '1670606789710'
   alias: Sensor - Küche - Steckdose Kaffeemaschine
   description: ''
@@ -1614,44 +1497,6 @@
       sensor: binary_sensor.steckdose_telefon_kuche_sensor
       target:
         entity_id: switch.steckdose_telefon_kuche
-- id: '1670607465327'
-  alias: Sensor - Küche - Unten links (Gartenbeleuchtung)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_kuche_unten_sensor_a
-      target:
-        entity_id:
-        - light.garden_ball_lamps
-        - light.garden_lantern
-- id: '1670607495777'
-  alias: Sensor - Küche - Unten rechts (Leselampe Wohnzimmer)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      target:
-        entity_id: light.steckdose_leselampe
-      sensor: binary_sensor.schalter_kuche_unten_sensor_b
-- id: '1670607582356'
-  alias: Sensor - Schlafzimmer - Bett Licht rechts (Deckenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_bett_rechts_sensor_b
-      target:
-        entity_id: light.bedroom_ceiling
-- id: '1670607671465'
-  alias: Sensor - Schlafzimmer - Eingang rechts (Deckenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_schlafzimmer_eingang_sensor_b
-      target:
-        entity_id: light.bedroom_ceiling
 - id: '1670607704671'
   alias: Sensor - Schlafzimmer - Steckdose Fernseher
   description: ''
@@ -1661,24 +1506,6 @@
       sensor: binary_sensor.steckdose_fernseher_schlafzimmer_sensor
       target:
         entity_id: switch.steckdose_fernseher_schlafzimmer
-- id: '1670607737765'
-  alias: Sensor - Wohnzimmer - Oben links (Deckenlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_wohnzimmer_oben_sensor_a
-      target:
-        entity_id: light.livingroom_ceiling
-- id: '1670607760625'
-  alias: Sensor - Wohnzimmer - Oben rechts (Esstischlicht)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_wohnzimmer_oben_sensor_b
-      target:
-        entity_id: light.livingroom_dining
 - id: '1670607795168'
   alias: Sensor - Wohnzimmer - Steckdose Leselampe
   description: ''
@@ -1715,15 +1542,6 @@
       sensor: binary_sensor.steckdose_schreibtisch_eva_sensor
       target:
         entity_id: switch.steckdose_schreibtisch_eva
-- id: '1670608089870'
-  alias: Sensor - Wohnzimmer - Unten links (Wandlampen)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_wohnzimmer_unten_sensor_a
-      target:
-        entity_id: light.livingroom_wall
 - id: '1670608115168'
   alias: Sensor - Wohnzimmer - Unten rechts (Stehlampe)
   description: ''
@@ -1770,7 +1588,7 @@
   action:
   - service: script.announcement
     data:
-      media_player: media_player.schlafzimmer_alexa
+      media_player: media_player.schlafzimmer_2
       volume: 0.14
       message: Schlaf gut und träum süß.
       scene_name: snapshot_schlafzimmer_alexa
@@ -1786,15 +1604,15 @@
       volume_level: 0.02
     alias: Lautstärke runter
     target:
-      entity_id: media_player.sonos_bedroom
+      entity_id: media_player.schlafzimmer
   - service: media_player.play_media
     alias: Schlafmusik spielen
     data:
       media_content_id: /media/local/music/schlafmusik.mp3
       media_content_type: music
-      enqueue: play
     target:
-      entity_id: media_player.sonos_bedroom
+      entity_id:
+      - media_player.schlafzimmer
   mode: single
 - id: '1670609106606'
   alias: Schlafen - Aufstehen - Gruß
@@ -1810,7 +1628,7 @@
   action:
   - service: script.announcement
     data:
-      media_player: media_player.schlafzimmer_alexa
+      media_player: media_player.schlafzimmer_2
       volume: 0.14
       message: Ich wünsche einen wunderschönen guten Morgen. Ich hoffe Du hast gut
         geschlafen.
@@ -2269,9 +2087,9 @@
     alias: 2s warten
   - service: switch.turn_on
     data: {}
+    alias: Shaun anschalten
     target:
       entity_id: switch.shaun
-    alias: Shaun anschalten
   mode: single
 - id: '1670613582512'
   alias: Sensor - Büro Jens - Shaun Control - Doppelklick
@@ -2424,6 +2242,12 @@
     entity_id: input_boolean.staubsauger_aktiv
     state: 'on'
     alias: Sauger aktiv
+  - condition: numeric_state
+    entity_id: vacuum.valetudo_rockrobo
+    attribute: battery_level
+    above: 5
+    below: 100
+    alias: Batterie nicht leer
   action:
   - service: input_boolean.turn_off
     data: {}
@@ -2727,7 +2551,7 @@
   action:
   - service: script.announcement
     data:
-      media_player: media_player.wohnzimmer_alexa
+      media_player: media_player.wohnzimmer_2
       volume: 0.5
       message: Draußen wird's warm, mach schnell die Fenster zu!
       scene_name: snapshot_wohnzimmer_alexa
@@ -2824,7 +2648,7 @@
       notification_timeout: '600'
       snapshot_url: /media-browser/browser/app%2Cmedia-source%3A%2F%2Fmedia_source/%2Cmedia-source%3A%2F%2Fmedia_source%2Flocal%2Fcatdoor
 - id: '1671291426383'
-  alias: Garage - Wallbox - Auto getrent - Abschalten
+  alias: Garage - Wallbox - Auto getrennt - Abschalten
   description: ''
   trigger:
   - platform: state
@@ -2897,7 +2721,7 @@
   action:
   - service: script.announcement
     data:
-      media_player: media_player.wohnzimmer_alexa
+      media_player: media_player.wohnzimmer_2
       volume: 0.5
       message: Draußen wird's kühl, mach die Fenster auf.
       scene_name: snapshot_wohnzimmer_alexa
@@ -3006,36 +2830,6 @@
       message: 'Nuki Batterie kritisch: {{ trigger.entity_id }}'
     alias: Nachricht
   mode: single
-- id: '1671385465971'
-  alias: Wäsche - Trockner
-  description: ''
-  use_blueprint:
-    path: leofabri/appliance-status-monitor.yaml
-    input:
-      appliance_socket: switch.basement_dryer
-      appliance_power_sensor: sensor.verbrauch_trockner_5_minuten
-      appliance_starting_power_threshold: 30
-      appliance_finishing_power_threshold: 50
-      appliance_suspended_sensor: []
-      appliance_state_machine: input_select.trockner_state_machine
-      appliance_job_cycle: input_boolean.trockner_job_cycle
-      delayed_job_completion_timer: timer.trockner_delayed_job_completion_timer
-      automation_self_trigger: input_boolean.trockner_automation_self_trigger
-      delayed_job_completion_duration: 0
-      actions_new_job_cycle_begins: []
-      actions_job_cycle_resumes:
-      - service: notify.mobile_app_pixel_6
-        data:
-          message: Trockner wurde fortgesetzt
-      actions_job_cycle_ends:
-      - service: notify.mobile_app_pixel_6
-        data:
-          message: Trockner ist fertig
-      - service: tts.cloud_say
-        data:
-          entity_id: media_player.wohnzimmer_jbl_mobile
-          message: Der Trockner ist fertig
-          language: de-DE
 - id: '1671981668484'
   alias: PUBG - Schaden verursacht
   description: ''
@@ -3234,33 +3028,706 @@
       power_light: light.guestroom_standinglight
       hue_light: light.videolicht
       brightness_steps: 10
-- id: '1673803418234'
+- id: '1686490415667'
   alias: Wäsche - Waschmaschine
   description: ''
   use_blueprint:
-    path: leofabri/appliance-status-monitor.yaml
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
     input:
-      appliance_socket: switch.basement_washer_human
-      appliance_power_sensor: sensor.basement_washer_human_power_usage
-      appliance_starting_power_threshold: 20
-      appliance_finishing_power_threshold: 20
-      appliance_suspended_sensor: []
-      appliance_state_machine: input_select.waschmaschine_state_machine
-      appliance_job_cycle: input_boolean.waschmaschine_job_cycle
-      delayed_job_completion_timer: timer.trockner_delayed_job_completion_timer
-      automation_self_trigger: input_boolean.waschmaschine_automation_self_trigger
-      delayed_job_completion_duration: 0
-      actions_new_job_cycle_begins: []
-      actions_job_cycle_resumes:
-      - service: notify.mobile_app_pixel_6
+      power_sensor: sensor.verbrauch_waschmaschine_5_minuten
+      starting_threshold: 5
+      starting_hysteresis: 2
+      finishing_threshold: 10
+      finishing_hysteresis: 5
+      actions:
+      - alias: Variablen setzen
+        variables:
+          action_on: '{{ ''CONFIRM_'' ~ context.id }}'
+          action_off: '{{ ''DISMISS_'' ~ context.id }}'
+      - service: input_select.select_option
+        alias: Auf "Fertig" setzen
+        target:
+          entity_id: input_select.wasche_waschmaschine
         data:
-          message: Waschmaschine wurde fortgesetzt
-      actions_job_cycle_ends:
-      - service: notify.mobile_app_pixel_6
+          option: Fertig
+      - alias: Benachrichtigung an Jens
+        service: notify.mobile_app_pixel_6
         data:
-          message: Waschmaschine ist fertig
-      - service: tts.cloud_say
+          title: Die Waschmaschine ist fertig
+          message: Bitte räume sie aus. Danke
+          data:
+            tag: washer-human-ready
+            actions:
+            - action: '{{ action_on }}'
+              title: Ist ausgeräumt
+            - action: '{{ action_off }}'
+              title: Abbrechen
+      - alias: Benachrichtigung an Eva
+        service: notify.mobile_app_mi_10
         data:
-          entity_id: media_player.wohnzimmer_jbl_mobile
+          title: Die Waschmaschine ist fertig
+          message: Bitte räume sie aus. Danke
+          data:
+            tag: washer-human-ready
+            actions:
+            - action: '{{ action_on }}'
+              title: Ist ausgeräumt
+            - action: '{{ action_off }}'
+              title: Abbrechen
+      - alias: Auf Antwort warten
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_on }}'
+          alias: Warten auf "Ist ausgeräumt"
+        continue_on_timeout: true
+        timeout:
+          hours: 24
+          minutes: 0
+          seconds: 0
+          milliseconds: 0
+      - alias: Aktion ausführen
+        choose:
+        - conditions: '{{ wait.trigger.event is not defined or wait.trigger.event.data.action
+            == action_on }}'
+          sequence:
+          - service: input_select.select_option
+            data:
+              option: Aus
+            target:
+              entity_id: input_select.wasche_waschmaschine
+            alias: Auf "Aus" setzen
+          - service: notify.mobile_app_pixel_6
+            data:
+              message: clear_notification
+              data:
+                tag: washer-human-ready
+            alias: Benachrichtigung Jens löschen
+          - service: notify.mobile_app_mi_10
+            data:
+              message: clear_notification
+              data:
+                tag: washer-human-ready
+            alias: Benachrichtigung Eva löschen
+      pre_actions:
+      - service: input_select.select_option
+        data:
+          option: Aktiv
+        target:
+          entity_id: input_select.wasche_waschmaschine
+        alias: Auf "Aktiv" setzen
+- id: '1687092625997'
+  alias: Wäsche - Tier-Waschmaschine
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.verbrauch_tier_waschmaschine_5_minuten
+      starting_threshold: 5
+      starting_hysteresis: 2
+      finishing_threshold: 10
+      finishing_hysteresis: 5
+      actions:
+      - alias: Variablen setzen
+        variables:
+          action_on: '{{ ''CONFIRM_'' ~ context.id }}'
+          action_off: '{{ ''DISMISS_'' ~ context.id }}'
+      - service: input_select.select_option
+        alias: Auf "Fertig" setzen
+        target:
+          entity_id: input_select.wasche_waschmaschine_tier
+        data:
+          option: Fertig
+      - alias: Benachrichtigung an Jens
+        service: notify.mobile_app_pixel_6
+        data:
+          title: Die Tier-Waschmaschine ist fertig
+          message: Bitte räume sie aus. Danke
+          data:
+            tag: washer-animal-ready
+            actions:
+            - action: '{{ action_on }}'
+              title: Ist ausgeräumt
+            - action: '{{ action_off }}'
+              title: Abbrechen
+      - alias: Benachrichtigung an Eva
+        service: notify.mobile_app_mi_10
+        data:
+          title: Die Tier-Waschmaschine ist fertig
+          message: Bitte räume sie aus. Danke
+          data:
+            tag: washer-animal-ready
+            actions:
+            - action: '{{ action_on }}'
+              title: Ist ausgeräumt
+            - action: '{{ action_off }}'
+              title: Abbrechen
+      - alias: Auf Antwort warten
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_on }}'
+          alias: Warten auf "Ist ausgeräumt"
+        continue_on_timeout: true
+        timeout:
+          hours: 24
+          minutes: 0
+          seconds: 0
+          milliseconds: 0
+      - alias: Aktion ausführen
+        choose:
+        - conditions: '{{ wait.trigger.event is not defined or wait.trigger.event.data.action
+            == action_on }}'
+          sequence:
+          - service: input_select.select_option
+            data:
+              option: Aus
+            target:
+              entity_id: input_select.wasche_waschmaschine_tier
+            alias: Auf "Aus" setzen
+          - service: notify.mobile_app_pixel_6
+            data:
+              message: clear_notification
+              data:
+                tag: washer-animal-ready
+            alias: Benachrichtigung Jens löschen
+          - service: notify.mobile_app_mi_10
+            data:
+              message: clear_notification
+              data:
+                tag: washer-animal-ready
+            alias: Benachrichtigung Eva löschen
+      pre_actions:
+      - service: input_select.select_option
+        data:
+          option: Aktiv
+        target:
+          entity_id: input_select.wasche_waschmaschine_tier
+        alias: Auf "Aktiv" setzen
+- id: '1687092835196'
+  alias: Wäsche - Trockner
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.verbrauch_trockner_5_minuten
+      starting_threshold: 5
+      starting_hysteresis: 2
+      finishing_threshold: 10
+      finishing_hysteresis: 5
+      actions:
+      - alias: Variablen setzen
+        variables:
+          action_on: '{{ ''CONFIRM_'' ~ context.id }}'
+          action_off: '{{ ''DISMISS_'' ~ context.id }}'
+      - service: input_select.select_option
+        data:
+          option: Fertig
+        target:
+          entity_id: input_select.wasche_trockner
+        alias: Auf "Fertig" setzen
+      - alias: Benachrichtigung an Jens
+        service: notify.mobile_app_pixel_6
+        data:
+          title: Der Trockner ist fertig
+          message: Bitte räume ihn aus. Danke
+          data:
+            tag: dryer-human-ready
+            actions:
+            - action: '{{ action_on }}'
+              title: Ist ausgeräumt
+            - action: '{{ action_off }}'
+              title: Abbrechen
+      - alias: Benachrichtigung an Eva
+        service: notify.mobile_app_mi_10
+        data:
+          title: Der Trockner ist fertig
+          message: Bitte räume ihn aus. Danke
+          data:
+            tag: dryer-human-ready
+            actions:
+            - action: '{{ action_on }}'
+              title: Ist ausgeräumt
+            - action: '{{ action_off }}'
+              title: Abbrechen
+      - alias: Auf Antwort warten
+        wait_for_trigger:
+        - platform: event
+          event_type: mobile_app_notification_action
+          event_data:
+            action: '{{ action_on }}'
+          alias: Warten auf "Ist ausgeräumt"
+        continue_on_timeout: true
+        timeout:
+          hours: 24
+          minutes: 0
+          seconds: 0
+          milliseconds: 0
+      - alias: Aktion ausführen
+        choose:
+        - conditions: '{{ wait.trigger.event is not defined or wait.trigger.event.data.action
+            == action_on }}'
+          sequence:
+          - service: input_select.select_option
+            data:
+              option: Aus
+            target:
+              entity_id: input_select.wasche_trockner
+            alias: Auf "Aus" setzen
+          - service: notify.mobile_app_pixel_6
+            data:
+              message: clear_notification
+              data:
+                tag: dryer-human-ready
+            alias: Benachrichtigung Jens löschen
+          - service: notify.mobile_app_mi_10
+            data:
+              message: clear_notification
+              data:
+                tag: dryer-human-ready
+            alias: Benachrichtigung Eva löschen
+      pre_actions:
+      - service: input_select.select_option
+        data:
+          option: Aktiv
+        target:
+          entity_id: input_select.wasche_trockner
+        alias: Auf "Aktiv" setzen
+- id: '1687713911459'
+  alias: Wäsche - Karat - Waschmaschine
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.verbrauch_waschmaschine_karat_5_minuten
+      starting_threshold: 10
+      starting_hysteresis: 5
+      finishing_threshold: 5
+      finishing_hysteresis: 10
+      actions:
+      - service: notify.waschkueche
+        data:
           message: Die Waschmaschine ist fertig
-          language: de-DE
+      pre_actions: []
+- id: '1687713963228'
+  alias: Wäsche - Karat - Trockner
+  description: ''
+  use_blueprint:
+    path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
+    input:
+      power_sensor: sensor.verbrauch_trockner_karat_5_minuten
+      starting_threshold: 10
+      starting_hysteresis: 5
+      finishing_threshold: 30
+      finishing_hysteresis: 10
+      actions:
+      - service: notify.waschkueche
+        data:
+          message: Der Trockner ist fertig
+      pre_actions: []
+- id: '1688238783857'
+  alias: Sensor - Büro Jens - Links (Deckenlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 024a1036fb9c200438d4e72599642dc3
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Erster Button gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.deckenlicht_buro_jens
+    alias: Deckenlicht an
+  mode: single
+- id: '1688238821115'
+  alias: Sensor - Büro Jens - Rechts (Stehlampe)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 024a1036fb9c200438d4e72599642dc3
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Zweiter Button gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.guestroom_standinglight
+    alias: Stehlampe an
+  mode: single
+- id: '1688841642541'
+  alias: Staubsaugen - Wiederaufnahme während Anwesenheit
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - vacuum.valetudo_rockrobo
+    from: docked
+    to: cleaning
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    alias: Reinigung wird fortgesetzt
+  condition:
+  - condition: state
+    entity_id: input_boolean.presence
+    state: 'on'
+    alias: Anwesend
+  - condition: state
+    entity_id: input_boolean.staubsauger_fertig
+    state: 'off'
+    alias: Reinigung noch nicht abgeschlossen
+  - condition: state
+    entity_id: input_boolean.staubsauger_aktiv
+    state: 'on'
+    alias: Reingung bei Abwesenheit aktiv
+  action:
+  - service: vacuum.pause
+    data: {}
+    target:
+      entity_id: vacuum.valetudo_rockrobo
+    alias: Reinigung pausieren
+  - service: vacuum.return_to_base
+    data: {}
+    target:
+      entity_id: vacuum.valetudo_rockrobo
+    alias: Zurück zur Ladestation
+  mode: single
+- id: '1688906120267'
+  alias: Sensor - Küche - Oben (Deckenlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 936e2dcc18bec9f7d2d9cd020e3464bc
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Küche (Oben) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.kitchen_ceiling
+    alias: Deckenlicht Küche an/aus
+  mode: single
+- id: '1688906237871'
+  alias: Sensor - Küche - Mitte-Oben links (Thekenlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 36bf86f874beca00357d07970006f747
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Küche (Mitte-Oben links) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.kitchen_bar
+    alias: Thekenlicht an/aus
+  mode: single
+- id: '1688906327983'
+  alias: Sensor - Küche - Mitte-Oben rechts (Schranklicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 36bf86f874beca00357d07970006f747
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Küche (Mitte-Oben rechts) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.kitchen_cabinet
+    alias: Thekenlicht an/aus
+  mode: single
+- id: '1688906440219'
+  alias: Sensor - Küche - Mitte-Unten links (Spülenlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 605bf8c2308c7401c0eea5ac31b8c119
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster  Küche (Mitte-Unten links) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.kitchen_sink
+    alias: Spülenlicht an/aus
+  mode: single
+- id: '1688906570617'
+  alias: Sensor - Küche - Unten links (Gartenbeleuchtung)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Küche (Unten links) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.garden_ball_lamps
+      - light.garden_lantern
+    alias: Gartenbeleuchtung an/aus
+  mode: single
+- id: '1688906640981'
+  alias: Sensor - Küche - Unten rechts (Leselampe Wohnzimmer)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Küche (Unten rechts) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.steckdose_leselampe
+    alias: Leselampe Wohnzimmer an/aus
+  mode: single
+- id: '1688906744065'
+  alias: Sensor - Eva - Licht
+  description: ''
+  trigger:
+  - platform: device
+    device_id: b837474107d985027a36f711a6a7e95e
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Eva gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.office_ceilinglight
+    alias: Deckenlicht Eva an/aus
+  mode: single
+- id: '1689420334770'
+  alias: Taster - Schlafzimmer - Deckenlicht
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 2b511980d964d8d5031f18895fc9c693
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Tür gedrückt
+  - platform: device
+    device_id: b42735276cfab1bbf3eab38c95c13e0c
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Bett gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.bedroom_ceiling
+    alias: Deckenlicht an/aus
+  mode: single
+- id: '1689420452748'
+  alias: Taster - Schlafzimmer - Bettlicht
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 2b511980d964d8d5031f18895fc9c693
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Tür gedrückt
+  - platform: device
+    device_id: b42735276cfab1bbf3eab38c95c13e0c
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Bett gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.bedroom_bed
+    alias: Bettlicht an/aus
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.ambiente
+    alias: Ambientebeleuchtung aus
+  mode: single
+- id: '1689420606050'
+  alias: Sensor - Bad - Licht links (Spiegellicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: a039fa17fe698247a357d6172de0d4a6
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Bad (links) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.bathroom_mirror
+    alias: Spiegellicht an/aus
+  mode: single
+- id: '1689420700325'
+  alias: Sensor - Bad - Licht rechts (Deckenlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: a039fa17fe698247a357d6172de0d4a6
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Bad (rechts) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.bathroom_ceiling
+    alias: Deckenlicht Bad an/aus
+  mode: single
+- id: '1689421414796'
+  alias: Sensor - Dusche - Licht links (Deckenlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: cacc77a150ad2de575b636aaaa16e3ac
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Dusche (links) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.shower_ceiling
+    alias: Deckenlicht Dusche an/aus
+  mode: single
+- id: '1689421501947'
+  alias: Sensor - Dusche - Licht rechts (Spiegellicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: cacc77a150ad2de575b636aaaa16e3ac
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Dusche (rechts) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.shower_mirror
+    alias: Spiegellicht Dusche an/aus
+  mode: single
+- id: '1689423127221'
+  alias: Taster - Wohnzimmer - Oben links (Deckenlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 92f606654f7313b16596f91a33e8b3b2
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Wohnzimmer (Oben, links) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id: light.livingroom_ceiling
+    alias: Deckenlicht Wohnzimmer an/aus
+  mode: single
+- id: '1689423161057'
+  alias: Taster - Wohnzimmer - Oben rechts (Esstischlicht)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 92f606654f7313b16596f91a33e8b3b2
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Wohnzimmer (Oben, rechts) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.livingroom_dining
+    alias: Esstischlicht an/aus
+  mode: single
+- id: '1689424054814'
+  alias: Taster - Wohnzimmer - Unten links (Wandlampen)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 852676dcbcf7f19141d7cdf116eb9ef3
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Wohnzimmer (Unten, links) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    target:
+      entity_id:
+      - light.livingroom_wall
+    alias: Wandlampen Wohnzimmer an/aus
+  mode: single
+- id: '1689424173226'
+  alias: Taster - Wohnzimmer - Unten rechts (Stehlampe)
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 852676dcbcf7f19141d7cdf116eb9ef3
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Taster Wohnzimmer (Unten, rechts) gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    data: {}
+    alias: Stehlampe Wohnzimmer an/aus
+    target:
+      entity_id: light.livingroom_standinglight
+  mode: single
