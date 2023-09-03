@@ -1,7 +1,0 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      people_home:
-        device_class: presence
-        value_template: >
-          {{ is_state('person.eva', 'home') or is_state('person.jens', 'home') }}
