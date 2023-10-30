@@ -35,8 +35,6 @@ recorder:
       - sensor.date_time
     entity_globs:
       - device_tracker.unifi_*_default
-      - device_tracker.miband_jens
-      - device_tracker.miband_eva
 
 # include hacs themes
 frontend:

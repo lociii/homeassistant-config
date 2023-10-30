@@ -1,10 +1,11 @@
 telegram_bot:
-  - platform: polling
+  - platform: broadcast
     api_key: !secret telegram_api_key
     allowed_chat_ids:
-      - !secret telegram_chat_id
+      - !secret telegram_chat_id_bot
+      - !secret telegram_chat_id_group
 
 notify:
   - platform: telegram
     name: !secret telegram_bot_name
-    chat_id: !secret telegram_chat_id
+    chat_id: !secret telegram_chat_id_group

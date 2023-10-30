@@ -65,42 +65,25 @@
   - data:
       addon: core_nginx_proxy
     service: hassio.addon_stop
-  - data:
-      addon: core_mosquitto
-    service: hassio.addon_stop
+    alias: Stop NGINX
   - data:
       addon: a0d7b954_bitwarden
     service: hassio.addon_stop
-  - data:
-      addon: a0d7b954_glances
-    service: hassio.addon_stop
-  - data:
-      addon: a0d7b954_sonweb
-    service: hassio.addon_stop
+    alias: Stop Vaultwarden
   - delay: 00:00:30
   - data:
       addon: core_letsencrypt
     service: hassio.addon_start
+    alias: Start Letsencrypt
   - delay: 00:02:00
-  - data:
-      addon: core_letsencrypt
-    service: hassio.addon_stop
-  - delay: 00:00:30
   - data:
       addon: core_nginx_proxy
     service: hassio.addon_restart
-  - data:
-      addon: core_mosquitto
-    service: hassio.addon_restart
+    alias: Start NGINX
   - data:
       addon: a0d7b954_bitwarden
     service: hassio.addon_restart
-  - data:
-      addon: a0d7b954_glances
-    service: hassio.addon_restart
-  - data:
-      addon: a0d7b954_sonweb
-    service: hassio.addon_restart
+    alias: Start Vaultwarden
 - id: '1577789351489'
   alias: Wecker - Wake up light
   description: ''
@@ -2173,8 +2156,10 @@
     state: 'off'
     alias: Sauger noch nicht fertig
   action:
-  - service: script.vacuum_clean_all
+  - service: vacuum.start
     data: {}
+    target:
+      entity_id: vacuum.roborock_q8_max
     alias: Ganze Wohnung saugen
   - service: input_boolean.turn_on
     data: {}
@@ -2201,7 +2186,7 @@
   - service: vacuum.pause
     data: {}
     target:
-      entity_id: vacuum.valetudo_rockrobo
+      entity_id: vacuum.roborock_q8_max
     alias: Sauger pausieren
   - if:
     - condition: state
@@ -2218,7 +2203,7 @@
     - service: vacuum.return_to_base
       data: {}
       target:
-        entity_id: vacuum.valetudo_rockrobo
+        entity_id: vacuum.roborock_q8_max
       alias: Zur Ladestation fahren
     alias: Zurück zur Ladestation fahren, wenn gerade aktiv
   - service: input_boolean.turn_off
@@ -2233,7 +2218,7 @@
   trigger:
   - platform: state
     entity_id:
-    - vacuum.valetudo_rockrobo
+    - vacuum.roborock_q8_max
     from: cleaning
     to: returning
     alias: Reinigung beendet
@@ -2243,7 +2228,7 @@
     state: 'on'
     alias: Sauger aktiv
   - condition: numeric_state
-    entity_id: vacuum.valetudo_rockrobo
+    entity_id: vacuum.roborock_q8_max
     attribute: battery_level
     above: 5
     below: 100
@@ -2669,12 +2654,12 @@
   alias: Licht - Dusche - Bewegung
   description: ''
   trigger:
-  - type: motion
+  - alias: Bewegung erkannt
+    type: motion
     platform: device
-    device_id: b639f5067459ec8deffc0317f1365b01
-    entity_id: binary_sensor.bewegungsmelder_dusche_motion
+    device_id: 48b69bd93ca549b3bda1fdd4dff11d68
+    entity_id: 73d1294374e4c9135f5831be578513d2
     domain: binary_sensor
-    alias: Bewegung erkannt
   condition:
   - condition: state
     entity_id: input_boolean.sleeping
@@ -2688,6 +2673,10 @@
       minutes: 0
       seconds: 10
     alias: Licht ist seit mindestens 10 Sekunden aus
+  - condition: state
+    entity_id: input_boolean.presence
+    state: 'on'
+    alias: Anwesend
   action:
   - service: light.turn_on
     data: {}
@@ -3370,7 +3359,7 @@
   trigger:
   - platform: state
     entity_id:
-    - vacuum.valetudo_rockrobo
+    - vacuum.roborock_q8_max
     from: docked
     to: cleaning
     for:
@@ -3395,12 +3384,12 @@
   - service: vacuum.pause
     data: {}
     target:
-      entity_id: vacuum.valetudo_rockrobo
+      entity_id: vacuum.roborock_q8_max
     alias: Reinigung pausieren
   - service: vacuum.return_to_base
     data: {}
     target:
-      entity_id: vacuum.valetudo_rockrobo
+      entity_id: vacuum.roborock_q8_max
     alias: Zurück zur Ladestation
   mode: single
 - id: '1688906120267'
@@ -3730,4 +3719,68 @@
     alias: Stehlampe Wohnzimmer an/aus
     target:
       entity_id: light.livingroom_standinglight
+  mode: single
+- id: '1694273802796'
+  alias: Haustür klingelt
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.nuki_haustur_ring_action
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.wohnzimmer_jbl_mobile
+    data:
+      media_content_id: media-source://media_source/local/mixkit-airport-announcement-ding-1569.wav
+      media_content_type: audio/x-wav
+    metadata:
+      title: mixkit-airport-announcement-ding-1569.wav
+      thumbnail:
+      media_class: music
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: app
+        media_content_id: media-source://media_source
+  mode: single
+- id: '1695664686087'
+  alias: Schlafen - Aufstehen (30 Minuten Versatz)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.sleeping
+    from: 'on'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    alias: 30 Minuten nach Aufstehen
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.schlafzimmer_sonos
+    alias: Schlafzimmer Sonos aus
+  mode: single
+- id: '1695664848536'
+  alias: Schlafen - Einschlafen - Sonos um 10 an
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+    alias: Um 10 abends
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.schlafzimmer_sonos
+    alias: Schlafzimmer Sonos an
   mode: single
