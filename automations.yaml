@@ -2949,20 +2949,20 @@
     alias: Nachricht
   mode: single
 - id: '1671376717113'
-  alias: Fehler - Batterie Nuki
+  alias: Fehler - Batterie Nuki Haustür
   description: ''
   trigger:
-  - platform: state
+  - alias: Batterie kritisch
+    platform: state
     entity_id:
     - binary_sensor.nuki_haustur_battery_critical
-    - binary_sensor.nuki_wohnungstur_battery_critical
+    from: 'off'
     to: 'on'
-    alias: Nuki Batterie kritisch
   condition: []
   action:
   - service: notify.mobile_app_pixel_6
     data:
-      message: 'Nuki Batterie kritisch: {{ trigger.entity_id }}'
+      message: Nuki Haustür Batterie kritisch
     alias: Nachricht
   mode: single
 - id: '1671981668484'
@@ -3929,4 +3929,20 @@
     target:
       entity_id: switch.schlafzimmer_sonos
     alias: Schlafzimmer Sonos an
+  mode: single
+- id: '1700123757400'
+  alias: Fehler - Batterie Nuki Wohnungstür
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.nuki_wohnungstur_battery
+    below: 30
+    alias: Batterie kritisch
+  condition: []
+  action:
+  - alias: Nachricht
+    service: notify.mobile_app_pixel_6
+    data:
+      message: Nuki Wohnungstür Batterie kritisch
   mode: single
