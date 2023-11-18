@@ -1078,15 +1078,145 @@
   alias: Sensor - ALLE - Präsenz an
   description: ''
   trigger:
-  - platform: event
-    event_type: state_changed
-    alias: State geändert
+  - platform: device
+    device_id: a039fa17fe698247a357d6172de0d4a6
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Bad links
+  - platform: device
+    device_id: a039fa17fe698247a357d6172de0d4a6
+    domain: shelly
+    type: btn_down
+    subtype: button2
+    alias: Bad rechts
+  - platform: device
+    device_id: cacc77a150ad2de575b636aaaa16e3ac
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Dusche links
+  - alias: Dusche rechts
+    platform: device
+    device_id: cacc77a150ad2de575b636aaaa16e3ac
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - alias: Eva
+    platform: device
+    device_id: b837474107d985027a36f711a6a7e95e
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Jens
+    platform: device
+    device_id: 024a1036fb9c200438d4e72599642dc3
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Küche (Oben)
+    platform: device
+    device_id: 936e2dcc18bec9f7d2d9cd020e3464bc
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Küche (Mitte Oben) links
+    platform: device
+    device_id: 36bf86f874beca00357d07970006f747
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Küche (Mitte Oben) rechts
+    platform: device
+    device_id: 36bf86f874beca00357d07970006f747
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - alias: Küche (Mitte Unten) links
+    platform: device
+    device_id: 605bf8c2308c7401c0eea5ac31b8c119
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Küche (Mitte Unten) rechts
+    platform: device
+    device_id: 605bf8c2308c7401c0eea5ac31b8c119
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - alias: Küche (Unten) links
+    platform: device
+    device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Küche (Unten) rechts
+    platform: device
+    device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - alias: Schlafzimmer (Bett) links
+    platform: device
+    device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Schlafzimmer (Bett) rechts
+    platform: device
+    device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - alias: Schlafzimmer (Tür) links
+    platform: device
+    device_id: 2b511980d964d8d5031f18895fc9c693
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Schlafzimmer (Tür) rechts
+    platform: device
+    device_id: 2b511980d964d8d5031f18895fc9c693
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - alias: Wohnzimmer (Oben) links
+    platform: device
+    device_id: 92f606654f7313b16596f91a33e8b3b2
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Wohnzimmer (Oben) rechts
+    platform: device
+    device_id: 92f606654f7313b16596f91a33e8b3b2
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - alias: Wohnzimmer (Unten) links
+    platform: device
+    device_id: 852676dcbcf7f19141d7cdf116eb9ef3
+    domain: shelly
+    type: btn_down
+    subtype: button1
+  - alias: Wohnzimmer (Unten) rechts
+    platform: device
+    device_id: 852676dcbcf7f19141d7cdf116eb9ef3
+    domain: shelly
+    type: btn_down
+    subtype: button2
+  - platform: state
+    entity_id:
+    - binary_sensor.sensor_hallway_sensor_a
+    from: 'off'
+    to: 'on'
+    alias: Schalter Flurlicht gedrückt
+  - platform: state
+    entity_id:
+    - binary_sensor.sensor_hallway_sensor_b
+    from: 'off'
+    to: 'on'
+    alias: Schalter Flur Präsenz gedrückt
   condition:
-  - condition: template
-    value_template: '{{ trigger.event.data.entity_id|regex_match("^binary_sensor\..+_sensor(_[a-z]{1})?$",
-      ignorecase=FALSE) and trigger.event.data.old_state.state == "off" and trigger.event.data.new_state.state
-      == "on" }}'
-    alias: Physischer Schalter gedrückt
   - condition: state
     entity_id: input_boolean.presence
     state: 'off'
