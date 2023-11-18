@@ -38,7 +38,7 @@ binary_sensor:
 
 sensor:
   # power measurement
-  - platform: ade7953
+  - platform: ade7953_i2c
     # prevents device from overheating
     # see https://esphome.io/components/sensor/ade7953.html#use-with-shelly-2-5
     irq_pin: GPIO16
