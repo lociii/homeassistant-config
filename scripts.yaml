@@ -96,78 +96,6 @@ gaestezimmer_stehlampe_warmweiss:
       entity_id: light.guestroom_standinglight
     alias: Stehlampe an
   mode: single
-staubsauger_zone_kueche:
-  alias: Staubsauger - Küche
-  sequence:
-  - service: mqtt.publish
-    data:
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-      payload: '{"segment_ids": ["20"], "iterations": 2, "customOrder": true}'
-  mode: single
-  icon: mdi:robot-vacuum
-staubsauger_zone_bad:
-  alias: Staubsauger - Bad
-  sequence:
-  - service: mqtt.publish
-    data:
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-      payload: '{"segment_ids": ["22"], "iterations": 2, "customOrder": true}'
-  mode: single
-  icon: mdi:robot-vacuum
-staubsauger_zone_buero:
-  alias: Staubsauger - Eva
-  sequence:
-  - service: mqtt.publish
-    data:
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-      payload: '{"segment_ids": ["24"], "iterations": 2, "customOrder": true}'
-  mode: single
-  icon: mdi:robot-vacuum
-staubsauger_zone_dusche:
-  alias: Staubsauger - Dusche
-  sequence:
-  - service: mqtt.publish
-    data:
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-      payload: '{"segment_ids": ["16"], "iterations": 2, "customOrder": true}'
-  mode: single
-  icon: mdi:robot-vacuum
-staubsauger_zone_flur:
-  alias: Staubsauger - Flur
-  sequence:
-  - service: mqtt.publish
-    data:
-      payload: '{"segment_ids": ["21"], "iterations": 2, "customOrder": true}'
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-  mode: single
-  icon: mdi:robot-vacuum
-staubsauger_zone_gaestezimmer:
-  alias: Staubsauger - Jens
-  sequence:
-  - service: mqtt.publish
-    data:
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-      payload: '{"segment_ids": ["17"], "iterations": 2, "customOrder": true}'
-  mode: single
-  icon: mdi:robot-vacuum
-staubsauger_zone_schlafzimmer:
-  alias: Staubsauger - Schlafzimmer
-  sequence:
-  - service: mqtt.publish
-    data:
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-      payload: '{"segment_ids": ["18"], "iterations": 2, "customOrder": true}'
-  mode: single
-  icon: mdi:robot-vacuum
-staubsauger_zone_wohnzimmer:
-  alias: Staubsauger - Wohnzimmer
-  sequence:
-  - service: mqtt.publish
-    data:
-      payload: '{"segment_ids": ["19"], "iterations": 2, "customOrder": true}'
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-  mode: single
-  icon: mdi:robot-vacuum
 bewaesserung_kurz:
   alias: Garten - Bewässerung kurz
   sequence:
@@ -316,16 +244,6 @@ bewaesserung_lang:
     service: switch.turn_off
     alias: Hecke aus
   mode: single
-vacuum_clean_all:
-  alias: Staubsauger - Ganze Wohnung reinigen
-  sequence:
-  - service: mqtt.publish
-    data:
-      payload: '{"segment_ids": ["16", "19", "20", "17", "24", "18", "22", "23"],
-        "iterations": 2, "customOrder": true}'
-      topic: valetudo/rockrobo/MapSegmentationCapability/clean/set
-  mode: single
-  icon: mdi:robot-vacuum
 gaestezimmer_stehlampe_alarm_blau:
   alias: Gästezimmer - Alarm Blau
   sequence:
