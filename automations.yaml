@@ -3175,76 +3175,18 @@
       finishing_threshold: 10
       finishing_hysteresis: 5
       actions:
-      - alias: Variablen setzen
-        variables:
-          action_on: '{{ ''CONFIRM_'' ~ context.id }}'
-          action_off: '{{ ''DISMISS_'' ~ context.id }}'
       - service: input_select.select_option
         alias: Auf "Fertig" setzen
         target:
           entity_id: input_select.wasche_waschmaschine
         data:
           option: Fertig
-      - alias: Benachrichtigung an Jens
-        service: notify.mobile_app_pixel_6
+      - service: script.hausarbeit_benachrichtigung
         data:
-          title: Die Waschmaschine ist fertig
-          message: Bitte räume sie aus. Danke
-          data:
-            tag: washer-human-ready
-            actions:
-            - action: '{{ action_on }}'
-              title: Ist ausgeräumt
-            - action: '{{ action_off }}'
-              title: Abbrechen
-      - alias: Benachrichtigung an Eva
-        service: notify.mobile_app_mi_10
-        data:
-          title: Die Waschmaschine ist fertig
-          message: Bitte räume sie aus. Danke
-          data:
-            tag: washer-human-ready
-            actions:
-            - action: '{{ action_on }}'
-              title: Ist ausgeräumt
-            - action: '{{ action_off }}'
-              title: Abbrechen
-      - alias: Auf Antwort warten
-        wait_for_trigger:
-        - platform: event
-          event_type: mobile_app_notification_action
-          event_data:
-            action: '{{ action_on }}'
-          alias: Warten auf "Ist ausgeräumt"
-        continue_on_timeout: true
-        timeout:
-          hours: 24
-          minutes: 0
-          seconds: 0
-          milliseconds: 0
-      - alias: Aktion ausführen
-        choose:
-        - conditions: '{{ wait.trigger.event is not defined or wait.trigger.event.data.action
-            == action_on }}'
-          sequence:
-          - service: input_select.select_option
-            data:
-              option: Aus
-            target:
-              entity_id: input_select.wasche_waschmaschine
-            alias: Auf "Aus" setzen
-          - service: notify.mobile_app_pixel_6
-            data:
-              message: clear_notification
-              data:
-                tag: washer-human-ready
-            alias: Benachrichtigung Jens löschen
-          - service: notify.mobile_app_mi_10
-            data:
-              message: clear_notification
-              data:
-                tag: washer-human-ready
-            alias: Benachrichtigung Eva löschen
+          title: Waschmaschine ausäumen
+          message: Die Wäsche ist fertig. Bitte ausräumen.
+          context_id: '{{ context.id }}'
+        alias: Benachrichtigung senden
       pre_actions:
       - service: input_select.select_option
         data:
@@ -3264,76 +3206,18 @@
       finishing_threshold: 10
       finishing_hysteresis: 5
       actions:
-      - alias: Variablen setzen
-        variables:
-          action_on: '{{ ''CONFIRM_'' ~ context.id }}'
-          action_off: '{{ ''DISMISS_'' ~ context.id }}'
       - service: input_select.select_option
         alias: Auf "Fertig" setzen
         target:
           entity_id: input_select.wasche_waschmaschine_tier
         data:
           option: Fertig
-      - alias: Benachrichtigung an Jens
-        service: notify.mobile_app_pixel_6
+      - service: script.hausarbeit_benachrichtigung
         data:
-          title: Die Tier-Waschmaschine ist fertig
-          message: Bitte räume sie aus. Danke
-          data:
-            tag: washer-animal-ready
-            actions:
-            - action: '{{ action_on }}'
-              title: Ist ausgeräumt
-            - action: '{{ action_off }}'
-              title: Abbrechen
-      - alias: Benachrichtigung an Eva
-        service: notify.mobile_app_mi_10
-        data:
-          title: Die Tier-Waschmaschine ist fertig
-          message: Bitte räume sie aus. Danke
-          data:
-            tag: washer-animal-ready
-            actions:
-            - action: '{{ action_on }}'
-              title: Ist ausgeräumt
-            - action: '{{ action_off }}'
-              title: Abbrechen
-      - alias: Auf Antwort warten
-        wait_for_trigger:
-        - platform: event
-          event_type: mobile_app_notification_action
-          event_data:
-            action: '{{ action_on }}'
-          alias: Warten auf "Ist ausgeräumt"
-        continue_on_timeout: true
-        timeout:
-          hours: 24
-          minutes: 0
-          seconds: 0
-          milliseconds: 0
-      - alias: Aktion ausführen
-        choose:
-        - conditions: '{{ wait.trigger.event is not defined or wait.trigger.event.data.action
-            == action_on }}'
-          sequence:
-          - service: input_select.select_option
-            data:
-              option: Aus
-            target:
-              entity_id: input_select.wasche_waschmaschine_tier
-            alias: Auf "Aus" setzen
-          - service: notify.mobile_app_pixel_6
-            data:
-              message: clear_notification
-              data:
-                tag: washer-animal-ready
-            alias: Benachrichtigung Jens löschen
-          - service: notify.mobile_app_mi_10
-            data:
-              message: clear_notification
-              data:
-                tag: washer-animal-ready
-            alias: Benachrichtigung Eva löschen
+          title: Tier-Waschmaschine ausäumen
+          message: Die Wäsche ist fertig. Bitte ausräumen.
+          context_id: '{{ context.id }}'
+        alias: Benachrichtigung senden
       pre_actions:
       - service: input_select.select_option
         data:
@@ -3353,76 +3237,18 @@
       finishing_threshold: 10
       finishing_hysteresis: 5
       actions:
-      - alias: Variablen setzen
-        variables:
-          action_on: '{{ ''CONFIRM_'' ~ context.id }}'
-          action_off: '{{ ''DISMISS_'' ~ context.id }}'
       - service: input_select.select_option
         data:
           option: Fertig
         target:
           entity_id: input_select.wasche_trockner
         alias: Auf "Fertig" setzen
-      - alias: Benachrichtigung an Jens
-        service: notify.mobile_app_pixel_6
+      - service: script.hausarbeit_benachrichtigung
         data:
-          title: Der Trockner ist fertig
-          message: Bitte räume ihn aus. Danke
-          data:
-            tag: dryer-human-ready
-            actions:
-            - action: '{{ action_on }}'
-              title: Ist ausgeräumt
-            - action: '{{ action_off }}'
-              title: Abbrechen
-      - alias: Benachrichtigung an Eva
-        service: notify.mobile_app_mi_10
-        data:
-          title: Der Trockner ist fertig
-          message: Bitte räume ihn aus. Danke
-          data:
-            tag: dryer-human-ready
-            actions:
-            - action: '{{ action_on }}'
-              title: Ist ausgeräumt
-            - action: '{{ action_off }}'
-              title: Abbrechen
-      - alias: Auf Antwort warten
-        wait_for_trigger:
-        - platform: event
-          event_type: mobile_app_notification_action
-          event_data:
-            action: '{{ action_on }}'
-          alias: Warten auf "Ist ausgeräumt"
-        continue_on_timeout: true
-        timeout:
-          hours: 24
-          minutes: 0
-          seconds: 0
-          milliseconds: 0
-      - alias: Aktion ausführen
-        choose:
-        - conditions: '{{ wait.trigger.event is not defined or wait.trigger.event.data.action
-            == action_on }}'
-          sequence:
-          - service: input_select.select_option
-            data:
-              option: Aus
-            target:
-              entity_id: input_select.wasche_trockner
-            alias: Auf "Aus" setzen
-          - service: notify.mobile_app_pixel_6
-            data:
-              message: clear_notification
-              data:
-                tag: dryer-human-ready
-            alias: Benachrichtigung Jens löschen
-          - service: notify.mobile_app_mi_10
-            data:
-              message: clear_notification
-              data:
-                tag: dryer-human-ready
-            alias: Benachrichtigung Eva löschen
+          title: Trockner ausäumen
+          message: Der Trocker ist fertig. Bitte ausräumen.
+          context_id: '{{ context.id }}'
+        alias: Benachrichtigung senden
       pre_actions:
       - service: input_select.select_option
         data:
@@ -3866,33 +3692,6 @@
     target:
       entity_id: light.livingroom_standinglight
   mode: single
-- id: '1694273802796'
-  alias: Haustür klingelt
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.nuki_haustur_ring_action
-    from: 'off'
-    to: 'on'
-  condition: []
-  action:
-  - service: media_player.play_media
-    target:
-      entity_id: media_player.wohnzimmer_jbl_mobile
-    data:
-      media_content_id: media-source://media_source/local/mixkit-airport-announcement-ding-1569.wav
-      media_content_type: audio/x-wav
-    metadata:
-      title: mixkit-airport-announcement-ding-1569.wav
-      thumbnail:
-      media_class: music
-      children_media_class:
-      navigateIds:
-      - {}
-      - media_content_type: app
-        media_content_id: media-source://media_source
-  mode: single
 - id: '1695664686087'
   alias: Schlafen - Aufstehen (30 Minuten Versatz)
   description: ''
@@ -3930,6 +3729,25 @@
       entity_id: switch.schlafzimmer_sonos
     alias: Schlafzimmer Sonos an
   mode: single
+- id: '1699089861992'
+  alias: Hausarbeit - Kalender
+  description: ''
+  trigger:
+  - platform: calendar
+    event: start
+    offset: -0:0:0
+    entity_id: calendar.hausarbeit
+    alias: Hausarbeit-Termin startet
+  condition: []
+  action:
+  - service: script.hausarbeit_benachrichtigung
+    data:
+      title: '{{ trigger.calendar_event.summary }}'
+      message: '{{ trigger.calendar_event.description }}'
+      context_id: '{{ trigger.calendar_event.summary|slugify }}'
+    alias: Benachrichtigung senden
+  mode: parallel
+  max: 1000
 - id: '1700123757400'
   alias: Fehler - Batterie Nuki Wohnungstür
   description: ''

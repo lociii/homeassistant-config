@@ -758,3 +758,100 @@ rollladen_esstisch_sonnenschutz:
       from_opened: 36
       from_closed: 31
   mode: single
+hausarbeit_registrieren:
+  alias: Hausarbeit - Registrieren (manuell)
+  sequence:
+  - alias: In Google Sheet ablegen
+    service: google_sheets.append_sheet
+    data:
+      config_entry: b1e3fbd4bc3db5571144e2c56d23b55d
+      worksheet: Raw
+      data:
+        user: '{{ states.script.hausarbeit_registrieren.context.user_id }}'
+        action: '{{ action }}'
+  mode: parallel
+  max: 1000
+hausarbeit_benachrichtigung:
+  alias: Hausarbeit - Benachrichtigung
+  sequence:
+  - if:
+    - alias: Im Urlaub
+      condition: state
+      entity_id: input_boolean.holiday_mode
+      state: 'on'
+    then:
+    - stop: Im Urlaub
+      alias: Im Urlaub
+    alias: Stop, wenn im Urlaub
+  - variables:
+      action_confirm: chores_action_confirm_{{ context_id }}
+      action_clear: chores_action_clear_{{ context_id }}
+      action_dismiss: chores_action_dismiss_{{ context_id }}
+      tag: chores_action_{{ context_id }}
+    alias: Variablen setzen
+  - service: notify.familie
+    data:
+      title: '{{ title }}'
+      message: '{{ message }}'
+      data:
+        tag: '{{ tag }}'
+        persistent: true
+        notification_icon: mdi:broom
+        actions:
+        - action: '{{ action_confirm }}'
+          title: Erledigt
+        - action: '{{ action_clear }}'
+          title: Gemeinsam
+        - action: '{{ action_dismiss }}'
+          title: Ablehnen
+    alias: Sende Benachrichtigung
+  - alias: Warte auf Antwort
+    wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_confirm }}'
+      alias: Bestätigt
+    - alias: Gemeinsam erledigt
+      platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_clear }}'
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_dismiss }}'
+      alias: Abgelehnt
+  - alias: Wenn bestätigt
+    if:
+    - condition: template
+      value_template: '{{ wait.trigger.event.data.action == action_confirm }}'
+    then:
+    - parallel:
+      - alias: Benachtichtigung entfernen
+        service: notify.familie
+        data:
+          message: clear_notification
+          data:
+            tag: '{{ tag }}'
+      - alias: Google Sheets befüllen
+        service: google_sheets.append_sheet
+        data:
+          config_entry: b1e3fbd4bc3db5571144e2c56d23b55d
+          worksheet: Raw
+          data:
+            user: '{{ wait.trigger.event.data.device_id }}'
+            action: '{{ title }}'
+  - alias: Wenn gemeinsam erledigt
+    if:
+    - condition: template
+      value_template: '{{ wait.trigger.event.data.action == action_clear }}'
+    then:
+    - alias: Benachtichtigung entfernen
+      service: notify.familie
+      data:
+        message: clear_notification
+        data:
+          tag: '{{ tag }}'
+  mode: parallel
+  max: 1000
