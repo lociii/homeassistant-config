@@ -2286,16 +2286,16 @@
     state: 'off'
     alias: Sauger noch nicht fertig
   action:
-  - service: vacuum.start
-    data: {}
-    target:
-      entity_id: vacuum.roborock_q8_max
-    alias: Ganze Wohnung saugen
   - service: input_boolean.turn_on
     data: {}
     target:
       entity_id: input_boolean.staubsauger_aktiv
     alias: Staubsauger aktiv setzen
+  - service: vacuum.start
+    data: {}
+    target:
+      entity_id: vacuum.roborock_q8_max
+    alias: Staubsauger losschicken
   mode: single
 - id: '1670621896627'
   alias: Staubsaugen - Pausieren bei Rückkehr
@@ -2318,7 +2318,8 @@
     target:
       entity_id: vacuum.roborock_q8_max
     alias: Sauger pausieren
-  - if:
+  - alias: Zurück zur Ladestation fahren, wenn gerade aktiv
+    if:
     - condition: state
       entity_id: input_boolean.staubsauger_aktiv
       state: 'on'
@@ -2330,12 +2331,11 @@
         seconds: 2
         milliseconds: 0
       alias: 2s warten
-    - service: vacuum.return_to_base
+    - alias: Zur Ladestation fahren
+      service: vacuum.return_to_base
       data: {}
       target:
         entity_id: vacuum.roborock_q8_max
-      alias: Zur Ladestation fahren
-    alias: Zurück zur Ladestation fahren, wenn gerade aktiv
   - service: input_boolean.turn_off
     data: {}
     target:
@@ -2364,6 +2364,15 @@
     below: 100
     alias: Batterie nicht leer
   action:
+  - service: vacuum.send_command
+    data:
+      command: app_goto_target
+      params:
+      - 18700
+      - 24500
+    target:
+      entity_id: vacuum.roborock_q8_max
+    alias: Zum Entleeren in die Küche fahren
   - service: input_boolean.turn_off
     data: {}
     target:
@@ -2375,6 +2384,13 @@
     target:
       entity_id: input_boolean.staubsauger_fertig
     alias: Sauger fertig setzen
+  - alias: Benarichtigung zum Entleeren
+    service: script.hausarbeit_benachrichtigung
+    data:
+      title: Staubsauger leeren
+      message: Der Staubsauger ist fertig und wartet in der Küche zum Entleeren. Sende
+        ihn danach bitte zur Ladestation.
+      context_id: '{{ context.id }}'
   mode: single
 - id: '1670622355861'
   alias: Staubsaugen - Zurücksetzen
