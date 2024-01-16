@@ -1,5 +1,0 @@
-fan:
-  - platform: philips_airpurifier_coap
-    host: !secret air_purifier_hallway_ip
-    model: ac3033
-    name: Luftreiniger Flur

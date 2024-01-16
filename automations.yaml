@@ -188,13 +188,13 @@
     alias: Alle Rollläden schließen
     target:
       entity_id:
+      - cover.rollladen_buro_eva
       - cover.rollladen_buro_jens
-      - cover.rollladen_couch
-      - cover.rollladen_esstisch
-      - cover.rollladen_eva
+      - cover.rollladen_wohnzimmer_couch
+      - cover.rollladen_wohnzimmer_esstisch
+      - cover.rollladen_wohnzimmer_terrasse
       - cover.rollladen_kuche
       - cover.rollladen_schlafzimmer
-      - cover.rollladen_terrasse
 - id: '1589820839263'
   alias: Wiegen Jens - Erinnerung senden
   description: ''
@@ -366,6 +366,12 @@
     entity_id:
     - input_boolean.garage_auto_nur_bei_sonne_laden
     alias: Nur bei Sonne laden wurde geändert
+  - platform: state
+    entity_id:
+    - sensor.stromgedacht_schonaich
+    attribute: state
+    to: Supergrün
+    alias: Supergrün Phase gestartet
   condition:
   - condition: state
     entity_id: input_boolean.garage_ladestation_freischalten
@@ -375,24 +381,32 @@
     entity_id: binary_sensor.keba_p30_plug
     state: 'on'
     alias: Fahrzeug verbunden
-  - condition: or
+  - alias: Soll gerade geladen werden?
+    condition: or
     conditions:
-    - condition: and
+    - alias: Bei Sonne laden und Sonne scheint oder Supergrün Phase
+      condition: and
       conditions:
       - condition: state
         entity_id: input_boolean.garage_auto_nur_bei_sonne_laden
         state: 'on'
         alias: Nur bei Sonne laden
-      - condition: state
-        entity_id: sun.sun
-        state: above_horizon
-        alias: Sonne scheint
-      alias: Bei Sonne laden und Sonne scheint
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: sensor.stromgedacht_schonaich
+          attribute: state
+          state: 'Supergrün '
+          alias: Supergrün Phase
+        - condition: state
+          entity_id: sun.sun
+          state: above_horizon
+          alias: Sonne scheint
+        alias: Supergrün oder Sonne scheint
     - condition: state
       entity_id: input_boolean.garage_auto_nur_bei_sonne_laden
       state: 'off'
       alias: Immer laden
-    alias: Soll gerade geladen werden?
   action:
   - service: lock.unlock
     data: {}
@@ -425,6 +439,12 @@
   - platform: sun
     event: sunset
     alias: Sonne geht unter
+  - platform: state
+    entity_id:
+    - sensor.stromgedacht_schonaich
+    attribute: state
+    from: Supergrün
+    alias: Supergrün Phase endet
   condition:
   - condition: state
     entity_id: lock.keba_p30_authentication
@@ -816,18 +836,18 @@
       - light.kitchen_bar
       - light.bedroom_ceiling
       - light.bedroom_bed
-      - light.livingroom_dining
+      - light.livingroom_dininglight
       - light.livingroom_wall
+      - light.livingroom_readinglight
       - light.livingroom_standinglight
       - light.livingroom_ceiling
       - light.deckenlicht_buro_jens
-      - light.steckdose_leselampe
       - light.flurlicht
   - service: switch.turn_off
     data: {}
     target:
       entity_id:
-      - switch.steckdose_google_home_mini_buro
+      - switch.office_eva_voice_assistant
       - switch.steckdose_sprachassistent_dusche
       - switch.steckdose_kaffeemaschine
       - switch.steckdose_fernseher_schlafzimmer
@@ -852,10 +872,10 @@
   action:
   - service: script.announcement
     data:
-      media_player: media_player.jens_echo
+      media_player: media_player.wallpanel
       volume: 0.4
       message: Komm gesund wieder. Ich halte hier die Stellung!
-      scene_name: snapshot_jens_echo
+      scene_name: snapshot_wallpanel
     alias: Ansage
   mode: single
 - id: '1670088156629'
@@ -934,10 +954,10 @@
   action:
   - service: script.announcement
     data:
-      media_player: media_player.jens_echo
+      media_player: media_player.wallpanel
       volume: 0.4
       message: Willkommen zurück. Schön, dass du wieder da bist.
-      scene_name: snapshot_jens_echo
+      scene_name: snapshot_wallpanel
     alias: Ansage
   mode: single
 - id: '1670096126996'
@@ -958,7 +978,7 @@
       entity_id:
       - switch.steckdose_sprachassistent_bad
       - switch.steckdose_sprachassistent_dusche
-      - switch.steckdose_google_home_mini_buro
+      - switch.office_eva_voice_assistant
       - switch.wohnzimmer_multimedia_mehrfachsteckdose
     alias: Geräte an
   - service: cover.open_cover
@@ -1395,11 +1415,11 @@
       - light.bedroom_ceiling
       - light.deckenlicht_buro_jens
       - light.guestroom_standinglight
-      - light.steckdose_leselampe
+      - light.livingroom_readinglight
       - light.livingroom_standinglight
       - light.livingroom_ceiling
       - light.livingroom_wall
-      - light.livingroom_dining
+      - light.livingroom_dininglight
       - light.kitchen_ceiling
       - light.kitchen_cabinet
       - light.kitchen_sink
@@ -1407,18 +1427,19 @@
       - light.garden_lantern
       - light.garden_ball_lamps
       - light.flurlicht
-  - service: switch.turn_off
+  - alias: Geräte aus
+    service: switch.turn_off
     data: {}
-    alias: Geräte aus
     target:
       entity_id:
       - switch.steckdose_sprachassistent_dusche
       - switch.steckdose_schreibtisch_jens
       - switch.steckdose_schreibtisch_eva
-      - switch.steckdose_google_home_mini_buro
+      - switch.office_eva_voice_assistant
       - switch.steckdose_drucker
       - switch.steckdose_kaffeemaschine
       - switch.wohnzimmer_multimedia_mehrfachsteckdose
+      - switch.steckdose_fernseher_schlafzimmer
   - service: switch.turn_on
     data: {}
     target:
@@ -1443,15 +1464,6 @@
       sensor: binary_sensor.steckdose_zahnburste_bad_sensor
       target:
         entity_id: switch.steckdose_zahnburste_bad
-- id: '1670605758789'
-  alias: Sensor - Büro - Steckdose Sprachassistent
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_switch.yaml
-    input:
-      sensor: binary_sensor.steckdose_google_home_mini_buro_sensor
-      target:
-        entity_id: switch.steckdose_google_home_mini_buro
 - id: '1670605792918'
   alias: Sensor - Büro Jens - Steckdose Drucker
   description: ''
@@ -1619,33 +1631,6 @@
       sensor: binary_sensor.steckdose_fernseher_schlafzimmer_sensor
       target:
         entity_id: switch.steckdose_fernseher_schlafzimmer
-- id: '1670607795168'
-  alias: Sensor - Wohnzimmer - Steckdose Leselampe
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.steckdose_leselampe_sensor
-      target:
-        entity_id: light.steckdose_leselampe
-- id: '1670607845788'
-  alias: Sensor - Wohnzimmer - Steckdose Sonos Wohnzimmer hinten links
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_switch.yaml
-    input:
-      sensor: binary_sensor.steckdose_sonos_wohnzimmer_hinten_links_sensor
-      target:
-        entity_id: switch.plug_livingroom_sonos_rear_left
-- id: '1670607869428'
-  alias: Sensor - Wohnzimmer - Steckdose Sonos Wohnzimmer hinten rechts
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_switch.yaml
-    input:
-      sensor: binary_sensor.steckdose_sonos_wohnzimmer_hinten_rechts_sensor
-      target:
-        entity_id: switch.plug_livingroom_sonos_rear_right
 - id: '1670608012237'
   alias: Sensor  - Büro - Steckdose Schreibtisch
   description: ''
@@ -1839,7 +1824,7 @@
       - switch.steckdose_kaffeemaschine
       - switch.steckdose_sprachassistent_bad
       - switch.steckdose_sprachassistent_dusche
-      - switch.steckdose_google_home_mini_buro
+      - switch.office_eva_voice_assistant
       - switch.wohnzimmer_multimedia_mehrfachsteckdose
     alias: Geräte an
   - service: fan.turn_off
@@ -2071,7 +2056,7 @@
     target:
       entity_id:
       - switch.steckdose_telefon_kuche
-      - switch.steckdose_telefon_buro
+      - switch.office_eva_telephone
       - switch.steckdose_zahnburste_bad
       - switch.steckdose_telefon_wohnzimmer
     alias: Steckdosen zum Laden einschalten
@@ -2086,7 +2071,7 @@
     target:
       entity_id:
       - switch.steckdose_telefon_kuche
-      - switch.steckdose_telefon_buro
+      - switch.office_eva_telephone
       - switch.steckdose_zahnburste_bad
       - switch.steckdose_telefon_wohnzimmer
     alias: Steckdosen ausschalten
@@ -2715,46 +2700,46 @@
       keep_open_when_dark: false
       script_sunprotection: script.rollladen_kuche_sonnenschutz
 - id: '1670948881633'
-  alias: Rollladen - Esstisch
+  alias: Rollladen - Wohnzimmer - Esstisch
   description: ''
   use_blueprint:
     path: cover.yaml
     input:
-      cover: cover.rollladen_esstisch
+      cover: cover.rollladen_wohnzimmer_esstisch
       contact_sensor: '[]'
       sun_protection: input_boolean.sonnenschutz_sued
-      script_ajar: script.rollladen_esstisch_spalt
-      script_cat: script.rollladen_esstisch_katzenposition
+      script_ajar: script.rollladen_wohnzimmer_esstisch_spalt
+      script_cat: script.rollladen_wohnzimmer_esstisch_katzenposition
       open_on_return: false
       can_open_when_dark: false
       keep_open_when_dark: false
-      script_sunprotection: script.rollladen_esstisch_sonnenschutz
+      script_sunprotection: script.rollladen_wohnzimmer_esstisch_sonnenschutz
 - id: '1670949797116'
-  alias: Rollladen - Couch
+  alias: Rollladen - Wohnzimmer - Couch
   description: ''
   use_blueprint:
     path: cover.yaml
     input:
-      cover: cover.rollladen_couch
+      cover: cover.rollladen_wohnzimmer_couch
       contact_sensor: '[]'
       sun_protection: input_boolean.sonnenschutz_west
-      script_ajar: script.rollladen_couch_spalt
-      script_cat: script.rollladen_couch_katzenposition
+      script_ajar: script.rollladen_wohnzimmer_couch_spalt
+      script_cat: script.rollladen_wohnzimmer_couch_katzenposition
       close_on_shutdown: true
       open_on_return: false
       can_open_when_dark: false
       keep_open_when_dark: false
-      script_sunprotection: script.rollladen_couch_spalt
+      script_sunprotection: script.rollladen_wohnzimmer_couch_spalt
 - id: '1670951413392'
-  alias: Rollladen - Terrasse
+  alias: Rollladen - Wohnzimmer - Terrasse
   description: ''
   use_blueprint:
     path: cover.yaml
     input:
-      cover: cover.rollladen_terrasse
+      cover: cover.rollladen_wohnzimmer_terrasse
       contact_sensor: binary_sensor.magnet_door_patio_contact
       sun_protection: '[]'
-      script_ajar: script.rollladen_terrasse_spalt
+      script_ajar: script.rollladen_wohnzimmer_terrasse_spalt
       script_cat: '[]'
       close_on_shutdown: false
       open_on_return: true
@@ -2850,7 +2835,7 @@
     state: 'off'
     alias: Wir schlafen nicht
   - condition: state
-    entity_id: binary_sensor.fenster_alle
+    entity_id: binary_sensor.fenster
     state: 'off'
     alias: Nicht alle Fenster sind offen
   action:
@@ -2901,7 +2886,7 @@
   use_blueprint:
     path: cover.yaml
     input:
-      cover: cover.rollladen_eva
+      cover: cover.rollladen_buro_eva
       contact_sensor: binary_sensor.magnet_window_office_contact
       sun_protection: '[]'
       script_ajar: script.rollladen_buro_eva_spalt
@@ -3183,7 +3168,7 @@
           option: Fertig
       - service: script.hausarbeit_benachrichtigung
         data:
-          title: Waschmaschine ausäumen
+          title: Waschmaschine ausräumen
           message: Die Wäsche ist fertig. Bitte ausräumen.
           context_id: '{{ context.id }}'
         alias: Benachrichtigung senden
@@ -3214,7 +3199,7 @@
           option: Fertig
       - service: script.hausarbeit_benachrichtigung
         data:
-          title: Tier-Waschmaschine ausäumen
+          title: Tier-Waschmaschine ausräumen
           message: Die Wäsche ist fertig. Bitte ausräumen.
           context_id: '{{ context.id }}'
         alias: Benachrichtigung senden
@@ -3245,7 +3230,7 @@
         alias: Auf "Fertig" setzen
       - service: script.hausarbeit_benachrichtigung
         data:
-          title: Trockner ausäumen
+          title: Trockner ausräumen
           message: Der Trocker ist fertig. Bitte ausräumen.
           context_id: '{{ context.id }}'
         alias: Benachrichtigung senden
@@ -3471,7 +3456,7 @@
   - service: light.toggle
     data: {}
     target:
-      entity_id: light.steckdose_leselampe
+      entity_id: light.livingroom_readinglight
     alias: Leselampe Wohnzimmer an/aus
   mode: single
 - id: '1688906744065'
@@ -3652,7 +3637,7 @@
     data: {}
     target:
       entity_id:
-      - light.livingroom_dining
+      - light.livingroom_dininglight
     alias: Esstischlicht an/aus
   mode: single
 - id: '1689424054814'
@@ -3764,3 +3749,78 @@
     data:
       message: Nuki Wohnungstür Batterie kritisch
   mode: single
+- id: '1700641906022'
+  alias: Fenster - Zeitpunkt letzte Veränderung merken
+  description: ''
+  trigger:
+  - alias: Status eines Fensters wurde verändert
+    platform: state
+    entity_id:
+    - binary_sensor.magnet_window_kitchen_contact
+    - binary_sensor.magnet_door_patio_contact
+    - binary_sensor.magnet_window_guestroom_contact
+    - binary_sensor.magnet_window_bedroom_contact
+    - binary_sensor.magnet_window_office_contact
+  condition: []
+  action:
+  - service: input_datetime.set_datetime
+    data:
+      datetime: '{{ now() }}'
+    target:
+      entity_id: input_datetime.fenster_zuletzt_geoffnet
+    alias: Aktualisieren
+  mode: single
+- id: '1700642349899'
+  alias: Hausarbeit - Lüften
+  description: ''
+  trigger:
+  - alias: Um 09:30
+    platform: time
+    at: 09:30:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+    alias: Nicht außer Haus im Urlaub
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+    alias: An Arbeitstagen
+  - condition: state
+    entity_id: input_boolean.presence
+    state: 'on'
+    alias: Anwesend
+  - condition: template
+    value_template: '{{ states(''input_datetime.fenster_zuletzt_geoffnet'')|as_timestamp
+      < as_timestamp(now()) - 60 * 60 * 4 }}'
+    alias: Letzte Änderung über 4 Stunden her
+  action:
+  - service: script.hausarbeit_benachrichtigung
+    data:
+      title: Lüften
+      message: Bitte öffne alle Fenster zum Lüften
+      context_id: '{{ context.id }}'
+    alias: Benachrichtigung senden
+  mode: single
+- id: '1704987918685'
+  alias: Low Battery Notification
+  description: ''
+  use_blueprint:
+    path: Blackshome/low-battery-notifications-and-actions.yaml
+    input:
+      include_time: time_enabled
+      time: '14:00:00'
+      exclude_sensors:
+        entity_id:
+        - sensor.beast_battery
+        - sensor.lumi_lumi_sensor_cube_power
+        - sensor.ipad_pro_battery_level
+        - sensor.mi_10_battery_level
+        - sensor.pixel_6_battery_level
+        - sensor.pixel_7_battery_level
+        - sensor.wallpanel_battery_level
+        - sensor.sofadevice_battery_level
+        - sensor.roborock_q8_max_battery
+      include_easy_notify: enable_easy_notify
+      notify_device:
+      - 05ab129ead7e65198b3a10b87ce0cde2

@@ -514,24 +514,27 @@ rollladen_buro_jens_spalt:
       from_closed: 14
       cover: cover.rollladen_buro_jens
   mode: single
-rollladen_couch_spalt:
-  alias: Rollladen - Couch - Spalt
+  icon: mdi:window-shutter
+rollladen_wohnzimmer_couch_spalt:
+  alias: Rollladen -  Wohnzimmer - Couch - Spalt
   use_blueprint:
     path: cover_position.yaml
     input:
       from_opened: 14
       from_closed: 12
-      cover: cover.rollladen_couch
+      cover: cover.rollladen_wohnzimmer_couch
   mode: single
-rollladen_esstisch_spalt:
-  alias: Rollladen - Esstisch - Spalt
+  icon: mdi:window-shutter
+rollladen_wohnzimmer_esstisch_spalt:
+  alias: Rollladen -  Wohnzimmer - Esstisch - Spalt
   use_blueprint:
     path: cover_position.yaml
     input:
       from_opened: 11
       from_closed: 9
-      cover: cover.rollladen_esstisch
+      cover: cover.rollladen_wohnzimmer_esstisch
   mode: single
+  icon: mdi:window-shutter
 rollladen_kuche_spalt:
   alias: Rollladen - Küche - Spalt
   use_blueprint:
@@ -541,15 +544,17 @@ rollladen_kuche_spalt:
       from_closed: 7
       cover: cover.rollladen_kuche
   mode: single
-rollladen_terrasse_spalt:
-  alias: Rollladen - Terrasse - Spalt
+  icon: mdi:window-shutter
+rollladen_wohnzimmer_terrasse_spalt:
+  alias: Rollladen - Wohnzimmer - Terrasse - Spalt
   use_blueprint:
     path: cover_position.yaml
     input:
-      cover: cover.rollladen_terrasse
+      cover: cover.rollladen_wohnzimmer_terrasse
       from_opened: 11
       from_closed: 15
   mode: single
+  icon: mdi:window-shutter
 announcement:
   alias: Announcement
   sequence:
@@ -631,33 +636,36 @@ jens_alarm_flash_rot:
       entity_id: light.guestroom_desk_alarm_left
     alias: Turn light off
   mode: single
-rollladen_couch_katzenposition:
-  alias: Rollladen - Couch - Katzenposition
+rollladen_wohnzimmer_couch_katzenposition:
+  alias: Rollladen - Wohnzimmer - Couch - Katzenposition
   use_blueprint:
     path: cover_position.yaml
     input:
-      cover: cover.rollladen_couch
+      cover: cover.rollladen_wohnzimmer_couch
       from_opened: 45
       from_closed: 41
   mode: single
-rollladen_couch_orchideenschutz:
-  alias: Rollladen - Couch - Orchideenschutz
+  icon: mdi:window-shutter
+rollladen_wohnzimmer_couch_orchideenschutz:
+  alias: Rollladen - Wohnzimmer - Couch - Orchideenschutz
   use_blueprint:
     path: cover_position.yaml
     input:
-      cover: cover.rollladen_couch
+      cover: cover.rollladen_wohnzimmer_couch
       from_opened: 55
       from_closed: 50
   mode: single
-rollladen_esstisch_katzenposition:
-  alias: Rollladen - Esstisch - Katzenposition
+  icon: mdi:window-shutter
+rollladen_wohnzimmer_esstisch_katzenposition:
+  alias: Rollladen - Wohnzimmer - Esstisch - Katzenposition
   use_blueprint:
     path: cover_position.yaml
     input:
-      cover: cover.rollladen_esstisch
+      cover: cover.rollladen_wohnzimmer_esstisch
       from_opened: 40
       from_closed: 35
   mode: single
+  icon: mdi:window-shutter
 rollladen_kuche_sonnenschutz:
   alias: Rollladen - Küche - Sonnenschutz
   use_blueprint:
@@ -667,15 +675,17 @@ rollladen_kuche_sonnenschutz:
       from_opened: 42
       from_closed: 40
   mode: single
-rollladen_esstisch_sonnenschutz:
-  alias: Rollladen - Esstisch - Sonnenschutz
+  icon: mdi:window-shutter
+rollladen_wohnzimmer_esstisch_sonnenschutz:
+  alias: Rollladen - Wohnzimmer - Esstisch - Sonnenschutz
   use_blueprint:
     path: cover_position.yaml
     input:
-      cover: cover.rollladen_esstisch
+      cover: cover.rollladen_wohnzimmer_esstisch
       from_opened: 36
       from_closed: 31
   mode: single
+  icon: mdi:window-shutter
 hausarbeit_registrieren:
   alias: Hausarbeit - Registrieren (manuell)
   sequence:
@@ -719,7 +729,7 @@ hausarbeit_benachrichtigung:
         - action: '{{ action_confirm }}'
           title: Erledigt
         - action: '{{ action_clear }}'
-          title: Gemeinsam
+          title: Beide/Keiner
         - action: '{{ action_dismiss }}'
           title: Ablehnen
     alias: Sende Benachrichtigung

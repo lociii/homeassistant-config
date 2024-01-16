@@ -3,4 +3,4 @@ notify:
     name: Familie
     services:
       - service: mobile_app_pixel_6  # jens
-      - service: mobile_app_mi_10  # eva
+      - service: mobile_app_pixel_7  # eva

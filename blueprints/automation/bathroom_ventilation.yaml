@@ -68,7 +68,7 @@ action:
             then:
               - service: fan.toggle
                 entity_id: !input fan
-            # don't off for the night
+            # turn off for the night
             else:
               - service: fan.turn_off
                 entity_id: !input fan

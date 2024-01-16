@@ -51,5 +51,4 @@ http:
   trusted_proxies:
     - 127.0.0.1
     - ::1
-    - 172.0.0.0/8
-
+    - 10.211.112.12  # ship running traefik proxy
