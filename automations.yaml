@@ -491,7 +491,7 @@
         - action: '{{ action_off }}'
           title: Abbrechen
   - alias: Benachrichtigung an Eva
-    service: notify.mobile_app_mi_10
+    service: notify.mobile_app_pixel_7
     data:
       title: Wallbox verbunden
       message: Ein Auto wurde zum Laden eingesteckt. Soll der Ladevorgang nun freigeschaltet
@@ -531,7 +531,7 @@
           data:
             tag: garage-wallbox-connected
         alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_mi_10
+      - service: notify.mobile_app_pixel_7
         data:
           message: clear_notification
           data:
@@ -550,7 +550,7 @@
           data:
             tag: garage-wallbox-connected
         alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_mi_10
+      - service: notify.mobile_app_pixel_7
         data:
           message: clear_notification
           data:
@@ -609,7 +609,7 @@
         - action: '{{ action_cancel }}'
           title: Ignorieren
   - alias: Benachrichtigung an Eva
-    service: notify.mobile_app_mi_10
+    service: notify.mobile_app_pixel_7
     data:
       title: EV geladen
       message: Ein Auto wurde von der Wallbox getrennt. Wem soll der Verbrauch zugerechnet
@@ -667,7 +667,7 @@
           data:
             tag: garage-wallbox-disconnected
         alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_mi_10
+      - service: notify.mobile_app_pixel_7
         data:
           message: clear_notification
           data:
@@ -695,7 +695,7 @@
           data:
             tag: garage-wallbox-disconnected
         alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_mi_10
+      - service: notify.mobile_app_pixel_7
         data:
           message: clear_notification
           data:
@@ -723,7 +723,7 @@
           data:
             tag: garage-wallbox-disconnected
         alias: Benachrichtigung Jens löschen
-      - service: notify.mobile_app_mi_10
+      - service: notify.mobile_app_pixel_7
         data:
           message: clear_notification
           data:
