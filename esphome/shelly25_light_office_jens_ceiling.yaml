@@ -2,10 +2,10 @@
 # 29
 
 substitutions:
-  id: light_guestroom_ceiling
+  id: light_office_jens_ceiling
   update_throttle: 30s
 
-  name_a: Gästezimmer Deckenlicht
+  name_a: Deckenlicht Büro Jens
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
