@@ -15,7 +15,7 @@
     alias: Sonnenschutz West aktiviert
   condition:
   - condition: state
-    entity_id: switch.shaun
+    entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
   action:
@@ -45,45 +45,15 @@
     state: home
     alias: Jens ist zu Hause
   - condition: state
-    entity_id: switch.shaun
+    entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
   action:
   - service: script.turn_on
     data: {}
     target:
-      entity_id: script.gaestezimmer_alarm_regenbogen
+      entity_id: script.office_jens_alarm_rainbow
     alias: Regenbogen Alarm
-- id: '1576323625586'
-  alias: Supervisor - Zertifikat erneuern
-  description: ''
-  trigger:
-  - at: 03:30:00
-    platform: time
-  condition: []
-  action:
-  - data:
-      addon: core_nginx_proxy
-    service: hassio.addon_stop
-    alias: Stop NGINX
-  - data:
-      addon: a0d7b954_bitwarden
-    service: hassio.addon_stop
-    alias: Stop Vaultwarden
-  - delay: 00:00:30
-  - data:
-      addon: core_letsencrypt
-    service: hassio.addon_start
-    alias: Start Letsencrypt
-  - delay: 00:02:00
-  - data:
-      addon: core_nginx_proxy
-    service: hassio.addon_restart
-    alias: Start NGINX
-  - data:
-      addon: a0d7b954_bitwarden
-    service: hassio.addon_restart
-    alias: Start Vaultwarden
 - id: '1577789351489'
   alias: Wecker - Wake up light
   description: ''
@@ -138,11 +108,11 @@
     state: home
     alias: Jens ist zu Hause
   - condition: state
-    entity_id: switch.shaun
+    entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
   action:
-  - entity_id: script.gaestezimmer_stehlampe_alarm_rot
+  - entity_id: script.office_jens_alarm_red
     service: script.turn_on
     alias: Roter Alarm
 - id: '1588948500578'
@@ -195,45 +165,6 @@
       - cover.rollladen_wohnzimmer_terrasse
       - cover.rollladen_kuche
       - cover.rollladen_schlafzimmer
-- id: '1589820839263'
-  alias: Wiegen Jens - Erinnerung senden
-  description: ''
-  trigger:
-  - entity_id: light.shower_ceiling
-    from: 'off'
-    platform: state
-    to: 'on'
-    alias: Deckenlicht wird angeschaltet
-  condition:
-  - condition: state
-    entity_id: input_boolean.jens_wiegen_erinnerung_gesendet
-    state: 'off'
-    alias: Erinnerung noch nicht gesendet
-  - after: 05:00:00
-    before: '12:00:00'
-    condition: time
-    alias: Zwischen 5 und 12 Uhr morgens
-  action:
-  - service: notify.mobile_app_pixel_6
-    data:
-      message: Guten Morgen, es ist Zeit Dich zu wiegen!
-    alias: Erinnerung senden
-  - data: {}
-    entity_id: input_boolean.jens_wiegen_erinnerung_gesendet
-    service: input_boolean.turn_on
-    alias: Versand merken
-- id: '1589820924653'
-  alias: Wiegen Jens - Erinnerung zuruecksetzen
-  description: ''
-  trigger:
-  - at: 00:00:00
-    platform: time
-    alias: Um 0 Uhr
-  condition: []
-  action:
-  - data: {}
-    entity_id: input_boolean.jens_wiegen_erinnerung_gesendet
-    service: input_boolean.turn_off
 - id: '1652004328146'
   alias: Jens Arbeit - nächster Termin beginnt (1 Minute)
   description: ''
@@ -254,7 +185,7 @@
     alias: Jens ist nicht im Urlaub
   action:
   - parallel:
-    - service: script.gaestezimmer_stehlampe_alarm_rot
+    - service: script.office_jens_alarm_red
       data: {}
       alias: Roter Alarm
     - service: script.announcement
@@ -285,7 +216,7 @@
     alias: Jens ist nicht im Urlaub
   action:
   - parallel:
-    - service: script.gaestezimmer_stehlampe_alarm_blau
+    - service: script.office_jens_alarm_blue
       data: {}
       alias: Blauer Alarm
     - service: script.announcement
@@ -312,14 +243,14 @@
     state: home
     alias: Jens ist zu Hause
   - condition: state
-    entity_id: switch.shaun
+    entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
   action:
   - service: script.turn_on
     data: {}
     target:
-      entity_id: script.gaestezimmer_alarm_blau
+      entity_id: script.office_jens_alarm_blue
     alias: Büro Jens blauer Alarm
   mode: single
 - id: '1668286134487'
@@ -338,14 +269,14 @@
     state: home
     alias: Jens ist zu Hause
   - condition: state
-    entity_id: switch.shaun
+    entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
   action:
   - service: script.turn_on
     data: {}
     target:
-      entity_id: script.gaestezimmer_alarm_blau
+      entity_id: script.office_jens_alarm_blue
     alias: Büro Jens blauer Alarm
   mode: single
 - id: '1668289915940'
@@ -366,12 +297,11 @@
     entity_id:
     - input_boolean.garage_auto_nur_bei_sonne_laden
     alias: Nur bei Sonne laden wurde geändert
-  - platform: state
+  - alias: Supergrün Phase gestartet
+    platform: state
     entity_id:
     - sensor.stromgedacht_schonaich
-    attribute: state
     to: Supergrün
-    alias: Supergrün Phase gestartet
   condition:
   - condition: state
     entity_id: input_boolean.garage_ladestation_freischalten
@@ -384,25 +314,24 @@
   - alias: Soll gerade geladen werden?
     condition: or
     conditions:
-    - alias: Bei Sonne laden und Sonne scheint oder Supergrün Phase
+    - alias: CO2 armes Laden möglich?
       condition: and
       conditions:
       - condition: state
         entity_id: input_boolean.garage_auto_nur_bei_sonne_laden
         state: 'on'
         alias: Nur bei Sonne laden
-      - condition: or
+      - alias: Supergrün oder Sonne scheint
+        condition: or
         conditions:
-        - condition: state
+        - alias: Supergrün Phase
+          condition: state
           entity_id: sensor.stromgedacht_schonaich
-          attribute: state
           state: 'Supergrün '
-          alias: Supergrün Phase
         - condition: state
           entity_id: sun.sun
           state: above_horizon
           alias: Sonne scheint
-        alias: Supergrün oder Sonne scheint
     - condition: state
       entity_id: input_boolean.garage_auto_nur_bei_sonne_laden
       state: 'off'
@@ -433,18 +362,17 @@
     alias: Ladestation sperren
   mode: single
 - id: '1668351425454'
-  alias: Garage - Wallbox - Pause (wenn Sonne nicht scheint)
+  alias: Garage - Wallbox - Pause
   description: ''
   trigger:
   - platform: sun
     event: sunset
     alias: Sonne geht unter
-  - platform: state
+  - alias: Supergrün Phase endet
+    platform: state
     entity_id:
     - sensor.stromgedacht_schonaich
-    attribute: state
     from: Supergrün
-    alias: Supergrün Phase endet
   condition:
   - condition: state
     entity_id: lock.keba_p30_authentication
@@ -824,7 +752,7 @@
       entity_id:
       - light.bathroom_ceiling
       - light.bathroom_mirror
-      - light.office_ceilinglight
+      - light.office_eva_ceiling
       - light.shower_ceiling
       - light.shower_mirror
       - light.garden_ball_lamps
@@ -836,13 +764,13 @@
       - light.kitchen_bar
       - light.bedroom_ceiling
       - light.bedroom_bed
-      - light.livingroom_dininglight
+      - light.livingroom_dining
       - light.livingroom_wall
-      - light.livingroom_readinglight
+      - light.livingroom_reading
       - light.livingroom_standinglight
       - light.livingroom_ceiling
-      - light.deckenlicht_buro_jens
-      - light.flurlicht
+      - light.office_jens_ceiling
+      - light.hallway_ceiling
   - service: switch.turn_off
     data: {}
     target:
@@ -937,7 +865,7 @@
     target:
       entity_id:
       - light.livingroom_wall
-      - light.flurlicht
+      - light.hallway_ceiling
     alias: Lichter an
   mode: single
 - id: '1670095952412'
@@ -981,11 +909,12 @@
       - switch.plug_office_eva_voice_assistant
       - switch.plug_livingroom_multimedia
     alias: Geräte an
-  - service: cover.open_cover
+  - alias: Terrassenrolladen hoch
+    service: cover.open_cover
     data: {}
     target:
-      entity_id: cover.patio
-    alias: Terrassenrolladen hoch
+      entity_id:
+      - cover.rollladen_wohnzimmer_terrasse
   mode: single
 - id: '1670186909773'
   alias: Präsenz - Verlassen - Lichtsignal
@@ -1409,24 +1338,24 @@
       entity_id:
       - light.shower_mirror
       - light.shower_ceiling
-      - light.office_ceilinglight
+      - light.office_eva_ceiling
       - light.bathroom_ceiling
       - light.bathroom_mirror
       - light.bedroom_ceiling
-      - light.deckenlicht_buro_jens
+      - light.office_jens_ceiling
       - light.guestroom_standinglight
-      - light.livingroom_readinglight
+      - light.livingroom_reading
       - light.livingroom_standinglight
       - light.livingroom_ceiling
       - light.livingroom_wall
-      - light.livingroom_dininglight
+      - light.livingroom_dining
       - light.kitchen_ceiling
       - light.kitchen_cabinet
       - light.kitchen_sink
       - light.kitchen_bar
       - light.garden_lantern
       - light.garden_ball_lamps
-      - light.flurlicht
+      - light.hallway_ceiling
   - alias: Geräte aus
     service: switch.turn_off
     data: {}
@@ -1455,7 +1384,7 @@
       sensor: binary_sensor.sensor_hallway_sensor_a
       target:
         entity_id:
-        - light.flurlicht
+        - light.hallway_ceiling
 - id: '1670606428251'
   alias: Sensor - Keller - Steckdose Tierwaschmaschine
   description: ''
@@ -1505,14 +1434,15 @@
   alias: Küche - Ladestation Mobilgeräte - Ausschalten wenn nicht genutzt
   description: ''
   trigger:
-  - platform: numeric_state
-    entity_id: sensor.plug_kitchen_chargingstation_power
+  - alias: Verbrauch unter 1W für 15 Minuten
+    platform: numeric_state
+    entity_id:
+    - sensor.plug_kitchen_chargingstation_power
     for:
       hours: 0
       minutes: 15
       seconds: 0
-    below: 5
-    alias: Verbrauch unter 5W für 15 Minuten
+    below: 1
   condition: []
   action:
   - service: switch.turn_off
@@ -1541,16 +1471,6 @@
       entity_id: switch.plug_office_jens_printer
     alias: Drucker ausschalten
   mode: single
-
-- id: '1670608115168'
-  alias: Sensor - Wohnzimmer - Unten rechts (Stehlampe)
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.schalter_wohnzimmer_unten_sensor_b
-      target:
-        entity_id: light.livingroom_standinglight
 - id: '1670608304504'
   alias: Schlafen - Einschlafen - Einschlaflicht
   description: ''
@@ -1654,7 +1574,7 @@
   - service: light.turn_on
     data: {}
     target:
-      entity_id: light.flurlicht
+      entity_id: light.hallway_ceiling
     alias: Flurlicht an
   mode: single
 - id: '1670609363863'
@@ -1953,30 +1873,30 @@
     alias: Um 3:30 Uhr
   condition: []
   action:
-  - service: switch.turn_on
+  - alias: Steckdosen zum Laden einschalten
+    service: switch.turn_on
     data: {}
     target:
       entity_id:
       - switch.plug_kitchen_telephone
-      - switch.office_eva_telephone
-      - switch.plug_bathroom_toothbrush
+      - switch.plug_office_eva_telephone
       - switch.plug_livingroom_telephone
-    alias: Steckdosen zum Laden einschalten
+      - switch.plug_bathroom_toothbrush
   - delay:
       hours: 2
       minutes: 0
       seconds: 0
       milliseconds: 0
     alias: 2 Stunden warten
-  - service: switch.turn_off
+  - alias: Steckdosen ausschalten
+    service: switch.turn_off
     data: {}
     target:
       entity_id:
       - switch.plug_kitchen_telephone
-      - switch.office_eva_telephone
-      - switch.plug_bathroom_toothbrush
+      - switch.plug_office_eva_telephone
       - switch.plug_livingroom_telephone
-    alias: Steckdosen ausschalten
+      - switch.plug_bathroom_toothbrush
   mode: single
 - id: '1670612071294'
   alias: NFC - Haustür
@@ -2009,7 +1929,7 @@
     - service: light.turn_on
       data: {}
       target:
-        entity_id: light.flurlicht
+        entity_id: light.hallway_ceiling
       alias: Flurlicht an
   - service: lock.open
     data: {}
@@ -2037,7 +1957,7 @@
     - service: light.turn_on
       data: {}
       target:
-        entity_id: light.flurlicht
+        entity_id: light.hallway_ceiling
       alias: Flurlicht an
     alias: Flurlicht bei Dunkelheit anschalten
   - service: lock.open
@@ -2089,7 +2009,7 @@
     data: {}
     alias: Shaun anschalten
     target:
-      entity_id: switch.shaun
+      entity_id: switch.plug_office_jens_computer
   mode: single
 - id: '1670613582512'
   alias: Sensor - Büro Jens - Shaun Control - Doppelklick
@@ -2107,7 +2027,7 @@
     target:
       entity_id:
       - switch.plug_office_jens_desk
-      - switch.shaun
+      - switch.plug_office_jens_computer
     alias: Geräte aus
   - service: light.turn_off
     data: {}
@@ -2684,7 +2604,7 @@
     alias: Freischaltung Ladestation aufheben
   mode: single
 - id: '1671296310714'
-  alias: Licht - Dusche - Bewegung
+  alias: Bewegung - Dusche - An
   description: ''
   trigger:
   - alias: Bewegung erkannt
@@ -2692,6 +2612,11 @@
     platform: device
     device_id: 48b69bd93ca549b3bda1fdd4dff11d68
     entity_id: 73d1294374e4c9135f5831be578513d2
+    domain: binary_sensor
+  - type: motion
+    platform: device
+    device_id: acc53fcd57c4f2414a6d5a9a5fab08a5
+    entity_id: cec202e7555da44cdcf24d393e2fa5fa
     domain: binary_sensor
   condition:
   - condition: state
@@ -2852,91 +2777,6 @@
       message: Nuki Haustür Batterie kritisch
     alias: Nachricht
   mode: single
-- id: '1671981668484'
-  alias: PUBG - Schaden verursacht
-  description: ''
-  trigger:
-  - platform: event
-    event_type: overwolf_game_event
-    alias: Overwolf PUBG event
-    event_data:
-      data:
-        gameId: 10906
-  condition:
-  - condition: template
-    value_template: '{{ trigger.event.data.data.events.0.name == "damage_dealt" }}'
-    alias: Wert verändert
-  action:
-  - service: input_number.set_value
-    data_template:
-      value: '{{ states(''input_number.pubg_damage_dealt'')|float + trigger.event.data.data.events.0.data|float
-        }}'
-    target:
-      entity_id: input_number.pubg_damage_dealt
-    alias: Wert setzen
-  mode: single
-- id: '1671984163683'
-  alias: PUBG - Headshot
-  description: ''
-  trigger:
-  - platform: event
-    event_type: overwolf_game_event
-    alias: Overwolf PUBG event
-    event_data:
-      data:
-        gameId: 10906
-  condition:
-  - condition: template
-    value_template: '{{ trigger.event.data.data.events.0.name == "headshot" }}'
-    alias: Wert verändert
-  action:
-  - service: input_number.increment
-    data: {}
-    target:
-      entity_id: input_number.pubg_headshots
-    alias: Anzahl erhöhen
-  mode: single
-- id: '1671984211526'
-  alias: PUBG - Neues Match
-  description: ''
-  trigger:
-  - platform: event
-    event_type: overwolf_game_event
-    alias: Overwolf PUBG event
-    event_data:
-      data:
-        gameId: 10906
-  condition:
-  - condition: template
-    value_template: '{{ trigger.event.data.data.events.0.name == "matchStart" }}'
-    alias: Neues Match
-  action:
-  - service: input_number.set_value
-    data:
-      value: 0
-    target:
-      entity_id: input_number.pubg_headshots
-    alias: Headshots zurücksetzen
-  - service: input_number.set_value
-    data:
-      value: 0
-    target:
-      entity_id: input_number.pubg_damage_dealt
-    alias: Schaden zurücksetzen
-  - service: input_number.set_value
-    data:
-      value: 0
-    target:
-      entity_id:
-      - input_number.pubg_kills
-    alias: Kills zurücksetzen
-  - service: input_text.set_value
-    data:
-      value: ' '
-    target:
-      entity_id: input_text.pubg_spieleralarm_anzeige
-    alias: Bekannte Spieler zurücksetzen
-  mode: single
 - id: '1671984563159'
   alias: PUBG - Kill
   description: ''
@@ -2952,13 +2792,7 @@
     value_template: '{{ trigger.event.data.data.events.0.name == "kill" }}'
     alias: Wert verändert
   action:
-  - service: input_number.increment
-    data: {}
-    alias: Anzahl erhöhen
-    target:
-      entity_id:
-      - input_number.pubg_kills
-  - service: script.jens_alarm_flash_rot
+  - service: script.office_jens_alarm_red
     data: {}
     alias: Lampe rot aufblitzen
   mode: single
@@ -2977,7 +2811,8 @@
     value_template: '{{ trigger.event.data.data.events.0.name == "kill" }}'
     alias: Kill event
   action:
-  - service: light.turn_on
+  - alias: Turn light on in red
+    service: light.turn_on
     data:
       rgb_color:
       - 255
@@ -2985,20 +2820,21 @@
       - 0
       brightness_pct: 100
     target:
-      entity_id: light.guestroom_desk_alarm_left
-    alias: Turn light on in red
+      entity_id:
+      - light.office_jens_alarm
   - delay:
       hours: 0
       minutes: 0
       seconds: 1
       milliseconds: 0
     alias: Wait a second
-  - service: light.turn_off
+  - alias: Turn light off
+    service: light.turn_off
     data:
       transition: 0.5
     target:
-      entity_id: light.guestroom_desk_alarm_left
-    alias: Turn light off
+      entity_id:
+      - light.office_jens_alarm
   mode: single
 - id: '1672495868959'
   alias: Wohnzimmer - Multimedia - An
@@ -3176,7 +3012,7 @@
           message: Der Trockner ist fertig
       pre_actions: []
 - id: '1688238783857'
-  alias: Sensor - Büro Jens - Links (Deckenlicht)
+  alias: Taster - Büro Jens - Links (Deckenlicht)
   description: ''
   trigger:
   - platform: device
@@ -3190,11 +3026,11 @@
   - service: light.toggle
     data: {}
     target:
-      entity_id: light.deckenlicht_buro_jens
+      entity_id: light.office_jens_ceiling
     alias: Deckenlicht an
   mode: single
 - id: '1688238821115'
-  alias: Sensor - Büro Jens - Rechts (Stehlampe)
+  alias: Taster - Büro Jens - Rechts (Stehlampe)
   description: ''
   trigger:
   - platform: device
@@ -3252,7 +3088,7 @@
     alias: Zurück zur Ladestation
   mode: single
 - id: '1688906120267'
-  alias: Sensor - Küche - Oben (Deckenlicht)
+  alias: Taster - Küche - Oben (Deckenlicht)
   description: ''
   trigger:
   - platform: device
@@ -3270,7 +3106,7 @@
     alias: Deckenlicht Küche an/aus
   mode: single
 - id: '1688906237871'
-  alias: Sensor - Küche - Mitte-Oben links (Thekenlicht)
+  alias: Taster - Küche - Mitte-Oben links (Thekenlicht)
   description: ''
   trigger:
   - platform: device
@@ -3288,7 +3124,7 @@
     alias: Thekenlicht an/aus
   mode: single
 - id: '1688906327983'
-  alias: Sensor - Küche - Mitte-Oben rechts (Schranklicht)
+  alias: Taster - Küche - Mitte-Oben rechts (Schranklicht)
   description: ''
   trigger:
   - platform: device
@@ -3306,7 +3142,7 @@
     alias: Thekenlicht an/aus
   mode: single
 - id: '1688906440219'
-  alias: Sensor - Küche - Mitte-Unten links (Spülenlicht)
+  alias: Taster - Küche - Mitte-Unten links (Spülenlicht)
   description: ''
   trigger:
   - platform: device
@@ -3324,7 +3160,7 @@
     alias: Spülenlicht an/aus
   mode: single
 - id: '1688906570617'
-  alias: Sensor - Küche - Unten links (Gartenbeleuchtung)
+  alias: Taster - Küche - Unten links (Gartenbeleuchtung)
   description: ''
   trigger:
   - platform: device
@@ -3344,7 +3180,7 @@
     alias: Gartenbeleuchtung an/aus
   mode: single
 - id: '1688906640981'
-  alias: Sensor - Küche - Unten rechts (Leselampe Wohnzimmer)
+  alias: Taster - Küche - Unten rechts (Leselampe Wohnzimmer)
   description: ''
   trigger:
   - platform: device
@@ -3358,11 +3194,11 @@
   - service: light.toggle
     data: {}
     target:
-      entity_id: light.livingroom_readinglight
+      entity_id: light.livingroom_reading
     alias: Leselampe Wohnzimmer an/aus
   mode: single
 - id: '1688906744065'
-  alias: Sensor - Eva - Licht
+  alias: Taster - Eva - Licht
   description: ''
   trigger:
   - platform: device
@@ -3376,7 +3212,7 @@
   - service: light.toggle
     data: {}
     target:
-      entity_id: light.office_ceilinglight
+      entity_id: light.office_eva_ceiling
     alias: Deckenlicht Eva an/aus
   mode: single
 - id: '1689420334770'
@@ -3434,7 +3270,7 @@
     alias: Ambientebeleuchtung aus
   mode: single
 - id: '1689420606050'
-  alias: Sensor - Bad - Licht links (Spiegellicht)
+  alias: Taster - Bad - Licht links (Spiegellicht)
   description: ''
   trigger:
   - platform: device
@@ -3452,7 +3288,7 @@
     alias: Spiegellicht an/aus
   mode: single
 - id: '1689420700325'
-  alias: Sensor - Bad - Licht rechts (Deckenlicht)
+  alias: Taster - Bad - Licht rechts (Deckenlicht)
   description: ''
   trigger:
   - platform: device
@@ -3470,7 +3306,7 @@
     alias: Deckenlicht Bad an/aus
   mode: single
 - id: '1689421414796'
-  alias: Sensor - Dusche - Licht links (Deckenlicht)
+  alias: Taster - Dusche - Licht links (Deckenlicht)
   description: ''
   trigger:
   - platform: device
@@ -3488,7 +3324,7 @@
     alias: Deckenlicht Dusche an/aus
   mode: single
 - id: '1689421501947'
-  alias: Sensor - Dusche - Licht rechts (Spiegellicht)
+  alias: Taster - Dusche - Licht rechts (Spiegellicht)
   description: ''
   trigger:
   - platform: device
@@ -3539,7 +3375,7 @@
     data: {}
     target:
       entity_id:
-      - light.livingroom_dininglight
+      - light.livingroom_dining
     alias: Esstischlicht an/aus
   mode: single
 - id: '1689424054814'
@@ -3598,7 +3434,7 @@
   - service: switch.turn_off
     data: {}
     target:
-      entity_id: switch.schlafzimmer_sonos
+      entity_id: switch.plug_bedroom_voice_assistant
     alias: Schlafzimmer Sonos aus
   mode: single
 - id: '1695664848536'
@@ -3613,7 +3449,7 @@
   - service: switch.turn_on
     data: {}
     target:
-      entity_id: switch.schlafzimmer_sonos
+      entity_id: switch.plug_bedroom_voice_assistant
     alias: Schlafzimmer Sonos an
   mode: single
 - id: '1699089861992'
@@ -3726,3 +3562,77 @@
       include_easy_notify: enable_easy_notify
       notify_device:
       - 05ab129ead7e65198b3a10b87ce0cde2
+- id: '1710152880124'
+  alias: Bürobesuch - Beginn
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - person.jens
+    to: Arbeit Jens
+    alias: Bei Ankunft im Büro
+  condition: []
+  action:
+  - alias: In Google Sheet schreiben
+    service: google_sheets.append_sheet
+    metadata: {}
+    data:
+      config_entry: 0db9e72f9617fe492035915ebf516c4a
+      worksheet: raw
+      data:
+        aktion: Ankunft
+  mode: single
+- id: '1710152997860'
+  alias: Bürobesuch - Verlassen
+  description: ''
+  trigger:
+  - alias: Bei Verlassen des Büros
+    platform: state
+    entity_id:
+    - person.jens
+    from: Arbeit Jens
+  condition: []
+  action:
+  - alias: In Google Sheet schreiben
+    service: google_sheets.append_sheet
+    metadata: {}
+    data:
+      config_entry: 0db9e72f9617fe492035915ebf516c4a
+      worksheet: raw
+      data:
+        aktion: Verlassen
+  mode: single
+- id: '1711973874728'
+  alias: Bewegung - Dusche - Aus
+  description: ''
+  trigger:
+  - alias: Bewegung erkannt
+    type: motion
+    platform: device
+    device_id: 48b69bd93ca549b3bda1fdd4dff11d68
+    entity_id: 73d1294374e4c9135f5831be578513d2
+    domain: binary_sensor
+    enabled: false
+  - alias: Keine Bewegung mehr erkannt (Shelly)
+    type: no_motion
+    platform: device
+    device_id: acc53fcd57c4f2414a6d5a9a5fab08a5
+    entity_id: cec202e7555da44cdcf24d393e2fa5fa
+    domain: binary_sensor
+  condition:
+  - alias: Licht ist seit mindestens 10 Sekunden an
+    condition: state
+    entity_id: light.shower_ceiling
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  action:
+  - alias: Deckenlicht Dusche aus
+    service: light.turn_off
+    target:
+      entity_id:
+      - light.shower_ceiling
+    data: {}
+  mode: single

@@ -82,20 +82,6 @@ wakeup_light:
       alias: Ambiente auf 80% Kaltweiss in 1 Minute
     alias: Aufstehen
   mode: single
-gaestezimmer_stehlampe_warmweiss:
-  alias: Gästezimmer - Stehlampe - Warmweiß
-  sequence:
-  - data:
-      brightness_pct: 80
-      rgb_color:
-      - 255
-      - 237
-      - 172
-    service: light.turn_on
-    target:
-      entity_id: light.guestroom_standinglight
-    alias: Stehlampe an
-  mode: single
 bewaesserung_kurz:
   alias: Garten - Bewässerung kurz
   sequence:
@@ -244,23 +230,11 @@ bewaesserung_lang:
     service: switch.turn_off
     alias: Hecke aus
   mode: single
-gaestezimmer_stehlampe_alarm_blau:
-  alias: Gästezimmer - Alarm Blau
+office_jens_alarm_blue:
+  alias: Büro Jens - Alarm Blau
   sequence:
-  - service: scene.create
+  - alias: Licht auf blau
     data:
-      scene_id: guestroom_light_snapshot
-      snapshot_entities:
-      - light.guestroom_desk_alarm_left
-      - light.guestroom_desk_alarm_right
-    alias: Lichtstatus speichern
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 1
-      milliseconds: 0
-    alias: 1 Sekunde Pause
-  - data:
       rgb_color:
       - 0
       - 0
@@ -268,56 +242,41 @@ gaestezimmer_stehlampe_alarm_blau:
       transition: 1
       brightness_pct: 90
     service: light.turn_on
-    alias: Licht auf blau
     target:
       entity_id:
-      - light.guestroom_desk_alarm_left
-      - light.guestroom_desk_alarm_right
+      - light.office_jens_alarm
   - delay:
       hours: 0
       minutes: 0
       seconds: 1
       milliseconds: 0
     alias: 1 Sekunde Pause
-  - data:
+  - alias: Flash
+    data:
       flash: long
     service: light.turn_on
-    alias: Flash
     target:
       entity_id:
-      - light.guestroom_desk_alarm_left
-      - light.guestroom_desk_alarm_right
+      - light.office_jens_alarm
   - delay:
       hours: 0
       minutes: 0
       seconds: 10
       milliseconds: 0
     alias: 10 Sekunden Pause
-  - service: scene.turn_on
-    data:
-      transition: 0
+  - service: light.turn_off
+    metadata: {}
+    data: {}
     target:
-      entity_id: scene.guestroom_light_snapshot
-    alias: Lichtstatus wiederherstellen
+      entity_id: light.office_jens_alarm
+    alias: Licht aus
   mode: single
   icon: mdi:alarm-light
-gaestezimmer_stehlampe_alarm_rot:
-  alias: Gästezimmer - Alarm Rot
+office_jens_alarm_red:
+  alias: Büro Jens - Alarm Rot
   sequence:
-  - service: scene.create
+  - alias: Licht auf rot
     data:
-      scene_id: guestroom_light_snapshot
-      snapshot_entities:
-      - light.guestroom_desk_alarm_left
-      - light.guestroom_desk_alarm_right
-    alias: Lichtstatus speichern
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 1
-      milliseconds: 0
-    alias: 1 Sekunde Pause
-  - data:
       rgb_color:
       - 255
       - 0
@@ -325,81 +284,48 @@ gaestezimmer_stehlampe_alarm_rot:
       transition: 1
       brightness_pct: 90
     service: light.turn_on
-    alias: Licht auf rot
     target:
       entity_id:
-      - light.guestroom_desk_alarm_left
-      - light.guestroom_desk_alarm_right
+      - light.office_jens_alarm
   - delay:
       hours: 0
       minutes: 0
       seconds: 1
       milliseconds: 0
     alias: 1 Sekunde Pause
-  - data:
+  - alias: Flash
+    data:
       flash: long
     service: light.turn_on
-    alias: Flash
     target:
       entity_id:
-      - light.guestroom_desk_alarm_left
-      - light.guestroom_desk_alarm_right
+      - light.office_jens_alarm
   - delay:
       hours: 0
       minutes: 0
       seconds: 10
       milliseconds: 0
     alias: 10 Sekunden Pause
-  - service: scene.turn_on
-    data:
-      transition: 1
+  - service: light.turn_off
+    metadata: {}
+    data: {}
     target:
-      entity_id: scene.guestroom_light_snapshot
-    alias: Lichtstatus wiederherstellen
+      entity_id: light.office_jens_alarm
+    alias: Licht aus
   mode: single
   icon: mdi:alarm-light
-gaestezimmer_alarm_regenbogen:
-  alias: Gästezimmer - Alarm Regenbogen
+office_jens_alarm_rainbow:
+  alias: Büro Jens - Alarm Regenbogen
   sequence:
-  - service: scene.create
-    data:
-      scene_id: guestroom_light_snapshot
-      snapshot_entities:
-      - light.guestroom_desk_alarm_left
-      - light.guestroom_desk_alarm_right
-    alias: Lichtstatus speichern
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 1
-      milliseconds: 0
-    alias: 1 Sekunde Pause
-  - repeat:
-      count: '2'
+  - alias: Regenbogen
+    repeat:
+      count: 1
       sequence:
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.guestroom_desk_alarm_left
-          - light.guestroom_desk_alarm_right
-        data:
-          brightness_pct: 80
-          rgb_color:
-          - 255
-          - 0
-          - 0
-        alias: Rot
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 1
-          milliseconds: 0
       - alias: Orange
         service: light.turn_on
         target:
           entity_id:
-          - light.guestroom_desk_alarm_left
-          - light.guestroom_desk_alarm_right
+          - light.office_jens_alarm
         data:
           brightness_pct: 80
           rgb_color:
@@ -409,14 +335,13 @@ gaestezimmer_alarm_regenbogen:
       - delay:
           hours: 0
           minutes: 0
-          seconds: 1
+          seconds: 2
           milliseconds: 0
       - alias: Gelb
         service: light.turn_on
         target:
           entity_id:
-          - light.guestroom_desk_alarm_left
-          - light.guestroom_desk_alarm_right
+          - light.office_jens_alarm
         data:
           brightness_pct: 80
           rgb_color:
@@ -426,48 +351,13 @@ gaestezimmer_alarm_regenbogen:
       - delay:
           hours: 0
           minutes: 0
-          seconds: 1
-          milliseconds: 0
-      - alias: Grün
-        service: light.turn_on
-        target:
-          entity_id:
-          - light.guestroom_desk_alarm_left
-          - light.guestroom_desk_alarm_right
-        data:
-          brightness_pct: 80
-          rgb_color:
-          - 0
-          - 255
-          - 0
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 1
-          milliseconds: 0
-      - alias: Blau
-        service: light.turn_on
-        target:
-          entity_id:
-          - light.guestroom_desk_alarm_left
-          - light.guestroom_desk_alarm_right
-        data:
-          brightness_pct: 80
-          rgb_color:
-          - 0
-          - 0
-          - 255
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 1
+          seconds: 2
           milliseconds: 0
       - alias: Lila
         service: light.turn_on
         target:
           entity_id:
-          - light.guestroom_desk_alarm_left
-          - light.guestroom_desk_alarm_right
+          - light.office_jens_alarm
         data:
           brightness_pct: 80
           rgb_color:
@@ -477,32 +367,14 @@ gaestezimmer_alarm_regenbogen:
       - delay:
           hours: 0
           minutes: 0
-          seconds: 1
+          seconds: 2
           milliseconds: 0
-      - alias: Pink
-        service: light.turn_on
-        target:
-          entity_id:
-          - light.guestroom_desk_alarm_left
-          - light.guestroom_desk_alarm_right
-        data:
-          brightness_pct: 80
-          rgb_color:
-          - 255
-          - 0
-          - 255
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 1
-          milliseconds: 0
-    alias: Regenbogen
-  - service: scene.turn_on
-    data:
-      transition: 1
+  - service: light.turn_off
+    metadata: {}
+    data: {}
     target:
-      entity_id: scene.guestroom_light_snapshot
-    alias: Lichtstatus wiederherstellen
+      entity_id: light.office_jens_alarm
+    alias: Licht aus
   mode: single
   icon: mdi:alarm-light
 rollladen_buro_jens_spalt:
@@ -607,34 +479,9 @@ rollladen_buro_eva_spalt:
   use_blueprint:
     path: cover_position.yaml
     input:
-      cover: cover.rollladen_eva
+      cover: cover.rollladen_buro_eva
       from_opened: 14
       from_closed: 12
-  mode: single
-jens_alarm_flash_rot:
-  alias: Jens - Alarm - Flash - Rot
-  sequence:
-  - service: light.turn_on
-    data:
-      rgb_color:
-      - 255
-      - 0
-      - 0
-      brightness_pct: 100
-    target:
-      entity_id: light.guestroom_desk_alarm_left
-    alias: Turn light on in red
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 500
-    alias: Wait a second
-  - service: light.turn_off
-    data: {}
-    target:
-      entity_id: light.guestroom_desk_alarm_left
-    alias: Turn light off
   mode: single
 rollladen_wohnzimmer_couch_katzenposition:
   alias: Rollladen - Wohnzimmer - Couch - Katzenposition
