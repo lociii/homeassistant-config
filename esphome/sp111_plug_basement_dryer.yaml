@@ -16,4 +16,4 @@ substitutions:
 packages:
   wifi: !include common/wifi_basement.yaml
   device: !include common/device_sp111_v11.yaml
-  template: !include common/template_switch_gpio_a.yaml
+  template: !include common/template_switch_output_a.yaml

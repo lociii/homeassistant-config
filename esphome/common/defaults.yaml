@@ -9,6 +9,7 @@ api:
 # enable over-the-air updates
 ota:
   password: !secret esphome_ota_password
+  platform: esphome
 
 # enable web server
 web_server:

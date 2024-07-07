@@ -3,3 +3,5 @@ switch:
     id: "${id}_switch_b"
     name: "${name_b}"
     output: "${id}_actor_b"
+
+    restore_mode: ${restore_mode_b}
