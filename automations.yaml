@@ -61,16 +61,24 @@
   - platform: template
     value_template: '{{ states(''sensor.time'') == states(''input_datetime.alarm_wake_up_light'')[0:5]
       }}'
+    alias: Weckzeitpunkt erreicht
   condition:
   - condition: state
     entity_id: binary_sensor.workday_sensor
     state: 'on'
+    alias: Arbeitstag
   - condition: state
     entity_id: input_boolean.sleeping
     state: 'on'
+    alias: Am Schlafen
   - condition: state
     entity_id: input_boolean.alarm_enabled
     state: 'on'
+    alias: Wecker aktiviert
+  - condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
+    alias: Hauswächtermodus aus
   action:
   - entity_id: script.wakeup_light
     service: script.turn_on
@@ -111,6 +119,10 @@
     entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
+  - condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
+    alias: Hauswächtermodus aus
   action:
   - entity_id: script.office_jens_alarm_red
     service: script.turn_on
@@ -176,13 +188,13 @@
     alias: Termin in 1 Minute
   condition:
   - condition: state
-    entity_id: switch.plug_office_jens_desk
-    state: 'on'
-    alias: Schreibtisch Jens ist an
-  - condition: state
     entity_id: input_boolean.jens_im_urlaub
     state: 'off'
     alias: Jens ist nicht im Urlaub
+  - condition: state
+    entity_id: switch.plug_office_jens_desk
+    state: 'on'
+    alias: Schreibtisch Jens ist an
   action:
   - parallel:
     - service: script.office_jens_alarm_red
@@ -207,13 +219,13 @@
     alias: Termin in 5 Minuten
   condition:
   - condition: state
-    entity_id: switch.plug_office_jens_desk
-    state: 'on'
-    alias: Schreibtisch Jens ist an
-  - condition: state
     entity_id: input_boolean.jens_im_urlaub
     state: 'off'
     alias: Jens ist nicht im Urlaub
+  - condition: state
+    entity_id: switch.plug_office_jens_desk
+    state: 'on'
+    alias: Schreibtisch Jens ist an
   action:
   - parallel:
     - service: script.office_jens_alarm_blue
@@ -246,6 +258,10 @@
     entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
+  - condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
+    alias: Hauswächtermodus aus
   action:
   - service: script.turn_on
     data: {}
@@ -272,6 +288,10 @@
     entity_id: switch.plug_office_jens_computer
     state: 'on'
     alias: Shaun ist an
+  - condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
+    alias: Hauswächtermodus aus
   action:
   - service: script.turn_on
     data: {}
@@ -832,12 +852,12 @@
       milliseconds: 0
     alias: Wohnungstür Innerhalb von maximal 2 Minuten geschlossen
     continue_on_timeout: false
-  - delay:
+  - alias: 3s warten
+    delay:
       hours: 0
       minutes: 0
-      seconds: 1
+      seconds: 3
       milliseconds: 0
-    alias: 1s warten
   - service: lock.lock
     data: {}
     target:
@@ -962,19 +982,15 @@
     alias: Flurlicht Signal
   mode: single
 - id: '1670187850562'
-  alias: Sensor - Flur - Präsenz
+  alias: Taster - Flur - Präsenz
   description: ''
   trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.sensor_hallway_sensor_b
-    from: 'off'
-    to: 'on'
-    alias: Schalter Flur Präsenz für 2 Sekunden gedrückt
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 2
+  - platform: device
+    device_id: a957e702d58b22e39705eed339122f7e
+    domain: shelly
+    type: long_push
+    subtype: button2
+    alias: Schalter Flur Präsenz lange gedrückt
   condition: []
   action:
   - service: input_boolean.toggle
@@ -1153,18 +1169,18 @@
     domain: shelly
     type: btn_down
     subtype: button2
-  - platform: state
-    entity_id:
-    - binary_sensor.sensor_hallway_sensor_a
-    from: 'off'
-    to: 'on'
-    alias: Schalter Flurlicht gedrückt
-  - platform: state
-    entity_id:
-    - binary_sensor.sensor_hallway_sensor_b
-    from: 'off'
-    to: 'on'
-    alias: Schalter Flur Präsenz gedrückt
+  - platform: device
+    device_id: a957e702d58b22e39705eed339122f7e
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Flurlicht
+  - alias: Flur (Präsenz)
+    platform: device
+    device_id: a957e702d58b22e39705eed339122f7e
+    domain: shelly
+    type: single_push
+    subtype: button2
   condition:
   - condition: state
     entity_id: input_boolean.presence
@@ -1375,16 +1391,6 @@
       entity_id: switch.plug_bedroom_charging_jens
     alias: Ladestation Schlafzimmer Jens an
   mode: single
-- id: '1670606371649'
-  alias: Sensor - Flur - Licht
-  description: ''
-  use_blueprint:
-    path: sensor_toggles_light.yaml
-    input:
-      sensor: binary_sensor.sensor_hallway_sensor_a
-      target:
-        entity_id:
-        - light.hallway_ceiling
 - id: '1670606428251'
   alias: Sensor - Keller - Steckdose Tierwaschmaschine
   description: ''
@@ -2252,7 +2258,8 @@
     alias: Sonnenrichtung verändert
   condition: []
   action:
-  - choose:
+  - alias: Sonnenschutz Süd prüfen
+    choose:
     - conditions:
       - condition: state
         entity_id: input_boolean.sonnenschutz_sued_automatisieren
@@ -2262,11 +2269,11 @@
         entity_id: sensor.temperatur_innen_15_minuten
         above: 22
         alias: Innentemperatur über 22 Grad
-      - condition: numeric_state
+      - alias: Außentemperatur über 22 Grad
+        condition: numeric_state
         entity_id: weather.schonaich
         attribute: temperature
-        above: 15
-        alias: Außentemperatur über 15 Grad
+        above: 22
       - condition: numeric_state
         entity_id: sensor.solar_azimuth
         above: 123
@@ -2298,7 +2305,6 @@
           entity_id: input_boolean.sonnenschutz_sued
         alias: Sonnenschutz Süd ausschalten
       alias: Sonnenschutz Süd ausschalten, wenn an
-    alias: Sonnenschutz Süd prüfen
   mode: single
 - id: '1670928432260'
   alias: Sonnenschutz West
@@ -2331,17 +2337,18 @@
     alias: Sonnenhöhe verändert
   condition: []
   action:
-  - choose:
+  - alias: Sonnenschutz prüfen
+    choose:
     - conditions:
       - condition: numeric_state
         entity_id: sensor.temperatur_innen_15_minuten
         above: 22
         alias: Innentemperatur über 22 Grad
-      - condition: numeric_state
+      - alias: Außentemperatur über 22 Grad
+        condition: numeric_state
         entity_id: weather.schonaich
         attribute: temperature
-        above: 15
-        alias: Außentemperatur über 15 Grad
+        above: 22
       - condition: numeric_state
         entity_id: sensor.solar_azimuth
         above: 215
@@ -2412,7 +2419,6 @@
           - input_boolean.sonnenschutz_orchideen
         alias: Sonnenschutz Orchideen ausschalten
       alias: Sonnenschutz Orchideen ausschalten, wenn an
-    alias: Sonnenschutz prüfen
   mode: single
 - id: '1670929719385'
   alias: Wärmeschutz
@@ -2494,17 +2500,6 @@
       message: Draußen wird's warm, mach schnell die Fenster zu!
       scene_name: snapshot_wohnzimmer_alexa
     alias: Ansage
-  - if:
-    - condition: state
-      entity_id: person.jens
-      state: home
-      alias: Wenn Jens zu Hause
-    then:
-    - service: notify.mobile_app_pixel_6
-      data:
-        message: Draußen wird's warm, mach schnell die Fenster zu!
-      alias: Nachricht senden
-    alias: Nachricht an Jens, wenn daheim
   mode: single
 - id: '1670948815509'
   alias: Rollladen - Küche
@@ -2635,6 +2630,10 @@
     entity_id: input_boolean.presence
     state: 'on'
     alias: Anwesend
+  - condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
+    alias: Hauswächtermodus aus
   action:
   - service: light.turn_on
     data: {}
@@ -2673,17 +2672,6 @@
       message: Draußen wird's kühl, mach die Fenster auf.
       scene_name: snapshot_wohnzimmer_alexa
     alias: Ansage
-  - if:
-    - condition: state
-      entity_id: person.jens
-      state: home
-      alias: Wenn Jens zu Hause
-    then:
-    - service: notify.mobile_app_pixel_6
-      data:
-        message: Draußen wird's kühl, mach die Fenster auf.
-      alias: Nachricht senden
-    alias: Nachricht an Jens, wenn daheim
   mode: single
 - id: '1671312600429'
   alias: Belüftung - Badezimmer
@@ -3461,7 +3449,15 @@
     offset: -0:0:0
     entity_id: calendar.hausarbeit
     alias: Hausarbeit-Termin startet
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+    alias: Nicht außer Haus im Urlaub
+  - alias: Hauswächtermodus aus
+    condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
   action:
   - service: script.hausarbeit_benachrichtigung
     data:
@@ -3635,4 +3631,151 @@
       entity_id:
       - light.shower_ceiling
     data: {}
+  mode: single
+- id: '1715763860814'
+  alias: Medizin - Reminder Jens
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  condition: []
+  action:
+  - variables:
+      action_fourty: medicine_pantoprazol_action_fourty_{{ context_id }}
+      action_two_twenty: medicine_pantoprazol_action_two_twenty_{{ context_id }}
+      action_twenty: medicine_pantoprazol_action_twenty_{{ context_id }}
+      tag: medicine_pantoprazol_{{ context_id }}
+    alias: Variablen setzen
+  - alias: Sende Benachrichtigung
+    service: notify.mobile_app_pixel_6
+    data:
+      title: Medizin nehmen
+      message: Pantoprazol nehmen und registrieren
+      data:
+        tag: '{{ tag }}'
+        persistent: true
+        notification_icon: mdi:pill-multiple
+        actions:
+        - action: '{{ action_fourty }}'
+          title: 40mg
+        - action: '{{ action_two_twenty }}'
+          title: 2x20mg
+        - action: '{{ action_twenty }}'
+          title: 20mg
+  - alias: Warte auf Antwort
+    wait_for_trigger:
+    - alias: 40mg
+      platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_fourty }}'
+    - alias: 2x20mg
+      platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_two_twenty }}'
+    - alias: 20mg
+      platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_twenty }}'
+  - alias: Anzahl verbleibender Tabletten reduzieren
+    choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == action_fourty }}'
+      sequence:
+      - service: input_number.decrement
+        metadata: {}
+        data:
+          amount: 1
+        target:
+          entity_id: input_number.medizin_pantoprazol_40mg
+      alias: 40mg
+    - conditions:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == action_two_twenty }}'
+      sequence:
+      - service: input_number.decrement
+        metadata: {}
+        data:
+          amount: 2
+        target:
+          entity_id:
+          - input_number.medizin_pantoprazol_20mg
+      alias: 2x20mg
+    - conditions:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == action_twenty }}'
+      sequence:
+      - service: input_number.decrement
+        metadata: {}
+        data:
+          amount: 1
+        target:
+          entity_id:
+          - input_number.medizin_pantoprazol_20mg
+      alias: 20mg
+  mode: restart
+- id: '1717077224921'
+  alias: Games - Tarkov- Spiel beginnt
+  description: ''
+  trigger:
+  - platform: event
+    event_type: overwolf_game_event
+    event_data:
+      data:
+        gameId: 21634
+  condition:
+  - condition: template
+    value_template: '{{ trigger.event.data.data.game_info.phase == "scene_FinalCountdown"
+      }}'
+  action:
+  - service: script.announcement
+    metadata: {}
+    data:
+      message: Achtung! Spiel beginnt.
+      media_player: media_player.jens_beam
+      volume: 0.2
+      scene_name: snapshot_jens_echo
+  mode: single
+- id: '1717244402201'
+  alias: Taster - Flur - Flurlicht
+  description: ''
+  trigger:
+  - platform: device
+    device_id: a957e702d58b22e39705eed339122f7e
+    domain: shelly
+    type: btn_down
+    subtype: button1
+    alias: Taster Flur gedrückt
+  condition: []
+  action:
+  - service: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.hallway_ceiling
+    alias: Flurlicht an/aus
+  mode: single
+- id: '1719298957159'
+  alias: Reload Alexa Media Player after HA starts
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - alias: Reload Alexa Media Player integration
+    service: homeassistant.reload_config_entry
+    data: {}
+    enabled: true
+    target:
+      entity_id:
+      - media_player.wohnzimmer_2
   mode: single
