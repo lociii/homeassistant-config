@@ -24,12 +24,20 @@ blueprint:
 trigger:
   - platform: state
     entity_id: !input light
+    from: "off"
     to: "on"
-    for: "00:00:30"
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
   - platform: state
     entity_id: !input light
+    from: "on"
     to: "off"
-    for: "00:02:00"
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
   - platform: time_pattern
     minutes: "/5"
 
@@ -40,25 +48,31 @@ action:
       value_template: "{{ trigger.platform == 'state' }}"
     then:
       - if:
+        # light is on
         - condition: state
           state: "on"
+          match: any
           entity_id: !input light
         then:
+          # turn fan on
           - service: fan.turn_on
             entity_id: !input fan
+          # turn occupancy mode on
           - service: input_boolean.turn_on
             entity_id: !input helper
         else:
+          # turn fan off
           - service: fan.turn_off
             entity_id: !input fan
+          # turn occupancy mode off
           - service: input_boolean.turn_off
             entity_id: !input helper
     else:
       - if:
         # not on occupancy mode
         - condition: state
-          entity_id: !input helper
           state: "off"
+          entity_id: !input helper
         then:
           - if:
             # not sleeping, toggle every five minutes
@@ -68,7 +82,7 @@ action:
             then:
               - service: fan.toggle
                 entity_id: !input fan
-            # turn off for the night
+            # turn on for the night
             else:
-              - service: fan.turn_off
+              - service: fan.turn_on
                 entity_id: !input fan
