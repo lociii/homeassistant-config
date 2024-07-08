@@ -1519,26 +1519,33 @@
       message: Schlaf gut und träum süß.
       scene_name: snapshot_schlafzimmer_alexa
     alias: Ansage
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-    alias: 10s warten
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.02
-    alias: Lautstärke runter
-    target:
-      entity_id: media_player.schlafzimmer
-  - service: media_player.play_media
-    alias: Schlafmusik spielen
-    data:
-      media_content_id: /media/local/music/schlafmusik.mp3
-      media_content_type: music
-    target:
-      entity_id:
-      - media_player.schlafzimmer
+  - alias: Musik spielen, wenn Hauswächtermodus aus
+    if:
+    - condition: state
+      entity_id: input_boolean.hauswachtermodus
+      state: 'off'
+      alias: Wenn Hauswächtermodus aus
+    then:
+    - delay:
+        hours: 0
+        minutes: 0
+        seconds: 10
+        milliseconds: 0
+      alias: 10s warten
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.02
+      alias: Lautstärke runter
+      target:
+        entity_id: media_player.schlafzimmer
+    - service: media_player.play_media
+      alias: Schlafmusik spielen
+      data:
+        media_content_id: /media/local/music/schlafmusik.mp3
+        media_content_type: music
+      target:
+        entity_id:
+        - media_player.schlafzimmer
   mode: single
 - id: '1670609106606'
   alias: Schlafen - Aufstehen - Gruß
@@ -1655,13 +1662,6 @@
       - switch.plug_office_eva_voice_assistant
       - switch.plug_livingroom_multimedia
     alias: Geräte an
-  - service: fan.turn_off
-    data: {}
-    target:
-      entity_id:
-      - fan.bathroom
-      - fan.shower
-    alias: Lüfter aus
   - service: switch.turn_off
     data: {}
     target:
