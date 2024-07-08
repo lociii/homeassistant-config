@@ -42,8 +42,8 @@ trigger:
     minutes: "/5"
 
 action:
+  # light status has changed
   - if:
-    # light has been turned on or off
     - condition: template
       value_template: "{{ trigger.platform == 'state' }}"
     then:
@@ -54,35 +54,33 @@ action:
           match: any
           entity_id: !input light
         then:
-          # turn fan on
-          - service: fan.turn_on
-            entity_id: !input fan
           # turn occupancy mode on
           - service: input_boolean.turn_on
             entity_id: !input helper
         else:
-          # turn fan off
-          - service: fan.turn_off
-            entity_id: !input fan
           # turn occupancy mode off
           - service: input_boolean.turn_off
             entity_id: !input helper
+  # set fan status
+  - if:
+    # on occupancy mode
+    - condition: state
+      state: "on"
+      entity_id: !input helper
+    then:
+      # turn on
+      - service: fan.turn_on
+        entity_id: !input fan
     else:
       - if:
-        # not on occupancy mode
+        # not sleeping, toggle every five minutes
         - condition: state
+          entity_id: input_boolean.sleeping
           state: "off"
-          entity_id: !input helper
         then:
-          - if:
-            # not sleeping, toggle every five minutes
-            - condition: state
-              entity_id: input_boolean.sleeping
-              state: "off"
-            then:
-              - service: fan.toggle
-                entity_id: !input fan
-            # turn on for the night
-            else:
-              - service: fan.turn_on
-                entity_id: !input fan
+          - service: fan.toggle
+            entity_id: !input fan
+        # turn on for the night
+        else:
+          - service: fan.turn_on
+            entity_id: !input fan
