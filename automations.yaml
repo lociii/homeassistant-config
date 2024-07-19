@@ -1209,11 +1209,12 @@
     alias: Entnahme für 30 Minuten an
   condition: []
   action:
-  - service: switch.turn_off
+  - alias: Entnahme abschalten
+    service: switch.turn_off
     data: {}
     target:
-      entity_id: switch.garden_sockets
-    alias: Entnahme abschalten
+      entity_id:
+      - switch.garden_valves_2_2
   mode: single
 - id: '1670509928259'
   alias: Garten - Bewässerung - Hecke nach 120 Minuten aus
@@ -1231,12 +1232,12 @@
     alias: Hecker für 120 Minuten an
   condition: []
   action:
-  - service: switch.turn_off
+  - alias: Hecke abschalten
+    service: switch.turn_off
     data: {}
     target:
       entity_id:
-      - switch.garden_hedge
-    alias: Hecke abschalten
+      - switch.garden_valves_1_2
   mode: single
 - id: '1670510013771'
   alias: Garten - Bewässerung - Regner nach 30 Minuten aus
@@ -1254,12 +1255,12 @@
     alias: Regner für 30 Minuten an
   condition: []
   action:
-  - service: switch.turn_off
+  - alias: Regner abschalten
+    service: switch.turn_off
     data: {}
     target:
       entity_id:
-      - switch.garden_sprinklers
-    alias: Regner abschalten
+      - switch.garden_valves_1_1
   mode: single
 - id: '1670510056297'
   alias: Garten - Bewässerung - Raketen nach 30 Minuten aus
@@ -1277,12 +1278,12 @@
     alias: Raketen für 30 Minuten an
   condition: []
   action:
-  - service: switch.turn_off
+  - alias: Raketen abschalten
+    service: switch.turn_off
     data: {}
     target:
       entity_id:
-      - switch.garden_rockets
-    alias: Raketen abschalten
+      - switch.garden_valves_2_1
   mode: single
 - id: '1670510270849'
   alias: Garten - Bewässerung - Nachtautomatik
@@ -1326,14 +1327,14 @@
     alias: Lange Bewässerung abgebrochen
   condition: []
   action:
-  - service: switch.turn_off
+  - alias: Alle Bewässerungszonen ausschalten
+    service: switch.turn_off
     data: {}
     target:
       entity_id:
-      - switch.garden_sprinklers
-      - switch.garden_rockets
-      - switch.garden_hedge
-    alias: Alle Bewässerungszonen ausschalten
+      - switch.garden_valves_2_1
+      - switch.garden_valves_1_1
+      - switch.garden_valves_1_2
   mode: single
 - id: '1670510793424'
   alias: Schlafen - Einschlafen
