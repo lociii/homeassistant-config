@@ -429,7 +429,7 @@ rollladen_wohnzimmer_couch_spalt:
   mode: single
   icon: mdi:window-shutter
 rollladen_wohnzimmer_esstisch_spalt:
-  alias: Rollladen -  Wohnzimmer - Esstisch - Spalt
+  alias: Rollladen - Wohnzimmer - Esstisch - Spalt
   use_blueprint:
     path: cover_position.yaml
     input:
@@ -438,6 +438,7 @@ rollladen_wohnzimmer_esstisch_spalt:
       cover: cover.rollladen_wohnzimmer_esstisch
   mode: single
   icon: mdi:window-shutter
+  description: ''
 rollladen_kuche_spalt:
   alias: Rollladen - Küche - Spalt
   use_blueprint:
