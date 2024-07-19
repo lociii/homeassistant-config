@@ -397,9 +397,9 @@ action:
               value_template: "{{ trigger.id == 'sun_protection_started' }}"
             sequence:
               - service: script.turn_on
-                alias: "Rollladen auf Spalt"
+                alias: "Rollladen auf Sonnenschutz"
                 target:
-                  entity_id: "{{ script_ajar }}"
+                  entity_id: "{{ script_sunprotection }}"
           - conditions:
             # sun protection ended
             - condition: template
