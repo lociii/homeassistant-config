@@ -3,6 +3,7 @@
 
 substitutions:
   id: plug_basement_dryer_karat
+  friendly_name: Stecker Trockner Karat
   update_throttle: 30s
 
   name_a: Trockner Karat

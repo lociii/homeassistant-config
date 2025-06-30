@@ -1,13 +1,16 @@
 # shelly 2.5
-# 27
+# 05
 
 substitutions:
-  id: light_kitchen_sink
+  id: sensor_hallway
+  friendly_name: Flurlicht
   update_throttle: 30s
 
-  name_a: Küche Spülenlicht
+  name_a: Flurlicht (Eingang)
+  name_b: Flurlicht (Mitte)
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
   device: !include common/device_shelly25.yaml
   template_a: !include common/template_light_binary_a.yaml
+  template_b: !include common/template_light_output_b.yaml

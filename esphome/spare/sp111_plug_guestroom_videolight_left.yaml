@@ -1,13 +1,12 @@
 # gosund sp111 v1.1
-# 12
+# 18
 
 substitutions:
-  id: plug_basement_washer_animal
-  friendly_name: Stecker Waschmaschine Tier
+  id: plug_guestroom_videolight_left
   update_throttle: 30s
 
-  name_a: Waschmaschine Tier
-  restore_mode_a: RESTORE_DEFAULT_ON
+  name_a: Videolicht links
+  restore_mode_a: RESTORE_DEFAULT_OFF
 
   cf1_pin: GPIO04
   state_led_pin: GPIO02
@@ -15,6 +14,6 @@ substitutions:
   actor_pin: GPIO15
 
 packages:
-  wifi: !include common/wifi_basement.yaml
+  wifi: !include common/wifi_mainfloor.yaml
   device: !include common/device_sp111_v11.yaml
   template: !include common/template_switch_output_a.yaml

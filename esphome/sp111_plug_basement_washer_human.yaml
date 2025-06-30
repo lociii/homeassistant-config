@@ -3,6 +3,7 @@
 
 substitutions:
   id: plug_basement_washer_human
+  friendly_name: Stecker Waschmaschine Mensch
   update_throttle: 30s
 
   name_a: Waschmaschine Mensch

@@ -38,19 +38,19 @@ switch:
     restore_mode: "${restore_mode_e}"
 
   # template switch to turn off all outlets (except for usb) at once
-  - platform: template
-    id: "${id}_actor_all"
-    name: "${id} switch all"
-    turn_on_action:
-      - switch.turn_on: "${id}_switch_a"
-      - switch.turn_on: "${id}_switch_b"
-      - switch.turn_on: "${id}_switch_c"
-      - switch.turn_on: "${id}_switch_d"
-    turn_off_action:
-      - switch.turn_off: "${id}_switch_a"
-      - switch.turn_off: "${id}_switch_b"
-      - switch.turn_off: "${id}_switch_c"
-      - switch.turn_off: "${id}_switch_d"
+  # - platform: template
+  #   id: "${id}_actor_all"
+  #   name: "${id} switch all"
+  #   turn_on_action:
+  #     - switch.turn_on: "${id}_switch_a"
+  #     - switch.turn_on: "${id}_switch_b"
+  #     - switch.turn_on: "${id}_switch_c"
+  #     - switch.turn_on: "${id}_switch_d"
+  #   turn_off_action:
+  #     - switch.turn_off: "${id}_switch_a"
+  #     - switch.turn_off: "${id}_switch_b"
+  #     - switch.turn_off: "${id}_switch_c"
+  #     - switch.turn_off: "${id}_switch_d"
 
 # binary_sensor:
 #   # binary sensor for the button press
@@ -70,3 +70,29 @@ switch:
 #   pin:
 #     number: GPIO01
 #     inverted: true
+
+
+
+
+
+
+# livingroom - tv, sonos, phone, multimedia
+
+# substitutions:
+#   id: esphome_aofo_4ac4usb_01
+#   update_throttle: 30s
+
+#   name_a: Fernseher Wohnzimmer
+#   restore_mode_a: RESTORE_DEFAULT_OFF 
+#   name_b: Sonos Sub
+#   restore_mode_b: RESTORE_DEFAULT_OFF 
+#   name_c: Telefon Wohnzimmer
+#   restore_mode_c: RESTORE_DEFAULT_OFF 
+#   name_d: Sonos Playbase
+#   restore_mode_d: RESTORE_DEFAULT_OFF 
+#   name_e: Steckdosenleiste Wohnzimmmer USB
+#   restore_mode_e: RESTORE_DEFAULT_OFF 
+
+# packages:
+#   wifi: !include common/wifi_mainfloor.yaml
+#   device: !include common/device_aofo_4ac4usb.yaml

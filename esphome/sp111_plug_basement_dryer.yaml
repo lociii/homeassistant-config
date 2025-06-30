@@ -3,6 +3,7 @@
 
 substitutions:
   id: plug_basement_dryer
+  friendly_name: Stecker Trockner
   update_throttle: 30s
 
   name_a: Trockner

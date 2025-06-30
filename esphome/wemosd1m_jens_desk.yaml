@@ -1,0 +1,15 @@
+substitutions:
+  id: jens_desk
+  friendly_name: "Schreibtisch Büro Jens"
+  button_up_pin: GPIO14
+  button_down_pin: GPIO12
+  output_up_pin: GPIO04
+  output_down_pin: GPIO05
+  sensor_pin: GPIO02
+  min_table_height: "80"
+  max_table_height: "121"
+
+packages:
+  wifi: !include common/wifi_mainfloor.yaml
+  device: !include common/device_wemos_d1m.yaml
+  template: !include common/template_logicdatacontroller.yaml

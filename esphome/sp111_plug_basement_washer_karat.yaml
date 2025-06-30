@@ -3,6 +3,7 @@
 
 substitutions:
   id: plug_basement_washer_karat
+  friendly_name: Stecker Waschmaschine Karat
   update_throttle: 30s
 
   name_a: Waschmaschine Karat

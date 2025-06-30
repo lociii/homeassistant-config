@@ -1,11 +1,12 @@
 # shelly 1
-# 03
+# 01
 
 substitutions:
-  id: light_bathroom_ceiling
+  id: light_shower_ceiling
+  friendly_name: Deckenlicht Dusche
   update_throttle: 30s
 
-  name_a: Bad Deckenlicht
+  name_a: Deckenlicht Dusche
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml

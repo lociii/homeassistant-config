@@ -3,6 +3,8 @@
 
 substitutions:
   id: light_shower_mirror
+  friendly_name: Spiegellicht Dusche
+  update_throttle: 30s
 
   name_a: Spiegellicht Dusche
 

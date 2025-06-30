@@ -3,9 +3,10 @@
 
 substitutions:
   id: light_bedroom_ceiling
+  friendly_name: Deckenlicht Schlafzimmer
   update_throttle: 30s
 
-  name_a: Schlafzimmer Deckenlicht
+  name_a: Deckenlicht Schlafzimmer
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml

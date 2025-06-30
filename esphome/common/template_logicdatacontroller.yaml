@@ -1,0 +1,122 @@
+external_components:
+  - source:
+      type: git
+      url: https://github.com/saz/logicdatacontroller-esphome-component
+      ref: main
+    components: [logic_data_controller]
+
+logic_data_controller:
+  id: $id
+  pin_motor_up: $output_up_pin
+  pin_motor_down: $output_down_pin
+  pin_sensor: $sensor_pin
+  height:
+    name: "Height"
+    id: "${id}_height"
+  min_height: $min_table_height
+  max_height: $max_table_height
+
+binary_sensor:
+  - platform: gpio
+    name: "Up"
+    id: "${id}_physical_up"
+    pin: 
+      number: $button_up_pin
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    on_press:
+      then:
+        - lambda: return id(${id}).move_up();
+    on_release:
+      then:
+        - lambda: return id(${id}).move_stop();
+    on_click:
+      then:
+        - button.press: ${id}_standing
+
+  - platform: gpio
+    name: "Down"
+    id: "${id}_physical_down"
+    pin: 
+      number: $button_down_pin
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    on_press: 
+      then:
+        - lambda: return id(${id}).move_down();
+    on_release: 
+      then:
+        - lambda: return id(${id}).move_stop();
+    on_click: 
+      then:
+        - button.press: ${id}_sitting
+
+  - platform: template
+    name: "Moving up"
+    id: "${id}_moving_up"
+    lambda: return id(${id}).current_operation == logic_data_controller::OPERATION_RAISING;
+  - platform: template
+    name: "Moving down"
+    id: "${id}_moving_down"
+    lambda: return id(${id}).current_operation == logic_data_controller::OPERATION_LOWERING;
+  - platform: template
+    name: "Fully up"
+    id: "${id}_endpoint_up"
+    lambda: return id(${id}).current_endpoint == logic_data_controller::ENDPOINT_UP;
+  - platform: template
+    name: "Fully down"
+    id: "${id}_endpoint_down"
+    lambda: return id(${id}).current_endpoint == logic_data_controller::ENDPOINT_DOWN;
+
+switch:
+  - platform: template
+    name: "Move up"
+    id: "${id}_move_up"
+    lambda: return id(${id}).current_operation == logic_data_controller::OPERATION_RAISING;
+    turn_on_action: 
+      lambda: return id(${id}).move_up();
+    turn_off_action: 
+      lambda: return id(${id}).move_stop();
+  - platform: template
+    name: "Move down"
+    id: "${id}_move_down"
+    lambda: return id(${id}).current_operation == logic_data_controller::OPERATION_LOWERING;
+    turn_on_action: 
+      lambda: return id(${id}).move_down();
+    turn_off_action: 
+      lambda: return id(${id}).move_stop();
+
+button:
+  - platform: template
+    name: "Standing"
+    id: "${id}_standing"
+    on_press:
+      then:
+        - lambda: id(${id}).move_to(121);
+  - platform: template
+    name: "Sitting"
+    id: "${id}_sitting"
+    on_press: 
+      then:
+        - lambda: id(${id}).move_to(81);
+
+cover:
+  - platform: feedback
+    name: $friendly_name
+    open_action:
+      - switch.turn_on: "${id}_move_up"
+    open_duration: 15s
+    open_endstop: "${id}_endpoint_up"
+    open_sensor: "${id}_moving_up"
+    close_action:
+      - switch.turn_on: "${id}_move_down"
+    close_duration: 15s
+    close_endstop: "${id}_endpoint_down"
+    close_sensor: "${id}_moving_down"
+    stop_action:
+      - switch.turn_off: "${id}_move_up"
+      - switch.turn_off: "${id}_move_down"

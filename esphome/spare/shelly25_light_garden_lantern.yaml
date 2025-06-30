@@ -1,0 +1,13 @@
+# shelly 2.5
+# 36
+
+substitutions:
+  id: light_garden_lantern
+  update_throttle: 30s
+
+  name_b: Garten Laterne
+
+packages:
+  wifi: !include common/wifi_basement.yaml
+  device: !include common/device_shelly25.yaml
+  template_b: !include common/template_light_output_b.yaml

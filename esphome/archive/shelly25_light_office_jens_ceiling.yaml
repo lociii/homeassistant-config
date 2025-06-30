@@ -3,6 +3,7 @@
 
 substitutions:
   id: light_office_jens_ceiling
+  friendly_name: Deckenlicht Büro Jens
   update_throttle: 30s
 
   name_a: Deckenlicht Büro Jens

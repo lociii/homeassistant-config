@@ -3,9 +3,10 @@
 
 substitutions:
   id: fan_bathroom
+  friendly_name: Lüfter Bad
   update_throttle: 30s
 
-  name_a: "Lüfter Bad"
+  name_a: Lüfter Bad
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml

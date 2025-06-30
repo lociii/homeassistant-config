@@ -3,9 +3,10 @@
 
 substitutions:
   id: fan_shower
+  friendly_name: Lüfter Dusche
   update_throttle: 30s
 
-  name_a: "Lüfter Dusche"
+  name_a: Lüfter Dusche
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml

@@ -1,0 +1,17 @@
+# shelly 2.5
+# 01
+
+substitutions:
+  id: switch_garden_valves_1
+  update_throttle: 30s
+
+  name_a: Sprenkler
+  restore_mode_a: RESTORE_DEFAULT_OFF
+  name_b: Büsche
+  restore_mode_b: RESTORE_DEFAULT_OFF
+
+packages:
+  wifi: !include common/wifi_basement.yaml
+  device: !include common/device_shelly25.yaml
+  template_a: !include common/template_switch_output_a.yaml
+  template_b: !include common/template_switch_output_b.yaml

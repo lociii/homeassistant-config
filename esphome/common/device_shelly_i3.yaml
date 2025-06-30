@@ -1,0 +1,29 @@
+packages:
+  defaults: !include defaults.yaml
+  esp: !include board_esp01_1m.yaml
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO12
+      mode: INPUT
+    name: "${id} sensor 1"
+    id: "${id}_sensor_1"
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    pin:
+      number: GPIO13
+      mode: INPUT
+    name: "${id} sensor 2"
+    id: "${id}_sensor_2"
+    filters:
+      - delayed_on_off: 50ms
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode: INPUT
+    name: "${id} sensor 3"
+    id: "${id}_sensor_3"
+    filters:
+      - delayed_on_off: 50ms

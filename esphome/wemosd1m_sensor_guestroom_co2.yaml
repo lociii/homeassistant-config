@@ -1,5 +1,6 @@
 substitutions:
   id: sensor_guestroom_co2
+  friendly_name: Gästezimmer CO2
   update_throttle: 30s
 
   name_co2: Gästezimmer CO2

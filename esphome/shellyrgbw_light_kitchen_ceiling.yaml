@@ -3,7 +3,7 @@
 
 substitutions:
   id: light_kitchen_ceiling
-  name: Deckenlicht Küche
+  friendly_name: Deckenlicht Küche
   max_power: "0.3"
   cold_white_color_temperature: 6800 K
   warm_white_color_temperature: 2800 K

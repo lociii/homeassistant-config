@@ -30,7 +30,7 @@ output:
 light:
   - platform: cwww
     id: "${id}"
-    name: "${name}"
+    name: "${friendly_name}"
     cold_white: pwm_w
     warm_white: pwm_b
     cold_white_color_temperature: ${cold_white_color_temperature}

@@ -3,6 +3,7 @@ logger:
 
 # enable api
 api:
+  reboot_timeout: 30min
   encryption:
     key: !secret esphome_api_key
 
@@ -12,8 +13,8 @@ ota:
   platform: esphome
 
 # enable web server
-web_server:
-  port: 80
+# web_server:
+#   port: 80
 
 # sync time with home assistant
 time:

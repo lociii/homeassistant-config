@@ -1,11 +1,12 @@
 # shelly 2.5
-# 22
+# 27
 
 substitutions:
-  id: light_livingroom_ceiling
+  id: light_kitchen_sink
+  friendly_name: Küche Spülenlicht
   update_throttle: 30s
 
-  name_a: Wohnzimmer Deckenlicht
+  name_a: Küche Spülenlicht
 
 packages:
   wifi: !include common/wifi_mainfloor.yaml
