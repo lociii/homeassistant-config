@@ -459,44 +459,6 @@ rollladen_wohnzimmer_terrasse_spalt:
       from_closed: 15
   mode: single
   icon: mdi:window-shutter
-announcement:
-  alias: Announcement
-  sequence:
-  - service: scene.create
-    data:
-      scene_id: '{{ media_player | replace(".", "_") }}_snapshot'
-      snapshot_entities:
-      - '{{ media_player }}'
-    alias: Aktuellen Zustand speichern
-  - service: media_player.volume_set
-    data:
-      volume_level: '{{ volume }}'
-    target:
-      entity_id: '{{ media_player }}'
-    alias: Lautstärke setzen
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 0
-      milliseconds: 500
-    alias: Warten bis Bereit
-  - service: notify.alexa_media
-    data:
-      message: '{{ message }}'
-      target:
-      - '{{ media_player }}'
-    alias: Nachricht vorlesen
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-    alias: 10s warten
-  - service: scene.turn_on
-    target:
-      entity_id: scene.{{ media_player | replace(".", "_") }}_snapshot
-    alias: Vorherigen Zustand wiederherstellen
-  mode: single
 rollladen_schlafzimmer_spalt:
   alias: Rollladen - Schlafzimmer - Spalt
   use_blueprint:
@@ -662,3 +624,83 @@ hausarbeit_benachrichtigung:
           tag: '{{ tag }}'
   mode: parallel
   max: 1000
+katzenklo_zurucksetzen:
+  alias: Katzenklo zurücksetzen
+  sequence:
+  - action: input_number.set_value
+    metadata: {}
+    data:
+      value: 0
+    target:
+      entity_id:
+      - input_number.usages_litterbox_eva
+      - input_number.usages_litterbox_jens
+      - input_number.usages_litterbox_hallway
+    alias: Alle auf 0 setzen
+  description: ''
+hausarbeit_benachrichtigung_nur_jens:
+  sequence:
+  - if:
+    - alias: Im Urlaub
+      condition: state
+      entity_id: input_boolean.holiday_mode
+      state: 'on'
+    then:
+    - stop: Im Urlaub
+      alias: Im Urlaub
+    alias: Stop, wenn im Urlaub
+  - variables:
+      action_confirm: chores_action_confirm_{{ context_id }}
+      action_dismiss: chores_action_dismiss_{{ context_id }}
+      tag: chores_action_{{ context_id }}
+    alias: Variablen setzen
+  - data:
+      title: '{{ title }}'
+      message: '{{ message }}'
+      data:
+        tag: '{{ tag }}'
+        persistent: true
+        notification_icon: mdi:broom
+        actions:
+        - action: '{{ action_confirm }}'
+          title: Erledigt
+        - action: '{{ action_dismiss }}'
+          title: Ablehnen
+    alias: Sende Benachrichtigung an Jens
+    action: notify.mobile_app_pixel_6
+  - alias: Warte auf Antwort
+    wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_confirm }}'
+      alias: Bestätigt
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_dismiss }}'
+      alias: Abgelehnt
+  - alias: Wenn bestätigt
+    if:
+    - condition: template
+      value_template: '{{ wait.trigger.event.data.action == action_confirm }}'
+    then:
+    - parallel:
+      - alias: Benachtichtigung entfernen
+        data:
+          message: clear_notification
+          data:
+            tag: '{{ tag }}'
+        action: notify.mobile_app_pixel_6
+      - alias: Google Sheets befüllen
+        data:
+          config_entry: b1e3fbd4bc3db5571144e2c56d23b55d
+          worksheet: Raw
+          data:
+            user: '{{ wait.trigger.event.data.device_id }}'
+            action: '{{ title }}'
+        action: google_sheets.append_sheet
+  alias: Hausarbeit - Benachrichtigung (nur Jens)
+  mode: parallel
+  max: 1000
+  description: ''
