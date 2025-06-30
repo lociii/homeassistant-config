@@ -54,12 +54,6 @@ The [Home Assistant Community Store](https://hacs.xyz/), a project started by [@
 HACS is used to install and manage my custom components, lovelace plugins and lovelace themes.
 The following components are essential to my setup:
 
-### Alexa Media Player
-
-https://github.com/custom-components/alexa_media_player
-
-This is a custom component to allow control of Amazon Alexa devices in Home Assistant using the unofficial Alexa API.
-
 ### Average sensor
 
 https://github.com/Limych/ha-average
@@ -101,11 +95,11 @@ I'm heavily relying on ESP based actors and sensors. Please see my [ESPHome READ
 
 #### Wall switches
 
-* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/)
+* [Shelly Plus i4](https://www.shelly.com/en/products/shop/shelly-plus-i4)
 
 #### Lights
 
-* [Shelly 1](https://shelly.cloud/products/shelly-1-smart-home-automation-relay/)
+* [Shelly 1 Mini](https://www.shelly.com/en/products/shop/shelly-1-mini-gen-3)
 * [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/)
 * [MagicHome RGB LED controller](https://tasmota.github.io/docs/devices/MagicHome-LED-strip-controller/)
 * Trådfri light bulbs (zigbee)
@@ -114,11 +108,11 @@ I'm heavily relying on ESP based actors and sensors. Please see my [ESPHome READ
 
 #### Shutters
 
-* [Shelly 2.5](https://shelly.cloud/products/shelly-25-smart-home-automation-relay/)
 * [Shelly Plus 2PM](https://www.shelly.cloud/en/products/shop/shelly-plus-2-pm)
 
 #### Power plugs
 
+* [Shelly Plug Plus S](https://www.shelly.com/en/products/shop/shelly-plus-plug-s)
 * Lots of ESP8266 based plugs running on ESPHome
   + [Gosund SP111 single plugs](https://templates.blakadder.com/gosund_SP111.html)
   + [Gosund SP112 single plugs with USB](https://templates.blakadder.com/gosund_SP112.html)
@@ -142,7 +136,6 @@ I'm heavily relying on ESP based actors and sensors. Please see my [ESPHome READ
 
 * Xiaomi MiJia wireless switch (zigbee)
 * Met.no weather
-* Waze travel time
 * Home Assistant mobile app on Android/iOS devices
 * Xiaomi Aqara window/door sensors (zigbee)
 * Xiaomi Aqara climate sensors (zigbee)
