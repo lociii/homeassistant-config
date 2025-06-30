@@ -8,9 +8,6 @@ homeassistant:
     - /tmp
     - /share
 
-# text to speech
-tts: !include tts.yaml
-
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -51,4 +48,4 @@ http:
   trusted_proxies:
     - 127.0.0.1
     - ::1
-    - 10.211.112.12  # ship running traefik proxy
+    - 10.211.112.231  # control running traefik proxy
