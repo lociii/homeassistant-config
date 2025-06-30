@@ -8,7 +8,8 @@ blueprint:
       name: Sensor
       selector:
         entity:
-          domain: binary_sensor
+          filter:
+            domain: binary_sensor
     target:
       name: Ziel
       selector:
@@ -20,11 +21,11 @@ mode: single
 max_exceeded: silent
 
 trigger:
-  platform: state
+  trigger: state
   entity_id: !input sensor
   from: "off"
   to: "on"
 
 action:
-  - service: switch.toggle
+  - action: switch.toggle
     target: !input target

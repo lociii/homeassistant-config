@@ -7,7 +7,8 @@ blueprint:
       name: Kontaktsensor
       description: Kontaktsensor, der die Erstellung der Aufnahme auslöst
       selector:
-          entity:
+        entity:
+          filter:
             domain: binary_sensor
             device_class: opening
 
@@ -16,14 +17,16 @@ blueprint:
       description: Die Kamera, welche die Aufnahme erzeugen soll
       selector:
         entity:
-          domain: camera
+          filter:
+            domain: camera
 
     notify_device:
       name: Benachrichtigung an
       description: Gerät, welches die HomeAsisstant App nutzt und benachrichtigt werden soll
       selector:
         device:
-          integration: mobile_app
+          filter:
+            integration: mobile_app
 
     notification_title:
       name: Titel der Benachrichtigung (optional)
@@ -84,7 +87,7 @@ blueprint:
             mode: slider
 
 trigger:
-  platform: state
+  trigger: state
   entity_id: !input contact_sensor
   from: "off"
   to: "on"
@@ -109,12 +112,12 @@ action:
   - delay:
       milliseconds: "{{ delay }}"
 
-  - service: camera.snapshot
+  - action: camera.snapshot
     entity_id: !input camera
     data:
       filename: "{{ snapshot_create_file_path }}.jpg"
 
-  - service: camera.record
+  - action: camera.record
     entity_id: !input camera
     data:
       filename: "{{ snapshot_create_file_path }}.mp4"

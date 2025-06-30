@@ -8,21 +8,24 @@ blueprint:
       name: Lüfter
       selector:
         entity:
-          domain: fan
+          filter:
+            domain: fan
     helper:
       name: Helfer
       selector:
         entity:
-          domain: input_boolean
+          filter:
+            domain: input_boolean
     light:
       name: Licht
       selector:
         entity:
           multiple: true
-          domain: light
+          filter:
+            domain: light
 
 trigger:
-  - platform: state
+  - trigger: state
     entity_id: !input light
     from: "off"
     to: "on"
@@ -30,7 +33,7 @@ trigger:
       hours: 0
       minutes: 0
       seconds: 30
-  - platform: state
+  - trigger: state
     entity_id: !input light
     from: "on"
     to: "off"
@@ -38,7 +41,7 @@ trigger:
       hours: 0
       minutes: 2
       seconds: 0
-  - platform: time_pattern
+  - trigger: time_pattern
     minutes: "/5"
 
 action:
@@ -55,11 +58,11 @@ action:
           entity_id: !input light
         then:
           # turn occupancy mode on
-          - service: input_boolean.turn_on
+          - action: input_boolean.turn_on
             entity_id: !input helper
         else:
           # turn occupancy mode off
-          - service: input_boolean.turn_off
+          - action: input_boolean.turn_off
             entity_id: !input helper
   # set fan status
   - if:
@@ -69,7 +72,7 @@ action:
       entity_id: !input helper
     then:
       # turn on
-      - service: fan.turn_on
+      - action: fan.turn_on
         entity_id: !input fan
     else:
       - if:
@@ -78,9 +81,9 @@ action:
           entity_id: input_boolean.sleeping
           state: "off"
         then:
-          - service: fan.toggle
+          - action: fan.toggle
             entity_id: !input fan
         # turn on for the night
         else:
-          - service: fan.turn_on
+          - action: fan.turn_on
             entity_id: !input fan
