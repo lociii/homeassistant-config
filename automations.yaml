@@ -82,25 +82,6 @@
   action:
   - entity_id: script.wakeup_light
     service: script.turn_on
-- id: '1578663748318'
-  alias: HACS - Add notification when update available
-  description: ''
-  trigger:
-  - entity_id: sensor.hacs
-    platform: state
-  condition:
-  - condition: template
-    value_template: '{{ states(trigger.entity_id) != ''unknown''}}'
-  - condition: template
-    value_template: '{{ (states(trigger.entity_id) | float) != 0}}'
-  action:
-  - data_template:
-      message: "{% for repo in state_attr(trigger.entity_id, 'repositories') %}\n
-        \ **{{ repo.display_name }}** _{{ repo[\"installed_version\"] }}_ -> _{{ repo[\"available_version\"]
-        }}_\n{% endfor %}"
-      notification_id: hacs_update_notification
-      title: Updates pending in HACS
-    service: persistent_notification.create
 - id: '1581182751392'
   alias: Person - Eva - Stall verlassen
   description: ''
@@ -180,13 +161,13 @@
 - id: '1652004328146'
   alias: Jens Arbeit - nächster Termin beginnt (1 Minute)
   description: ''
-  trigger:
-  - platform: calendar
-    event: start
+  triggers:
+  - event: start
     entity_id: calendar.jens_work
     offset: -0:1:0
     alias: Termin in 1 Minute
-  condition:
+    trigger: calendar
+  conditions:
   - condition: state
     entity_id: input_boolean.jens_im_urlaub
     state: 'off'
@@ -195,29 +176,33 @@
     entity_id: switch.plug_office_jens_desk
     state: 'on'
     alias: Schreibtisch Jens ist an
-  action:
+  actions:
   - parallel:
-    - service: script.office_jens_alarm_red
-      data: {}
+    - data: {}
       alias: Roter Alarm
-    - service: script.announcement
+      action: script.office_jens_alarm_red
+    - alias: Ansage
+      action: media_player.play_media
+      target:
+        entity_id: media_player.buero_jens_sonos
       data:
-        message: Dein nächster Termin beginnt in einer Minute!
-        media_player: media_player.jens_beam
-        volume: 0.1
-        scene_name: snapshot_jens_echo
-      alias: Ansage
+        announce: true
+        media_content_id: media-source://tts/cloud?message="Dein nächster Termin beginnt
+          in einer Minute!"
+        media_content_type: music
+        extra:
+          volume: 13
   mode: single
 - id: '1657609465015'
   alias: Jens Arbeit - nächster Termin beginnt (5 Minuten)
   description: ''
-  trigger:
-  - platform: calendar
-    event: start
+  triggers:
+  - event: start
     entity_id: calendar.jens_work
     offset: -0:5:0
     alias: Termin in 5 Minuten
-  condition:
+    trigger: calendar
+  conditions:
   - condition: state
     entity_id: input_boolean.jens_im_urlaub
     state: 'off'
@@ -226,17 +211,21 @@
     entity_id: switch.plug_office_jens_desk
     state: 'on'
     alias: Schreibtisch Jens ist an
-  action:
+  actions:
   - parallel:
-    - service: script.office_jens_alarm_blue
-      data: {}
+    - data: {}
       alias: Blauer Alarm
-    - service: script.announcement
+      action: script.office_jens_alarm_blue
+    - action: media_player.play_media
+      target:
+        entity_id: media_player.buero_jens_sonos
       data:
-        message: Dein nächster Termin beginnt in fünf Minuten!
-        media_player: media_player.jens_beam
-        volume: 0.1
-        scene_name: snapshot_jens_echo
+        announce: true
+        media_content_id: media-source://tts/cloud?message="Dein nächster Termin beginnt
+          in fünf Minuten!"
+        media_content_type: music
+        extra:
+          volume: 13
       alias: Ansage
   mode: single
 - id: '1668286009212'
@@ -302,33 +291,33 @@
 - id: '1668289915940'
   alias: Garage - Wallbox - Start
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.garage_ladestation_freischalten
     from: 'off'
     to: 'on'
     alias: Ladestation wurde freigeschaltet
-  - platform: sun
-    event: sunrise
+    trigger: state
+  - event: sunrise
     offset: 01:00:00
     alias: Sonne ist seit einer Stunde aufgegangen
-  - platform: state
-    entity_id:
+    trigger: sun
+  - entity_id:
     - input_boolean.garage_auto_nur_bei_sonne_laden
     alias: Nur bei Sonne laden wurde geändert
+    trigger: state
   - alias: Supergrün Phase gestartet
-    platform: state
     entity_id:
     - sensor.stromgedacht_schonaich
     to: Supergrün
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_boolean.garage_ladestation_freischalten
     state: 'on'
     alias: Ladestation ist freigeschaltet
   - condition: state
-    entity_id: binary_sensor.keba_p30_plug
+    entity_id: binary_sensor.keba_p30_keba_p30_plugged_on_ev
     state: 'on'
     alias: Fahrzeug verbunden
   - alias: Soll gerade geladen werden?
@@ -347,7 +336,7 @@
         - alias: Supergrün Phase
           condition: state
           entity_id: sensor.stromgedacht_schonaich
-          state: 'Supergrün '
+          state: Supergrün
         - condition: state
           entity_id: sun.sun
           state: above_horizon
@@ -356,12 +345,12 @@
       entity_id: input_boolean.garage_auto_nur_bei_sonne_laden
       state: 'off'
       alias: Immer laden
-  action:
-  - service: lock.unlock
-    data: {}
+  actions:
+  - data: {}
     target:
-      entity_id: lock.keba_p30_authentication
+      entity_id: lock.keba_p30_keba_p30_authentication
     alias: Ladestation entsperren
+    action: lock.unlock
   mode: single
 - id: '1668351371197'
   alias: Garage - Wallbox - Stop
@@ -378,36 +367,47 @@
   - service: lock.lock
     data: {}
     target:
-      entity_id: lock.keba_p30_authentication
+      entity_id: lock.keba_p30_keba_p30_authentication
     alias: Ladestation sperren
   mode: single
 - id: '1668351425454'
   alias: Garage - Wallbox - Pause
   description: ''
-  trigger:
-  - platform: sun
-    event: sunset
+  triggers:
+  - event: sunset
     alias: Sonne geht unter
+    trigger: sun
   - alias: Supergrün Phase endet
-    platform: state
     entity_id:
     - sensor.stromgedacht_schonaich
     from: Supergrün
-  condition:
+    trigger: state
+  conditions:
   - condition: state
-    entity_id: lock.keba_p30_authentication
+    entity_id: lock.keba_p30_keba_p30_authentication
     state: unlocked
     alias: Ladestation ist freigeschaltet
   - condition: state
     entity_id: input_boolean.garage_auto_nur_bei_sonne_laden
     state: 'on'
     alias: Nur bei Sonne laden ist aktiv
-  action:
-  - service: lock.lock
-    data: {}
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+    alias: Sonne schon untergegangen
+  - alias: NICHT
+    condition: not
+    conditions:
+    - alias: Strom Supergrün
+      condition: state
+      entity_id: sensor.stromgedacht_schonaich
+      state: Supergrün
+  actions:
+  - data: {}
     target:
-      entity_id: lock.keba_p30_authentication
+      entity_id: lock.keba_p30_keba_p30_authentication
     alias: Ladestation sperren
+    action: lock.lock
   mode: single
 - id: '1668357645382'
   alias: Garage - Wallbox - Auto verbunden - Benachrichtigung zum Anschalten
@@ -415,7 +415,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.keba_p30_plug
+    - binary_sensor.keba_p30_keba_p30_plugged_on_ev
     from: 'off'
     to: 'on'
     alias: Fahrzeug verbunden
@@ -511,7 +511,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.keba_p30_plug
+    - binary_sensor.keba_p30_keba_p30_plugged_on_ev
     from: 'on'
     to: 'off'
     alias: Fahrzeug getrennt
@@ -519,7 +519,7 @@
   action:
   - service: input_number.set_value
     data:
-      value: '{{ states(''sensor.keba_p30_total_energy'')  }}'
+      value: '{{ states(''sensor.keba_p30_keba_p30_total_energy'')  }}'
     target:
       entity_id: input_number.ev_charging_ended_usage
     alias: Gesamtverbrauch Ende merken
@@ -532,7 +532,7 @@
     alias: Endzeitpunkt merken
   - service: input_number.set_value
     data:
-      value: '{{ states(''sensor.keba_p30_session_energy'') }}'
+      value: '{{ states(''sensor.keba_p30_keba_p30_session_energy'') }}'
     target:
       entity_id: input_number.ev_charging_ended_session_usage
     alias: Sessionverbrauch merken
@@ -702,7 +702,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.keba_p30_plug
+    - binary_sensor.keba_p30_keba_p30_plugged_on_ev
     from: 'off'
     to: 'on'
     alias: Fahrzeug verbunden
@@ -710,7 +710,7 @@
   action:
   - service: input_number.set_value
     data:
-      value: '{{ states(''sensor.keba_p30_total_energy'') }}'
+      value: '{{ states(''sensor.keba_p30_keba_p30_total_energy'') }}'
     target:
       entity_id: input_number.ev_charging_started_usage
     alias: Gesamtverbrauch Beginn merken
@@ -806,51 +806,31 @@
       - switch.plug_livingroom_multimedia
     alias: Geräte aus
   mode: single
-- id: '1670087091881'
-  alias: Präsenz - Verlassen - Gruß
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - input_boolean.presence
-    from: 'on'
-    to: 'off'
-    alias: Beim Verlassen
-  condition: []
-  action:
-  - service: script.announcement
-    data:
-      media_player: media_player.wallpanel
-      volume: 0.4
-      message: Komm gesund wieder. Ich halte hier die Stellung!
-      scene_name: snapshot_wallpanel
-    alias: Ansage
-  mode: single
 - id: '1670088156629'
   alias: Präsenz - Verlassen - Wohnungstür absperren
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.presence
     from: 'on'
     to: 'off'
     alias: Beim Verlassen
-  condition: []
-  action:
-  - wait_for_trigger:
-    - platform: state
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Wohnungstür Innerhalb von maximal 2 Minuten geschlossen
+    wait_for_trigger:
+    - alias: Wohnungstür wurde geschlossen
       entity_id:
-      - binary_sensor.magnet_door_entrance_contact
+      - binary_sensor.kontakt_wohnungstuer
       from: 'on'
       to: 'off'
-      alias: Wohnungstür wurde geschlossen
+      trigger: state
     timeout:
       hours: 0
       minutes: 2
       seconds: 0
       milliseconds: 0
-    alias: Wohnungstür Innerhalb von maximal 2 Minuten geschlossen
     continue_on_timeout: false
   - alias: 3s warten
     delay:
@@ -858,11 +838,11 @@
       minutes: 0
       seconds: 3
       milliseconds: 0
-  - service: lock.lock
-    data: {}
+  - data: {}
     target:
       entity_id: lock.nuki_wohnungstur_lock
     alias: Wohnungstür abschließen
+    action: lock.lock
   mode: single
 - id: '1670095655562'
   alias: Präsenz - Ankommen - Bei Dunkelheit
@@ -887,26 +867,6 @@
       - light.livingroom_wall
       - light.hallway_ceiling
     alias: Lichter an
-  mode: single
-- id: '1670095952412'
-  alias: Präsenz - Ankommen - Gruß
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - input_boolean.presence
-    from: 'off'
-    to: 'on'
-    alias: Beim Ankommen
-  condition: []
-  action:
-  - service: script.announcement
-    data:
-      media_player: media_player.wallpanel
-      volume: 0.4
-      message: Willkommen zurück. Schön, dass du wieder da bist.
-      scene_name: snapshot_wallpanel
-    alias: Ansage
   mode: single
 - id: '1670096126996'
   alias: Präsenz - Ankommen
@@ -1504,69 +1464,82 @@
 - id: '1670608749465'
   alias: Schlafen - Einschlafen - Gruß und Schlafmusik
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.sleeping
     from: 'off'
     to: 'on'
     alias: Beim Einschlafen
-  condition: []
-  action:
-  - service: script.announcement
-    data:
-      media_player: media_player.schlafzimmer_2
-      volume: 0.14
-      message: Schlaf gut und träum süß.
-      scene_name: snapshot_schlafzimmer_alexa
-    alias: Ansage
-  - alias: Musik spielen, wenn Hauswächtermodus aus
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Ansage und Musik spielen, wenn Hauswächtermodus aus
     if:
     - condition: state
       entity_id: input_boolean.hauswachtermodus
       state: 'off'
       alias: Wenn Hauswächtermodus aus
     then:
-    - delay:
+    - action: media_player.play_media
+      target:
+        entity_id: media_player.schlafzimmer_sonos
+      data:
+        announce: true
+        media_content_id: media-source://tts/cloud?message="Schlaf gut und träum süß."
+        media_content_type: music
+        extra:
+          volume: 15
+      alias: Ansage
+    - alias: Warten
+      delay:
         hours: 0
         minutes: 0
-        seconds: 10
+        seconds: 8
         milliseconds: 0
-      alias: 10s warten
-    - service: media_player.volume_set
+    - alias: Lautstärke runter
       data:
         volume_level: 0.02
-      alias: Lautstärke runter
-      target:
-        entity_id: media_player.schlafzimmer
-    - service: media_player.play_media
-      alias: Schlafmusik spielen
-      data:
-        media_content_id: /media/local/music/schlafmusik.mp3
-        media_content_type: music
       target:
         entity_id:
-        - media_player.schlafzimmer
+        - media_player.schlafzimmer_sonos
+      action: media_player.volume_set
+    - alias: Warten
+      delay:
+        hours: 0
+        minutes: 0
+        seconds: 2
+        milliseconds: 0
+    - alias: Schlafmusik spielen
+      action: media_player.play_media
+      target:
+        entity_id: media_player.schlafzimmer_sonos
+      data:
+        media_content_type: music
+        media_content_id: http://10.211.112.10:8123/media/local/music/schlafmusik.mp3
+        enqueue: play
   mode: single
 - id: '1670609106606'
   alias: Schlafen - Aufstehen - Gruß
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.sleeping
     from: 'on'
     to: 'off'
     alias: Beim Aufstehen
-  condition: []
-  action:
-  - service: script.announcement
+    trigger: state
+  conditions: []
+  actions:
+  - action: media_player.play_media
+    target:
+      entity_id: media_player.schlafzimmer_sonos
     data:
-      media_player: media_player.schlafzimmer_2
-      volume: 0.14
-      message: Ich wünsche einen wunderschönen guten Morgen. Ich hoffe Du hast gut
-        geschlafen.
-      scene_name: snapshot_schlafzimmer_alexa
+      announce: true
+      media_content_id: media-source://tts/cloud?message="Ich wünsche einen wunderschönen
+        guten Morgen. Ich hoffe Du hast gut geschlafen."
+      media_content_type: music
+      extra:
+        volume: 14
     alias: Ansage
   mode: single
 - id: '1670609221198'
@@ -1644,17 +1617,16 @@
 - id: '1670609487307'
   alias: Schlafen - Aufstehen
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.sleeping
     from: 'on'
     to: 'off'
     alias: Beim Aufstehen
-  condition: []
-  action:
-  - service: switch.turn_on
-    data: {}
+    trigger: state
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id:
       - switch.plug_kitchen_coffeemachine
@@ -1663,11 +1635,7 @@
       - switch.plug_office_eva_voice_assistant
       - switch.plug_livingroom_multimedia
     alias: Geräte an
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id: switch.plug_bedroom_charging_jens
-    alias: Ladestation Schlafzimmer Jens aus
+    action: switch.turn_on
   mode: single
 - id: '1670609601945'
   alias: Sonnenstand - Untergang - Licht außen
@@ -1881,7 +1849,6 @@
   condition: []
   action:
   - alias: Steckdosen zum Laden einschalten
-    service: switch.turn_on
     data: {}
     target:
       entity_id:
@@ -1889,14 +1856,14 @@
       - switch.plug_office_eva_telephone
       - switch.plug_livingroom_telephone
       - switch.plug_bathroom_toothbrush
-  - delay:
-      hours: 2
+    action: switch.turn_on
+  - alias: 2 Stunden warten
+    delay:
+      hours: 4
       minutes: 0
       seconds: 0
       milliseconds: 0
-    alias: 2 Stunden warten
   - alias: Steckdosen ausschalten
-    service: switch.turn_off
     data: {}
     target:
       entity_id:
@@ -1904,6 +1871,7 @@
       - switch.plug_office_eva_telephone
       - switch.plug_livingroom_telephone
       - switch.plug_bathroom_toothbrush
+    action: switch.turn_off
   mode: single
 - id: '1670612071294'
   alias: NFC - Haustür
@@ -2062,19 +2030,25 @@
 - id: '1670613877109'
   alias: Sensor - Küche - Button Schranklicht
   description: ''
-  trigger:
+  triggers:
   - device_id: b50cf62f7b6ab1d00579a37e598cce42
     domain: zha
-    platform: device
     type: remote_button_short_press
     subtype: remote_button_short_press
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
+    trigger: device
+  - device_id: 238a2cee5e4d60af40bf354d881c70a4
+    domain: zha
+    type: remote_button_short_press
+    subtype: remote_button_short_press
+    trigger: device
+    alias: Taster Schranklicht gedrueckt
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: light.kitchen_cabinet
     alias: Schranklicht an/aus
+    action: light.toggle
   mode: single
 - id: '1670621821009'
   alias: Staubsaugen - Starten bei Abwesenheit
@@ -2228,7 +2202,7 @@
     path: cover.yaml
     input:
       cover: cover.rollladen_buro_jens
-      contact_sensor: binary_sensor.magnet_window_guestroom_contact
+      contact_sensor: binary_sensor.kontakt_fenster_buero_jens
       sun_protection: input_boolean.sonnenschutz_west
       script_ajar: script.rollladen_buro_jens_spalt
       script_cat: '[]'
@@ -2239,26 +2213,30 @@
 - id: '1670928226422'
   alias: Sonnenschutz Süd
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.sonnenschutz_sued_automatisieren
     alias: Automatisierung Sonnenschutz Süd verändert
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - sensor.temperatur_innen_15_minuten
     alias: Innentemperatur verändert
-  - platform: state
+    trigger: state
+  - alias: Außentemperatur (Thermometer) verändert
     entity_id:
+    - sensor.temperatur_aussen_15_minuten
+    trigger: state
+  - entity_id:
     - weather.schonaich
     attribute: temperature
-    alias: Außentemperatur verändert
-  - platform: state
-    entity_id:
+    alias: Außentemperatur (Wetterbericht) verändert
+    trigger: state
+  - entity_id:
     - sensor.solar_azimuth
     alias: Sonnenrichtung verändert
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - alias: Sonnenschutz Süd prüfen
     choose:
     - conditions:
@@ -2270,16 +2248,23 @@
         entity_id: sensor.temperatur_innen_15_minuten
         above: 22
         alias: Innentemperatur über 22 Grad
-      - alias: Außentemperatur über 22 Grad
-        condition: numeric_state
-        entity_id: weather.schonaich
-        attribute: temperature
-        above: 22
       - condition: numeric_state
         entity_id: sensor.solar_azimuth
         above: 123
         below: 253
         alias: Sonne scheint im Süden
+      - alias: Außentemperatur über 22 Grad
+        condition: or
+        conditions:
+        - alias: Außentemperatur (Thermometer) über 22 Grad
+          condition: numeric_state
+          entity_id: sensor.temperatur_aussen_15_minuten
+          above: 22
+        - alias: Außentemperatur (Wetterbericht) über 22 Grad
+          condition: numeric_state
+          entity_id: weather.schonaich
+          attribute: temperature
+          above: 22
       sequence:
       - if:
         - condition: state
@@ -2287,11 +2272,11 @@
           state: 'off'
           alias: Sonnenschutz Süd ist aus
         then:
-        - service: input_boolean.turn_on
-          data: {}
+        - data: {}
           target:
             entity_id: input_boolean.sonnenschutz_sued
           alias: Sonnenschutz Süd anschalten
+          action: input_boolean.turn_on
         alias: Sonnenschutz Süd anschalten, wenn aus
     default:
     - if:
@@ -2300,44 +2285,48 @@
         state: 'on'
         alias: Sonnenschutz Süd ist an
       then:
-      - service: input_boolean.turn_off
-        data: {}
+      - data: {}
         target:
           entity_id: input_boolean.sonnenschutz_sued
         alias: Sonnenschutz Süd ausschalten
+        action: input_boolean.turn_off
       alias: Sonnenschutz Süd ausschalten, wenn an
   mode: single
 - id: '1670928432260'
   alias: Sonnenschutz West
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.sonnenschutz_west_automatisieren
     alias: Automatisierung Sonnenschutz West verändert
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - input_boolean.sonnenschutz_orchideen_automatisieren
     alias: Automatisierung Sonnenschutz Orchideen verändert
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - sensor.temperatur_innen_15_minuten
     alias: Innentemperatur verändert
-  - platform: state
+    trigger: state
+  - alias: Außentemperatur (Thermometer) verändert
     entity_id:
+    - sensor.temperatur_aussen_15_minuten
+    trigger: state
+  - entity_id:
     - weather.schonaich
     attribute: temperature
-    alias: Außentemperatur verändert
-  - platform: state
-    entity_id:
+    alias: Außentemperatur (Wetterbericht) verändert
+    trigger: state
+  - entity_id:
     - sensor.solar_azimuth
     alias: Sonnenrichtung verändert
-  - platform: state
-    entity_id:
+    trigger: state
+  - entity_id:
     - sensor.solar_elevation
     alias: Sonnenhöhe verändert
-  condition: []
-  action:
+    trigger: state
+  conditions: []
+  actions:
   - alias: Sonnenschutz prüfen
     choose:
     - conditions:
@@ -2346,10 +2335,17 @@
         above: 22
         alias: Innentemperatur über 22 Grad
       - alias: Außentemperatur über 22 Grad
-        condition: numeric_state
-        entity_id: weather.schonaich
-        attribute: temperature
-        above: 22
+        condition: or
+        conditions:
+        - alias: Außentemperatur (Thermometer) über 22 Grad
+          condition: numeric_state
+          entity_id: sensor.temperatur_aussen_15_minuten
+          above: 22
+        - alias: Außentemperatur (Wetterbericht) über 22 Grad
+          condition: numeric_state
+          entity_id: weather.schonaich
+          attribute: temperature
+          above: 22
       - condition: numeric_state
         entity_id: sensor.solar_azimuth
         above: 215
@@ -2370,11 +2366,11 @@
           state: 'off'
           alias: Sonnenschutz West ist aus
         then:
-        - service: input_boolean.turn_on
-          data: {}
+        - data: {}
           target:
             entity_id: input_boolean.sonnenschutz_west
           alias: Sonnenschutz West anschalten
+          action: input_boolean.turn_on
         alias: Sonnenschutz West anschalten, wenn aus
       - if:
         - condition: state
@@ -2386,12 +2382,12 @@
           state: 'off'
           alias: Sonnenschutz Orchideen ist aus
         then:
-        - service: input_boolean.turn_on
-          data: {}
+        - data: {}
           target:
             entity_id:
             - input_boolean.sonnenschutz_orchideen
           alias: Sonnenschutz Orchideen anschalten
+          action: input_boolean.turn_on
         alias: Sonnenschutz Orchideen anschalten, wenn aus
     default:
     - if:
@@ -2400,12 +2396,12 @@
         state: 'on'
         alias: Sonnenschutz West ist an
       then:
-      - service: input_boolean.turn_off
-        data: {}
+      - data: {}
         target:
           entity_id:
           - input_boolean.sonnenschutz_west
         alias: Sonnenschutz West ausschalten
+        action: input_boolean.turn_off
       alias: Sonnenschutz West ausschalten, wenn an
     - if:
       - condition: state
@@ -2413,12 +2409,12 @@
         state: 'on'
         alias: Sonnenschutz Orchideen ist an
       then:
-      - service: input_boolean.turn_off
-        data: {}
+      - data: {}
         target:
           entity_id:
           - input_boolean.sonnenschutz_orchideen
         alias: Sonnenschutz Orchideen ausschalten
+        action: input_boolean.turn_off
       alias: Sonnenschutz Orchideen ausschalten, wenn an
   mode: single
 - id: '1670929719385'
@@ -2473,14 +2469,14 @@
 - id: '1670929925124'
   alias: Wärmeschutz - Kalt zu warm
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_select.temperatur_schwelle
     from: Kalt
     to: Warm
     alias: Es wird warm
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_boolean.presence
     state: 'on'
@@ -2493,14 +2489,18 @@
     entity_id: binary_sensor.fenster
     state: 'on'
     alias: Ein Fenster ist offen
-  action:
-  - service: script.announcement
+  actions:
+  - alias: Ansage
+    action: media_player.play_media
+    target:
+      entity_id: media_player.wohnzimmer_sonos
     data:
-      media_player: media_player.wohnzimmer_2
-      volume: 0.5
-      message: Draußen wird's warm, mach schnell die Fenster zu!
-      scene_name: snapshot_wohnzimmer_alexa
-    alias: Ansage
+      announce: true
+      media_content_id: media-source://tts/cloud?message="Draußen wird's warm, mach
+        schnell die Fenster zu."
+      media_content_type: music
+      extra:
+        volume: 35
   mode: single
 - id: '1670948815509'
   alias: Rollladen - Küche
@@ -2509,7 +2509,7 @@
     path: cover.yaml
     input:
       cover: cover.rollladen_kuche
-      contact_sensor: binary_sensor.magnet_window_kitchen_contact
+      contact_sensor: binary_sensor.kontakt_kuechenfenster
       sun_protection: input_boolean.sonnenschutz_sued
       script_ajar: script.rollladen_kuche_spalt
       script_cat: '[]'
@@ -2555,7 +2555,7 @@
     path: cover.yaml
     input:
       cover: cover.rollladen_wohnzimmer_terrasse
-      contact_sensor: binary_sensor.magnet_door_patio_contact
+      contact_sensor: binary_sensor.kontakt_terrassentuer
       sun_protection: '[]'
       script_ajar: script.rollladen_wohnzimmer_terrasse_spalt
       script_cat: '[]'
@@ -2570,7 +2570,7 @@
   use_blueprint:
     path: send_camera_snapshot_on_contact_opened.yaml
     input:
-      contact_sensor: binary_sensor.magnet_door_cats_contact
+      contact_sensor: binary_sensor.kontakt_katzentuer
       camera: camera.catdoor
       notify_device: 573746ebf141d38362b45f5765752c04
       delay: 500
@@ -2587,7 +2587,7 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.keba_p30_plug
+    - binary_sensor.keba_p30_keba_p30_plugged_on_ev
     from: 'on'
     to: 'off'
     alias: Fahrzeug getrennt
@@ -2602,19 +2602,14 @@
 - id: '1671296310714'
   alias: Bewegung - Dusche - An
   description: ''
-  trigger:
-  - alias: Bewegung erkannt
-    type: motion
-    platform: device
-    device_id: 48b69bd93ca549b3bda1fdd4dff11d68
-    entity_id: 73d1294374e4c9135f5831be578513d2
-    domain: binary_sensor
+  triggers:
   - type: motion
-    platform: device
     device_id: acc53fcd57c4f2414a6d5a9a5fab08a5
     entity_id: cec202e7555da44cdcf24d393e2fa5fa
     domain: binary_sensor
-  condition:
+    trigger: device
+    alias: Bewegung Dusche erkannt (Shelly)
+  conditions:
   - condition: state
     entity_id: input_boolean.sleeping
     state: 'off'
@@ -2635,24 +2630,24 @@
     entity_id: input_boolean.hauswachtermodus
     state: 'off'
     alias: Hauswächtermodus aus
-  action:
-  - service: light.turn_on
-    data: {}
+  actions:
+  - data: {}
     target:
       entity_id: light.shower_ceiling
     alias: Deckenlicht Dusche an
+    action: light.turn_on
   mode: single
 - id: '1671307280956'
   alias: Wärmeschutz - Warm zu kalt
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_select.temperatur_schwelle
     from: Warm
     to: Kalt
     alias: Es wird kalt
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: input_boolean.presence
     state: 'on'
@@ -2665,13 +2660,17 @@
     entity_id: binary_sensor.fenster
     state: 'off'
     alias: Nicht alle Fenster sind offen
-  action:
-  - service: script.announcement
+  actions:
+  - action: media_player.play_media
+    target:
+      entity_id: media_player.wohnzimmer_sonos
     data:
-      media_player: media_player.wohnzimmer_2
-      volume: 0.5
-      message: Draußen wird's kühl, mach die Fenster auf.
-      scene_name: snapshot_wohnzimmer_alexa
+      announce: true
+      media_content_id: media-source://tts/cloud?message="Draußen wird's kühl, mach
+        die Fenster auf."
+      media_content_type: music
+      extra:
+        volume: 35
     alias: Ansage
   mode: single
 - id: '1671312600429'
@@ -2703,7 +2702,7 @@
     path: cover.yaml
     input:
       cover: cover.rollladen_buro_eva
-      contact_sensor: binary_sensor.magnet_window_office_contact
+      contact_sensor: binary_sensor.kontakt_fenster_buero_eva
       sun_protection: '[]'
       script_ajar: script.rollladen_buro_eva_spalt
       script_cat: '[]'
@@ -2715,7 +2714,7 @@
     path: cover.yaml
     input:
       cover: cover.rollladen_schlafzimmer
-      contact_sensor: binary_sensor.magnet_window_bedroom_contact
+      contact_sensor: binary_sensor.kontakt_schlafzimmerfenster
       sun_protection: input_boolean.sonnenschutz_west
       script_ajar: script.rollladen_schlafzimmer_spalt
       script_cat: '[]'
@@ -2728,14 +2727,12 @@
   trigger:
   - platform: state
     entity_id:
-    - binary_sensor.magnet_window_kitchen_contact
-    - binary_sensor.magnet_door_patio_contact
-    - binary_sensor.magnet_door_cats_contact
-    - binary_sensor.magnet_window_guestroom_contact
-    - binary_sensor.magnet_window_bedroom_contact
-    - binary_sensor.magnet_window_bedroom_panic_contact
-    - binary_sensor.magnet_window_office_contact
-    - binary_sensor.magnet_door_entrance_contact
+    - binary_sensor.kontakt_fenster_buero_eva
+    - binary_sensor.kontakt_fenster_buero_jens
+    - binary_sensor.kontakt_kuechenfenster
+    - binary_sensor.kontakt_schlafzimmerfenster
+    - binary_sensor.kontakt_terrassentuer
+    - binary_sensor.kontakt_wohnungstuer
     - sensor.environment_inside_temperature
     - sensor.environment_outside_temperature
     - sensor.environment_garden_west_temperature
@@ -2765,65 +2762,6 @@
     data:
       message: Nuki Haustür Batterie kritisch
     alias: Nachricht
-  mode: single
-- id: '1671984563159'
-  alias: PUBG - Kill
-  description: ''
-  trigger:
-  - platform: event
-    event_type: overwolf_game_event
-    alias: Overwolf PUBG event
-    event_data:
-      data:
-        gameId: 10906
-  condition:
-  - condition: template
-    value_template: '{{ trigger.event.data.data.events.0.name == "kill" }}'
-    alias: Wert verändert
-  action:
-  - service: script.office_jens_alarm_red
-    data: {}
-    alias: Lampe rot aufblitzen
-  mode: single
-- id: '1672162175763'
-  alias: CSGO - Kill
-  description: ''
-  trigger:
-  - platform: event
-    event_type: overwolf_game_event
-    event_data:
-      data:
-        gameId: 7764
-    alias: Received an Overwolf CS:GO event
-  condition:
-  - condition: template
-    value_template: '{{ trigger.event.data.data.events.0.name == "kill" }}'
-    alias: Kill event
-  action:
-  - alias: Turn light on in red
-    service: light.turn_on
-    data:
-      rgb_color:
-      - 255
-      - 0
-      - 0
-      brightness_pct: 100
-    target:
-      entity_id:
-      - light.office_jens_alarm
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 1
-      milliseconds: 0
-    alias: Wait a second
-  - alias: Turn light off
-    service: light.turn_off
-    data:
-      transition: 0.5
-    target:
-      entity_id:
-      - light.office_jens_alarm
   mode: single
 - id: '1672495868959'
   alias: Wohnzimmer - Multimedia - An
@@ -2944,30 +2882,30 @@
     path: sbyx/notify-or-do-something-when-an-appliance-like-a-dishwasher-or-washing-machine-finishes.yaml
     input:
       power_sensor: sensor.verbrauch_trockner_5_minuten
-      starting_threshold: 5
+      starting_threshold: 50
       starting_hysteresis: 2
-      finishing_threshold: 10
+      finishing_threshold: 30
       finishing_hysteresis: 5
       actions:
-      - service: input_select.select_option
-        data:
+      - data:
           option: Fertig
         target:
           entity_id: input_select.wasche_trockner
         alias: Auf "Fertig" setzen
-      - service: script.hausarbeit_benachrichtigung
-        data:
+        action: input_select.select_option
+      - data:
           title: Trockner ausräumen
           message: Der Trocker ist fertig. Bitte ausräumen.
           context_id: '{{ context.id }}'
         alias: Benachrichtigung senden
+        action: script.hausarbeit_benachrichtigung
       pre_actions:
-      - service: input_select.select_option
-        data:
+      - data:
           option: Aktiv
         target:
           entity_id: input_select.wasche_trockner
         alias: Auf "Aktiv" setzen
+        action: input_select.select_option
 - id: '1687713911459'
   alias: Wäsche - Karat - Waschmaschine
   description: ''
@@ -3407,9 +3345,8 @@
 - id: '1695664686087'
   alias: Schlafen - Aufstehen (30 Minuten Versatz)
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.sleeping
     from: 'on'
     to: 'off'
@@ -3418,13 +3355,16 @@
       minutes: 30
       seconds: 0
     alias: 30 Minuten nach Aufstehen
-  condition: []
-  action:
-  - service: switch.turn_off
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Sonos und Ladegerät aus
     data: {}
     target:
-      entity_id: switch.plug_bedroom_voice_assistant
-    alias: Schlafzimmer Sonos aus
+      entity_id:
+      - switch.plug_bedroom_voice_assistant
+      - switch.plug_bedroom_charging_jens
+    action: switch.turn_off
   mode: single
 - id: '1695664848536'
   alias: Schlafen - Einschlafen - Sonos um 10 an
@@ -3491,11 +3431,11 @@
   - alias: Status eines Fensters wurde verändert
     platform: state
     entity_id:
-    - binary_sensor.magnet_window_kitchen_contact
-    - binary_sensor.magnet_door_patio_contact
-    - binary_sensor.magnet_window_guestroom_contact
-    - binary_sensor.magnet_window_bedroom_contact
-    - binary_sensor.magnet_window_office_contact
+    - binary_sensor.kontakt_fenster_buero_eva
+    - binary_sensor.kontakt_fenster_buero_jens
+    - binary_sensor.kontakt_kuechenfenster
+    - binary_sensor.kontakt_schlafzimmerfenster
+    - binary_sensor.kontakt_terrassentuer
   condition: []
   action:
   - service: input_datetime.set_datetime
@@ -3550,12 +3490,11 @@
         - sensor.beast_battery
         - sensor.lumi_lumi_sensor_cube_power
         - sensor.ipad_pro_battery_level
-        - sensor.mi_10_battery_level
         - sensor.pixel_6_battery_level
         - sensor.pixel_7_battery_level
-        - sensor.wallpanel_battery_level
         - sensor.sofadevice_battery_level
         - sensor.roborock_q8_max_battery
+        - sensor.ipadwallpanel_battery_level
       include_easy_notify: enable_easy_notify
       notify_device:
       - 05ab129ead7e65198b3a10b87ce0cde2
@@ -3602,21 +3541,19 @@
 - id: '1711973874728'
   alias: Bewegung - Dusche - Aus
   description: ''
-  trigger:
-  - alias: Bewegung erkannt
-    type: motion
-    platform: device
-    device_id: 48b69bd93ca549b3bda1fdd4dff11d68
-    entity_id: 73d1294374e4c9135f5831be578513d2
-    domain: binary_sensor
-    enabled: false
+  triggers:
   - alias: Keine Bewegung mehr erkannt (Shelly)
     type: no_motion
-    platform: device
     device_id: acc53fcd57c4f2414a6d5a9a5fab08a5
     entity_id: cec202e7555da44cdcf24d393e2fa5fa
     domain: binary_sensor
-  condition:
+    trigger: device
+  - type: opened
+    device_id: 3f446e7c8b3479f64f4420a84ba3d034
+    entity_id: 33d5706034a0d2d482f530a99efd802f
+    domain: binary_sensor
+    trigger: device
+  conditions:
   - alias: Licht ist seit mindestens 10 Sekunden an
     condition: state
     entity_id: light.shower_ceiling
@@ -3625,13 +3562,35 @@
       hours: 0
       minutes: 0
       seconds: 10
-  action:
+  - type: is_open
+    condition: device
+    device_id: 3f446e7c8b3479f64f4420a84ba3d034
+    entity_id: 33d5706034a0d2d482f530a99efd802f
+    domain: binary_sensor
+    alias: Tür Dusche ist offen
+  - type: is_no_motion
+    condition: device
+    device_id: acc53fcd57c4f2414a6d5a9a5fab08a5
+    entity_id: cec202e7555da44cdcf24d393e2fa5fa
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    alias: Keine Bewegung erkannt (Shelly)
+  actions:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+    alias: 10 Sekunden Pause
   - alias: Deckenlicht Dusche aus
-    service: light.turn_off
     target:
       entity_id:
       - light.shower_ceiling
     data: {}
+    action: light.turn_off
   mode: single
 - id: '1715763860814'
   alias: Medizin - Reminder Jens
@@ -3721,24 +3680,30 @@
 - id: '1717077224921'
   alias: Games - Tarkov- Spiel beginnt
   description: ''
-  trigger:
-  - platform: event
-    event_type: overwolf_game_event
+  triggers:
+  - event_type: overwolf_game_event
     event_data:
       data:
         gameId: 21634
-  condition:
-  - condition: template
-    value_template: '{{ trigger.event.data.data.game_info.phase == "scene_FinalCountdown"
-      }}'
-  action:
-  - service: script.announcement
-    metadata: {}
+    alias: Tarkov game event
+    trigger: event
+  conditions:
+  - alias: Final countdown scene
+    condition: template
+    value_template: '{{ "game_info" in trigger.event.data.data and trigger.event.data.data.game_info.phase
+      == "scene_FinalCountdown" }}'
+    enabled: true
+  actions:
+  - alias: Ansage
+    action: media_player.play_media
+    target:
+      entity_id: media_player.buero_jens_sonos
     data:
-      message: Achtung! Spiel beginnt.
-      media_player: media_player.jens_beam
-      volume: 0.2
-      scene_name: snapshot_jens_echo
+      announce: true
+      media_content_id: media-source://tts/cloud?message="Achtung, Spiel beginnt!"
+      media_content_type: music
+      extra:
+        volume: 15
   mode: single
 - id: '1717244402201'
   alias: Taster - Flur - Flurlicht
@@ -3759,24 +3724,223 @@
       entity_id: light.hallway_ceiling
     alias: Flurlicht an/aus
   mode: single
-- id: '1719298957159'
-  alias: Reload Alexa Media Player after HA starts
+- id: '1720536761358'
+  alias: Hausarbeit - ToDo erzeugen
   description: ''
   trigger:
-  - platform: homeassistant
+  - platform: calendar
     event: start
-  condition: []
+    offset: -0:0:0
+    entity_id: calendar.hausarbeit
+    alias: Hausarbeit-Termin startet
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+    alias: Nicht außer Haus im Urlaub
+  - alias: Hauswächtermodus aus
+    condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
   action:
-  - delay:
-      hours: 0
-      minutes: 0
-      seconds: 30
-      milliseconds: 0
-  - alias: Reload Alexa Media Player integration
-    service: homeassistant.reload_config_entry
-    data: {}
-    enabled: true
+  - service: todo.add_item
+    metadata: {}
+    data:
+      item: '{{ trigger.calendar_event.summary }}'
+      due_datetime: '{{ now() }}'
+      description: '{{ trigger.calendar_event.description }}'
+    target:
+      entity_id: todo.hausarbeit
+  mode: parallel
+  max: 1000
+- id: '1731507385896'
+  alias: Medizin - Reminder
+  description: ''
+  triggers:
+  - trigger: time
+    at: '17:00:00'
+    alias: Um 17:00
+  conditions:
+  - condition: state
+    entity_id: switch.plug_office_jens_computer
+    state: 'on'
+    alias: Wenn Shaun an
+  actions:
+  - alias: Ansage
+    action: media_player.play_media
+    target:
+      entity_id: media_player.buero_jens_sonos
+    data:
+      announce: true
+      media_content_id: media-source://tts/cloud?message="Es ist 17 Uhr, nimm Deine
+        Drogen!"
+      media_content_type: music
+      extra:
+        volume: 15
+  mode: single
+- id: '1734536274488'
+  alias: Katzenklo - Nutzung - Büro Jens
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_catlitter_guestroom_motion
+    from: 'off'
+    to: 'on'
+    alias: Katzenklo in Nutzung
+  conditions: []
+  actions:
+  - action: input_number.increment
+    metadata: {}
+    data:
+      amount: 1
+    target:
+      entity_id: input_number.usages_litterbox_jens
+    alias: Anzahl Nutzungen erhöhen
+  mode: single
+- id: '1734536334666'
+  alias: Katzenklo - Nutzung - Flur
+  description: ''
+  triggers:
+  - alias: Katzenklo in Nutzung
+    trigger: state
+    entity_id:
+    - binary_sensor.motion_catlitter_hallway_motion
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - alias: Anzahl Nutzungen erhöhen
+    action: input_number.increment
+    metadata: {}
+    data:
+      amount: 1
     target:
       entity_id:
-      - media_player.wohnzimmer_2
+      - input_number.usages_litterbox_hallway
+  mode: single
+- id: '1734892192941'
+  alias: Katzenklo - Nutzung - Büro Eva
+  description: ''
+  triggers:
+  - alias: Katzenklo in Nutzung
+    trigger: state
+    entity_id:
+    - binary_sensor.katzenklo_buro_eva_motion
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - alias: Anzahl Nutzungen erhöhen
+    action: input_number.increment
+    metadata: {}
+    data:
+      amount: 1
+    target:
+      entity_id:
+      - input_number.usages_litterbox_eva
+  mode: single
+- id: '1736101401344'
+  alias: Flur - Tablet laden
+  description: ''
+  use_blueprint:
+    path: apollo1220/phone_charger.yaml
+    input:
+      phone_battery: sensor.ipadwallpanel_battery_level
+      phone_charger:
+        entity_id: switch.hallway_wallpanel_charger
+      low_battery: 30
+      charged_battery: 80
+- id: '1744624283777'
+  alias: Belüftung - Dusche - Dauerbetrieb
+  description: ''
+  triggers:
+  - alias: Alle 15 Minuten
+    trigger: time_pattern
+    minutes: /15
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: ac25e9bf56c143848030f7e0606ae922
+    entity_id: 719c8d78f58975b343be82dbe04c9ad7
+    domain: fan
+    alias: Lüfter Dusche anschalten
+  mode: single
+- id: '1744624334665'
+  alias: Belüftung - Bad - Dauerbetrieb
+  description: ''
+  triggers:
+  - alias: Alle 15 Minuten
+    trigger: time_pattern
+    minutes: /15
+  conditions: []
+  actions:
+  - alias: Lüfter Dusche anschalten
+    type: turn_on
+    device_id: b123d754863246c8ac38e5aa5a7c236f
+    entity_id: 17c037cb05b446d85e9541ea7a33fa37
+    domain: fan
+  mode: single
+- id: '1749659195406'
+  alias: Hausarbeit - Kalender (nur Jens)
+  description: ''
+  triggers:
+  - alias: Hausarbeit-Termin startet
+    event: start
+    offset: -0:0:0
+    entity_id: calendar.hausarbeit_nur_jens
+    trigger: calendar
+  conditions:
+  - condition: state
+    entity_id: input_boolean.holiday_mode
+    state: 'off'
+    alias: Nicht außer Haus im Urlaub
+  - alias: Hauswächtermodus aus
+    condition: state
+    entity_id: input_boolean.hauswachtermodus
+    state: 'off'
+  actions:
+  - alias: Benachrichtigung senden
+    action: script.hausarbeit_benachrichtigung_nur_jens
+    data:
+      title: '{{ trigger.calendar_event.summary }}'
+      message: '{{ trigger.calendar_event.description }}'
+      context_id: '{{ trigger.calendar_event.summary|slugify }}'
+  mode: parallel
+  max: 1000
+- id: '1749750315387'
+  alias: Büro Jens - Schreibtisch runter
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: dcd481801b74c25038eec9dc2d0f6ced
+    entity_id: aa1f403e6e34b33e86d1418b44bacea9
+    domain: binary_sensor
+    trigger: device
+    alias: Schalter gedrückt
+  conditions: []
+  actions:
+  - device_id: dcd481801b74c25038eec9dc2d0f6ced
+    domain: cover
+    entity_id: 9b073b52690dc9dd509dfc1cd0d0aa04
+    type: close
+    alias: Schreibtisch bewegen
+  mode: single
+- id: '1749750387846'
+  alias: Büro Jens - Schreibtisch rauf
+  description: ''
+  triggers:
+  - alias: Schalter gedrückt
+    type: turned_on
+    device_id: dcd481801b74c25038eec9dc2d0f6ced
+    entity_id: 6530f2dcace34b9c7da3a874f8a769bc
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - alias: Schreibtisch bewegen
+    device_id: dcd481801b74c25038eec9dc2d0f6ced
+    domain: cover
+    entity_id: 9b073b52690dc9dd509dfc1cd0d0aa04
+    type: open
   mode: single
