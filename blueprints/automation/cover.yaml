@@ -8,37 +8,46 @@ blueprint:
       name: Rollladen
       selector:
         entity:
-          domain: cover
+          filter:
+            domain: cover
     contact_sensor:
       name: (Optionaler) Kontaktsensor
       default: []
       selector:
         entity:
-          domain: binary_sensor
-          device_class: opening
+          filter:
+            domain: binary_sensor
+            device_class:
+              - opening
+              - door
+              - window
     sun_protection:
       name: Sonnenschutz
       default: []
       selector:
         entity:
-          domain: input_boolean
+          filter:
+            domain: input_boolean
     script_ajar:
       name: Skript für Spalt
       selector:
         entity:
-          domain: script
+          filter:
+            domain: script
     script_sunprotection:
       name: Skript für Sonnenschutz
       default: []
       selector:
         entity:
-          domain: script
+          filter:
+            domain: script
     script_cat:
       name: Skript für Katzenposition
       default: []
       selector:
         entity:
-          domain: script
+          filter:
+            domain: script
     close_on_shutdown:
       name: Bei Shutdown schließen
       description: Der Rollladen soll beim Shutdown geschlossen werden
@@ -94,25 +103,25 @@ trigger_variables:
   sun_protection: !input sun_protection
 
 trigger:
-  - platform: template
+  - trigger: template
     value_template: "{{ is_state(contact_sensor , 'on') }}"
     id: contact_opened
-  - platform: template
+  - trigger: template
     value_template: "{{ is_state(contact_sensor , 'off') }}"
     id: contact_closed
-  - platform: template
+  - trigger: template
     value_template: "{{ is_state(sun_protection , 'on') }}"
     id: sun_protection_started
-  - platform: template
+  - trigger: template
     value_template: "{{ is_state(sun_protection , 'off') }}"
     id: sun_protection_stopped
-  - platform: state
+  - trigger: state
     entity_id: input_boolean.sleeping
-  - platform: state
+  - trigger: state
     entity_id: input_boolean.presence
-  - platform: state
+  - trigger: state
     entity_id: input_boolean.rolladen_dunkelheit
-  - platform: state
+  - trigger: state
     entity_id: input_boolean.rolladen_shutdown
 
 action:
@@ -180,7 +189,7 @@ action:
                           alias: "Nicht bereits geöffnet"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                         sequence:
-                          - service: script.turn_on
+                          - action: script.turn_on
                             alias: "Rollladen auf Spalt"
                             target:
                               entity_id: "{{ script_ajar }}"
@@ -214,7 +223,7 @@ action:
                                     alias: "Nicht bereits geöffnet"
                                     value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                                   sequence:
-                                    - service: cover.open_cover
+                                    - action: cover.open_cover
                                       alias: "Rollladen öffnen"
                                       target:
                                         entity_id: "{{ cover }}"
@@ -226,7 +235,7 @@ action:
                                 - condition: template
                                   value_template: "{{ not keep_open_when_dark }}"
                                 sequence:
-                                  - service: script.turn_on
+                                  - action: script.turn_on
                                     alias: "Rollladen auf Spalt"
                                     target:
                                       entity_id: "{{ script_ajar }}"
@@ -243,7 +252,7 @@ action:
                             alias: "Sonnenschutz aktiv"
                             value_template: "{{ is_state(sun_protection, 'on') }}"
                           sequence:
-                            - service: script.turn_on
+                            - action: script.turn_on
                               alias: "Rollladen auf Sonnenschutz"
                               target:
                                 entity_id: "{{ script_sunprotection }}"
@@ -256,7 +265,7 @@ action:
                                 alias: "Nicht bereits geöffnet"
                                 value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                               sequence:
-                                - service: cover.open_cover
+                                - action: cover.open_cover
                                   alias: "Rollladen öffnen"
                                   target:
                                     entity_id: "{{ cover }}"
@@ -285,7 +294,7 @@ action:
                           alias: "Nicht vollständig geöffnet"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                         sequence:
-                          - service: cover.close_cover
+                          - action: cover.close_cover
                             alias: "Rollladen schließen"
                             target:
                               entity_id: "{{ cover }}"
@@ -317,7 +326,7 @@ action:
                                     alias: "Nicht bereits geschlossen"
                                     value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
                                   sequence:
-                                  - service: cover.close_cover
+                                  - action: cover.close_cover
                                     alias: "Rollladen schließen"
                                     target:
                                       entity_id: "{{ cover }}"
@@ -329,7 +338,7 @@ action:
                                 - condition: template
                                   value_template: "{{ not keep_open_when_dark }}"
                                 sequence:
-                                  - service: script.turn_on
+                                  - action: script.turn_on
                                     alias: "Rollladen auf Spalt"
                                     target:
                                       entity_id: "{{ script_ajar }}"
@@ -346,7 +355,7 @@ action:
                             alias: "Sonnenschutz aktiv"
                             value_template: "{{ is_state(sun_protection, 'on') }}"
                           sequence:
-                            - service: script.turn_on
+                            - action: script.turn_on
                               alias: "Rollladen auf Sonnenschutz"
                               target:
                                 entity_id: "{{ script_sunprotection }}"
@@ -359,7 +368,7 @@ action:
                                 alias: "Nicht bereits geöffnet"
                                 value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                               sequence:
-                                - service: cover.open_cover
+                                - action: cover.open_cover
                                   alias: "Rollladen öffnen"
                                   target:
                                     entity_id: "{{ cover }}"
@@ -396,7 +405,7 @@ action:
               alias: "Sonnenschutz wurde aktiviert"
               value_template: "{{ trigger.id == 'sun_protection_started' }}"
             sequence:
-              - service: script.turn_on
+              - action: script.turn_on
                 alias: "Rollladen auf Sonnenschutz"
                 target:
                   entity_id: "{{ script_sunprotection }}"
@@ -420,7 +429,7 @@ action:
                           alias: "Nicht bereits geöffnet"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                         sequence:
-                          - service: cover.open_cover
+                          - action: cover.open_cover
                             alias: "Rollladen öffnen"
                             target:
                               entity_id: "{{ cover }}"
@@ -478,13 +487,13 @@ action:
                           alias: "Nicht bereits geschlossen"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
                         sequence:
-                          - service: cover.close_cover
+                          - action: cover.close_cover
                             alias: "Rollladen schließen"
                             target:
                               entity_id: "{{ cover }}"
                 # contact is open
                 default:
-                  - service: script.turn_on
+                  - action: script.turn_on
                     alias: "Rollladen auf Spalt"
                     target:
                       entity_id: "{{ script_ajar }}"
@@ -505,7 +514,7 @@ action:
                     alias: "Außentemperatur am Gefrierpunkt"
                     value_template: "{{ state_attr('weather.schonaich', 'temperature') <= 0 }}"
                   sequence:
-                    - service: script.turn_on
+                    - action: script.turn_on
                       alias: "Rollladen auf Spalt"
                       target:
                         entity_id: "{{ script_ajar }}"
@@ -519,7 +528,7 @@ action:
                         entity_id: input_boolean.rolladen_dunkelheit
                         state: "on"
                       sequence:
-                        - service: script.turn_on
+                        - action: script.turn_on
                           alias: "Rollladen auf Spalt"
                           target:
                             entity_id: "{{ script_ajar }}"
@@ -536,7 +545,7 @@ action:
                             alias: "Sonnenschutz aktiv"
                             value_template: "{{ is_state(sun_protection, 'on') }}"
                           sequence:
-                            - service: script.turn_on
+                            - action: script.turn_on
                               alias: "Rollladen auf Sonnenschutz"
                               target:
                                 entity_id: "{{ script_sunprotection }}"
@@ -548,26 +557,26 @@ action:
                                 alias: "Langsames Öffnen zum Aufwachen angefordert"
                                 value_template: "{{ wakeup is true }}"
                               sequence:
-                                - service: script.turn_on
+                                - action: script.turn_on
                                   alias: "Rollladen auf Spalt"
                                   target:
                                     entity_id: "{{ script_ajar }}"
                                 - delay: 30
-                                - service: cover.set_cover_position
+                                - action: cover.set_cover_position
                                   alias: "Rollladen auf 40%"
                                   target:
                                     entity_id: "{{ cover }}"
                                   data:
                                     position: 40
                                 - delay: 30
-                                - service: cover.set_cover_position
+                                - action: cover.set_cover_position
                                   alias: "Rollladen auf 60%"
                                   target:
                                     entity_id: "{{ cover }}"
                                   data:
                                     position: 60
                                 - delay: 30
-                                - service: cover.open_cover
+                                - action: cover.open_cover
                                   alias: "Rollladen öffnen"
                                   target:
                                     entity_id: "{{ cover }}"
@@ -580,7 +589,7 @@ action:
                                     alias: "Nicht bereits geöffnet"
                                     value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                                   sequence:
-                                    - service: cover.open_cover
+                                    - action: cover.open_cover
                                       alias: "Rollladen öffnen"
                                       target:
                                         entity_id: "{{ cover }}"
@@ -631,7 +640,7 @@ action:
                           alias: "Nicht bereits geöffnet"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 100) }}"
                         sequence:
-                          - service: cover.open_cover
+                          - action: cover.open_cover
                             alias: "Rollladen öffnen"
                             target:
                               entity_id: "{{ cover }}"
@@ -664,7 +673,7 @@ action:
                                 alias: "Nicht bereits geschlossen"
                                 value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
                               sequence:
-                                - service: cover.close_cover
+                                - action: cover.close_cover
                                   alias: "Rollladen schließen"
                                   target:
                                     entity_id: "{{ cover }}"
@@ -682,12 +691,12 @@ action:
                                 alias: "Eine Katzenposition ist definiert"
                                 value_template: "{{ script_cat_requested }}"
                               sequence:
-                                - service: script.turn_on
+                                - action: script.turn_on
                                   alias: "Rollladen auf Katzenposition"
                                   target:
                                     entity_id: "{{ script_cat }}"
                             default:
-                              - service: script.turn_on
+                              - action: script.turn_on
                                 alias: "Rollladen auf Spalt"
                                 target:
                                   entity_id: "{{ script_ajar }}"
@@ -709,7 +718,7 @@ action:
                           alias: "Kontakt nicht geschlossen"
                           value_template: "{{ not is_state(contact_sensor, 'off') }}"
                         sequence:
-                          - service: script.turn_on
+                          - action: script.turn_on
                             alias: "Rollladen auf Spalt"
                             target:
                               entity_id: "{{ script_ajar }}"
@@ -771,12 +780,12 @@ action:
                           alias: "Eine Katzenposition ist definiert"
                           value_template: "{{ script_cat_requested }}"
                         sequence:
-                          - service: script.turn_on
+                          - action: script.turn_on
                             alias: "Rollladen auf Katzenposition"
                             target:
                               entity_id: "{{ script_cat }}"
                       default:
-                        - service: script.turn_on
+                        - action: script.turn_on
                           alias: "Rollladen auf Spalt"
                           target:
                             entity_id: "{{ script_ajar }}"
@@ -807,12 +816,12 @@ action:
                                 alias: "Außentemperatur am Gefrierpunkt"
                                 value_template: "{{ state_attr('weather.schonaich', 'temperature') <= 0 }}"
                               sequence:
-                                - service: script.turn_on
+                                - action: script.turn_on
                                   alias: "Rollladen auf Spalt"
                                   target:
                                     entity_id: "{{ script_ajar }}"
                             default:
-                              - service: cover.open_cover
+                              - action: cover.open_cover
                                 alias: "Rollladen öffnen"
                                 target:
                                   entity_id: "{{ cover }}"
@@ -867,7 +876,7 @@ action:
                           alias: "Nicht bereits geschlossen"
                           value_template: "{{ not is_state_attr(cover, 'current_position', 0) }}"
                         sequence:
-                          - service: cover.close_cover
+                          - action: cover.close_cover
                             alias: "Rollladen schließen"
                             target:
                               entity_id: "{{ cover }}"
