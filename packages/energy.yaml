@@ -5,8 +5,8 @@ template:
       device_class: "power"
       state_class: "measurement"
       state: >
-        {% if states('sensor.sum_active_instantaneous_power')|int < 0 %}
-          {{ states('sensor.sum_active_instantaneous_power')|int|abs }}
+        {% if states('sensor.smart_meter_sum_active_instantaneous_power')|int < 0 %}
+          {{ states('sensor.smart_meter_sum_active_instantaneous_power')|int|abs }}
         {% else %}
           0
         {% endif %}
@@ -16,8 +16,8 @@ template:
       device_class: "power"
       state_class: "measurement"
       state: >
-        {% if states('sensor.sum_active_instantaneous_power')|int > 0 %}
-          {{ states('sensor.sum_active_instantaneous_power')|int }}
+        {% if states('sensor.smart_meter_sum_active_instantaneous_power')|int > 0 %}
+          {{ states('sensor.smart_meter_sum_active_instantaneous_power')|int }}
         {% else %}
           0
         {% endif %}
