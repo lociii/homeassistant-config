@@ -1,4 +1,0 @@
-keba:
-  host: !secret keba_host_ip
-  refresh_interval: 30
-  rfid: !secret keba_rfid
