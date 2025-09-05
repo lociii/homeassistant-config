@@ -2205,7 +2205,6 @@
       contact_sensor: binary_sensor.kontakt_fenster_buero_jens
       sun_protection: input_boolean.sonnenschutz_west
       script_ajar: script.rollladen_buro_jens_spalt
-      script_cat: '[]'
       open_on_return: false
       can_open_when_dark: true
       keep_open_when_dark: false
@@ -2235,7 +2234,21 @@
     - sensor.solar_azimuth
     alias: Sonnenrichtung verändert
     trigger: state
-  conditions: []
+  conditions:
+  - alias: Nicht
+    condition: not
+    conditions:
+    - alias: Oder
+      condition: or
+      conditions:
+      - condition: state
+        entity_id: sensor.temperatur_innen_15_minuten
+        state: unknown
+        alias: Innentemperatur unbekannt
+      - alias: Aussentemperatur unbekannt
+        condition: state
+        entity_id: sensor.temperatur_aussen_15_minuten
+        state: unknown
   actions:
   - alias: Sonnenschutz Süd prüfen
     choose:
@@ -2325,7 +2338,21 @@
     - sensor.solar_elevation
     alias: Sonnenhöhe verändert
     trigger: state
-  conditions: []
+  conditions:
+  - alias: Nicht
+    condition: not
+    conditions:
+    - alias: Oder
+      condition: or
+      conditions:
+      - condition: state
+        entity_id: sensor.temperatur_innen_15_minuten
+        state: unknown
+        alias: Innentemperatur unbekannt
+      - alias: Aussentemperatur unbekannt
+        condition: state
+        entity_id: sensor.temperatur_aussen_15_minuten
+        state: unknown
   actions:
   - alias: Sonnenschutz prüfen
     choose:
