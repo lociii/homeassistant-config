@@ -704,3 +704,24 @@ hausarbeit_benachrichtigung_nur_jens:
   mode: parallel
   max: 1000
   description: ''
+rollladen_wohnzimmer_esstisch_klimaanlagenposition:
+  alias: Rollladen - Wohnzimmer - Esstisch - Klimaanlagenposition
+  use_blueprint:
+    path: cover_position.yaml
+    input:
+      cover: cover.rollladen_wohnzimmer_esstisch
+      from_opened: 73
+      from_closed: 67
+  mode: single
+  icon: mdi:window-shutter
+  description: ''
+rollladen_schlafzimmer_klimaanlagenposition:
+  alias: Rollladen - Schlafzimmer - Klimaanlagenposition
+  use_blueprint:
+    path: cover_position.yaml
+    input:
+      cover: cover.rollladen_schlafzimmer
+      from_opened: 49
+      from_closed: 59
+  mode: single
+  description: ''
