@@ -9,7 +9,8 @@ blueprint:
       description: Pick a RWL022 Dimmer Switch
       selector:
         device:
-          integration: zha
+          filter:
+            integration: zha
           entity:
             domain: sensor
             device_class: battery
@@ -19,14 +20,16 @@ blueprint:
       description: The light entity which the top button will control. (Power button).
       selector:
         entity:
-          domain: light
+          filter:
+            domain: light
           multiple: false
     hue_light:
       name: The secondary light entity to control.
       description: The light entity which the bottom button will control. (hue button).
       selector:
         entity:
-          domain: light
+          filter:
+            domain: light
           multiple: false
     brightness_steps:
       name: Percentage to increase or decrease brightness.
@@ -47,7 +50,7 @@ variables:
   hue_light: !input hue_light
   brightness_steps: !input brightness_steps
 trigger:
-- platform: event
+- trigger: event
   event_type: zha_event
   event_data:
     device_id: !input remote
@@ -58,18 +61,16 @@ action:
     power_light_on: '{{ states(power_light) == ''on'' }}'
     hue_light_on: '{{ states(hue_light) == ''on'' }}'
 - choose:
-  - conditions: '{{ command == ''on_press'' }}'
+  - conditions: '{{ command == ''on_press''  or command == ''on_short_release'' }}'
     sequence:
-      service: light.toggle
+      action: light.toggle
       data:
         entity_id: !input power_light
-        transition: 0.5
-  - conditions: '{{ command == ''off_press'' }}'
+  - conditions: '{{ command == ''off_press'' or command == ''off_short_release'' }}'
     sequence:
-      service: light.toggle
+      action: light.toggle
       data:
         entity_id: !input hue_light
-        transition: 0.5
   - conditions:
     - condition: or
       conditions:
@@ -81,7 +82,7 @@ action:
         - '{{ power_light_on == false }}'
         - '{{ hue_light_on == false }}'
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data:
             entity_id:
             - !input power_light
@@ -92,7 +93,7 @@ action:
         - '{{ power_light_on == true }}'
         - '{{ hue_light_on == true }}'
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data:
             entity_id:
             - !input power_light
@@ -102,7 +103,7 @@ action:
       - conditions:
         - '{{ power_light_on == true }}'
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data:
             entity_id:
             - !input power_light
@@ -111,7 +112,7 @@ action:
       - conditions:
         - '{{ hue_light_on == true }}'
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data:
             entity_id:
             - !input hue_light
@@ -128,7 +129,7 @@ action:
         - '{{ power_light_on == true }}'
         - '{{ hue_light_on == true }}'
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data:
             entity_id:
             - !input power_light
@@ -138,7 +139,7 @@ action:
       - conditions:
         - '{{ power_light_on == true }}'
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data:
             entity_id:
             - !input power_light
@@ -147,7 +148,7 @@ action:
       - conditions:
         - '{{ hue_light_on == true }}'
         sequence:
-          service: light.turn_on
+          action: light.turn_on
           data:
             entity_id:
             - !input hue_light
