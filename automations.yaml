@@ -2539,7 +2539,6 @@
       contact_sensor: binary_sensor.kontakt_kuechenfenster
       sun_protection: input_boolean.sonnenschutz_sued
       script_ajar: script.rollladen_kuche_spalt
-      script_cat: '[]'
       open_on_return: false
       can_open_when_dark: true
       keep_open_when_dark: false
@@ -2551,7 +2550,6 @@
     path: cover.yaml
     input:
       cover: cover.rollladen_wohnzimmer_esstisch
-      contact_sensor: '[]'
       sun_protection: input_boolean.sonnenschutz_sued
       script_ajar: script.rollladen_wohnzimmer_esstisch_spalt
       script_cat: script.rollladen_wohnzimmer_esstisch_katzenposition
@@ -2559,6 +2557,10 @@
       can_open_when_dark: false
       keep_open_when_dark: false
       script_sunprotection: script.rollladen_wohnzimmer_esstisch_sonnenschutz
+      contact_sensor_aircondition: binary_sensor.kontakt_esstischfenster_klimaanlage
+      contact_sensor_aircon: binary_sensor.kontakt_esstischfenster_klimaanlage
+      power_aircon: sensor.wohnzimmer_klimaanlage_power
+      script_aircon: script.rollladen_wohnzimmer_esstisch_klimaanlagenposition
 - id: '1670949797116'
   alias: Rollladen - Wohnzimmer - Couch
   description: ''
@@ -2566,7 +2568,6 @@
     path: cover.yaml
     input:
       cover: cover.rollladen_wohnzimmer_couch
-      contact_sensor: '[]'
       sun_protection: input_boolean.sonnenschutz_west
       script_ajar: script.rollladen_wohnzimmer_couch_spalt
       script_cat: script.rollladen_wohnzimmer_couch_katzenposition
@@ -2583,14 +2584,11 @@
     input:
       cover: cover.rollladen_wohnzimmer_terrasse
       contact_sensor: binary_sensor.kontakt_terrassentuer
-      sun_protection: '[]'
       script_ajar: script.rollladen_wohnzimmer_terrasse_spalt
-      script_cat: '[]'
       close_on_shutdown: false
       open_on_return: true
       can_open_when_dark: true
       keep_open_when_dark: true
-      script_sunprotection: '[]'
 - id: '1671111407519'
   alias: Katzentür geöffnet - Benachrichtigung an Eva
   description: ''
@@ -2730,9 +2728,7 @@
     input:
       cover: cover.rollladen_buro_eva
       contact_sensor: binary_sensor.kontakt_fenster_buero_eva
-      sun_protection: '[]'
       script_ajar: script.rollladen_buro_eva_spalt
-      script_cat: '[]'
       script_sunprotection: script.rollladen_buro_eva_spalt
 - id: '1671376250453'
   alias: Rollladen - Schlafzimmer
@@ -2744,10 +2740,13 @@
       contact_sensor: binary_sensor.kontakt_schlafzimmerfenster
       sun_protection: input_boolean.sonnenschutz_west
       script_ajar: script.rollladen_schlafzimmer_spalt
-      script_cat: '[]'
       wakeup: true
       can_open_when_dark: true
       script_sunprotection: script.rollladen_schlafzimmer_spalt
+      contact_sensor_aircondition: binary_sensor.kontakt_schlafzimmerfenster_klimaanlage
+      contact_sensor_aircon: binary_sensor.kontakt_schlafzimmerfenster_klimaanlage
+      power_aircon: sensor.schlafzimmer_klimaanlage_power
+      script_aircon: script.rollladen_schlafzimmer_klimaanlagenposition
 - id: '1671376537710'
   alias: Fehler - Sensor nicht verfügbar
   description: ''

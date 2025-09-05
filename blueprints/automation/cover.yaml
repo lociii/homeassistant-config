@@ -21,6 +21,17 @@ blueprint:
               - opening
               - door
               - window
+    contact_sensor_aircon:
+      name: (Optionaler) Kontaktsensor für Klimaanlage
+      default: []
+      selector:
+        entity:
+          filter:
+            domain: binary_sensor
+            device_class:
+              - opening
+              - door
+              - window
     sun_protection:
       name: Sonnenschutz
       default: []
@@ -28,6 +39,15 @@ blueprint:
         entity:
           filter:
             domain: input_boolean
+    power_aircon:
+      name: Leistungsaufnahme Klimaanlage
+      default: []
+      selector:
+        entity:
+          filter:
+            domain: sensor
+            device_class:
+              - power
     script_ajar:
       name: Skript für Spalt
       selector:
@@ -48,33 +68,40 @@ blueprint:
         entity:
           filter:
             domain: script
+    script_aircon:
+      name: Skript für Klimaanlage
+      default: []
+      selector:
+        entity:
+          filter:
+            domain: script
     close_on_shutdown:
-      name: Bei Shutdown schließen
-      description: Der Rollladen soll beim Shutdown geschlossen werden
+      name: Bei Shutdown schließen?
+      description: Soll der Rollladen beim Shutdown geschlossen werden?
       default: true
       selector:
         boolean:
     open_on_return:
-      name: Bei Heimkehr öffnen
-      description: Der Rollladen soll bei Heimkehr wieder geöffnet werden, damit z.B. der Zugang zur Terrasse möglich ist.
+      name: Bei Heimkehr öffnen?
+      description: Soll der Rollladen bei Heimkehr wieder geöffnet werden, damit z.B. der Zugang zur Terrasse möglich ist?
       default: false
       selector:
         boolean:
     wakeup:
-      name: Beim Aufstehen langsam öffnen
-      description: Der Rollladen soll beim Aufstehen in mehreren Intervallen geöffnet werden, um langsam Licht in den Raum zu lassen.
+      name: Beim Aufstehen langsam öffnen?
+      description: Soll der Rollladen beim Aufstehen in mehreren Intervallen geöffnet werden, um langsam Licht in den Raum zu lassen?
       default: false
       selector:
         boolean:
     can_open_when_dark:
-      name: Bei Dunkelheit vollständig öffnen
-      description: Der Rolladen soll auch bei Dunkelheit vollständig geöffnet werden, wenn der Kontakt offen ist.
+      name: Bei Dunkelheit vollständig öffnen?
+      description: Soll der Rolladen auch bei Dunkelheit vollständig geöffnet werden, wenn der Kontakt offen ist?
       default: false
       selector:
         boolean:
     keep_open_when_dark:
-      name: Bei Dunkelheit geöffnet halten
-      description: Der Rolladen soll auch bei Dunkelheit vollständig geöffnet bleiben, wenn wir anwesend sind.
+      name: Bei Dunkelheit geöffnet halten?
+      description: Soll der Rolladen auch bei Dunkelheit vollständig geöffnet bleiben, wenn wir anwesend sind?
       default: false
       selector:
         boolean:
@@ -86,12 +113,18 @@ variables:
   cover: !input cover
   contact_sensor: !input contact_sensor
   contact_sensor_present: "{{ contact_sensor|length > 0 and is_state(contact_sensor, ['on', 'off']) }}"
+  contact_sensor_aircon: !input contact_sensor_aircon
+  contact_sensor_aircon_present: "{{ contact_sensor_aircon|length > 0 and is_state(contact_sensor_aircon, ['on', 'off']) }}"
   sun_protection: !input sun_protection
   sun_protection_requested: "{{ sun_protection|length > 0 and is_state(sun_protection, ['on', 'off']) }}"
+  power_aircon: !input power_aircon
+  power_aircon_requested: "{{ power_aircon|length > 0 }}"
   script_ajar: !input script_ajar
   script_sunprotection: !input script_sunprotection
   script_cat: !input script_cat
   script_cat_requested: "{{ script_cat|length > 0 and is_state(script_cat, ['on', 'off']) }}"
+  script_aircon: !input script_aircon
+  script_aircon_requested: "{{ script_aircon|length > 0 and is_state(script_aircon, ['on', 'off']) }}"
   close_on_shutdown: !input close_on_shutdown
   open_on_return: !input open_on_return
   wakeup: !input wakeup
@@ -110,6 +143,15 @@ trigger:
     value_template: "{{ is_state(contact_sensor , 'off') }}"
     id: contact_closed
   - trigger: template
+    value_template: "{{ is_state(contact_sensor_aircon , 'on') }}"
+    id: contact_aircon_opened
+  - trigger: template
+    value_template: "{{ is_state(contact_sensor_aircon , 'off') }}"
+    id: contact_aircon_closed
+  - trigger: state
+    entity_id: !input power_aircon
+    id: aircon_power_usage
+  - trigger: template
     value_template: "{{ is_state(sun_protection , 'on') }}"
     id: sun_protection_started
   - trigger: template
@@ -126,6 +168,92 @@ trigger:
 
 action:
   - choose:
+    # ------------------------
+    # contact sensor air condition was changed
+    # ------------------------
+    - conditions:
+      # contact sensor air condition defined
+      - condition: template
+        alias: "Kontaktsensor Klimaanlage vorhanden"
+        value_template: "{{ contact_sensor_aircon_present }}"
+      # contact sensor air condition was opened
+      - condition: template
+        alias: "Kontaktsensor Klimaanlage wurde geöffnet"
+        value_template: "{{ trigger.id == 'contact_aircon_opened' }}"
+      # aircondition power sensor defined
+      - condition: template
+        alias: "Leistungsaufname Klimaanlage vorhanden"
+        value_template: "{{ power_aircon_requested }}"
+      # aircondition is running
+      - condition: template
+        alias: "Klimaanlage ist aktiv"
+        value_template: "{{ states(power_aircon)|int > 10 }}"
+      sequence:
+        - choose:
+          - conditions:
+            # an aircondition cover movement script is defined
+            - condition: template
+              alias: "Eine Klimaanlagenposition ist definiert"
+              value_template: "{{ script_aircon_requested }}"
+            sequence:
+              - action: script.turn_on
+                alias: "Rollladen auf Klimaanlagenposition"
+                target:
+                  entity_id: "{{ script_aircon }}"
+
+    # ------------------------
+    # air condition is using more than 10 watt, move cover to aircon position
+    # ------------------------
+    - conditions:
+      # aircondition power usage has changed
+      - condition: template
+        alias: "Leistungsaufnahme Klimaanlage wurde verändert"
+        value_template: "{{ trigger.id == 'aircon_power_usage' }}"
+      # aircondition power sensor defined
+      - condition: template
+        alias: "Leistungsaufname Klimaanlage vorhanden"
+        value_template: "{{ power_aircon_requested }}"
+      # aircondition is running
+      - condition: template
+        alias: "Klimaanlage ist aktiv"
+        value_template: "{{ states(power_aircon)|int > 10 }}"
+      sequence:
+        - choose:
+          - conditions:
+            # an aircondition cover movement script is defined
+            - condition: template
+              alias: "Eine Klimaanlagenposition ist definiert"
+              value_template: "{{ script_aircon_requested }}"
+            sequence:
+              - action: script.turn_on
+                alias: "Rollladen auf Klimaanlagenposition"
+                target:
+                  entity_id: "{{ script_aircon }}"
+
+    # ------------------------
+    # contact sensor air condition is opened and aircon is running - skip everything else
+    # ------------------------
+    - conditions:
+      # contact sensor air condition defined
+      - condition: template
+        alias: "Kontaktsensor Klimaanlage vorhanden"
+        value_template: "{{ contact_sensor_aircon_present }}"
+      # contact sensor air condition is open
+      - condition: template
+        alias: "Kontaktsensor Klimaanlage ist geöffnet"
+        value_template: "{{ is_state(contact_sensor_aircon , 'on') }}"
+      # aircondition power sensor defined
+      - condition: template
+        alias: "Leistungsaufname Klimaanlage vorhanden"
+        value_template: "{{ power_aircon_requested }}"
+      # aircondition is running
+      - condition: template
+        alias: "Klimaanlage ist aktiv"
+        value_template: "{{ states(power_aircon)|int > 10 }}"
+      sequence:
+        - stop: "Keine Rollladenanpassung, wenn Klimaanlage läuft"
+
+    # ------------------------
     # DONE - contact sensor state change triggered
     # ------------------------
     # kontakt wurde geoeffnet
@@ -158,14 +286,28 @@ action:
     #          -> oeffnen
     # ------------------------
     - conditions:
-      # contact sensor defined
-      - condition: template
-        alias: "Kontaktsensor vorhanden"
-        value_template: "{{ contact_sensor_present }}"
-      # trigger was a state change on the contact sensor
-      - condition: template
-        alias: "Kontaktsensor wurde verändert"
-        value_template: "{{ trigger.id == 'contact_opened' or trigger.id == 'contact_closed' }}"
+      - condition: or
+        conditions:
+          - condition: and
+            conditions:
+              # contact sensor defined
+              - condition: template
+                alias: "Kontaktsensor vorhanden"
+                value_template: "{{ contact_sensor_present }}"
+              # trigger was a state change on the contact sensor
+              - condition: template
+                alias: "Kontaktsensor wurde verändert"
+                value_template: "{{ trigger.id == 'contact_opened' or trigger.id == 'contact_closed' }}"
+          - condition: and
+            conditions:
+              # contact sensor air condition defined
+              - condition: template
+                alias: "Kontaktsensor Klimaanlage vorhanden"
+                value_template: "{{ contact_sensor_aircon_present }}"
+              # trigger was a state change on the contact sensor air condition
+              - condition: template
+                alias: "Kontaktsensor Klimaanlage wurde geschlossen"
+                value_template: "{{ trigger.id == 'contact_aircon_closed' }}"
       sequence:
         - choose:
           - conditions:
