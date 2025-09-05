@@ -21,11 +21,6 @@ binary_sensor:
       number: GPIO13
       inverted: true
 
-switch:
-  # switch to restart the plug
-  - platform: restart
-    name: "${id} restart"
-
 output:
   # relay state led
   - platform: esp8266_pwm
