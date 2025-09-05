@@ -3704,14 +3704,13 @@
       alias: 20mg
   mode: restart
 - id: '1717077224921'
-  alias: Games - Tarkov- Spiel beginnt
+  alias: Games - Tarkov - Spiel beginnt
   description: ''
   triggers:
-  - event_type: overwolf_game_event
+  - alias: Tarkov game event
+    event_type: overwolf_game_event
     event_data:
-      data:
-        gameId: 21634
-    alias: Tarkov game event
+      gameName: Escape From Tarkov
     trigger: event
   conditions:
   - alias: Final countdown scene
