@@ -542,7 +542,7 @@
       action_fiat: '{{ ''FIAT_'' ~ context.id }}'
       action_cancel: '{{ ''CANCEL_'' ~ context.id }}'
   - alias: Benachrichtigung an Jens
-    service: notify.mobile_amobile_app_pixel_10_propp_pixel_6
+    service: notify.mobile_app_pixel_10_pro
     data:
       title: EV geladen
       message: Ein Auto wurde von der Wallbox getrennt. Wem soll der Verbrauch zugerechnet
