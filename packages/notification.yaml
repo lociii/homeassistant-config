@@ -2,5 +2,5 @@ notify:
   - platform: group
     name: Familie
     services:
-      - service: mobile_app_pixel_6  # jens
+      - service: mobile_app_pixel_10_pro  # jens
       - service: mobile_app_pixel_7  # eva

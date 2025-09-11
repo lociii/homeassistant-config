@@ -426,7 +426,7 @@
       action_on: '{{ ''CONFIRM_'' ~ context.id }}'
       action_off: '{{ ''DISMISS_'' ~ context.id }}'
   - alias: Benachrichtigung an Jens
-    service: notify.mobile_app_pixel_6
+    service: notify.mobile_app_pixel_10_pro
     data:
       title: Wallbox verbunden
       message: Ein Auto wurde zum Laden eingesteckt. Soll der Ladevorgang nun freigeschaltet
@@ -473,7 +473,7 @@
           entity_id: input_boolean.garage_ladestation_freischalten
         data: {}
         alias: Ladestation freischalten
-      - service: notify.mobile_app_pixel_6
+      - service: notify.mobile_app_pixel_10_pro
         data:
           message: clear_notification
           data:
@@ -492,7 +492,7 @@
           entity_id: input_boolean.garage_ladestation_freischalten
         data: {}
         alias: Ladestation sperren
-      - service: notify.mobile_app_pixel_6
+      - service: notify.mobile_app_pixel_10_pro
         data:
           message: clear_notification
           data:
@@ -542,7 +542,7 @@
       action_fiat: '{{ ''FIAT_'' ~ context.id }}'
       action_cancel: '{{ ''CANCEL_'' ~ context.id }}'
   - alias: Benachrichtigung an Jens
-    service: notify.mobile_app_pixel_6
+    service: notify.mobile_amobile_app_pixel_10_propp_pixel_6
     data:
       title: EV geladen
       message: Ein Auto wurde von der Wallbox getrennt. Wem soll der Verbrauch zugerechnet
@@ -609,7 +609,7 @@
               }}'
             vehicle: Tesla
         alias: Google Sheets befüllen
-      - service: notify.mobile_app_pixel_6
+      - service: notify.mobile_app_pixel_10_pro
         data:
           message: clear_notification
           data:
@@ -637,7 +637,7 @@
               }}'
             vehicle: Fiat
         alias: Google Sheets befüllen
-      - service: notify.mobile_app_pixel_6
+      - service: notify.mobile_app_pixel_10_pro
         data:
           message: clear_notification
           data:
@@ -665,7 +665,7 @@
               }}'
             vehicle: Unbekannt (Timeout)
         alias: Google Sheets befüllen
-      - service: notify.mobile_app_pixel_6
+      - service: notify.mobile_app_pixel_10_pro
         data:
           message: clear_notification
           data:
@@ -2767,7 +2767,7 @@
     alias: Ein Sensor ist nicht mehr verfügbar
   condition: []
   action:
-  - service: notify.mobile_app_pixel_6
+  - service: notify.mobile_app_pixel_10_pro
     data:
       message: 'Ein Sensor ist nicht mehr verfügbar: {{ trigger.entity_id }}'
     alias: Nachricht
@@ -2784,7 +2784,7 @@
     to: 'on'
   condition: []
   action:
-  - service: notify.mobile_app_pixel_6
+  - service: notify.mobile_app_pixel_10_pro
     data:
       message: Nuki Haustür Batterie kritisch
     alias: Nachricht
@@ -2944,7 +2944,7 @@
       finishing_threshold: 5
       finishing_hysteresis: 10
       actions:
-      - service: notify.waschkueche
+      - service: notify.telegram_karat
         data:
           message: Die Waschmaschine ist fertig
       pre_actions: []
@@ -2960,7 +2960,7 @@
       finishing_threshold: 30
       finishing_hysteresis: 10
       actions:
-      - service: notify.waschkueche
+      - service: notify.telegram_karat
         data:
           message: Der Trockner ist fertig
       pre_actions: []
@@ -3446,7 +3446,7 @@
   condition: []
   action:
   - alias: Nachricht
-    service: notify.mobile_app_pixel_6
+    service: notify.mobile_app_pixel_10_pro
     data:
       message: Nuki Wohnungstür Batterie kritisch
   mode: single
@@ -3633,7 +3633,7 @@
       tag: medicine_pantoprazol_{{ context_id }}
     alias: Variablen setzen
   - alias: Sende Benachrichtigung
-    service: notify.mobile_app_pixel_6
+    service: notify.mobile_app_pixel_10_pro
     data:
       title: Medizin nehmen
       message: Pantoprazol nehmen und registrieren

@@ -667,7 +667,7 @@ hausarbeit_benachrichtigung_nur_jens:
         - action: '{{ action_dismiss }}'
           title: Ablehnen
     alias: Sende Benachrichtigung an Jens
-    action: notify.mobile_app_pixel_6
+    action: notify.mobile_app_pixel_10_pro
   - alias: Warte auf Antwort
     wait_for_trigger:
     - platform: event
@@ -691,7 +691,7 @@ hausarbeit_benachrichtigung_nur_jens:
           message: clear_notification
           data:
             tag: '{{ tag }}'
-        action: notify.mobile_app_pixel_6
+        action: notify.mobile_app_pixel_10_pro
       - alias: Google Sheets befüllen
         data:
           config_entry: b1e3fbd4bc3db5571144e2c56d23b55d
