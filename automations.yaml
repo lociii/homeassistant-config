@@ -1002,156 +1002,156 @@
 - id: '1670508934599'
   alias: Sensor - ALLE - Präsenz an
   description: ''
-  trigger:
-  - platform: device
-    device_id: a039fa17fe698247a357d6172de0d4a6
+  triggers:
+  - device_id: a039fa17fe698247a357d6172de0d4a6
     domain: shelly
     type: btn_down
     subtype: button1
     alias: Bad links
-  - platform: device
-    device_id: a039fa17fe698247a357d6172de0d4a6
+    trigger: device
+  - device_id: a039fa17fe698247a357d6172de0d4a6
     domain: shelly
     type: btn_down
     subtype: button2
     alias: Bad rechts
-  - platform: device
-    device_id: cacc77a150ad2de575b636aaaa16e3ac
+    trigger: device
+  - device_id: cacc77a150ad2de575b636aaaa16e3ac
     domain: shelly
     type: btn_down
     subtype: button1
     alias: Dusche links
+    trigger: device
   - alias: Dusche rechts
-    platform: device
     device_id: cacc77a150ad2de575b636aaaa16e3ac
     domain: shelly
     type: btn_down
     subtype: button2
+    trigger: device
   - alias: Eva
-    platform: device
     device_id: b837474107d985027a36f711a6a7e95e
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Jens
-    platform: device
     device_id: 024a1036fb9c200438d4e72599642dc3
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Küche (Oben)
-    platform: device
     device_id: 936e2dcc18bec9f7d2d9cd020e3464bc
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Küche (Mitte Oben) links
-    platform: device
     device_id: 36bf86f874beca00357d07970006f747
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Küche (Mitte Oben) rechts
-    platform: device
     device_id: 36bf86f874beca00357d07970006f747
     domain: shelly
     type: btn_down
     subtype: button2
+    trigger: device
   - alias: Küche (Mitte Unten) links
-    platform: device
     device_id: 605bf8c2308c7401c0eea5ac31b8c119
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Küche (Mitte Unten) rechts
-    platform: device
     device_id: 605bf8c2308c7401c0eea5ac31b8c119
     domain: shelly
     type: btn_down
     subtype: button2
+    trigger: device
   - alias: Küche (Unten) links
-    platform: device
     device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Küche (Unten) rechts
-    platform: device
     device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
     domain: shelly
     type: btn_down
     subtype: button2
+    trigger: device
   - alias: Schlafzimmer (Bett) links
-    platform: device
     device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Schlafzimmer (Bett) rechts
-    platform: device
     device_id: c6abd90a529439e5ccd4d2cff9cf5d6e
     domain: shelly
     type: btn_down
     subtype: button2
+    trigger: device
   - alias: Schlafzimmer (Tür) links
-    platform: device
     device_id: 2b511980d964d8d5031f18895fc9c693
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Schlafzimmer (Tür) rechts
-    platform: device
     device_id: 2b511980d964d8d5031f18895fc9c693
     domain: shelly
     type: btn_down
     subtype: button2
+    trigger: device
   - alias: Wohnzimmer (Oben) links
-    platform: device
     device_id: 92f606654f7313b16596f91a33e8b3b2
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Wohnzimmer (Oben) rechts
-    platform: device
     device_id: 92f606654f7313b16596f91a33e8b3b2
     domain: shelly
     type: btn_down
     subtype: button2
+    trigger: device
   - alias: Wohnzimmer (Unten) links
-    platform: device
     device_id: 852676dcbcf7f19141d7cdf116eb9ef3
     domain: shelly
     type: btn_down
     subtype: button1
+    trigger: device
   - alias: Wohnzimmer (Unten) rechts
-    platform: device
     device_id: 852676dcbcf7f19141d7cdf116eb9ef3
     domain: shelly
     type: btn_down
     subtype: button2
-  - platform: device
-    device_id: a957e702d58b22e39705eed339122f7e
+    trigger: device
+  - device_id: a957e702d58b22e39705eed339122f7e
     domain: shelly
     type: btn_down
     subtype: button1
     alias: Flurlicht
+    trigger: device
   - alias: Flur (Präsenz)
-    platform: device
     device_id: a957e702d58b22e39705eed339122f7e
     domain: shelly
     type: single_push
     subtype: button2
-  condition:
+    trigger: device
+  conditions:
   - condition: state
     entity_id: input_boolean.presence
     state: 'off'
     alias: Nicht anwesend
-  action:
-  - service: input_boolean.turn_on
-    data: {}
+  actions:
+  - data: {}
     target:
       entity_id: input_boolean.presence
     alias: Anwesenheit aktivieren
+    action: input_boolean.turn_on
   mode: single
 - id: '1670509861270'
   alias: Garten - Bewässerung - Entnahme nach 30 Minuten aus
