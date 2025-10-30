@@ -2944,7 +2944,9 @@
       finishing_threshold: 5
       finishing_hysteresis: 10
       actions:
-      - service: notify.telegram_karat
+      - action: notify.send_message
+        target:
+          entity_id: notify.telegram_karat
         data:
           message: Die Waschmaschine ist fertig
       pre_actions: []
@@ -2960,7 +2962,9 @@
       finishing_threshold: 30
       finishing_hysteresis: 10
       actions:
-      - service: notify.telegram_karat
+      - action: notify.send_message
+        target:
+          entity_id: notify.telegram_karat
         data:
           message: Der Trockner ist fertig
       pre_actions: []
