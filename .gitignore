@@ -22,12 +22,13 @@ custom_components/
 themes/
 www/
 
-# stats
-.HA_VERSION
-
 # runtime
 *.pyc
 
 # zha
 neighbours/
 zigbee.db-*
+
+# home assistant
+.ha_run.lock
+.HA_VERSION
