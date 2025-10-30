@@ -3261,38 +3261,38 @@
 - id: '1689421414796'
   alias: Taster - Dusche - Licht links (Deckenlicht)
   description: ''
-  trigger:
-  - platform: device
+  triggers:
+  - alias: Taster Dusche (links) gedrückt
     device_id: cacc77a150ad2de575b636aaaa16e3ac
     domain: shelly
     type: btn_down
     subtype: button1
-    alias: Taster Dusche (links) gedrückt
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
+    trigger: device
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: light.shower_ceiling
     alias: Deckenlicht Dusche an/aus
+    action: light.toggle
   mode: single
 - id: '1689421501947'
   alias: Taster - Dusche - Licht rechts (Spiegellicht)
   description: ''
-  trigger:
-  - platform: device
+  triggers:
+  - alias: Taster Dusche (rechts) gedrückt
     device_id: cacc77a150ad2de575b636aaaa16e3ac
     domain: shelly
     type: btn_down
     subtype: button2
-    alias: Taster Dusche (rechts) gedrückt
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
+    trigger: device
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: light.shower_mirror
     alias: Spiegellicht Dusche an/aus
+    action: light.toggle
   mode: single
 - id: '1689423127221'
   alias: Taster - Wohnzimmer - Oben links (Deckenlicht)
