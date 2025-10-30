@@ -261,14 +261,14 @@
 - id: '1668286134487'
   alias: Büro Jens - Jens Mobiltelefon klingelt
   description: ''
-  trigger:
-  - platform: state
+  triggers:
+  - alias: Jens Mobiltelefon klingelt
     entity_id:
-    - sensor.pixel_6_phone_state
-    alias: Jens Mobiltelefon klingelt
+    - device_tracker.pixel_10_pro
     to: ringing
     from: idle
-  condition:
+    trigger: state
+  conditions:
   - condition: state
     entity_id: person.jens
     state: home
@@ -281,12 +281,12 @@
     entity_id: input_boolean.hauswachtermodus
     state: 'off'
     alias: Hauswächtermodus aus
-  action:
-  - service: script.turn_on
-    data: {}
+  actions:
+  - data: {}
     target:
       entity_id: script.office_jens_alarm_blue
     alias: Büro Jens blauer Alarm
+    action: script.turn_on
   mode: single
 - id: '1668289915940'
   alias: Garage - Wallbox - Start
