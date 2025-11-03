@@ -756,17 +756,16 @@
 - id: '1670087000286'
   alias: Präsenz - Verlassen
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.presence
     from: 'on'
     to: 'off'
     alias: Beim Verlassen
-  condition: []
-  action:
-  - service: light.turn_off
-    data: {}
+    trigger: state
+  conditions: []
+  actions:
+  - data: {}
     alias: Alle Lichter aus
     target:
       entity_id:
@@ -791,7 +790,8 @@
       - light.livingroom_ceiling
       - light.office_jens_ceiling
       - light.hallway_ceiling
-  - service: switch.turn_off
+    action: light.turn_off
+  - alias: Geräte aus
     data: {}
     target:
       entity_id:
@@ -803,8 +803,7 @@
       - switch.plug_bathroom_voice_assistant
       - switch.plug_office_jens_desk
       - switch.plug_office_eva_desk
-      - switch.plug_livingroom_multimedia
-    alias: Geräte aus
+    action: switch.turn_off
   mode: single
 - id: '1670088156629'
   alias: Präsenz - Verlassen - Wohnungstür absperren
@@ -871,30 +870,29 @@
 - id: '1670096126996'
   alias: Präsenz - Ankommen
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_boolean.presence
     from: 'off'
     to: 'on'
     alias: Beim Ankommen
-  condition: []
-  action:
-  - service: switch.turn_on
+    trigger: state
+  conditions: []
+  actions:
+  - alias: Geräte an
     data: {}
     target:
       entity_id:
       - switch.plug_bathroom_voice_assistant
       - switch.plug_shower_voice_assistant
       - switch.plug_office_eva_voice_assistant
-      - switch.plug_livingroom_multimedia
-    alias: Geräte an
+    action: switch.turn_on
   - alias: Terrassenrolladen hoch
-    service: cover.open_cover
     data: {}
     target:
       entity_id:
       - cover.rollladen_wohnzimmer_terrasse
+    action: cover.open_cover
   mode: single
 - id: '1670186909773'
   alias: Präsenz - Verlassen - Lichtsignal
@@ -1344,7 +1342,6 @@
       - switch.plug_office_eva_desk
       - switch.plug_office_eva_voice_assistant
       - switch.plug_kitchen_coffeemachine
-      - switch.plug_livingroom_multimedia
       - switch.plug_bedroom_tv
   - service: switch.turn_on
     data: {}
@@ -1530,17 +1527,19 @@
     trigger: state
   conditions: []
   actions:
-  - action: media_player.play_media
+  - alias: Ansage
+    action: media_player.play_media
     target:
       entity_id: media_player.schlafzimmer_sonos
     data:
       announce: true
-      media_content_id: media-source://tts/cloud?message="Ich wünsche einen wunderschönen
-        guten Morgen. Ich hoffe Du hast gut geschlafen."
-      media_content_type: music
       extra:
-        volume: 14
-    alias: Ansage
+        volume: 25
+      media:
+        media_content_id: media-source://tts/cloud?message="Ich wünsche einen wunderschönen
+          guten Morgen. Ich hoffe Du hast gut geschlafen."
+        media_content_type: music
+        metadata: {}
   mode: single
 - id: '1670609221198'
   alias: Schlafen - Aufstehen - Bei Dunkelheit
@@ -3373,7 +3372,7 @@
       entity_id: light.livingroom_standinglight
   mode: single
 - id: '1695664686087'
-  alias: Schlafen - Aufstehen (30 Minuten Versatz)
+  alias: Schlafen - Ladegerät aus nach Aufstehen
   description: ''
   triggers:
   - entity_id:
@@ -3392,7 +3391,6 @@
     data: {}
     target:
       entity_id:
-      - switch.plug_bedroom_voice_assistant
       - switch.plug_bedroom_charging_jens
     action: switch.turn_off
   mode: single
