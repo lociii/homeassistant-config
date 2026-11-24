@@ -1,5 +1,10 @@
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
+# DEPRECATED
+
+In August 2026, we sold our apartment that this HomeAssistant instance was meant for and started a new chapter in our lives.  
+We moved from southern Germany to the baltic sea coast to build our dream home. There will be much more HomeAssistant and smart home tech next year!
+
 # My HomeAssistant setup
 
 Hi, I'm Jens and this is how I set up my home automation using HomeAssistant.  
